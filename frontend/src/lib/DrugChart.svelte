@@ -6,13 +6,14 @@
         if (canvas.getContext) {
             var ctx = canvas.getContext("2d");
 
-            const margin = 37;     // 가장자리 사이 여백
-            const moveDown = 25;
+            const margin = 33;     // 가장자리 사이 여백
+            const moveDown = 15;
             const startX = margin;
             const endX = 2000 - margin;
             const startY = margin + moveDown;
             const endY = 1000 - margin + moveDown;
             const y = startY + 25;
+            
             const offsetY = 25;
             const verticalX1 = startX + 160;
             const verticalX2 = endX - 160;
@@ -23,7 +24,7 @@
             // 차트 테두리
             function drawRectangle(startX, startY, endX, endY) {
                 ctx.beginPath();
-                ctx.rect(startX, startY, endX - startX, endY - startY);
+                ctx.rect(startX, startY, endX - startX, endY - startY+10);
                 ctx.stroke();
             }
 
@@ -34,35 +35,38 @@
                 ctx.stroke();
             }
 
-            function writeno(text, x, y, color = 'black') {
-                ctx.font = '16px Arial';
+            function writeLeftAlignedText(text, x, y, size = 15, color = 'black') {
+                ctx.font = `${size}px Arial`;
                 ctx.fillStyle = color;
+                ctx.textAlign = 'left';
                 ctx.fillText(text, x, y);
             }
 
-            function writeText(text, x, y, color = 'black') {
-                ctx.font = '16px Arial';
+            function writeRightAlignedText(text, x, y, color = 'black') {
+                ctx.font = '15px Arial';
                 ctx.fillStyle = color;
-                ctx.fillText(text, x, y);
                 ctx.textAlign = 'right';
+                ctx.fillText(text, x, y);
             }
+
+
 
             drawRectangle(margin, margin + moveDown, 2000 - margin, 1000 - margin + moveDown);
             drawLine(startX, y, endX, y);
             drawLine(startX, y + offsetY, endX, y + offsetY);
-            drawLine(verticalX1, startY, verticalX1, endY-35);
-            drawLine(verticalX2, startY, verticalX2, endY-35);
-            drawLine(verticalX1, endY-35, verticalX2, endY-35);
+            drawLine(verticalX1, startY, verticalX1, endY-40);
+            drawLine(verticalX2, startY, verticalX2, endY-40);
+            drawLine(verticalX1, endY-40, verticalX2, endY-40);
 
-            writeno('Patient number: 58', margin + 10, 30);
-            writeno('Type of cancer diagnosis: liver cancer', margin + 10, 50);
+            writeLeftAlignedText('Patient number: 58', margin + 10, 20);
+            writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
 
-            writeText('hepatoxicity', startX+70, startY + 17,'red'); 
-            writeText('atezolizumab', startX + 153, startY + 42,'blue'); 
-            writeText('hepatoxicity', endX-67, startY + 17,'red'); 
-            writeText('atezolizumab', endX - 58, startY + 42,'blue'); 
-
+            writeRightAlignedText('hepatoxicity', startX+153, startY + 17,'red'); 
+            writeRightAlignedText('atezolizumab', startX + 153, startY + 42,'blue'); 
+            writeLeftAlignedText('hepatoxicity', endX-153, startY + 17, 15, 'red');
+            writeLeftAlignedText('atezolizumab', endX-153, startY + 42, 15, 'blue');
             
+            writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, 987, 12);
             writeDrugName();
         }
     }
@@ -77,11 +81,11 @@
         'MCTs', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
         
         var ctx = canvas.getContext("2d");
-        const margin = 37;
+        const margin = 33;
         ctx.font = '15px Arial';
         ctx.fillStyle = 'blue';
         const startX = 190;
-        let startY = 128;
+        let startY = 115;
         const lineSpacing = 16.5;
         const endX = 2000 - margin;
         ctx.textAlign = 'right';
