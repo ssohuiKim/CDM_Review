@@ -22,9 +22,11 @@
   }
 </script>
 
-<El tag="strong">Choose a csv file</El>
-<FileUpload mt="2" state={state_1} bind:files={files_1} />
-<El textColor="danger" tag="small">{hint_1}</El>
-<Button color="warning" on:click={handleClick}>
-  <Icon name="heart" />I like
-</Button>
+<div class="container">
+  <El tag="strong">Choose a csv file</El>
+  <FileUpload mt="2" state={state_1} bind:files={files_1} />
+  <El textColor="danger" tag="small">{hint_1}</El>
+  <Button color="warning" on:click={handleClick}>
+    <Icon name="heart" />I like
+  </Button>
+</div>
