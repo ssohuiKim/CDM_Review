@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     let canvas;
+    import DateRed from '../img/DateRed.png';
 
     function draw() {
         if (canvas.getContext) {
@@ -68,6 +69,14 @@
             
             writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, 987, 12);
             writeDrugName();
+
+            const image = new Image();
+            image.src = DateRed;
+            image.onload = function() {
+                const imageX = (canvas.width - image.width) / 2;
+                const imageY = (canvas.height - image.height) / 2;
+                ctx.drawImage(image, imageX, imageY);
+            }
         }
     }
 
@@ -117,6 +126,9 @@
     onMount(() => {
         draw();
     });
+
+
+
 </script>
 
 <canvas bind:this={canvas} width="2000" height="1000" style="border:1px solid #000000; width: 100%; height: 100%;"></canvas>
