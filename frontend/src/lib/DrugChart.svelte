@@ -21,11 +21,11 @@
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 2;
 
-            let drugs = ['atezolizumab', '두번째 약'];  // ICI list
+            let drugs = ['atezolizumab', '두번째'];  // ICI list
 
             function drawRectangle(startX, startY, endX, endY) {  // 차트 테두리
                 ctx.beginPath();
-                ctx.rect(startX, startY, endX - startX, endY);
+                ctx.rect(startX, startY, endX - startX, endY-startY);
                 ctx.stroke();
             }
             function drawLine(startX, startY, endX, endY) {
@@ -64,15 +64,21 @@
                 'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
                 'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
                 'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
+
                 
                 const safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
                 'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
 
+
                 const linespacing = 16.5;
                 newLineY += linespacing;
                 const safeY = newLineY + (toxic.length * linespacing);
+                const lastY = newLineY + (toxic.length * linespacing) + (safe.length * linespacing);
 
-                drawLine(startX, newLineY, endX, newLineY);
+                drawRectangle(margin, margin + moveDown, 2000 - margin, lastY+linespacing*3);
+                drawLine(verticalX1, startY, verticalX1, lastY);
+                drawLine(verticalX2, startY, verticalX2, lastY);
+                drawLine(verticalX1, lastY, verticalX2, lastY);
                 
                 for (let i = 0; i < toxic.length; i++) {
                     writeRightAlignedText(toxic[i], startX + 153, newLineY + (i * linespacing), 15, 'blue');
@@ -83,17 +89,15 @@
                     writeLeftAlignedText(safe[i], endX - 153,  safeY + (i * linespacing), 15);
                 }
                 if (safe.includes('LOLA*') || safe.includes('MCTs')) {
-                    writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, 987, 12);
+                    writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, lastY+linespacing*3-5, 12);
                 }
             }
 
 
 
-            drawRectangle(margin, margin + moveDown, 2000 - margin, 1000 - 2*margin +10);
+            
             drawLine(startX, y, endX, y);
-            drawLine(verticalX1, startY, verticalX1, endY-40);
-            drawLine(verticalX2, startY, verticalX2, endY-40);
-            drawLine(verticalX1, endY-40, verticalX2, endY-40);
+            
 
             writeLeftAlignedText('Patient number: 58', margin + 10, 20);
             writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
