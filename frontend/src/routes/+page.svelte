@@ -30,3 +30,5 @@
     <Icon name="heart" />I like
   </Button>
 </div>
+
+<slot/>
