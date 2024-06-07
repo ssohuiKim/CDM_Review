@@ -14,47 +14,83 @@
             const startY = margin + moveDown;
             const endY = 1000 - margin + moveDown;
             const y = startY + 25;
-            
-            const offsetY = 25;
             const verticalX1 = startX + 160;
             const verticalX2 = endX - 160;
+            let newLineY;
 
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 2;
 
-            // 차트 테두리
-            function drawRectangle(startX, startY, endX, endY) {
+            let drugs = ['atezolizumab', '두번째 약'];  // ICI list
+
+            function drawRectangle(startX, startY, endX, endY) {  // 차트 테두리
                 ctx.beginPath();
-                ctx.rect(startX, startY, endX - startX, endY - startY+10);
+                ctx.rect(startX, startY, endX - startX, endY);
                 ctx.stroke();
             }
-
             function drawLine(startX, startY, endX, endY) {
                 ctx.beginPath();
                 ctx.moveTo(startX, startY);
                 ctx.lineTo(endX, endY);
                 ctx.stroke();
             }
-
             function writeLeftAlignedText(text, x, y, size = 15, color = 'black') {
                 ctx.font = `${size}px Arial`;
                 ctx.fillStyle = color;
                 ctx.textAlign = 'left';
                 ctx.fillText(text, x, y);
             }
-
             function writeRightAlignedText(text, x, y, color = 'black') {
                 ctx.font = '15px Arial';
                 ctx.fillStyle = color;
                 ctx.textAlign = 'right';
                 ctx.fillText(text, x, y);
             }
+            function ICI(drugs) {
+                const numDrugs = drugs.length;
+                const linespace = 18;
+                const newLineY = startY + 32 + (numDrugs * linespace);
+
+                drawLine(startX, newLineY, endX, newLineY);
+                for (let i = 0; i < drugs.length; i++) {
+                    writeRightAlignedText(drugs[i], startX + 153, startY + 42 + (i * linespace), 15, 'blue');
+                    writeLeftAlignedText(drugs[i], endX - 153, startY + 42 + (i * linespace), 15, 'blue');
+                }
+                writeDrugName(newLineY);
+            }
+            
+            function writeDrugName(newLineY) {
+                const toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
+                'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
+                'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
+                'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
+                
+                const safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
+                'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
+
+                const linespacing = 16.5;
+                newLineY += linespacing;
+                const safeY = newLineY + (toxic.length * linespacing);
+
+                drawLine(startX, newLineY, endX, newLineY);
+                
+                for (let i = 0; i < toxic.length; i++) {
+                    writeRightAlignedText(toxic[i], startX + 153, newLineY + (i * linespacing), 15, 'blue');
+                    writeLeftAlignedText(toxic[i], endX - 153, newLineY + (i * linespacing), 15, 'blue');
+                }
+                for (let i = 0; i < safe.length; i++) {
+                    writeRightAlignedText(safe[i], startX + 153, safeY + (i * linespacing), 15);
+                    writeLeftAlignedText(safe[i], endX - 153,  safeY + (i * linespacing), 15);
+                }
+                if (safe.includes('LOLA*') || safe.includes('MCTs')) {
+                    writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, 987, 12);
+                }
+            }
 
 
 
-            drawRectangle(margin, margin + moveDown, 2000 - margin, 1000 - margin + moveDown);
+            drawRectangle(margin, margin + moveDown, 2000 - margin, 1000 - 2*margin +10);
             drawLine(startX, y, endX, y);
-            drawLine(startX, y + offsetY, endX, y + offsetY);
             drawLine(verticalX1, startY, verticalX1, endY-40);
             drawLine(verticalX2, startY, verticalX2, endY-40);
             drawLine(verticalX1, endY-40, verticalX2, endY-40);
@@ -63,11 +99,8 @@
             writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
 
             writeRightAlignedText('hepatoxicity', startX+153, startY + 17,'red'); 
-            writeRightAlignedText('atezolizumab', startX + 153, startY + 42,'blue'); 
             writeLeftAlignedText('hepatoxicity', endX-153, startY + 17, 15, 'red');
-            writeLeftAlignedText('atezolizumab', endX-153, startY + 42, 15, 'blue');
-            
-            writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, 987, 12);
+            ICI(drugs);
             writeDrugName();
 
             const image = new Image();
@@ -80,53 +113,10 @@
         }
     }
 
-    function writeDrugName() {
-        const toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
-        'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
-        'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
-        'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
-        
-        const safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
-        'MCTs', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
-        
-        var ctx = canvas.getContext("2d");
-        const margin = 33;
-        ctx.font = '15px Arial';
-        ctx.fillStyle = 'blue';
-        const startX = 190;
-        let startY = 115;
-        const lineSpacing = 16.5;
-        const endX = 2000 - margin;
-        ctx.textAlign = 'right';
-
-        for (let i = 0; i < toxic.length; i++) {
-            ctx.fillStyle = 'blue';
-            ctx.fillText(toxic[i], startX, startY + (i * lineSpacing));
-        }
-
-        for (let i = 0; i < safe.length; i++) {
-            ctx.fillStyle = 'black';
-            ctx.fillText(safe[i], startX, startY + ((toxic.length + i) * lineSpacing));
-        }
-
-        ctx.textAlign = 'left';
-
-        for (let i = 0; i < toxic.length; i++) {
-            ctx.fillStyle = 'blue';
-            ctx.fillText(toxic[i], endX-150, startY + (i * lineSpacing));
-        }
-
-        for (let i = 0; i < safe.length; i++) {
-            ctx.fillStyle = 'black';
-            ctx.fillText(safe[i], endX-150, startY + ((toxic.length + i) * lineSpacing));
-        }
-    }
-
 
     onMount(() => {
         draw();
     });
-
 
 
 </script>
