@@ -1,7 +1,9 @@
+<!--  toxic, safe list가 바뀔 일은 없나? -->
 <script>
     import { onMount } from 'svelte';
     let canvas;
     import DateRed from '../img/DateRed.png';
+    import BlueDia from '../img/BlueDia.png';
 
     function draw() {
         if (canvas.getContext) {
@@ -27,6 +29,13 @@
             '09.16', '09.17', '09.18', '09.24', '10.05', '10.12', '10.13', '10.14', '10.15', '10.16', '10.17', '10.18', 
             '10.19', '10.20', '10.21', '10.22', '10.23', '10.24', '10.25', '10.26', '10.27', '10.28', '10.29', '10.30', 
             '10.31', '11.01', '11.02', '11.03'];   // 검진일 list
+            let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
+            'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
+            'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
+            'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
+            let safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
+            'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
+
 
             function drawRectangle(startX, startY, endX, endY) {  // 차트 테두리
                 ctx.beginPath();
@@ -45,8 +54,8 @@
                 ctx.textAlign = 'left';
                 ctx.fillText(text, x, y);
             }
-            function writeRightAlignedText(text, x, y, color = 'black') {
-                ctx.font = '15px Arial';
+            function writeRightAlignedText(text, x, y, size=15,  color = 'black') {
+                ctx.font = `${size}px Arial`;
                 ctx.fillStyle = color;
                 ctx.textAlign = 'right';
                 ctx.fillText(text, x, y);
@@ -62,20 +71,9 @@
                     writeLeftAlignedText(drugs[i], endX - 153, startY + 42 + (i * linespace), 15, 'blue');
                 }
                 writeDrugName(newLineY);
-            }
-            
+            }       
+
             function writeDrugName(newLineY) {
-                // const toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
-                // 'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
-                // 'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
-                // 'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
-                const toxic = [ 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
-
-                
-                const safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
-                'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
-
-
                 const linespacing = 16.5;
                 newLineY += linespacing;
                 const safeY = newLineY + (toxic.length * linespacing);
@@ -98,6 +96,7 @@
                     writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, lastY+linespacing*3-5, 12);
                 }
                 writeDate(lastY);
+                
             }
 
             function writeDate(lastY) {
@@ -112,18 +111,30 @@
                     ctx.restore();
                 }
             }
-            
 
+            function drawBlueDia(toxicIndex, dateIndex) {
+                const linespaceX = (verticalX2 - verticalX1) / dates.length;
+                const linespaceY = (endY - startY) / toxic.length; //toxic 시작 위치에서 safe시작 위치 사이가 되어야함
+                const x = verticalX1 + linespaceX * dateIndex;
+                const y = startY + linespaceY * toxicIndex; // writeDrugName 함수에서 썼던 safeY와 newLineY를 사용해야하는데 안불러와짐
+
+                const image = new Image();
+                image.src = BlueDia;
+                image.onload = function() {
+                    ctx.drawImage(image, x, y, 15, 15);
+                };
+            }
+            
             drawLine(startX, y, endX, y);
             writeLeftAlignedText('Patient number: 58', margin + 10, 20);
             writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
 
-            writeRightAlignedText('hepatoxicity', startX+153, startY + 17,'red'); 
+            writeRightAlignedText('hepatoxicity', startX+153, startY + 17, 15, 'red'); 
             writeLeftAlignedText('hepatoxicity', endX-153, startY + 17, 15, 'red');
             ICI(drugs);
             writeDrugName();
+            writeDate(lastY);    // 이런거 왜 주석처리해도 실행됨?
 
-            writeDate(lastY);    // 뭔가 에러...
             
             const image = new Image();
             image.src = DateRed;
@@ -132,6 +143,8 @@
                 const imageY = (canvas.height - image.height) / 2;
                 ctx.drawImage(image, imageX, imageY);
             }
+
+            drawBlueDia(1,1);
         }
     }
 
