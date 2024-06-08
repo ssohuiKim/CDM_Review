@@ -133,7 +133,7 @@
             writeLeftAlignedText('hepatoxicity', endX-153, startY + 17, 15, 'red');
             ICI(drugs);
             writeDrugName();
-            writeDate(lastY);    // 이런거 왜 주석처리해도 실행됨?
+            writeDate(lastY);
 
             
             const image = new Image();
