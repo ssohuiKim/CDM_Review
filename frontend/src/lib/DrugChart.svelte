@@ -123,7 +123,7 @@
                 const image = new Image();
                 image.src = BlueDia;
                 image.onload = function() {
-                    ctx.drawImage(image, x-5, y-5, 10, 10);
+                    ctx.drawImage(image, x-10, y-5, 10, 10);
                 };
             }
 
@@ -136,7 +136,7 @@
                 const image = new Image();
                 image.src = BlackDia;
                 image.onload = function() {
-                    ctx.drawImage(image, x-5, y-5, 10, 10);
+                    ctx.drawImage(image, x-10, y-5, 10, 10);
                 };
             }
 
@@ -147,7 +147,7 @@
                 const image = new Image();
                 image.src = Nan;
                 image.onload = function() {
-                    ctx.drawImage(image, x-5, startY+5, 15, 15);
+                    ctx.drawImage(image, x-10, startY+5, 15, 15);
                 };
             }
 
@@ -161,9 +161,18 @@
                 const image = new Image();
                 image.src = OrangeDia;
                 image.onload = function() {
-                    ctx.drawImage(image, x-5, y-5, 13, 13);
+                    ctx.drawImage(image, x-10, y-5, 13, 13);
                 };
-
+            }
+            function drawDate(datesIndex) {
+                const linespaceX = (verticalX2 - verticalX1) / dates.length;             
+                const x = verticalX1 + linespaceX * (datesIndex-0.3);
+                let safeWriteEndY = safeEndY + linespacing;
+                const image = new Image();
+                image.src = DateRed;
+                image.onload = function() {
+                    ctx.drawImage(image, x-10, safeWriteEndY-6, 13, 13);
+                };
             }
             
             drawLine(startX, y, endX, y);
