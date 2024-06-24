@@ -2,7 +2,7 @@
 <script>
     import { onMount } from 'svelte';
     let canvas;
-    import DateRed from '../img/DateRed.png';
+    import BlackDia from '../img/BlackDia.png';
     import BlueDia from '../img/BlueDia.png';
 
     function draw() {
@@ -73,24 +73,25 @@
             }       
 
             function writeDrugName() {
-                newLineY += linespacing;
-                safeEndY += linespacing;
-                drawRectangle(margin, margin + moveDown, 2000 - margin, safeEndY+linespacing*3);
-                drawLine(verticalX1, startY, verticalX1, safeEndY);
-                drawLine(verticalX2, startY, verticalX2, safeEndY);
-                drawLine(verticalX1, safeEndY, verticalX2, safeEndY);
+                let startToxicY = newLineY + linespacing;
+                let safeWriteEndY = safeEndY + linespacing;
+                drawRectangle(margin, margin + moveDown, 2000 - margin, safeWriteEndY+linespacing*3);
+                drawLine(verticalX1, startY, verticalX1, safeWriteEndY);
+                drawLine(verticalX2, startY, verticalX2, safeWriteEndY);
+                drawLine(verticalX1, safeWriteEndY, verticalX2, safeWriteEndY);
                 
                 for (let i = 0; i < toxic.length; i++) {
-                    writeRightAlignedText(toxic[i], startX + 153, newLineY + (i * linespacing), 15, 'blue');
-                    writeLeftAlignedText(toxic[i], endX - 153, newLineY + (i * linespacing), 15, 'blue');
+                    writeRightAlignedText(toxic[i], startX + 153, startToxicY + (i * linespacing), 15, 'blue');
+                    writeLeftAlignedText(toxic[i], endX - 153, startToxicY + (i * linespacing), 15, 'blue');
                 }
-                safeStartY += linespacing
+
+                let safeWriteStartY = safeStartY + linespacing;
                 for (let i = 0; i < safe.length; i++) {
-                    writeRightAlignedText(safe[i], startX + 153, safeStartY + (i * linespacing), 15);
-                    writeLeftAlignedText(safe[i], endX - 153,  safeStartY + (i * linespacing), 15);
+                    writeRightAlignedText(safe[i], startX + 153, safeWriteStartY + (i * linespacing), 15);
+                    writeLeftAlignedText(safe[i], endX - 153,  safeWriteStartY + (i * linespacing), 15);
                 }
                 if (safe.includes('LOLA*') || safe.includes('MCTs')) {
-                    writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, safeEndY+linespacing*3-5, 12);
+                    writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, safeWriteEndY+linespacing*3-5, 12);
                 }
             }
 
@@ -99,7 +100,7 @@
 
                 for (let i = 0; i < dates.length; i++) {
                     ctx.save();
-                    ctx.translate(verticalX1 + linespace + (i * linespace), safeEndY+15);
+                    ctx.translate(verticalX1 + linespace + (i * linespace), safeEndY+linespacing+15);
                     ctx.rotate(-Math.PI / 9);
                     writeRightAlignedText(dates[i], 0, 0, 13);
                     ctx.restore();
@@ -109,15 +110,26 @@
             function drawBlueDia(datesIndex, toxicIndex) {    
                 const linespaceX = (verticalX2 - verticalX1) / dates.length;
                 const linespaceY = (safeStartY - newLineY) / toxic.length;
-                const x = verticalX1 + linespaceX * datesIndex -25;
-                const y = newLineY + linespaceY * toxicIndex -13;
-                drawLine(verticalX1 + linespaceX * datesIndex, startY, verticalX1 + linespaceX * datesIndex, endY);
-                drawLine(verticalX1, newLineY + linespaceY * toxicIndex, verticalX2, newLineY + linespaceY * toxicIndex);
-
+                const x = verticalX1 + linespaceX * (datesIndex-0.3);
+                const y = newLineY +linespaceY*(toxicIndex-0.3);
+                
                 const image = new Image();
                 image.src = BlueDia;
                 image.onload = function() {
-                    ctx.drawImage(image, x, y, 10, 10);
+                    ctx.drawImage(image, x-5, y-5, 10, 10);
+                };
+            }
+
+            function drawBlackDia(datesIndex, safeIndex) {    
+                const linespaceX = (verticalX2 - verticalX1) / dates.length;
+                const linespaceY = (safeEndY - safeStartY) / safe.length;
+                const x = verticalX1 + linespaceX * (datesIndex-0.3);
+                const y = safeStartY +linespaceY*(safeIndex-0.3);
+
+                const image = new Image();
+                image.src = BlackDia;
+                image.onload = function() {
+                    ctx.drawImage(image, x-5, y-5, 10, 10);
                 };
             }
             
@@ -129,24 +141,8 @@
             ICI();
             writeDrugName();
             writeDate();
-            
-            // const image = new Image();
-            // image.src = DateRed;
-            // image.onload = function() {
-            //     const imageX = (canvas.width - image.width) / 2;
-            //     const imageY = (canvas.height - image.height) / 2;
-            //     ctx.drawImage(image, imageX, imageY);
-            // }
-            drawBlueDia(1,1);
-            drawBlueDia(2,2);
-            drawBlueDia(3,3);
-            drawBlueDia(4,4);
-            drawBlueDia(5,5);
-            drawBlueDia(6,6);
-            drawBlueDia(7,7);
-            drawBlueDia(8,8);
-            drawBlueDia(9,9);
-            drawBlueDia(10,10);
+
+
             
         }
     }
