@@ -4,6 +4,13 @@
     let canvas;
     import BlackDia from '../img/BlackDia.png';
     import BlueDia from '../img/BlueDia.png';
+    import Nan from '../img/Nan.png';
+    import Grade1 from '../img/Grade1.png';
+    import Grade2 from '../img/Grade2.png';
+    import Grade3 from '../img/Grade3.png';
+    import DateRed from '../img/DateRed.png';
+    import OrangeDia from '../img/OrangeDia.png';
+
 
     function draw() {
         if (canvas.getContext) {
@@ -24,7 +31,7 @@
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 2;
 
-            let drugs = ['atezolizumab'];  // ICI list
+            let drugs = ['atezolizumab', 'second', 'third'];  // ICI list
             let dates = ['21.06.22', '06.23', '06.24', '06.30', '07.12', '08.02', '08.23', '09.13', '09.14', '09.15',
             '09.16', '09.17', '09.18', '09.24', '10.05', '10.12', '10.13', '10.14', '10.15', '10.16', '10.17', '10.18', 
             '10.19', '10.20', '10.21', '10.22', '10.23', '10.24', '10.25', '10.26', '10.27', '10.28', '10.29', '10.30', 
@@ -131,6 +138,32 @@
                 image.onload = function() {
                     ctx.drawImage(image, x-5, y-5, 10, 10);
                 };
+            }
+
+            function drawHepatoxicity(datesIndex) {
+                const linespaceX = (verticalX2 - verticalX1) / dates.length;
+                const x = verticalX1 + linespaceX * (datesIndex-0.3);
+
+                const image = new Image();
+                image.src = Nan;
+                image.onload = function() {
+                    ctx.drawImage(image, x-5, startY+5, 15, 15);
+                };
+            }
+
+            function drawICI(datesIndex, drugsIndex) {
+                let startLineY = startY + 25;
+                const linespaceX = (verticalX2 - verticalX1) / dates.length;
+                const linespaceY = (newLineY - startLineY-10) / drugs.length;                
+                const x = verticalX1 + linespaceX * (datesIndex-0.3);
+                const y = startLineY +linespaceY*(drugsIndex-0.3);
+
+                const image = new Image();
+                image.src = OrangeDia;
+                image.onload = function() {
+                    ctx.drawImage(image, x-5, y-5, 13, 13);
+                };
+
             }
             
             drawLine(startX, y, endX, y);
