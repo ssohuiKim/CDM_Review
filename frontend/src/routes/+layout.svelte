@@ -6,7 +6,7 @@
 	<link rel='stylesheet' href={tabler}/>
 </svelte:head>
 
-<El container bgColor="light" borderBottom>
+<El container bgColor="light" borderBottom style="position: sticky; top: 0;">
 	<El row alignItems="center" p='1'>
 		<El col="auto" m="3" me="auto" tag="h1">LOGO</El>
 		<El col="auto" m="3">
