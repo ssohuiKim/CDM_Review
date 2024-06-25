@@ -184,7 +184,7 @@
             writeDrugName();
             writeDate();
 
-
+            
             
         }
     }
