@@ -1,5 +1,6 @@
 <script>
 	import tabler from 'yesvelte/css/tabler.min.css?url';
+	import { goto } from '$app/navigation';
 	import { El } from 'yesvelte';
 </script>
 
@@ -7,14 +8,33 @@
 	<link rel='stylesheet' href={tabler}/>
 </svelte:head>
 
+<style>
+	.nav-button {
+		background: none;
+		border: none;
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+		font-size: 1rem;
+		text-align: center;
+	}
+
+	.nav-button:hover {
+		background-color: #f0f0f0;
+	}
+</style>
+
 <El container style="height: 100%; width: 100%">
 	<El container bgColor="light" borderBottom style="position: sticky; top: 0; width: 100%;">
 		<El row alignItems="center" p='1' m="0">
 			<El col="auto" m="3" me="auto" tag="h1">LOGO</El>
 			<El col="auto" m="3">
 				<El row>
-					<El col='auto' px="3">About</El>
-					<El col='auto' px="3">Tool</El>
+					<El col='auto'>
+						<button class="nav-button" on:click={() => goto('/about')}>About</button>
+					</El>
+					<El col='auto'>
+						<button class="nav-button" on:click={() => goto('/')}>Tool</button>
+					</El>
 				</El>
 			</El>
 		</El>
