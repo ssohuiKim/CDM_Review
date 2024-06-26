@@ -40,7 +40,8 @@
 <script>
   import { onMount } from 'svelte';
   import { drugNames, drugExposureStartDates } from '$lib/stores'; // Import the specific store for drug names and dates
-  let names = [];
+
+  let takenDrugs = [];
   let drugExposureDates = [];
   
   let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
@@ -69,8 +70,8 @@
     });
 
     drugNames.subscribe(data => {
-      names = data.filter(name => name); // Filter out empty values
-      console.log('Drug Names: ', names);
+      takenDrugs = data.filter(name => name); // Filter out empty values
+      console.log('Taken Drugs: ', takenDrugs);
     });
   });
 
@@ -85,13 +86,13 @@
 
 <div class="container">
   <h1>Unique Drug Names and Dates</h1>
-  {#if names.length > 0 && drugExposureDates.length > 0}
+  {#if takenDrugs.length > 0 && drugExposureDates.length > 0}
     <ul>
-      {#each names as name, i}
+      {#each takenDrugs as drug, i}
         {#if drugExposureDates[i]} <!-- Ensure there's a corresponding date -->
           <li>
-            {name} - {drugExposureDates[i]} 
-            (Toxic Index: {getToxicIndex(name)}, Date Index: {getDateIndex(drugExposureDates[i])})
+            {drug} - {drugExposureDates[i]} 
+            (Toxic Index: {getToxicIndex(drug)}, Date Index: {getDateIndex(drugExposureDates[i])})
           </li>
         {/if}
       {/each}
@@ -100,3 +101,4 @@
     <p>No data available.</p>
   {/if}
 </div>
+  
