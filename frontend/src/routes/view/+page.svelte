@@ -37,40 +37,66 @@
     {/if}
   </div>
    -->
+<script>
+  import { onMount } from 'svelte';
+  import { drugNames, drugExposureStartDates } from '$lib/stores'; // Import the specific store for drug names and dates
+  let names = [];
+  let drugExposureDates = [];
+  
+  let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
+  'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
+  'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
+  'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
+  let uniqueDates = [];
+  let formattedDates = [];
 
-   <script>
-    import { onMount } from 'svelte';
-    import { drugConceptIds } from '$lib/stores'; // Import the specific store
-  
-    let iciList = [];
-  
-    // Map specific drug concept IDs to corresponding letters
-    const idToLetterMap = {
-      42920398: 'Atezolizumab',
-      1594046: 'Durvalumab',
-      1594038: 'Durvalumab',
-      46275962: 'Ipilimumab',
-      42920744: 'Nivolumab',
-      42922127: 'Nivolumab',
-      42921578: 'Pembrolizumab'
-    };
-  
-    onMount(() => {
-      drugConceptIds.subscribe(ids => {
-        // Filter the IDs and map to corresponding letters
-        iciList = Array.from(new Set(ids.filter(id => idToLetterMap[id])
-               .map(id => idToLetterMap[id])));
-        console.log("ICI List:", iciList);
-      });
+  onMount(() => {
+    drugExposureStartDates.subscribe(dates => {
+      drugExposureDates = dates.filter(date => date); // Filter out empty values
+      const dateSet = new Set(drugExposureDates);
+      uniqueDates = Array.from(dateSet); // Convert Set back to Array
+      
+      if (uniqueDates.length > 0) {
+        formattedDates = [formatDate(uniqueDates[0])];
+        for (let i = 1; i < uniqueDates.length; i++) {
+          const [year, month, day] = uniqueDates[i].split('-').map(part => part.padStart(2, '0'));
+          formattedDates.push(`${month}.${day}`);
+        }
+      }
+      
+      console.log('Unique Dates:', uniqueDates);
+      console.log('Formatted Dates:', formattedDates);
     });
-  </script>
-  
-  <div class="container">
-    <h1>ICI List</h1>
-    {#if iciList.length > 0}
-        <li>{iciList}</li>
-    {:else}
-      <p>No data available.</p>
-    {/if}
-  </div>
-  
+
+    drugNames.subscribe(data => {
+      names = data.filter(name => name); // Filter out empty values
+      console.log('Drug Names: ', names);
+    });
+  });
+
+  const formatDate = (date) => {
+    const [year, month, day] = date.split('-').map(part => part.padStart(2, '0'));
+    return `${year}.${month}.${day}`;
+  };
+
+  const getToxicIndex = (name) => toxic.indexOf(name) + 1;
+  const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
+</script>
+
+<div class="container">
+  <h1>Unique Drug Names and Dates</h1>
+  {#if names.length > 0 && drugExposureDates.length > 0}
+    <ul>
+      {#each names as name, i}
+        {#if drugExposureDates[i]} <!-- Ensure there's a corresponding date -->
+          <li>
+            {name} - {drugExposureDates[i]} 
+            (Toxic Index: {getToxicIndex(name)}, Date Index: {getDateIndex(drugExposureDates[i])})
+          </li>
+        {/if}
+      {/each}
+    </ul>
+  {:else}
+    <p>No data available.</p>
+  {/if}
+</div>
