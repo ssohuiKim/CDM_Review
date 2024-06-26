@@ -4,11 +4,12 @@
     let takenDrugs = [];
     let drugExposureDates = [];
 
-    let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
-    'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
-    'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
-    'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
-    // let toxic=[];
+    let toxic = [];
+    // let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
+    // 'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
+    // 'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
+    // 'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
+    
     let safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
     'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
     let uniqueDates = [];
@@ -46,13 +47,8 @@
         });
         
         drugNames.subscribe(data => {
-            takenDrugs = data.filter(name => name); // Filter out empty values
-            console.log('Taken Drugs: ', takenDrugs);
-
-            // After drugNames are updated, calculate and log toxic and safe indexes
-            for (const drug of takenDrugs) {
-                // console.log(`Toxic Index for "${drug}":`, getToxicIndex(drug));
-            }
+            takenDrugs = data.filter(name => name); 
+            toxic = Array.from(new Set(takenDrugs));
         });
 
         drugConceptIds.subscribe(ids => {
@@ -63,18 +59,17 @@
 
     const getToxicIndex = (name) => toxic.indexOf(name) + 1;
     const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
-    // onMount(() => {
-    // drugExposureStartDates.subscribe(data => {
-    //     drugExposureDates = data.filter(name => name); // Filter out empty values
-    //     console.log('Taken Drugs: ', drugExposureDates);
 
-    //     // Iterate through takenDrugs and print toxic index for each drug
-    //     for (const dates of drugExposureDates) {
-    //         console.log(`Toxic Index for "${dates}":`, getDateIndex(dates));
-    //         console.log('aaa', drugExposureDates)
+    // onMount(() => {
+    // drugNames.subscribe(data => {
+    //     takenDrugs = data.filter(name => name); // Filter out empty values
+    //     for (const drug of takenDrugs) {
+    //         console.log(`Toxic Index for "${drug}":`, getToxicIndex(drug));
     //     }
     //     });
     // });
+    
+    
 
     let canvas;
     import BlackDia from '../img/BlackDia.png';
@@ -177,6 +172,16 @@
                     ctx.restore();
                 }
             }
+            
+
+            function drawToxic() {
+                let drugIndex, dateIndex;
+                for (let i = 0; i < takenDrugs.length; i++){
+                    drugIndex = getToxicIndex(takenDrugs[i]);
+                    dateIndex = getDateIndex(drugExposureDates[i]);
+                    drawBlueDia(dateIndex, drugIndex);
+                }
+            }
 
             function drawBlueDia(datesIndex, toxicIndex) {    
                 const linespaceX = (verticalX2 - verticalX1) / dates.length;
@@ -247,6 +252,7 @@
             ICI();
             writeDrugName();
             writeDate();
+            drawToxic();
             
             
         }
