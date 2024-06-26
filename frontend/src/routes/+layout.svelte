@@ -21,12 +21,12 @@
 	</El>
 
 	<El container style="height: 90%; width: 100%">
-		<El row p="5" m="0" style="height: 95%; overflow-y: auto; overflow-x: auto">
+		<El row p="5" m="0" style="height: 95%;">
 			<slot/>
 		</El>
 		<El row justifyContent="center" m="2" style="height: 5%;">
-			<El col='auto'> This website is maintained by</El>
-			<El col='auto' p='0'> <a href="https://pnucolab.com/">Computational Omics Laboratory</a></El>
+			<El col='auto' alignSelf="center"> This website is maintained by</El>
+			<El col='auto' p='0' alignSelf="center"> <a href="https://pnucolab.com/">Computational Omics Laboratory</a></El>
 		</El>
 	</El>
 </El>

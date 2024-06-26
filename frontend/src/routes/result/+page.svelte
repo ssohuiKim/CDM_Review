@@ -1,20 +1,22 @@
 <script>
 	import {
-		TabList,
-		TabItem,
-		TabContent,
-		TabPanel,
-		Tabs,
 		Card,
-		CardHeader,
 		CardBody,
 		El,
 		Button, 
 		Modal, ModalBody, ModalFooter
 	} from 'yesvelte'
     import DrugChart from '../../lib/DrugChart.svelte'
+	import { writable } from 'svelte/store';
+	import { patientNos } from '../../lib/stores';
 
 	let show = false;
+	const selectedPatient = writable(patientNos[0]); // 초기 선택 환자
+
+	// 선택된 환자 변경 함수
+	function selectPatient(patientNo) {
+		selectedPatient.set(patientNo);
+	}
 </script>
 
 <style>
@@ -28,9 +30,50 @@
         width: 20px; 
         height: 20px; 
     }
+
+	.card {
+		background-color: white;
+		border-radius: 4px;
+		border-width: 1px;
+		border-color: #DCE0E5;
+		border-style: solid; 
+		padding: 16px;
+		display: flex;
+		flex-direction: row;
+		height: 100%;
+		overflow: auto;
+	}
+
+	.sidebar {
+		border-right: 1px solid #dcdcdc;
+		width: 150px;
+		overflow: auto;
+		padding-right: 12px;
+		flex-shrink: 0;
+	}
+
+	.sidebar button {
+		display: block;
+		width: 100%;
+		margin-bottom: 8px;
+		padding: 8px;
+		background-color: white;
+		border: 0px;
+		text-align: left;
+		cursor: pointer;
+	}
+
+	.sidebar button:hover {
+		background-color: #e0e0e0;
+	}
+	
+	.scroll-container {
+		flex: 1;
+		overflow: auto;
+	}
 </style>
 
-<El container m="0" p="4">
+<El container m="0" p="4" style="height: 100%;">
 	<El row alignItems="start" p="0" m="0">
 		<El col='auto' tag="h1" p="0" m="0">Results</El>
 		<El col='auto' alignSelf="center">
@@ -39,28 +82,19 @@
 			</button>
 		</El>
 	</El>
-	<El row style="margin-top: 24px;">
-		<Card>
-			<Tabs>
-				<CardHeader>
-					<TabList>
-						<TabItem active>Home</TabItem>
-						<TabItem>Profile</TabItem>
-					</TabList>
-				</CardHeader>
-				<CardBody>
-					<TabContent>
-						<TabPanel>
-							<DrugChart />
-						</TabPanel>
-						<TabPanel>
-							<h4>Profile tab</h4>
-							Here is the content of the second tab.
-						</TabPanel>
-					</TabContent>
-				</CardBody>
-			</Tabs>
-		</Card>
+	<El row style="margin-top: 24px; height: 100%">
+		<div class="card">
+			<div class="sidebar">
+				{#each patientNos as patientNo}
+					<button on:click={() => selectPatient(patientNo)}>
+						Patient {patientNo}
+					</button>
+				{/each}
+			</div>
+			<div class="scroll-container">
+				<DrugChart {selectedPatient} />
+			</div>
+		</div>
 	</El>
 </El>
 
