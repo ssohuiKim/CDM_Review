@@ -1,10 +1,17 @@
-<!--  toxic, safe list가 바뀔 일은 없나? -->
 <script>
     import { onMount } from 'svelte';
-    import {drugConceptIds, drugExposureStartDates} from '$lib/stores';
+    import {drugConceptIds, drugNames, drugExposureStartDates} from '$lib/stores';
+    let takenDrugs = [];
+    let drugExposureDates = [];
+
+    let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
+    'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
+    'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
+    'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
+    let safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
+    'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
     let uniqueDates = [];
     let formattedDates = [];
-
     let drugs = [];
     const idToDrugMap = {
       42920398: 'Atezolizumab',
@@ -17,35 +24,46 @@
     };
 
     function formatDate(dateString) {
-      const [year, month, day] = dateString.split('-').map(part => part.padStart(2, '0'));
-      return `${year}.${month}.${day}`;
+        const [year, month, day] = dateString.split('-').map(part => part.padStart(2, '0'));
+        return `${year}.${month}.${day}`;
     }
 
     onMount(() => {
+        drugExposureStartDates.subscribe(dates => {
+            drugExposureDates = dates.filter(date => date); // Filter out empty values
+            const dateSet = new Set(drugExposureDates);
+            uniqueDates = Array.from(dateSet); // Convert Set back to Array
+            
+            if (uniqueDates.length > 0) {
+                formattedDates = [formatDate(uniqueDates[0])];
+                for (let i = 1; i < uniqueDates.length; i++) {
+                const [year, month, day] = uniqueDates[i].split('-').map(part => part.padStart(2, '0'));
+                formattedDates.push(`${month}.${day}`);
+                }
+            }
+            
+            console.log('Unique Dates:', uniqueDates);
+            console.log('Formatted Dates:', formattedDates);
+        });
+        drugNames.subscribe(data => {
+            takenDrugs = data.filter(name => name); // Filter out empty values
+            console.log('Taken Drugs: ', takenDrugs);
+
+            // After drugNames are updated, calculate and log toxic and safe indexes
+            for (const drug of takenDrugs) {
+                // console.log(`Toxic Index for "${drug}":`, getToxicIndex(drug));
+            }
+        });
+
         drugConceptIds.subscribe(ids => {
             drugs = Array.from(new Set(ids.filter(id => idToDrugMap[id])
                .map(id => idToDrugMap[id])));
-        console.log("ICI List:", drugs);
-        });
-
-        drugExposureStartDates.subscribe(dates => {
-            const dateSet = new Set(dates.filter(date => date)); // Filter out empty values
-            uniqueDates = Array.from(dateSet); // Convert Set back to Array
-    
-            if (uniqueDates.length > 0) {
-            // 년도 포함된 날짜 format
-            formattedDates = [formatDate(uniqueDates[0])];
-    
-            // 년도 없이 나머지 날짜 format
-            for (let i = 1; i < uniqueDates.length; i++) {
-                const [year, month, day] = uniqueDates[i].split('-').map(part => part.padStart(2, '0'));
-                formattedDates.push(`${month}.${day}`);
-            }
-            }
-            console.log("Formatted Drug Exposure Start Dates:", formattedDates);
         });
     });
-    
+
+    const getToxicIndex = (name) => toxic.indexOf(name) + 1;
+    const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
+    // console.log(getToxicIndex('megestrol'))
 
     let canvas;
     import BlackDia from '../img/BlackDia.png';
@@ -77,12 +95,6 @@
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 2;
             let dates = formattedDates;
-            let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
-            'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
-            'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
-            'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
-            let safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
-            'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
 
             let newLineY = startY + 32 + (drugs.length * linespacing);
             let safeStartY = newLineY + (toxic.length * linespacing);
