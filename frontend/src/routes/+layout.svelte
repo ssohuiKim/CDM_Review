@@ -1,7 +1,6 @@
 <script>
 	import tabler from 'yesvelte/css/tabler.min.css?url';
 	import { El } from 'yesvelte';
-	import '../app.css';
 </script>
 
 <svelte:head>
@@ -22,7 +21,7 @@
 	</El>
 
 	<El container style="height: 90%; width: 100%">
-		<El row p="5" m="0" style="height: 95%;">
+		<El row p="5" m="0" style="height: 95%; overflow-y: auto; overflow-x: auto">
 			<slot/>
 		</El>
 		<El row justifyContent="center" m="2" style="height: 5%;">
