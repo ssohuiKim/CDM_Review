@@ -36,27 +36,24 @@
   }
 </script>
 
-<slot/>
-<El container style="height: 80%;">
-  <El row m="5" justifyContent="center" >
-    <El row tag="h1">CDM-Review</El>
-    <El row tag="h3">CDM-Review is a web tool that visualizes data obtained from CDM on patients taking immune checkpoint inhibitors who showed Hepatotoxicity.<br> 
-      It would help medical professionals identify patients and make medication-related decisions.</El>
-    <El row mb='auto'>
-      <Card col="9">
-        <CardBody>
-          <El row tag="strong">Choose a csv file</El>
-          <FileUpload mt="2" state={state_1} bind:files={files_1} />
-          <El textColor="danger" tag="small">{hint_1}</El>
-        </CardBody>
-        <CardFooter>
-          <CardActions>
-            <Button color="primary" on:click={handleClick}>
-              <Icon name="upload" />Upload
-            </Button>
-          </CardActions>
-        </CardFooter>
-      </Card>
-    </El>
+<El container m="0" p="4">
+  <El row tag="h1">CDM-Review</El>
+  <El row tag="h3">CDM-Review is a web tool that visualizes data obtained from CDM on patients taking immune checkpoint inhibitors who showed Hepatotoxicity.<br> 
+    It would help medical professionals identify patients and make medication-related decisions.</El>
+  <El row style="margin-top: 52px;">
+    <Card col="7">
+      <CardBody>
+        <El row tag="strong">Choose a csv file</El>
+        <FileUpload mt="2" state={state_1} bind:files={files_1} />
+        <El textColor="danger" tag="small">{hint_1}</El>
+      </CardBody>
+      <CardFooter>
+        <CardActions>
+          <Button color="primary" on:click={handleClick}>
+            <Icon name="upload" />Upload
+          </Button>
+        </CardActions>
+      </CardFooter>
+    </Card>
   </El>
 </El>
