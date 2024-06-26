@@ -1,9 +1,20 @@
 <!--  toxic, safe list가 바뀔 일은 없나? -->
 <script>
     import { onMount } from 'svelte';
-    import {drugExposureStartDates} from '$lib/stores';
+    import {drugConceptIds, drugExposureStartDates} from '$lib/stores';
     let uniqueDates = [];
     let formattedDates = [];
+
+    let drugs = [];
+    const idToDrugMap = {
+      42920398: 'Atezolizumab',
+      1594046: 'Durvalumab',
+      1594038: 'Durvalumab',
+      46275962: 'Ipilimumab',
+      42920744: 'Nivolumab',
+      42922127: 'Nivolumab',
+      42921578: 'Pembrolizumab'
+    };
 
     function formatDate(dateString) {
       const [year, month, day] = dateString.split('-').map(part => part.padStart(2, '0'));
@@ -11,22 +22,28 @@
     }
 
     onMount(() => {
-      drugExposureStartDates.subscribe(dates => {
-        const dateSet = new Set(dates.filter(date => date)); // Filter out empty values
-        uniqueDates = Array.from(dateSet); // Convert Set back to Array
-  
-        if (uniqueDates.length > 0) {
-          // Format the first date with year-month-day
-          formattedDates = [formatDate(uniqueDates[0])];
-  
-          // Format the rest of the dates without the year
-          for (let i = 1; i < uniqueDates.length; i++) {
-            const [year, month, day] = uniqueDates[i].split('-').map(part => part.padStart(2, '0'));
-            formattedDates.push(`${month}.${day}`);
-          }
-        }
-        console.log("Formatted Drug Exposure Start Dates:", formattedDates);
-      });
+        drugConceptIds.subscribe(ids => {
+            drugs = Array.from(new Set(ids.filter(id => idToDrugMap[id])
+               .map(id => idToDrugMap[id])));
+        console.log("ICI List:", drugs);
+        });
+
+        drugExposureStartDates.subscribe(dates => {
+            const dateSet = new Set(dates.filter(date => date)); // Filter out empty values
+            uniqueDates = Array.from(dateSet); // Convert Set back to Array
+    
+            if (uniqueDates.length > 0) {
+            // 년도 포함된 날짜 format
+            formattedDates = [formatDate(uniqueDates[0])];
+    
+            // 년도 없이 나머지 날짜 format
+            for (let i = 1; i < uniqueDates.length; i++) {
+                const [year, month, day] = uniqueDates[i].split('-').map(part => part.padStart(2, '0'));
+                formattedDates.push(`${month}.${day}`);
+            }
+            }
+            console.log("Formatted Drug Exposure Start Dates:", formattedDates);
+        });
     });
     
 
@@ -59,13 +76,6 @@
 
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 2;
-
-            let drugs = ['atezolizumab', 'second', 'third'];  // ICI list
-            
-            // let dates = ['21.06.22', '06.23', '06.24', '06.30', '07.12', '08.02', '08.23', '09.13', '09.14', '09.15',
-            // '09.16', '09.17', '09.18', '09.24', '10.05', '10.12', '10.13', '10.14', '10.15', '10.16', '10.17', '10.18', 
-            // '10.19', '10.20', '10.21', '10.22', '10.23', '10.24', '10.25', '10.26', '10.27', '10.28', '10.29', '10.30', 
-            // '10.31', '11.01', '11.02', '11.03',];   // 검진일 list
             let dates = formattedDates;
             let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
             'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
