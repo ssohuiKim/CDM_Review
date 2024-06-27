@@ -59,15 +59,8 @@
     
     const getToxicIndex = (name) => toxic.indexOf(name) + 1;
     const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
+    const getDateOriginalIndex = (date) => drugExposureDates.indexOf(date) + 1;
     const getDrugIndex = (drug) => drugs.indexOf(drug) + 1;
-    const getDrugIndexInTakenDrugs = (drug) => {
-        let indices = [];
-        takenDrugs.forEach((item, index) => {
-        if (item.toLowerCase() === drug.toLowerCase()) {
-            indices.push(index);
-        }
-    });
-    return indices;}
     
     
     let canvas;
@@ -210,21 +203,23 @@
                 };
             }
 
-            function drawGrade(datesIndex, grade) {
+            function drawGrade(dateIndex, grade) {
                 const linespaceX = (verticalX2 - verticalX1) / dates.length;
-                const x = verticalX1 + linespaceX * (datesIndex-0.3);
+                const x = verticalX1 + linespaceX * (dateIndex - 0.3);
                 
                 const image = new Image();
+                image.onload = function() {
+                    ctx.drawImage(image, x - 10, startY + 5, 15, 15);
+                };
                 if (grade === 0) {
                     image.src = Nan;
-                } else if (grade === 1 || grade === 2) {
+                } else if (grade === 1) {
                     image.src = Grade1;
+                } else if (grade === 2) {
+                    image.src = Grade2;
                 } else if (grade === 3) {
                     image.src = Grade3;
                 }
-                image.onload = function() {
-                    ctx.drawImage(image, x-10, startY+5, 15, 15);
-                };
             }
 
             function drawOrangeDia(datesIndex, drugsIndex) {
@@ -264,15 +259,25 @@
                 };
             }
 
-            function drawDateGrade(){
-                let dateIndex, grade;
+            
+            function drawDateGrade() {
+                let coordinates = [];
+                let dateIndex;
                 for (let i = 0; i < measurements.length; i++) {
                     if (measurements[i] !== 0) {
-                    dateIndex = getDateIndex(measurements[i]);
-                    drawDateRedShape(dateIndex);
-                    // drawGrade(dateIndex, grade);
+                        dateIndex = getDateIndex(measurements[i]);
+                        drawDateRedShape(dateIndex); 
+                        coordinates.push([dateIndex, hepatoxicityGrades[i]]);
                     }
                 }
+                coordinates = coordinates.filter((item, index) => {
+                    return coordinates.findIndex((coord) => coord[0] === item[0] && coord[1] === item[1]) === index;
+                });  // 중복 제거
+                coordinates.forEach(coord => {
+                    let x = coord[0];
+                    let y = coord[1];
+                    drawGrade(x, parseInt(y));
+                });
             }
             
             drawLine(startX, y, endX, y);
