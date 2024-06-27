@@ -27,7 +27,6 @@
 	}
 </script>
 
-
 <style>
     .img-button {
         background: none;
@@ -81,6 +80,7 @@
 		overflow: auto;
 	}
 </style>
+
 <El container m="0" p="4" style="height: 100%;">
 	<El row alignItems="start" p="0" m="0">
 		<El col='auto' tag="h1" p="0" m="0">Results</El>
@@ -96,11 +96,14 @@
 				{#each patients as patientNum}
 					<button on:click={() => selectPatient(patientNum)}>
 						Patient {patientNum}
+
 					</button>
 				{/each}
 			</div>
 			<div class="scroll-container">
+
 				<DrugChart/>
+
 			</div>
 		</div>
 	</El>
@@ -119,3 +122,4 @@
 		<Button color="primary" on:click={() => (show = false)}>Checked</Button>
 	</ModalFooter>
 </Modal>
+
