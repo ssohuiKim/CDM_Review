@@ -9,20 +9,20 @@
     // 'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
     // 'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
     // 'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
-    
-    let safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
-    'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
+    // let safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
+    // 'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
+    let safe = [];
     let uniqueDates = [];
     let formattedDates = [];
     let drugs = [];
     const idToDrugMap = {
-      42920398: 'Atezolizumab',
-      1594046: 'Durvalumab',
-      1594038: 'Durvalumab',
-      46275962: 'Ipilimumab',
-      42920744: 'Nivolumab',
-      42922127: 'Nivolumab',
-      42921578: 'Pembrolizumab'
+      42920398: 'atezolizumab',
+      1594046: 'durvalumab',
+      1594038: 'durvalumab',
+      46275962: 'ipilimumab',
+      42920744: 'nivolumab',
+      42922127: 'nivolumab',
+      42921578: 'pembrolizumab'
     };
 
     function formatDate(dateString) {
@@ -59,16 +59,15 @@
 
     const getToxicIndex = (name) => toxic.indexOf(name) + 1;
     const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
-
-    // onMount(() => {
-    // drugNames.subscribe(data => {
-    //     takenDrugs = data.filter(name => name); // Filter out empty values
-    //     for (const drug of takenDrugs) {
-    //         console.log(`Toxic Index for "${drug}":`, getToxicIndex(drug));
-    //     }
-    //     });
-    // });
-    
+    const getDrugIndex = (drug) => drugs.indexOf(drug) + 1;
+    const getDrugIndexInTakenDrugs = (drug) => {
+    let indices = [];
+    takenDrugs.forEach((item, index) => {
+      if (item.toLowerCase() === drug.toLowerCase()) {
+        indices.push(index);
+      }
+    });
+    return indices;}
     
 
     let canvas;
@@ -220,7 +219,7 @@
                 };
             }
 
-            function drawICI(datesIndex, drugsIndex) {
+            function drawOrangeDia(datesIndex, drugsIndex) {
                 let startLineY = startY + 25;
                 const linespaceX = (verticalX2 - verticalX1) / dates.length;
                 const linespaceY = (newLineY - startLineY-10) / drugs.length;                
@@ -230,9 +229,22 @@
                 const image = new Image();
                 image.src = OrangeDia;
                 image.onload = function() {
-                    ctx.drawImage(image, x-10, y-5, 13, 13);
+                    ctx.drawImage(image, x-11, y-5, 12, 12);
                 };
             }
+
+            function drawICI() {
+                let drugIndex, dateIndex;
+                for (let i = 0; i < takenDrugs.length; i++) {
+                    if (drugs.includes(takenDrugs[i])) {
+                        drugIndex = getDrugIndex(takenDrugs[i]);
+                        dateIndex = getDateIndex(drugExposureDates[i]);
+                        drawOrangeDia(dateIndex, drugIndex);
+                    }
+                }
+            }
+
+
             function drawDate(datesIndex) {
                 const linespaceX = (verticalX2 - verticalX1) / dates.length;             
                 const x = verticalX1 + linespaceX * (datesIndex-0.3);
@@ -253,6 +265,9 @@
             writeDrugName();
             writeDate();
             drawToxic();
+            drawICI();
+            // writeLeftAlignedText('test', 600, 600);
+
             
             
         }
