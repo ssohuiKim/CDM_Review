@@ -101,6 +101,6 @@
       </CardFooter>
     </Card>
   </El>
-  <Button color="primary" on:click={() => goto('/result')}>View</Button>
+  <!-- <Button color="primary" on:click={() => goto('/result')}>View</Button> -->
 </El>
 
