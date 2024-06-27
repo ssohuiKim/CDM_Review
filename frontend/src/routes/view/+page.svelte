@@ -91,7 +91,7 @@
       });
   
       measurementDates.subscribe(data => {
-        measurements = data.filter(date => date);
+        measurements = data.map(date => date || 0);
       });
 
       grades.subscribe(data => {
@@ -103,6 +103,7 @@
     const getToxicIndex = (name) => toxic.indexOf(name) + 1;
     const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
     const getDrugIndex = (drug) => drugs.indexOf(drug) + 1;
+    const getDrugDateIndex = (date) => drugExposureDates.indexOf(date) + 1;
     const getDrugIndexInTakenDrugs = (drug) => {
       let indices = [];
       takenDrugs.forEach((item, index) => {
@@ -112,17 +113,27 @@
       });
       return indices;
     }
+    function getNonZeroMeasurementsWithGrades() {
+      const nonZeroMeasurementsWithGrades = [];
+      measurements.forEach((measurement, index) => {
+        if (measurement !== 0) {
+          const grade = hepatoxicityGrades[index];
+          nonZeroMeasurementsWithGrades.push({ measurement, grade });
+        }
+      });
+      return nonZeroMeasurementsWithGrades;
+    }
   </script>
   
 <div class="container">
-
   <h1>Measurement Dates and Hepatoxicity Grades</h1>
   <ul>
     {#each measurements as measurement, index}
-      <li>
-        {measurement} - (Date Index: {getDateIndex(measurement)})
-      </li>
+      {#if measurement !== 0}
+        <li>
+          <p>{measurement} - (Date Index: {getDateIndex(measurement) + 1})</p>
+          <p>Hepatoxicity Grade: {hepatoxicityGrades[index]}</p>
+        </li>
+      {/if}
     {/each}
-  </ul>
 </div>
-  
