@@ -177,7 +177,6 @@
                 let drugIndex, dateIndex;
                 for (let i = 0; i < takenDrugs.length; i++) {
                     if (!drugs.includes(takenDrugs[i])) {
-                        console.log(takenDrugs[i]);
                         drugIndex = getToxicIndex(takenDrugs[i]);
                         dateIndex = getDateIndex(drugExposureDates[i]);
                         drawBlueDia(dateIndex, drugIndex);
@@ -265,14 +264,16 @@
                 };
             }
 
-            // function drawDateGrade(){
-            //     let dateIndex, grade;
-            //     for (let i = 0; i < measurements.length; i++) {
-            //         dateIndex = getDateIndex(measurements[i]);
-            //         drawDateRedShape(dateIndex);
-            //         // drawGrade(dateIndex, grade);
-            //     }
-            // }
+            function drawDateGrade(){
+                let dateIndex, grade;
+                for (let i = 0; i < measurements.length; i++) {
+                    if (measurements[i] !== 0) {
+                    dateIndex = getDateIndex(measurements[i]);
+                    drawDateRedShape(dateIndex);
+                    // drawGrade(dateIndex, grade);
+                    }
+                }
+            }
             
             drawLine(startX, y, endX, y);
             writeLeftAlignedText('Patient number: 58', margin + 10, 20);
@@ -284,7 +285,7 @@
             writeDate();
             drawToxic();
             drawICI();
-            // drawDateGrade();
+            drawDateGrade();
             // drawGrade(5, 3)
 
             

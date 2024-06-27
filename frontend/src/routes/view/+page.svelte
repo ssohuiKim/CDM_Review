@@ -37,102 +37,90 @@
     {/if}
   </div> -->
   
-  <script>
-    import {onMount} from 'svelte';
-    import {drugConceptIds, drugNames, drugExposureStartDates, measurementDates, grades} from '$lib/stores';
-  
-    let takenDrugs = [];
-    let drugExposureDates = [];
-    let uniqueDates = [];
-    let measurements = [];
-    let hepatoxicityGrades = [];
-  
-    let toxic = [];
-    let formattedDates = [];
-    let drugs = [];
-    const idToDrugMap = {
-      42920398: 'atezolizumab',
-      1594046: 'durvalumab',
-      1594038: 'durvalumab',
-      46275962: 'ipilimumab',
-      42920744: 'nivolumab',
-      42922127: 'nivolumab',
-      42921578: 'pembrolizumab'
-    };
-  
-    function formatDate(dateString) {
+ <script>
+  import { onMount } from 'svelte';
+  import {drugConceptIds, drugNames, drugExposureStartDates, measurementDates, grades} from '$lib/stores';
+  let takenDrugs = [];
+  let drugExposureDates = [];
+  let measurements = [];
+  let hepatoxicityGrades = [];
+
+  let toxic = [];
+  let safe = [];
+  let uniqueDates = [];
+  let formattedDates = [];
+  let drugs = [];
+  const idToDrugMap = {
+    42920398: 'atezolizumab',
+    1594046: 'durvalumab',
+    1594038: 'durvalumab',
+    46275962: 'ipilimumab',
+    42920744: 'nivolumab',
+    42922127: 'nivolumab',
+    42921578: 'pembrolizumab'
+  };
+
+  function formatDate(dateString) {
       const [year, month, day] = dateString.split('-').map(part => part.padStart(2, '0'));
       return `${year}.${month}.${day}`;
-    }
-  
-    onMount(() => {
-      drugExposureStartDates.subscribe(dates => {
-        drugExposureDates = dates.filter(date => date); // Filter out empty values
-        const dateSet = new Set(drugExposureDates);
-        uniqueDates = Array.from(dateSet); // Convert Set back to Array
-  
-        if (uniqueDates.length > 0) {
-          formattedDates = [formatDate(uniqueDates[0])];
-          for (let i = 1; i < uniqueDates.length; i++) {
-            const [year, month, day] = uniqueDates[i].split('-').map(part => part.padStart(2, '0'));
-            formattedDates.push(`${month}.${day}`);
-          }
-        }
-      });
-  
-      drugNames.subscribe(data => {
-        takenDrugs = data.filter(name => name);
-        toxic = Array.from(new Set(takenDrugs));
-      });
-  
-      drugConceptIds.subscribe(ids => {
-        drugs = Array.from(new Set(ids.filter(id => idToDrugMap[id])
-          .map(id => idToDrugMap[id])));
-      });
-  
+  }
+
+  onMount(() => {
       measurementDates.subscribe(data => {
-        measurements = data.map(date => date || 0);
+          measurements = data.map(date => date || 0); // 결측치 0으로 채우기
+          // measurements = data.filter(date => date);  //결측치 제거
+          // console.log(measurements);
+      });
+
+      drugExposureStartDates.subscribe(dates => {
+
+          drugExposureDates = dates.map((date, index) => date || measurements[index]);  // 결측치는 measurement에서 채움
+          drugExposureDates = drugExposureDates.filter(date => date);
+          const dateSet = new Set(drugExposureDates);
+          uniqueDates = Array.from(dateSet);
+          formattedDates = uniqueDates.map(date => formatDate(date));
+      });
+
+      drugConceptIds.subscribe(ids => {
+          drugs = Array.from(new Set(ids.filter(id => idToDrugMap[id])
+              .map(id => idToDrugMap[id])));
+      });
+
+      drugNames.subscribe(data => {
+          takenDrugs = data.filter(name => name); 
+          toxic = Array.from(new Set(takenDrugs)).filter(name => !drugs.includes(name));
       });
 
       grades.subscribe(data => {
-            hepatoxicityGrades = data.filter(grade => grade); // Filter out empty values
+              hepatoxicityGrades = data.filter(grade => grade); // Filter out empty values
       });
-
-    });
+  });
   
-    const getToxicIndex = (name) => toxic.indexOf(name) + 1;
-    const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
-    const getDrugIndex = (drug) => drugs.indexOf(drug) + 1;
-    const getDrugDateIndex = (date) => drugExposureDates.indexOf(date) + 1;
-    const getDrugIndexInTakenDrugs = (drug) => {
+  const getToxicIndex = (name) => toxic.indexOf(name) + 1;
+  const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
+  const getDrugIndex = (drug) => drugs.indexOf(drug) + 1;
+  const getDrugIndexInTakenDrugs = (drug) => {
       let indices = [];
       takenDrugs.forEach((item, index) => {
-        if (item.toLowerCase() === drug.toLowerCase()) {
+      if (item.toLowerCase() === drug.toLowerCase()) {
           indices.push(index);
-        }
-      });
-      return indices;
-    }
-    function getNonZeroMeasurementsWithGrades() {
-      const nonZeroMeasurementsWithGrades = [];
-      measurements.forEach((measurement, index) => {
-        if (measurement !== 0) {
-          const grade = hepatoxicityGrades[index];
-          nonZeroMeasurementsWithGrades.push({ measurement, grade });
-        }
-      });
-      return nonZeroMeasurementsWithGrades;
-    }
-  </script>
+      }
+  });
+  return indices;}
+  let coordinates = [];
+</script>
   
 <div class="container">
   <h1>Measurement Dates and Hepatoxicity Grades</h1>
   <ul>
     {#each measurements as measurement, index}
       {#if measurement !== 0}
+        coordinates.push({getDateIndex(measurement) + 1, hepatoxicityGrades[index]});
         <li>
-          <p>{measurement} - (Date Index: {getDateIndex(measurement) + 1})</p>
-          <p>Hepatoxicity Grade: {hepatoxicityGrades[index]}</p>
+          <!-- <p>{measurement} - (Date Index: {getDateIndex(measurement) + 1})</p>
+          <p>Hepatoxicity Grade: {hepatoxicityGrades[index]}</p> -->
+          
+          {measurement} - coordinates: {coordinates}
         </li>
       {/if}
     {/each}
