@@ -1,8 +1,9 @@
 <script>
     import { onMount } from 'svelte';
-    import {drugConceptIds, drugNames, drugExposureStartDates} from '$lib/stores';
+    import {drugConceptIds, drugNames, drugExposureStartDates, measurementDates, grades} from '$lib/stores';
     let takenDrugs = [];
     let drugExposureDates = [];
+    let measurements = [];
 
     let toxic = [];
     // let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
@@ -31,6 +32,7 @@
     }
 
     onMount(() => {
+
         drugExposureStartDates.subscribe(dates => {
             drugExposureDates = dates.filter(date => date); // Filter out empty values
             const dateSet = new Set(drugExposureDates);
@@ -54,6 +56,10 @@
         drugConceptIds.subscribe(ids => {
             drugs = Array.from(new Set(ids.filter(id => idToDrugMap[id])
                .map(id => idToDrugMap[id])));
+        });
+
+        measurementDates.subscribe(data => {
+            measurements = data.filter(date => date);
         });
     });
 
@@ -208,12 +214,18 @@
                 };
             }
 
-            function drawHepatoxicity(datesIndex) {
+            function drawGrade(datesIndex, grade) {
                 const linespaceX = (verticalX2 - verticalX1) / dates.length;
                 const x = verticalX1 + linespaceX * (datesIndex-0.3);
-
+                
                 const image = new Image();
-                image.src = Nan;
+                if (grade === 0) {
+                    image.src = Nan;
+                } else if (grade === 1 || grade === 2) {
+                    image.src = Grade1;
+                } else if (grade === 3) {
+                    image.src = Grade3;
+                }
                 image.onload = function() {
                     ctx.drawImage(image, x-10, startY+5, 15, 15);
                 };
@@ -245,7 +257,7 @@
             }
 
 
-            function drawDate(datesIndex) {
+            function drawDateRedShape(datesIndex) {
                 const linespaceX = (verticalX2 - verticalX1) / dates.length;             
                 const x = verticalX1 + linespaceX * (datesIndex-0.3);
                 let safeWriteEndY = safeEndY + linespacing;
@@ -254,6 +266,14 @@
                 image.onload = function() {
                     ctx.drawImage(image, x-10, safeWriteEndY-6, 13, 13);
                 };
+            }
+
+            function drawDate(){
+                let dateIndex;
+                for (let i = 0; i < measurements.length; i++) {
+                    dateIndex = getDateIndex(measurements[i]);
+                    drawDateRedShape(dateIndex);
+                }
             }
             
             drawLine(startX, y, endX, y);
@@ -266,7 +286,8 @@
             writeDate();
             drawToxic();
             drawICI();
-            // writeLeftAlignedText('test', 600, 600);
+            drawDate();
+            // drawGrade(5, 3)
 
             
             
