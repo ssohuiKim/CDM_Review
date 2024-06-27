@@ -1,6 +1,5 @@
 <script>
-	import tabler from 'yesvelte/css/tabler.min.css?url';
-	import { goto } from '$app/navigation';
+	import tabler from 'yesvelte/css/tabler.min.css?url'
 	import { El } from 'yesvelte';
 </script>
 
@@ -30,10 +29,10 @@
 			<El col="auto" m="3">
 				<El row>
 					<El col='auto'>
-						<button class="nav-button" on:click={() => goto('/about')}>About</button>
+						<button class="nav-button" on:click={() => location.href="/about"}>About</button>
 					</El>
 					<El col='auto'>
-						<button class="nav-button" on:click={() => goto('/')}>Tool</button>
+						<button class="nav-button" on:click={() => location.href="/"}>Tool</button>
 					</El>
 				</El>
 			</El>

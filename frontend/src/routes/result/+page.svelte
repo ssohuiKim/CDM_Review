@@ -1,21 +1,29 @@
 <script>
 	import {
-		Card,
-		CardBody,
 		El,
 		Button, 
 		Modal, ModalBody, ModalFooter
 	} from 'yesvelte'
+
+	import { onMount } from 'svelte';
+
     import DrugChart from '../../lib/DrugChart.svelte'
-	import { writable } from 'svelte/store';
-	import { patientNos } from '../../lib/stores';
+	import { patientNos } from '$lib/stores'
 
 	let show = false;
-	const selectedPatient = writable(patientNos[0]); // 초기 선택 환자
+	let patients = [];
+	let selectedPatient = null;
 
-	// 선택된 환자 변경 함수
-	function selectPatient(patientNo) {
-		selectedPatient.set(patientNo);
+	onMount(() => {
+		// want to get patientNos from the store and filter out the unique values and empty strings
+		patientNos.subscribe(value => {
+			patients = Array.from(new Set(value)).filter(Boolean);
+		});
+	});
+
+	function selectPatient(patientNum) {
+		selectedPatient = patientNum;
+		console.log('Selected Patient:', selectedPatient);
 	}
 </script>
 
@@ -85,14 +93,17 @@
 	<El row style="margin-top: 24px; height: 100%">
 		<div class="card">
 			<div class="sidebar">
-				{#each patientNos as patientNo}
-					<button on:click={() => selectPatient(patientNo)}>
-						Patient {patientNo}
+				{#each patients as patientNum}
+					<button on:click={() => selectPatient(patientNum)}>
+						Patient {patientNum}
+
 					</button>
 				{/each}
 			</div>
 			<div class="scroll-container">
-				<DrugChart {selectedPatient} />
+
+				<DrugChart/>
+
 			</div>
 		</div>
 	</El>
@@ -111,3 +122,4 @@
 		<Button color="primary" on:click={() => (show = false)}>Checked</Button>
 	</ModalFooter>
 </Modal>
+
