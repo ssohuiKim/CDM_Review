@@ -1,7 +1,6 @@
 
 <script>
   import { Card, CardBody, CardFooter, El, Button, CardActions, FileUpload, Icon } from "yesvelte";
-  // import { Button, Icon } from 'yesvelte';
   import { goto } from '$app/navigation';
   import Papa from 'papaparse';
   import {
@@ -104,3 +103,4 @@
   </El>
   <!-- <Button color="primary" on:click={() => goto('/result')}>View</Button> -->
 </El>
+
