@@ -4,14 +4,9 @@
     let takenDrugs = [];
     let drugExposureDates = [];
     let measurements = [];
+    let hepatoxicityGrades = [];
 
     let toxic = [];
-    // let toxic = ['fluorouracil', 'megestrol', 'dexamethasone', 'propofol', 'cimetidine', 'ciprofloxacin', 
-    // 'esomeprazole', 'irinotecan', 'lansoprazole', 'metronidazole', 'pantoprazole', 'cefotaxime', 'cefpodoxime', 'meropenem', 
-    // 'spironolactone', 'acetylcysteine', 'atropine', 'bevacizumab', 'furosemide', 'leucovorin', 'meperidine', 
-    // 'midazolam', 'niacinamide', 'palonosetron', 'pyridoxine', 'rifaximin', 'thiamine', 'ceftizoxime', 'entecavir'];
-    // let safe = ['amino acids', 'albumin human', 'flumazenil', 'glucose', 'isoleucine','lactitol', 'lactulose', 'lafutidine', 'leucine', 'LOLA*', 'magnesium oxide', 
-    // 'MCTs*', 'mosapride', 'nafamostat mesilate', 'potassium chloride', 'propacetramol hcl', 'sodium chlorid', 'soybean oil', 'teicoplanin', 'threonine', 'ursodeoxycholate'];
     let safe = [];
     let uniqueDates = [];
     let formattedDates = [];
@@ -32,25 +27,19 @@
     }
 
     onMount(() => {
+        measurementDates.subscribe(data => {
+            measurements = data.map(date => date || 0); // 결측치 0으로 채우기
+            // measurements = data.filter(date => date);  //결측치 제거
+            // console.log(measurements);
+        });
 
         drugExposureStartDates.subscribe(dates => {
-            drugExposureDates = dates.filter(date => date); // Filter out empty values
+
+            drugExposureDates = dates.map((date, index) => date || measurements[index]);  // 결측치는 measurement에서 채움
+            drugExposureDates = drugExposureDates.filter(date => date);
             const dateSet = new Set(drugExposureDates);
-            uniqueDates = Array.from(dateSet); // Convert Set back to Array
-            
-            if (uniqueDates.length > 0) {
-                formattedDates = [formatDate(uniqueDates[0])];
-                for (let i = 1; i < uniqueDates.length; i++) {
-                const [year, month, day] = uniqueDates[i].split('-').map(part => part.padStart(2, '0'));
-                formattedDates.push(`${month}.${day}`);
-                }
-            }
-            
-        });
-        
-        drugNames.subscribe(data => {
-            takenDrugs = data.filter(name => name); 
-            toxic = Array.from(new Set(takenDrugs));
+            uniqueDates = Array.from(dateSet);
+            formattedDates = uniqueDates.map(date => formatDate(date));
         });
 
         drugConceptIds.subscribe(ids => {
@@ -58,24 +47,29 @@
                .map(id => idToDrugMap[id])));
         });
 
-        measurementDates.subscribe(data => {
-            measurements = data.filter(date => date);
+        drugNames.subscribe(data => {
+            takenDrugs = data.filter(name => name); 
+            toxic = Array.from(new Set(takenDrugs)).filter(name => !drugs.includes(name));
+        });
+
+        grades.subscribe(data => {
+                hepatoxicityGrades = data.filter(grade => grade); // Filter out empty values
         });
     });
-
+    
     const getToxicIndex = (name) => toxic.indexOf(name) + 1;
     const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
     const getDrugIndex = (drug) => drugs.indexOf(drug) + 1;
     const getDrugIndexInTakenDrugs = (drug) => {
-    let indices = [];
-    takenDrugs.forEach((item, index) => {
-      if (item.toLowerCase() === drug.toLowerCase()) {
-        indices.push(index);
-      }
+        let indices = [];
+        takenDrugs.forEach((item, index) => {
+        if (item.toLowerCase() === drug.toLowerCase()) {
+            indices.push(index);
+        }
     });
     return indices;}
     
-
+    
     let canvas;
     import BlackDia from '../img/BlackDia.png';
     import BlueDia from '../img/BlueDia.png';
@@ -181,10 +175,13 @@
 
             function drawToxic() {
                 let drugIndex, dateIndex;
-                for (let i = 0; i < takenDrugs.length; i++){
-                    drugIndex = getToxicIndex(takenDrugs[i]);
-                    dateIndex = getDateIndex(drugExposureDates[i]);
-                    drawBlueDia(dateIndex, drugIndex);
+                for (let i = 0; i < takenDrugs.length; i++) {
+                    if (!drugs.includes(takenDrugs[i])) {
+                        console.log(takenDrugs[i]);
+                        drugIndex = getToxicIndex(takenDrugs[i]);
+                        dateIndex = getDateIndex(drugExposureDates[i]);
+                        drawBlueDia(dateIndex, drugIndex);
+                    }
                 }
             }
 
@@ -254,7 +251,7 @@
                         drawOrangeDia(dateIndex, drugIndex);
                     }
                 }
-            }
+            }    // 함 ㅜ너가 이상하다 getdrugindexinTakenDrugs를 왜 안썼지 뭐지
 
 
             function drawDateRedShape(datesIndex) {
@@ -268,13 +265,14 @@
                 };
             }
 
-            function drawDate(){
-                let dateIndex;
-                for (let i = 0; i < measurements.length; i++) {
-                    dateIndex = getDateIndex(measurements[i]);
-                    drawDateRedShape(dateIndex);
-                }
-            }
+            // function drawDateGrade(){
+            //     let dateIndex, grade;
+            //     for (let i = 0; i < measurements.length; i++) {
+            //         dateIndex = getDateIndex(measurements[i]);
+            //         drawDateRedShape(dateIndex);
+            //         // drawGrade(dateIndex, grade);
+            //     }
+            // }
             
             drawLine(startX, y, endX, y);
             writeLeftAlignedText('Patient number: 58', margin + 10, 20);
@@ -286,7 +284,7 @@
             writeDate();
             drawToxic();
             drawICI();
-            drawDate();
+            // drawDateGrade();
             // drawGrade(5, 3)
 
             
