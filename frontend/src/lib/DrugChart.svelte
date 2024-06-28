@@ -207,6 +207,8 @@
             image.src = Grade2;
           } else if (grade === 3) {
             image.src = Grade3;
+          } else {
+            image.src = Grade3;
           }
         }
   
