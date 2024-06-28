@@ -1,22 +1,10 @@
-
 <script>
   import { Card, CardBody, CardFooter, El, Button, CardActions, FileUpload, Icon } from "yesvelte";
   import { goto } from '$app/navigation';
   import Papa from 'papaparse';
   import {
     parsedData,
-    patientNos,
-    subs,
-    indexDates,
-    followEnds,
-    indexLastdates,
-    visitLastDays,
-    drugExposureStartDates,
-    drugConceptIds,
-    drugNames,
-    drugNameDoses,
-    measurementDates,
-    grades
+    groupedPatientData
   } from '$lib/stores';
 
   let files_1;
@@ -44,33 +32,18 @@
             const data = results.data;
             parsedData.set(data);
 
-            // Extract specific columns into separate lists
-            const patientNumbers = data.map(row => row.Patient_no);
-            const subsList = data.map(row => row.sub);
-            const indexDatesList = data.map(row => row.index_date);
-            const followEndsList = data.map(row => row.follow_end);
-            const indexLastdatesList = data.map(row => row.index_lastdate);
-            const visitLastDaysList = data.map(row => row.visit_last_Day);
-            const drugExposureStartDatesList = data.map(row => row.drug_exposure_start_date);
-            const drugConceptIdsList = data.map(row => row.drug_concept_id);
-            const drugNamesList = data.map(row => row.drug_name);
-            const drugNameDosesList = data.map(row => row.drug_name_dose);
-            const measurementDatesList = data.map(row => row.measurement_date);
-            const gradesList = data.map(row => row.grade);
+            // Group data by Patient_no
+            const groupedData = data.reduce((acc, row) => {
+              const patientNo = row.Patient_no;
+              if (!acc[patientNo]) {
+                acc[patientNo] = [];
+              }
+              acc[patientNo].push(row);
+              return acc;
+            }, {});
 
-            // Update the stores with these lists
-            patientNos.set(patientNumbers);
-            subs.set(subsList);
-            indexDates.set(indexDatesList);
-            followEnds.set(followEndsList);
-            indexLastdates.set(indexLastdatesList);
-            visitLastDays.set(visitLastDaysList);
-            drugExposureStartDates.set(drugExposureStartDatesList);
-            drugConceptIds.set(drugConceptIdsList);
-            drugNames.set(drugNamesList);
-            drugNameDoses.set(drugNameDosesList);
-            measurementDates.set(measurementDatesList);
-            grades.set(gradesList);
+            // Update the store with grouped data
+            groupedPatientData.set(groupedData);
 
             goto('/result');
           }
@@ -101,6 +74,4 @@
       </CardFooter>
     </Card>
   </El>
-  <!-- <Button color="primary" on:click={() => goto('/result')}>View</Button> -->
 </El>
-

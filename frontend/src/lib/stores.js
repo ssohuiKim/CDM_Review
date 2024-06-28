@@ -1,4 +1,3 @@
-
 import { writable } from 'svelte/store';
 
 export const parsedData = writable([]);
@@ -14,3 +13,4 @@ export const drugNames = writable([]);
 export const drugNameDoses = writable([]);
 export const measurementDates = writable([]);
 export const grades = writable([]);
+export const groupedPatientData = writable({});
