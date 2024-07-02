@@ -19,11 +19,14 @@
 	"dependencies": {
 		"@duckdb/duckdb-wasm": "^1.28.1-dev106.0",
 		"@types/papaparse": "^5.3.14",
+		"aws-sdk": "^2.1652.0",
 		"classnames": "^2.5.1",
 		"duckdb": "^1.0.0",
 		"express": "^4.19.2",
 		"file-saver": "^2.0.5",
 		"file-upload": "^0.0.0",
+		"mock-aws-s3": "^4.0.2",
+		"nock": "^13.5.4",
 		"papaparse": "^5.4.1",
 		"yesvelte": "^0.0.2-next.217"
 	}
