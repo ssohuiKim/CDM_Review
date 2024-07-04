@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "@sveltejs/kit": "^2.5.17"
+    "@sveltejs/kit": "^2.5.17",
+    "@types/mocha": "^10.0.7"
   }
 }
