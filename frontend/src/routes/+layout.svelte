@@ -20,12 +20,23 @@
 	.nav-button:hover {
 		background-color: #f0f0f0;
 	}
+	
+	.logo-button {
+		background: none;
+		border: none;
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+		font-size: 2rem;
+		text-align: center;
+	}
 </style>
 
 <El container style="height: 100%; width: 100%">
 	<El container bgColor="light" borderBottom style="position: sticky; top: 0; width: 100%;">
 		<El row alignItems="center" p='1' m="0">
-			<El col="auto" m="3" me="auto" tag="h1">LOGO</El>
+			<El col="auto" m="3" me="auto" tag="h1">
+				<button class = "logo-button" on:click={()=> location.href="/"}>LOGO</button>
+			</El>
 			<El col="auto" m="3">
 				<El row>
 					<El col='auto'>
