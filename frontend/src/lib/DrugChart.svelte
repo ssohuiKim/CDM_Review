@@ -328,7 +328,9 @@
     42921578: 'pembrolizumab'
   };
 
-  function formatDate(dateString, isFirstDate = false) {
+  function formatDate(dateString, isFirstDate = false) {  
+    dateString = dateString.split('T')[0]; // 시간 정보 제거
+    
     let [year, month, day] = dateString.split('-').map(part => part.padStart(2, '0'));
     if (isFirstDate) {
       year = year.slice(-2); // 첫 번째 날짜의 연도를 두 자리로 자름
@@ -345,6 +347,7 @@
       drugExposureDates = data.map(row => row.drug_exposure_start_date || row.measurement_date).filter(Boolean);
       uniqueDates = Array.from(new Set(drugExposureDates));
       formattedDates = uniqueDates.map((date, index) => formatDate(date, index === 0));
+      console.log(formattedDates);
 
       drugs = Array.from(new Set(data.map(row => row.drug_concept_id).filter(id => idToDrugMap[id]).map(id => idToDrugMap[id])));
 
