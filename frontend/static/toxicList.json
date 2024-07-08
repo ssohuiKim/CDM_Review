@@ -1,0 +1,4000 @@
+{
+"Sheet1":[
+ {
+  "Ingredient": "Abacavir ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Abatacept",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Abemaciclib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Abiraterone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Abrocitinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acalabrutinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acamprosate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acarbose",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acebutolol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acetaminophen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acetazolamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acetohexamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acetylcysteine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acitretin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aclidinium",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acrivastine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Acyclovir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Adalimumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Adefovir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aducanumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Afamelanotide",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Afatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aflibercept",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Agalsidase beta",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Airborne",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Albendazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Albiglutide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Albuterol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aldesleukin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alectinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alefacept",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alemtuzumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alendronate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alfentanil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alfuzosin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alglucerase",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alglucosidase alfa",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alirocumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aliskiren",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Allopurinol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Almotriptan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aloe Vera",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alogliptin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alosetron",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alpelisib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alpha linolenic acid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alpha tocopherol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alpha-1 proteinase ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Alprazolam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Altretamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amantadine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ambenonium",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Ambrisentan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amifampridine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amifostine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Amikacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amiloride",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aminocaproic Acid",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Aminoglutethimide",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Aminophylline",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Aminosalicylic acid",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Amiodarone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amisulpride",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Amitriptyline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amivantamab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Amlodipine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amobarbital",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amodiaquine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amoxapine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amoxicillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amphetamines",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amphotericin-B",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ampicillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Amprenavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Anagrelide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Anakinra",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Anastrozole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Androgenic steroids",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Androstenedione",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Anidulafungin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Anifrolumab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Antithymocyte globulin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Apalutamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Apixaban",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Apoaequorin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Apomorphine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Apremilast",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aprepitant",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aripiprazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Armodafinil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Arsenic",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Artecaine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Artemisinin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Artesunate",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Asciminib",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Ascorbic acid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Asenapine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ashwagandha",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Asparaginase",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Asparaginase erwinia",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aspirin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Astralgus",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Asunaprevir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Atazanavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Atenolol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Atezolizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Atogepant",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Atoltivimab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Atomoxetine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Atorvastatin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Atovaquone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Atropine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Attapulgite",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Auranofin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aurothiomalate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Avacopant",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Avalglucosidase alfa",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Avanafil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Avapritinib",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Avatrombopag",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Avelumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Avibactam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Axitinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Azacitidine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Azathioprine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Azilsartan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Azithromycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Aztreonam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ba Jiao Lian",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Baclofen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Baloxavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Balsalazide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bamlanivimab",
+  "In LiverTox": " 1"
+ },
+ {
+  "Ingredient": "Baricitinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Basiliximab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bazedoxifene",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bedaquiline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bee Pollen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Beeswax",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Belantamab-Mafodotin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Belimumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Belinostat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Belladonna ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Belumosudil Mesylate",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Belzutifan",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Bempedoic acid",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Benazepril",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bendamustine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bendroflumethiazide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Benralizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Benzarone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Benzbromarone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Benznidazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Benzphetamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Benztropine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Berberine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Berotralstat",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Beta Carotene",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Betaine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Betamethasone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Betaxolol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bethanechol",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Betrixaban",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Betrixaban",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bevacizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bexarotene",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bezlotoxumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bicalutamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bictegravir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bilberry",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Binimetinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Biotin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Biperiden",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bisacodyl",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bismuth ",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Bisoprolol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bitolterol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bitter melon",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Bivalirudin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Black cohosh",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bleomycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Blinatumomab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Boceprevir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bortezomib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bosentan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bosutinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Boswellia serrata",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bremelanotide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brentuximab Vedotin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brexanolone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brexpiprazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brigatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brincidofovir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brivaracetam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brodalumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brolucizumab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Bromocriptine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Brompheniramine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Buchu",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Budesonide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bumetanide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bupivacaine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Buprenorphine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Bupropion",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Burosumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Buspirone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Busulfan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Butabarbital",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Butalbital",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Butorphanol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Butterbur",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cabazitaxel",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cabergoline",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Cabotegravir",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Cabozantinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cadmium",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Caffeine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Calaspargase Pegol",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Calcitonin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Calcitriol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Canagliflozin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Canakinumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Candesartan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cangrelor",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cannabidiol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Capecitabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Caplacizumab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Capmatnib",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Capreomycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Captopril",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Caramiphen",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Carbamazepine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carbenicillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carbidopa",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carbinoxamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carboplatin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carfilzomib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carglumic acid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cariprazine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carisoprodol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carmustine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Carvedilol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Casanthranol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cascara ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Casimersen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Casirivimab",
+  "In LiverTox": " 1"
+ },
+ {
+  "Ingredient": "Caspofungin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Castor Oil",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Cat's Claw",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cedazuridine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Cefaclor",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefadroxil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefazolin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefdinir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefditoren",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefepime",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefiderocol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefixime",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefoperazone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefotaxime",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefoxitin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefpodoxime",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefprozil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ceftaroline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ceftazidime",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ceftibuten",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ceftizoxime",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ceftolozane",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ceftriaxone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cefuroxime",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Celandine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Celecoxib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cemiplimab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cenobamate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cephalexin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cephradine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ceritinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Certolizumab ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cetirizine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cetuximab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cevimeline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chamomile",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chaparral",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chaste tree",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chenodiol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chi R Yun",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chloral hydrate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlorambucil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chloramphenicol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlorcyclizine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlordiazepoxide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chloroquine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlorothiazide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlorpheniramine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlorpromazine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlorpropamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlortetracycline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlorthalidone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chlorzoxazone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cholestyramine ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cholic acid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Choline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chondroitin Sulfate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chorionic gonadotrophin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Chromium",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cidofovir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cilastatin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cilostazol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cimetidine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ciprofloxacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cisapride",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cisplatin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Citalopram",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cladribine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clarithromycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clavulanate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clemastine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clindamycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clobazam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clofarabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clofazimine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clofibrate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clomiphene",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clomipramine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clonazepam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clonidine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clopidogrel",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clorazepate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clotrimazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cloxacillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Clozapine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cobicistat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cobimetnib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cocaine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Codeine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Coenzyme Q10",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Colchicine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Colesevelam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Colestipol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Comfrey",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Copanlisib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Copper ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cortisone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "COVID-19 Drugs",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "COVID-19 Monoclonals",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "COVID-19 Vaccines",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cranberry ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Crizanlizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Crizotinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Crofelemer",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cromolyn",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Cyanocobalamin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cyclizine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cyclobenzaprine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cyclophosphamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cycloserine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cyclosporine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cyproheptadine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cyproterone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cysteamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Cytarabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dabigatran ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dabrafenib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dacarbazine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Daclatasvir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Daclizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dacomitinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dactinomycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dalbavancin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dalfampridine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dalfopristin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dalteparin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Danazol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dantrolene",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dapagliflozin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dapsone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Daptomycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Daratumumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Darbepoetin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Darifenacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Darolutamide",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Darunavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dasabuvir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dasatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Daunorubicin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Decitabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Deferasirox",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Deferiprone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Deferoxamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Defibrotide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Degarelix",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dehydroepiandrosterone",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Delafloxacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Delavirdine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Demeclocycline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Denileukin diftitox",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Denosumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Deserpidine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Desflurane",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Desipramine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Desirudin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Desloratadine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Desogestrel",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Desvenlafaxine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Deutetrabenazine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Devil's claw ",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Dexamethasone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dexbrompheniramine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dexchlorpheniramine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dexlansoprazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dexmethylphenidate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dextroamphetamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dextrothyroxine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Diazepam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dichloralphenazone",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Diclofenac",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dicloxacillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dicyclomine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Didanosine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dienestrol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dienogestrol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Diethylpropion",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Difelikefalin acetate",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Difenoxin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Diflunisal",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Digitoxin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Digoxin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dihydrocodeine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dihydroergotamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Diltiazem",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dimenhydrinate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dimercaprol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dimethyl Fumarate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dinutuximab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Diphenhydramine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Diphenoxylate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dipyridamole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Diroximel Fumarate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Disopyramide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Disulfiram",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Docetaxel",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Docosahexaenoate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Docusate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dofetilide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dolasetron",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dolutegravir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Domperidone",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Donepezil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Doravirine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Doripenem",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dostarlimab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Doxazosin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Doxepin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Doxorubicin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Doxycycline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Doxylamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dronabinol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dronedarone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Droperidol",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Drospirenone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Drotrecogin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Droxidopa",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dulaglutide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Duloxetine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dupilumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Durvalumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dutasteride",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Duvelisib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dydrogesterone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Dyphylline",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Echinacea ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eculizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Edaravone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Edoxaban",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Efalizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Efavirenz",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Efgartigimod-alfa",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Eicosapentaenoate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Elagolix",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Elbasvir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eletriptan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Elexacaftor",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eliglustat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Elosulfase alfa",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Elotuzimab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eltrombopag",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eluxadoline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Elvitegravir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Emapalumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Emicizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Empagliflozin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Emtricitabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Enalapril",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Enalaprilat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Enasidenib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Encorafenib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Energy Drinks",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Enflurane",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Enfortumab Vedotin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Enfuvirtide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Enoxaparin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Entacapone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Entecavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Entrectinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Enzalutamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ephedra",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Epirubicin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eplerenone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Epoetin Alfa",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Epoprosterol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eprosartan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eptinezumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eravacycline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Erdafinitib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Erenumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ergot alkaloids",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ergotamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eribulin ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Erlotinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ertapenem",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ertugliflozin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Erythromycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Escitalopram",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Esketamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eslicarbazepine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Esmolol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Esomeprazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Estazolam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Estradiol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Estramustine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Estriol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Estrogens",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Estrogens (BCPs)",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Estrone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Estropipate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eszopiclone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Etanercept",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eteplirsen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Etesevimab",
+  "In LiverTox": " 1"
+ },
+ {
+  "Ingredient": "Ethacrynic Acid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ethambutol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ethinyl Estradiol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ethionamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ethosuximide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ethynodiol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Etidronate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Etodolac",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Etonogestrel",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Etoposide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Etravirine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Etretinate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Eugenol (Clove Oil)",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Evening primrose oil",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Everolimus",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Evinacumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Evolocumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Exemestane",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Exenatide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ezetimibe",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ezogabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Famciclovir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Famotidine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Febuxostat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fedratinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Felbamate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Felodipine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fenofibrate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fenoprofen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fentanyl",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fenugreek",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ferrous Sulfate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fesoterodine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fexinidazole",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Fexofenadine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fidaxomicin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Filgrastim",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Finasteride",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Finerenone",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Fingolimod",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fish oil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fish oil triglycerides",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Flavocoxid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Flavoxate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Flecainide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Flibanserin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Floxuridine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fluconazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Flucoxacillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Flucytosine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fludarabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fludrocortisone",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Fluoride",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fluorouracil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fluoxetine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fluoxymesterone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fluphenazine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Flurazepam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Flurbiprofen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Flutamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fluvastatin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fluvoxamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Folic acid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Follicle Stimulating Hormone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fomivirsen",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Fondaparinux",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Formoterol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fosamprenavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fosaprepitant ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Foscarnet",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fosfomycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fosinopril",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fosnetupitant",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Fosphenytoin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fospropofol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fostamatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fostemsavir",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Fremanezumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Frovatriptan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Fulvestrant",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Furosemide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Futibatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gabapentin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gabapentin Enacarbil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Galantamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Galcanezumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Galsulfase",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ganciclovir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Garcinia",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gefitinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gemcitabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gemfibrozil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gemifloxacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gemtuzumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gentamicin ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Germander",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Giapreza",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Gilteritinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gingko",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ginseng ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Givosiran",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glasdegib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glatiramer",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glecaprevir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Gliclazide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glimepiride",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glipizide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glucagon",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Glucocerebrosidase",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glucosamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glyburide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Glycopyrrolate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Golimumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Golodirsen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Goserelin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Granisetron",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Grape seed",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Grazoprevir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Green tea",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Griseofulvin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Guanabenz",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Guanfacine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Guarana",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Guselkumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Haloperidol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Halothane",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hawthorn",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Heparin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Herbalife",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Heroin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Histrelin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Homatropine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hoodia",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hops",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Horny Goat Weed",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Horse chestnut ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Horsetail",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydralazine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydrochlorothiazide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydrocodone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydrocortisone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydroflumethiazide",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Hydromorphone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydroxychloroquine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydroxycut",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydroxyprogesterone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydroxyurea",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hydroxyzine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hyoscyamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Hyssop",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ibalizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ibandronate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ibrexafungerp",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Ibrutinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ibuprofen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Idarubicin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Idelalisib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Idursulfase",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ifosfamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Iloperidone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Iloprost",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Imatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Imdevimab",
+  "In LiverTox": " 1"
+ },
+ {
+  "Ingredient": "Imiglucerase",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Imipenem",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Imipramine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Inclisiran",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Indapamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Indinavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Indomethacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Inebilizumab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Infigratinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Infliximab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Inotuzumab Ozogamicin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Insulin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Interferon alfa",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Interferon beta",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Interferon gamma",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Iodine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ipilimumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ipratropium",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Iproniazid",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Irbesartan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Irinotecan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Iron",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Isatuximab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Isavuconazonium",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Isocarboxazid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Isoflurane",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Isometheptene",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Isoniazid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Isosorbide dinitrate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Isosorbide mononitrate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Isotretinoin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Isradipine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Istradefylline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Itraconazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ivabradine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ivacaftor",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ivermectin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ivosidenib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ixabepilone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ixazomib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ixekizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Jin Bu Huan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Kava",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Kelp",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Ketamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ketoconazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ketoprofen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ketorolac",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Khat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Kombucha Tea",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Kratom",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Labetalol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lacosamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lamivudine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lamotrigine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lanadelumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lanreotide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lansoprazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lapatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Laronidase",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Larotrectinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lasmiditan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lavender",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lead",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ledipasvir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lefamulin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Leflunomide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lemborexant",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lenalidomide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lenvatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lepirudin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Lesinurad",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Letermovir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Letrozole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Leucovorin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Leuprolide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Levamisole",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Levetiracetam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Levocetirizine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Levodopa",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Levofloxacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Levomilnacipran",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Levonorgestrel",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Levorphanol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Levothyroxine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "L-Glutamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Licorice",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Lidocaine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Linaclotide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Linagliptin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lincomycin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Linezolid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Liothyronine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Liraglutide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lisdexamfetamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lisinopril",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lithium ",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lixisenatide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lofexidine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Lomitapide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lomustine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lonafarnib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lonapegsomatrophin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Loncastuximab-Tesirine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Loperamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lopinavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Loratadine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lorazepam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lorcaserin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lorlatinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Losartan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lovastatin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Loxapine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lubinectedin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lubiprostone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lumacaftor",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lumasiran",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lumateperone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lumefantrine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Lurasidone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lurbinectedin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Luspatercept",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Lusutrombopag",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Luteinizing Hormone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Maca",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Macimorelin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Macitentan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Magnesium",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Manganese",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Maprotiline",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Maralixibat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Maraviroc",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Margetuximab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Margosa Oil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Maribavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mebendazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mecamylamine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Mechlorethamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Meclizine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Meclofenamate",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Medroxyprogesterone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mefenamic acid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mefloquine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Megestrol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Melatonin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Meloxicam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Melphalan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Memantine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Menadione",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mepacrine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mepenzolate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Meperidine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mepivacaine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mepolizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Meprobamate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Meptazinol",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Mercaptopurine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mercury",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Meropenem",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mesalamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mesna",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Mestranol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Metaproterenol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Metaxalone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Metformin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methadone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methamphetamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methandienone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methazolamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methenamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methenolone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methicillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methimazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methocarbamol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methotrexate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methoxsalen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methscopolamine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methsuximide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methyclothiazide",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Methyldopa",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methylphenidate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methylprednisolone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methyltestosterone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Methysergide",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Metoclopramide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Metolazone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Metoprolol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Metronidazole",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mexiletine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mezlocillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Micafungin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Midazolam",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Midostaurin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mifepristone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Migalastat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Miglitol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Miglustat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Milk thistle",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Milnacipran",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Miltefosine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Minocycline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Minoxidil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mipomersen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mirabegron",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mirtazapine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Misoprostol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mistletoe, American",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mistletoe, European",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mitomycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mitotane",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mitoxantrone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mobocertinib",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Modafinil",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Moexipril",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mogamulizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Molindone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Molnupiravir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Molybdenum",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Monomethyl Fumarate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Montelukast",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Morphine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Move Free",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Moxetumomab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Moxidectin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Moxifloxacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Muromonab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Mycophenolate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nabilone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nabumetone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nadolol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nafarelin",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Nafcillin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nalbuphine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Naldemedine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nalmefene",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Naloxegol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Naloxone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Naltrexone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Naltrexone-Buproprion",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nandrolone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Naproxen",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Naratriptan",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Natalizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nateglinide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Naxitamab",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Nebivolol",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Necitumumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nefazodone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nelarabine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nelfinavir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Neomycin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Neostigmine",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Neratinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Netarsudil",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Nettle",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Netupitant",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Nevirapine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Niacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Niacinamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nicardipine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nickel",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nicotine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nifedipine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nifurtimox",
+  "In LiverTox": 0
+ },
+ {
+  "Ingredient": "Nilotinib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nilutamide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nimesulide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nimodipine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nintedanib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Niraparib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nirmatrelvir",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nisoldipine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nitazoxanide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nitisinone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nitrofurantoin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nitroglycerin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nitroprusside",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nivolumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nizatidine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Noni",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Norelgestromin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Norethisterone",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Norfloxacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Norgestimate",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Norgestrel",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nortriptyline",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Nystatin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Obeticholic acid",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Obiltoxaximab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ocrelizumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Octreotide",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Odevixibat",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ofatumumab",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Ofloxacin",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Olanzapine",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Olaparib",
+  "In LiverTox": 1
+ },
+ {
+  "Ingredient": "Olaratumab",
+  "In LiverTox": 1
+ }
+]
+}

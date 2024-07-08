@@ -347,7 +347,6 @@
       drugExposureDates = data.map(row => row.drug_exposure_start_date || row.measurement_date).filter(Boolean);
       uniqueDates = Array.from(new Set(drugExposureDates));
       formattedDates = uniqueDates.map((date, index) => formatDate(date, index === 0));
-      console.log(formattedDates);
 
       drugs = Array.from(new Set(data.map(row => row.drug_concept_id).filter(id => idToDrugMap[id]).map(id => idToDrugMap[id])));
 
@@ -357,6 +356,55 @@
       hepatoxicityGrades = data.map(row => row.grade).filter(Boolean);
     }
   }
+
+  //
+  // async function fetchToxicDrugs() {
+  //   const response = await fetch('/toxicList.json');
+  //   if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //   }
+  //   const jsonData = await response.json();
+  //   return jsonData.Sheet1
+  //       .filter(entry => entry['In LiverTox'] === 1)
+  //       .map(entry => entry['Ingredient'] && entry['Ingredient'].toLowerCase().trim());
+  // }
+
+  // async function initializeData() {
+  //   if (selectedPatient && patientData[selectedPatient]) {
+  //     const data = patientData[selectedPatient];
+
+  //     measurements = data.map(row => row.measurement_date || 0); // 결측치 0으로 채우기
+
+  //     drugExposureDates = data.map(row => row.drug_exposure_start_date || row.measurement_date).filter(Boolean);
+  //     uniqueDates = Array.from(new Set(drugExposureDates));
+  //     formattedDates = uniqueDates.map((date, index) => formatDate(date, index === 0));
+  //     console.log(formattedDates);
+
+  //     drugs = Array.from(new Set(data.map(row => row.drug_concept_id).filter(id => idToDrugMap[id]).map(id => idToDrugMap[id])));
+  //     console.log(drugs)
+
+  //     takenDrugs = data.map(row => row.drug_name).filter(Boolean);
+  //     takenDrugs = Array.from(new Set(takenDrugs)).filter(name => !drugs.includes(name));
+  //     console.log(takenDrugs)
+
+  //     const toxicDrugs = await fetchToxicDrugs();
+
+  //     const worker = new Worker('/worker.js');
+  //     worker.postMessage({ data: takenDrugs, toxicList: toxicDrugs, drugList: drugs });
+
+  //     worker.onmessage = function(e) {
+  //       const { toxic: toxicDrugs, safe: safeDrugs } = e.data;
+  //       toxic = Array.from(new Set(toxicDrugs));
+  //       safe = Array.from(new Set(safeDrugs));
+  //       console.log("toxic", toxic);
+  //       console.log("safe", safe);
+  //       draw();
+  //     };
+
+  //     hepatoxicityGrades = data.map(row => row.grade).filter(Boolean);
+  //   }
+  // }
+  //
 
   import BlackDia from '../img/BlackDia.png';
   import BlueDia from '../img/BlueDia.png';
