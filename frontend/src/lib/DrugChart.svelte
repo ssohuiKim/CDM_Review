@@ -75,6 +75,7 @@
       const { toxic: toxicDrugs, safe: safeDrugs } = e.data;
       toxic = Array.from(new Set(toxicDrugs));
       safe = Array.from(new Set(safeDrugs));
+      console.log(toxic, safe);
       draw();
     };
 
@@ -91,6 +92,7 @@
   import OrangeDia from '../img/OrangeDia.png';
 
   const getToxicIndex = (name) => toxic.indexOf(name) + 1;
+  const getSafeIndex = (name) => safe.indexOf(name) + 1;
   const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
   const getDateOriginalIndex = (date) => drugExposureDates.indexOf(date) + 1;
   const getDrugIndex = (drug) => drugs.indexOf(drug) + 1;
@@ -186,23 +188,25 @@
       }
       
       function drawToxic() {
-          // let drugIndex, dateIndex;
-          // for (let i = 0; i < toxic.length; i++) {
-          //     drugIndex = getToxicIndex(toxic[i]);
-          //     dateIndex = getDateOriginalIndex(drugExposureDates[i]);
-          //     drawBlueDia(dateIndex, drugIndex);
-          // }
+        let drugIndex, dateIndex;
+        for (let i = 0; i < takenDrugs.length; i++) {
+          if (toxic.includes(takenDrugs[i])) { // Check if takenDrug is toxic
+            drugIndex = getToxicIndex(takenDrugs[i]);
+            dateIndex = getDateIndex(drugExposureDates[i]);
+            drawBlueDia(dateIndex, drugIndex);
+          }
+        }
       }
 
       function drawSafe() {
-        // let drugIndex, dateIndex;
-        // for (let i = 0; i < takenDrugs.length; i++) {
-        //   if (drugs.includes(takenDrugs[i])) {
-        //     drugIndex = getDrugIndex(takenDrugs[i]);
-        //     dateIndex = getDateIndex(drugExposureDates[i]);
-        //     drawBlackDia(dateIndex, drugIndex);
-        //   }
-        // }
+        let drugIndex, dateIndex;
+        for (let i = 0; i < takenDrugs.length; i++) {
+          if (safe.includes(takenDrugs[i])) { // Check if takenDrug is safe
+            drugIndex = getSafeIndex(takenDrugs[i]);
+            dateIndex = getDateIndex(drugExposureDates[i]);
+            drawBlackDia(dateIndex, drugIndex);
+          }
+        }
       }
 
       function drawBlueDia(datesIndex, toxicIndex) {    
@@ -305,7 +309,6 @@
           let x = coord[0];
           let y = coord[1];
           drawGrade(x, parseInt(y));
-          console.log(x, y);
         });
       }
       
