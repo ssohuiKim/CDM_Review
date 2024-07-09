@@ -55,9 +55,6 @@
         const parsedResult = result.toArray().map(convertRowToObject);
         parsedData.set(parsedResult);
 
-        // parsedData의 데이터 형식 확인
-        console.log("Parsed Data:", parsedResult);
-
         // Patient_no 기준으로 데이터 그룹화
         const groupedData = parsedResult.reduce((acc, row) => {
           const patientNo = row.Patient_no;
@@ -70,9 +67,6 @@
 
         // 그룹화된 데이터 스토어에 업데이트
         groupedPatientData.set(groupedData);
-
-        // groupedPatientData의 데이터 형식 확인
-        console.log("Grouped Patient Data:", groupedData);
 
         // 결과 페이지로 이동
         goto('/result');
