@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import dateFormat from 'dateformat'; 
 
   export let selectedPatient;
   export let patientData;
@@ -28,13 +29,11 @@
   };
 
   function formatDate(dateString, isFirstDate = false) {
-    dateString = dateString.split('T')[0]; // 시간 정보 제거
-    
-    let [year, month, day] = dateString.split('-').map(part => part.padStart(2, '0'));
-    if (isFirstDate) {
-      year = year.slice(-2); // 첫 번째 날짜의 연도를 두 자리로 자름
-    }
-    return isFirstDate ? `${year}.${month}.${day}` : `${month}.${day}`;
+    let d = new Date(dateString);
+    if (isFirstDate)
+      return dateFormat(d, "yy.mm.dd");
+    else
+      return dateFormat(d, "mm.dd");
   }
 
   async function fetchMasterList() {
