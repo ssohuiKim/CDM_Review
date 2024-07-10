@@ -59,6 +59,15 @@
 
       takenDrugs = data.map(row => row.drug_name).filter(Boolean);
       takenDrugs = takenDrugs.map(drug => drug.toLowerCase());
+      takenDrugs = takenDrugs.map(drug => {
+        if (drug === 'l-ornithine-l-') {
+          return 'LOLA*';
+        } else if (drug === 'medium chain t') {
+          return 'MCTs*';
+        } else {
+          return drug;
+        }
+      });
       
       drugAll = Array.from(new Set(takenDrugs)).filter(name => !drugs.includes(name));
       const masterList = await fetchMasterList();
