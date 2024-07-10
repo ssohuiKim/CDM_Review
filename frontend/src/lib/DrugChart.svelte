@@ -36,13 +36,14 @@
       return dateFormat(d, "mm.dd");
   }
 
+  
   async function fetchMasterList() {
-    const response = await fetch('/masterList.json');
+    const response = await fetch('/toxicdrugs.json');
     const jsonData = await response.json();
-    return jsonData.Sheet1
-      .filter(entry => entry['In LiverTox'] === 1)
-      .map(entry => entry['Ingredient'] && entry['Ingredient'].toLowerCase().trim());
+    return jsonData
+      .map(entry => entry.trim().toLowerCase());
   }
+
 
   async function initializeData() {
     if (selectedPatient && patientData[selectedPatient]) {
