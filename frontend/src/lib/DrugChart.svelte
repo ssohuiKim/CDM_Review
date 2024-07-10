@@ -36,14 +36,12 @@
       return dateFormat(d, "mm.dd");
   }
 
-  
   async function fetchMasterList() {
     const response = await fetch('/toxicdrugs.json');
     const jsonData = await response.json();
     return jsonData
       .map(entry => entry.trim().toLowerCase());
   }
-
 
   async function initializeData() {
     if (selectedPatient && patientData[selectedPatient]) {
@@ -78,17 +76,17 @@
   }
 
   function processData(data, masterList) {
-    const worker = new Worker('/worker.js');
-    worker.postMessage({ data: drugAll, toxicList: masterList });
-    worker.onmessage = function(e) {
-      const { toxic: toxicDrugs, safe: safeDrugs } = e.data;
-      toxic = Array.from(new Set(toxicDrugs));
-      safe = Array.from(new Set(safeDrugs));
-      console.log(toxic, safe);
-      draw();
-    };
-
-    hepatoxicityGrades = data.map(row => row.grade).filter(Boolean);
+    return new Promise((resolve) => {
+      const worker = new Worker('/worker.js');
+      worker.postMessage({ data: drugAll, toxicList: masterList });
+      worker.onmessage = function(e) {
+        const { toxic: toxicDrugs, safe: safeDrugs } = e.data;
+        toxic = Array.from(new Set(toxicDrugs));
+        safe = Array.from(new Set(safeDrugs));
+        hepatoxicityGrades = data.map(row => row.grade).filter(Boolean);
+        resolve();
+      };
+    });
   }
 
   import BlackDia from '../img/BlackDia.png';
@@ -346,9 +344,9 @@
   $: {
     if (selectedPatient && patientData) {
       isDataInitialized = false;
-      initializeData().then(result => {
+      initializeData().then(async result => {
         if (result) {
-          processData(result.data, result.masterList);
+          await processData(result.data, result.masterList);
           isDataInitialized = true;
         }
       });
