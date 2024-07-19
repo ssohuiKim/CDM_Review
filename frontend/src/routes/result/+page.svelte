@@ -10,7 +10,9 @@
 	import { groupedPatientData } from '$lib/stores';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
-	import { saveAs } from 'file-saver';
+	import pkg from 'file-saver';
+	const { saveAs } = pkg;
+
   
 	let show = false;
 	let showLoading = false; // 로딩 모달 상태
