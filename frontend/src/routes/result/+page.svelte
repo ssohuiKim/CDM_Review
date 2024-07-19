@@ -112,13 +112,30 @@
 	  overflow: auto;
 	}
   
+	
 	.text-button {
-	  background: none;
+	  background: #216BC4;
 	  border: none;
-	  cursor: pointer;
 	  font-size: 14px;
-	  padding: 0 8px;
+	  padding: 8px 16px 8px 16px;
+	  color: white;
+	  width: 120px;
+	  height: 36px;
+	  font-weight: bold;
+	  border-radius: 6px;
+	  top: 50%;
 	}
+	.header {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  width: 100%;
+	}
+
+    .header-title {
+      display: flex;
+      align-items: center;
+    }
   
 	.loading-modal {
 	  display: flex;
@@ -141,23 +158,20 @@
 	}
 </style>
 
+
 <El container m="0" p="4" style="height: 100%;">
-	<El row alignItems="start" p="0" m="0">
-	  <El col='auto' tag="h1" p="0" m="0">Results</El>
-	  <El col='auto' alignSelf="center">
+	<div class="header">
+	  <div class="header-title">
+		<h1>Results</h1>
 		<button class="img-button" on:click={() => (show = !show)}>
 		  <img src="/tooltip.svg" alt="Tooltip Icon">
 		</button>
-	  </El>
-  
-	  <!-- 임시버튼 -->
-	  <El col='auto' alignSelf="center">
-		<button class="text-button" on:click={downloadAllCharts}>
-		  Download All Charts
-		</button>
-	  </El>
-	   <!-- 임시버튼 -->
-</El>
+	  </div>
+	  <button class="text-button" on:click={downloadAllCharts}>
+		Export Data
+	  </button>
+	</div>
+
 <El row style="margin-top: 24px; height: 100%">
 	<div class="card">
 	<div class="sidebar">
