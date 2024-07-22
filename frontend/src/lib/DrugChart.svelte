@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import dateFormat from 'dateformat'; 
+  import { initializeDuckDB } from '$lib/duckdb';
 
   export let selectedPatient;
   export let patientData;
@@ -36,12 +37,39 @@
       return dateFormat(d, "mm.dd");
   }
 
-  async function fetchMasterList() {
-    const response = await fetch('/toxicdrugs.json');
-    const jsonData = await response.json();
-    return jsonData
-      .map(entry => entry.trim().toLowerCase());
+  function escapeString(str) {
+    return str.replace(/'/g, "''").replace(/\r/g, '');
   }
+
+
+  async function loadCSVtoDuckDB(filePath) {
+    const response = await fetch(filePath);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const csvData = await response.text();
+
+    const db = await initializeDuckDB();
+    const connection = await db.connect();
+
+    // CSV 데이터를 DuckDB로 삽입
+    await connection.query(`CREATE TABLE masterList (name TEXT)`);
+    const rows = csvData.split('\n').map(row => row.split(','));
+
+    for (const row of rows) {
+      if (row.length === 1 && row[0]) {
+        const escapedValue = escapeString(row[0]);
+        await connection.query(`INSERT INTO masterList VALUES ('${escapedValue}')`);
+      }
+    }
+
+    const result = await connection.query(`SELECT * FROM masterList`);
+    const masterList = result.toArray().map(row => row.name);
+    return masterList;
+    
+  }
+
+
 
   async function initializeData() {
     if (selectedPatient && patientData[selectedPatient]) {
@@ -68,7 +96,7 @@
       });
       
       drugAll = Array.from(new Set(takenDrugs)).filter(name => !drugs.includes(name));
-      const masterList = await fetchMasterList();
+      const masterList = await loadCSVtoDuckDB('/masterList.csv');
 
       return { data, masterList };
     }
