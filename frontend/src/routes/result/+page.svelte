@@ -1,7 +1,7 @@
 <script>
 	import {
 	  El,
-	  Button, 
+	  Button,
 	  Modal, ModalBody, ModalFooter
 	} from 'yesvelte';
   
@@ -12,14 +12,13 @@
 	import JSZip from 'jszip';
 	import pkg from 'file-saver';
 	const { saveAs } = pkg;
-
   
 	let show = false;
 	let showLoading = false; // 로딩 모달 상태
 	let patients = [];
 	let selectedPatient = null;
 	let patientData = {};
-	
+  
 	onMount(() => {
 	  groupedPatientData.subscribe(data => {
 		patients = Object.keys(data);
@@ -60,8 +59,9 @@
 	  saveAs(content, 'charts.zip');
 	  showLoading = false; // 다운로드 완료 시 로딩 모달 숨기기
 	}
-</script>
-<style>
+  </script>
+  
+  <style>
 	.img-button {
 	  background: none;
 	  border: none;
@@ -114,7 +114,6 @@
 	  overflow: auto;
 	}
   
-	
 	.text-button {
 	  background: #216BC4;
 	  border: none;
@@ -133,11 +132,11 @@
 	  justify-content: space-between;
 	  width: 100%;
 	}
-
-    .header-title {
-      display: flex;
-      align-items: center;
-    }
+  
+	.header-title {
+	  display: flex;
+	  align-items: center;
+	}
   
 	.loading-modal {
 	  display: flex;
@@ -158,10 +157,9 @@
 	  border-radius: 5px;
 	  text-align: center;
 	}
-</style>
-
-
-<El container m="0" p="4" style="height: 100%;">
+  </style>
+  
+  <El container m="0" p="4" style="height: 100%;">
 	<div class="header">
 	  <div class="header-title">
 		<h1>Results</h1>
@@ -173,45 +171,45 @@
 		Export Data
 	  </button>
 	</div>
-
-<El row style="margin-top: 24px; height: 100%">
-	<div class="card">
-	<div class="sidebar">
-		{#each patients as patientNum}
-		<button on:click={() => selectPatient(patientNum)}>
+  
+	<El row style="margin-top: 24px; height: 100%">
+	  <div class="card">
+		<div class="sidebar">
+		  {#each patients as patientNum}
+		  <button on:click={() => selectPatient(patientNum)}>
 			Patient {patientNum}
-		</button>
-		{/each}
-	</div>
-	<div class="scroll-container">
-		{#if selectedPatient !== null}
-		<DrugChart {selectedPatient} {patientData} />
-		{:else}
-		<p>Please select a patient to view their data.</p>
-		{/if}
-	</div>
-	</div>
-</El>
-
-{#if showLoading}
+		  </button>
+		  {/each}
+		</div>
+		<div class="scroll-container">
+		  {#if selectedPatient !== null}
+		  <DrugChart {selectedPatient} {patientData} />
+		  {:else}
+		  <p>Please select a patient to view their data.</p>
+		  {/if}
+		</div>
+	  </div>
+	</El>
+  
+	{#if showLoading}
 	<div class="loading-modal">
-	<div class="loading-content">
+	  <div class="loading-content">
 		<p>Downloading charts, please wait...</p>
+	  </div>
 	</div>
-	</div>
-{/if}
-</El>
-
-<Modal title="Hepatotoxic Drug" bind:show>
-<ModalBody>
-	Currently, hepatotoxic drugs are classified according to the National Library of Medicine (NIH)'s Master List of LiverTox Drugs (October 2023).
-	<br><br>
-	LiverTox: Clinical and Research Information on Drug-Induced Liver Injury [Internet]. Bethesda (MD): National Institute of Diabetes and Digestive and Kidney Diseases; 2012-. Master List of LiverTox Drugs. [Updated 2023 Feb 10]. 
-	<br><br>
-	Available from: <a target="_blank" href="https://www.ncbi.nlm.nih.gov/books/NBK571102/">here</a>
-</ModalBody>
-<ModalFooter>
-	<Button color="primary" on:click={() => (show = false)}>Checked</Button>
-</ModalFooter>
-</Modal>
+	{/if}
+  </El>
+  
+  <Modal title="Hepatotoxic Drug" bind:show>
+	<ModalBody>
+	  Currently, hepatotoxic drugs are classified according to the National Library of Medicine (NIH)'s Master List of LiverTox Drugs (October 2023).
+	  <br><br>
+	  LiverTox: Clinical and Research Information on Drug-Induced Liver Injury [Internet]. Bethesda (MD): National Institute of Diabetes and Digestive and Kidney Diseases; 2012-. Master List of LiverTox Drugs. [Updated 2023 Feb 10]. 
+	  <br><br>
+	  Available from: <a target="_blank" href="https://www.ncbi.nlm.nih.gov/books/NBK571102/">here</a>
+	</ModalBody>
+	<ModalFooter>
+	  <Button color="primary" on:click={() => (show = false)}>Checked</Button>
+	</ModalFooter>
+  </Modal>
   
