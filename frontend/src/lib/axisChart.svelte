@@ -138,13 +138,9 @@
     ctx.stroke();
 
     const margin = 33;
-    const moveDown = 15;
     const startX = margin;
-    const endX = canvas.width - margin;
-    const startY = margin + moveDown;
-    const endY = 1000 - margin + moveDown;
+    const startY = 0;
     const verticalX1 = startX + 160;
-    const verticalX2 = endX - 160;
     const linespacing = 17;
     
     let newLineY = startY + 32 + (drugs.length * linespacing);
@@ -196,7 +192,7 @@
   }
 </script>
 
-<canvas bind:this={canvas} width={type === 'row' ? 1600 : 200} height={type === 'row' ? 20 : 1000}></canvas>  <!-- height에 1000대신 위 함수의 safeEndY 값 넣기 -->
+<canvas bind:this={canvas} width={type === 'row' ? 1600 : 200} height={type === 'row' ? 20 : 1000}></canvas>  <!-- height에 1000대신 위 함수의 safeEndY 값 넣기 시작 위치 변경? -->
 
 
 <style>
