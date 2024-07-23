@@ -4,9 +4,9 @@
 	  Button,
 	  Modal, ModalBody, ModalFooter
 	} from 'yesvelte';
-  
 	import { onMount } from 'svelte';
 	import DrugChart from '../../lib/DrugChart.svelte';
+	import AxisChart from '../../lib/axisChart.svelte';
 	import { groupedPatientData } from '$lib/stores';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
@@ -59,6 +59,19 @@
 	  saveAs(content, 'charts.zip');
 	  showLoading = false; // 다운로드 완료 시 로딩 모달 숨기기
 	}
+  
+	function handleScroll(event) {
+	  const scrollContainer = event.target;
+	  const fixedRow = scrollContainer.querySelector('.fixed-row');
+	  const fixedCol = scrollContainer.querySelector('.fixed-col');
+  
+	  if (fixedRow) {
+		fixedRow.style.transform = `translateY(${scrollContainer.scrollTop}px)`;
+	  }
+	  if (fixedCol) {
+		fixedCol.style.transform = `translateX(${scrollContainer.scrollLeft}px)`;
+	  }
+	}
   </script>
   
   <style>
@@ -78,7 +91,7 @@
 	  border-radius: 4px;
 	  border-width: 1px;
 	  border-color: #DCE0E5;
-	  border-style: solid; 
+	  border-style: solid;
 	  padding: 16px;
 	  display: flex;
 	  flex-direction: row;
@@ -110,8 +123,27 @@
 	}
   
 	.scroll-container {
+	  position: relative;
 	  flex: 1;
 	  overflow: auto;
+	}
+  
+	.fixed-row {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  z-index: 1;
+	  pointer-events: none;
+	  background-color: white;
+	}
+  
+	.fixed-col {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  z-index: 1;
+	  pointer-events: none;
+	  background-color: white;
 	}
   
 	.text-button {
@@ -126,6 +158,7 @@
 	  border-radius: 6px;
 	  top: 50%;
 	}
+  
 	.header {
 	  display: flex;
 	  align-items: center;
@@ -181,11 +214,17 @@
 		  </button>
 		  {/each}
 		</div>
-		<div class="scroll-container">
+		<div class="scroll-container" on:scroll={handleScroll}>
 		  {#if selectedPatient !== null}
-		  <DrugChart {selectedPatient} {patientData} />
+			<div class="fixed-row">
+			  <AxisChart type="row" {selectedPatient} {patientData} />
+			</div>
+			<div class="fixed-col">
+			  <AxisChart type="col" {selectedPatient} {patientData} />
+			</div>
+			<DrugChart {selectedPatient} {patientData} />
 		  {:else}
-		  <p>Please select a patient to view their data.</p>
+			<p>Please select a patient to view their data.</p>
 		  {/if}
 		</div>
 	  </div>
@@ -204,7 +243,7 @@
 	<ModalBody>
 	  Currently, hepatotoxic drugs are classified according to the National Library of Medicine (NIH)'s Master List of LiverTox Drugs (October 2023).
 	  <br><br>
-	  LiverTox: Clinical and Research Information on Drug-Induced Liver Injury [Internet]. Bethesda (MD): National Institute of Diabetes and Digestive and Kidney Diseases; 2012-. Master List of LiverTox Drugs. [Updated 2023 Feb 10]. 
+	  LiverTox: Clinical and Research Information on Drug-Induced Liver Injury [Internet]. Bethesda (MD): National Institute of Diabetes and Digestive and Kidney Diseases; 2012-. Master List of LiverTox Drugs. [Updated 2023 Feb 10].
 	  <br><br>
 	  Available from: <a target="_blank" href="https://www.ncbi.nlm.nih.gov/books/NBK571102/">here</a>
 	</ModalBody>

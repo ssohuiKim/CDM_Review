@@ -164,7 +164,7 @@
       function writeDrugName() {
         let startToxicY = newLineY + linespacing;
         let safeWriteEndY = safeEndY + linespacing;
-        drawRectangle(margin, margin + moveDown, canvas.width - margin, safeWriteEndY + linespacing * 3);
+        drawRectangle(margin, margin + moveDown, canvas.width - margin, safeWriteEndY + linespacing * 3 + 15);
         drawLine(verticalX1, startY, verticalX1, safeWriteEndY);
         drawLine(verticalX2, startY, verticalX2, safeWriteEndY);
         drawLine(verticalX1, safeWriteEndY, verticalX2, safeWriteEndY);
@@ -180,7 +180,7 @@
           writeLeftAlignedText(safe[i], endX - 153, safeWriteStartY + (i * linespacing), 15);
         }
         if (safe.includes('LOLA*') || safe.includes('MCTs')) {
-          writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, safeWriteEndY + linespacing * 3 - 5, 12);
+          writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, safeWriteEndY + linespacing * 3 + 8, 12);
         }
       }
 
@@ -361,4 +361,4 @@
   }
 </script>
 
-<canvas bind:this={canvas} height="1500" style="border:1px solid #000000; width: 100%;"></canvas>
+<canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height: 100%;"></canvas>

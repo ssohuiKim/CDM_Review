@@ -359,12 +359,6 @@
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }
-
-  function adjustCanvasHeight() {
-    const newHeight = 
-    canvas.height = newHeight;
-    canvas.style.height = `${newHeight}px`;
-  }
 </script>
 
 <canvas bind:this={canvas} height="1500" style="border:1px solid #000000; width: 100%;"></canvas>
