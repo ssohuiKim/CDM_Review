@@ -130,7 +130,7 @@
   
 	.fixed-row {
 	  position: absolute;
-	  top: 0;
+	  bottom: 0;
 	  left: 0;
 	  z-index: 1;
 	  pointer-events: none;
@@ -143,7 +143,7 @@
 	  left: 0;
 	  z-index: 1;
 	  pointer-events: none;
-	  background-color: white;
+	  background-color: rgba(255, 255, 255, 0.5);
 	}
   
 	.text-button {
@@ -180,6 +180,7 @@
 	  left: 0;
 	  width: 100%;
 	  height: 100%;
+	  /* 투명도 50% */
 	  background: rgba(0, 0, 0, 0.5);
 	  z-index: 9999;
 	}
