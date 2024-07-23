@@ -134,16 +134,16 @@
 	  left: 0;
 	  z-index: 1;
 	  pointer-events: none;
-	  background-color: white;
+	  background-color: rgba(22, 3, 3, 0.3);
 	}
   
 	.fixed-col {
 	  position: absolute;
-	  top: 0;
+	  top: 48px;
 	  left: 0;
 	  z-index: 1;
 	  pointer-events: none;
-	  background-color: rgba(255, 255, 255, 0.5);
+	  background-color: rgba(22, 3, 3, 0.3);
 	}
   
 	.text-button {
