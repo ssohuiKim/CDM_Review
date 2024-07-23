@@ -8,7 +8,7 @@
   let takenDrugs = [];
   let drugExposureDates = [];
   let measurements = [];
-  let hepatoxicityGrades = [];
+  let hepatotoxicityGrade = [];
 
   let toxic = [];
   let safe = [];
@@ -30,10 +30,7 @@
 
   function formatDate(dateString, isFirstDate = false) {
     let d = new Date(dateString);
-    if (isFirstDate)
-      return dateFormat(d, "yy.mm.dd");
-    else
-      return dateFormat(d, "mm.dd");
+    return isFirstDate ? dateFormat(d, "yy.mm.dd") : dateFormat(d, "mm.dd");
   }
 
   async function fetchMasterList() {
@@ -83,7 +80,7 @@
         const { toxic: toxicDrugs, safe: safeDrugs } = e.data;
         toxic = Array.from(new Set(toxicDrugs));
         safe = Array.from(new Set(safeDrugs));
-        hepatoxicityGrades = data.map(row => row.grade).filter(Boolean);
+        hepatotoxicityGrade = data.map(row => row.grade).filter(Boolean);
         resolve();
       };
     });
@@ -306,7 +303,7 @@
           if (measurements[i] !== 0) {
             dateIndex = getDateIndex(measurements[i]);
             drawDateRedShape(dateIndex); 
-            coordinates.push([dateIndex, hepatoxicityGrades[i]]);
+            coordinates.push([dateIndex, hepatotoxicityGrade[i]]);
           }
         }
         coordinates = coordinates.filter((item, index) => {
@@ -322,8 +319,8 @@
       drawLine(startX, y, endX, y);
       writeLeftAlignedText('Patient number: ' + selectedPatient, margin + 10, 20);
       writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
-      writeRightAlignedText('hepatoxicity', startX + 153, startY + 17, 15, 'red'); 
-      writeLeftAlignedText('hepatoxicity', endX - 153, startY + 17, 15, 'red');
+      writeRightAlignedText('hepatotoxicity', startX + 153, startY + 17, 15, 'red'); 
+      writeLeftAlignedText('hepatotoxicity', endX - 153, startY + 17, 15, 'red');
       ICI();
       writeDrugName();
       writeDate();
