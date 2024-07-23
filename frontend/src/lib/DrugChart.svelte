@@ -1,3 +1,4 @@
+<!-- chart의 height 조절하기!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <script>
   import { onMount } from 'svelte';
   import dateFormat from 'dateformat'; 

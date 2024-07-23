@@ -119,7 +119,10 @@
       ctx.lineWidth = 2;
       let dates = formattedDates;
       ctx.strokeStyle = 'black';
-      let linespacing = 17;
+
+      const startX = 33;
+      const datespace = 45;
+      const verticalX1 = startX + 160;
 
       // 필요한 함수 정의
       function writeRightAlignedText(text, x, y, size = 15, color = 'black') {
@@ -129,12 +132,17 @@
         ctx.fillText(text, x, y);
       }
 
-      // 날짜 적기
-      formattedDates.forEach((date, index) => {
-        const x = (index + 1) * 45;
-        ctx.rotate(-Math.PI / 4.5);
-        ctx.fillText(date, x+150, canvas.height - 5);
-      });
+      function writeDate() {
+        for (let i = 0; i < dates.length; i++) {
+          ctx.save();
+          ctx.translate(startX + (i * datespace), canvas.height - 15);
+          ctx.rotate(-Math.PI / 9);
+          writeRightAlignedText(dates[i], 17, 0, 13);
+          ctx.restore();
+        }
+      }
+
+      writeDate();
     }
   }
 
@@ -150,8 +158,7 @@
       ctx.strokeStyle = '#000';
       ctx.stroke();
 
-      const margin = 33;
-      const startX = margin;
+      const startX = 33;
       const startY = 0;
       const verticalX1 = startX + 160;
       const linespacing = 17;
@@ -199,8 +206,8 @@
   }
     
   function adjustCanvasWidth() {
-    const datespace = 45; // Set date space to 45
-    const newWidth = formattedDates.length * datespace+15; // Minimum width plus calculated width
+    const datespace = 45;
+    const newWidth = formattedDates.length * datespace+20;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }

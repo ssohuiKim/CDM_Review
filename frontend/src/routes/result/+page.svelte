@@ -131,7 +131,7 @@
 	.fixed-row {
 	  position: absolute;
 	  bottom: 0;
-	  left: 193px;
+	  left: 190px;
 	  z-index: 1;
 	  pointer-events: none;
 	  background-color: rgba(22, 3, 3, 0.3);
