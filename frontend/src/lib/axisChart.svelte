@@ -83,17 +83,23 @@
   }
 
   let canvas;
-  let ctx;
 
-  onMount(async () => {
-    ctx = canvas.getContext('2d');
-    const result = await initializeData();
-    if (result) {
-      await processData(result.data, result.masterList);
-      isDataInitialized = true;
-      drawAxis();
+  $: if (isDataInitialized) {
+    adjustCanvasSize();
+    drawAxis();
+  }
+
+  $: {
+    if (selectedPatient && patientData) {
+      isDataInitialized = false;
+      initializeData().then(async result => {
+        if (result) {
+          await processData(result.data, result.masterList);
+          isDataInitialized = true;
+        }
+      });
     }
-  });
+  }
 
   function drawAxis() {
     if (isDataInitialized) {
@@ -106,93 +112,123 @@
   }
 
   function drawBottomAxis() {
+    if (canvas && canvas.getContext) {
+      var ctx = canvas.getContext("2d");
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.lineWidth = 2;
-    let dates = formattedDates;
-    ctx.strokeStyle = 'black';
-    let linespacing = 17;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = 2;
+      let dates = formattedDates;
+      ctx.strokeStyle = 'black';
+      let linespacing = 17;
 
-    // 필요한 함수 정의
-    function writeRightAlignedText(text, x, y, size = 15, color = 'black') {
-      ctx.font = `${size}px Arial`;
-      ctx.fillStyle = color;
-      ctx.textAlign = 'right';
-      ctx.fillText(text, x, y);
+      // 필요한 함수 정의
+      function writeRightAlignedText(text, x, y, size = 15, color = 'black') {
+        ctx.font = `${size}px Arial`;
+        ctx.fillStyle = color;
+        ctx.textAlign = 'right';
+        ctx.fillText(text, x, y);
+      }
+
+      // 날짜 적기
+      formattedDates.forEach((date, index) => {
+        const x = (index + 1) * 45;
+        ctx.rotate(-Math.PI / 4.5);
+        ctx.fillText(date, x+150, canvas.height - 5);
+      });
     }
-
-    // 날짜 적기
-    formattedDates.forEach((date, index) => {
-      const x = (index + 1) * 45;
-      ctx.rotate(-Math.PI / 4.5);
-      ctx.fillText(date, x+150, canvas.height - 5);
-    });
   }
 
+
   function drawLeftAxis() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.moveTo(1, 0);
-    ctx.lineTo(1, canvas.height);
-    ctx.strokeStyle = '#000';
-    ctx.stroke();
+    if (canvas && canvas.getContext) {
+      var ctx = canvas.getContext("2d");
 
-    const margin = 33;
-    const startX = margin;
-    const startY = 0;
-    const verticalX1 = startX + 160;
-    const linespacing = 17;
-    
-    let newLineY = startY + 32 + (drugs.length * linespacing);
-    let safeStartY = newLineY + (toxic.length * linespacing);
-    let safeEndY = newLineY + (toxic.length * linespacing) + (safe.length * linespacing);
-    function drawLine(startX, startY, endX, endY) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.beginPath();
-      ctx.moveTo(startX, startY);
-      ctx.lineTo(endX, endY);
+      ctx.moveTo(1, 0);
+      ctx.lineTo(1, canvas.height);
+      ctx.strokeStyle = '#000';
       ctx.stroke();
-    }
-    function writeRightAlignedText(text, x, y, size = 15, color = 'black') {
-      ctx.font = `${size}px Arial`;
-      ctx.fillStyle = color;
-      ctx.textAlign = 'right';
-      ctx.fillText(text, x, y);
-    }
-    function ICI() {
-      for (let i = 0; i < drugs.length; i++) {
-        writeRightAlignedText(drugs[i], startX + 153, startY + 42 + (i * linespacing), 15, 'blue');
-      }
-    }
-    function writeDrugName() {
-      let startToxicY = newLineY + linespacing;
-      let safeWriteEndY = safeEndY + linespacing;
-      drawLine(verticalX1, startY, verticalX1, safeWriteEndY);
+
+      const margin = 33;
+      const startX = margin;
+      const startY = 0;
+      const verticalX1 = startX + 160;
+      const linespacing = 17;
       
-      for (let i = 0; i < toxic.length; i++) {
-        writeRightAlignedText(toxic[i], startX + 153, startToxicY + (i * linespacing), 15, 'blue');
+      let newLineY = startY + 32 + (drugs.length * linespacing);
+      let safeStartY = newLineY + (toxic.length * linespacing);
+      let safeEndY = newLineY + (toxic.length * linespacing) + (safe.length * linespacing);
+      function drawLine(startX, startY, endX, endY) {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
       }
-      let safeWriteStartY = safeStartY + linespacing;
-      for (let i = 0; i < safe.length; i++) {
-        writeRightAlignedText(safe[i], startX + 153, safeWriteStartY + (i * linespacing), 15);
+      function writeRightAlignedText(text, x, y, size = 15, color = 'black') {
+        ctx.font = `${size}px Arial`;
+        ctx.fillStyle = color;
+        ctx.textAlign = 'right';
+        ctx.fillText(text, x, y);
       }
+      function ICI() {
+        for (let i = 0; i < drugs.length; i++) {
+          writeRightAlignedText(drugs[i], startX + 153, startY + 42 + (i * linespacing), 15, 'blue');
+        }
+      }
+      function writeDrugName() {
+        let startToxicY = newLineY + linespacing;
+        let safeWriteEndY = safeEndY + linespacing;
+        drawLine(verticalX1, startY, verticalX1, safeWriteEndY);
+        
+        for (let i = 0; i < toxic.length; i++) {
+          writeRightAlignedText(toxic[i], startX + 153, startToxicY + (i * linespacing), 15, 'blue');
+        }
+        let safeWriteStartY = safeStartY + linespacing;
+        for (let i = 0; i < safe.length; i++) {
+          writeRightAlignedText(safe[i], startX + 153, safeWriteStartY + (i * linespacing), 15);
+        }
+      }
+
+      // Draw labels
+      writeRightAlignedText('hepatotoxicity', startX + 153, startY + 17, 15, 'red'); 
+      ICI();
+      writeDrugName();
+
     }
-
-    // Draw labels
-    writeRightAlignedText('hepatotoxicity', startX + 153, startY + 17, 15, 'red'); 
-    ICI();
-    writeDrugName();
-
   }
     
   function adjustCanvasWidth() {
     const datespace = 45; // Set date space to 45
-    const newWidth = formattedDates.length * datespace + 400; // Minimum width plus calculated width
+    const newWidth = formattedDates.length * datespace+15; // Minimum width plus calculated width
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }
+
+  function adjustCanvasHeight(){
+    const linespacing = 17;
+    const margin = 33;
+    const newLineY = margin + 32 + (drugs.length * linespacing);
+    const safeEndY = newLineY + (toxic.length * linespacing) + (safe.length * linespacing);
+    const newHeight = safeEndY;
+    canvas.height = newHeight;
+    canvas.style.height = `${newHeight}px`;
+  }
+  function adjustCanvasSize() {
+    if (type === 'row') {
+      adjustCanvasWidth();
+      canvas.height = 35;
+      canvas.style.height = '35px';
+    } else {
+      canvas.width = 200;
+      canvas.style.width = '200px';
+      adjustCanvasHeight();
+    }
+  }
+
 </script>
 
-<canvas bind:this={canvas} width={type === 'row' ? 1600 : 200} height={type === 'row' ? 20 : 1000}></canvas>  <!-- height에 1000대신 위 함수의 safeEndY 값 넣기 시작 위치 변경? -->
+<canvas bind:this={canvas}></canvas>
 
 
 <style>
