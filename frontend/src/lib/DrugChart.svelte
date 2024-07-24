@@ -116,7 +116,7 @@
       const verticalX1 = startX + 160;
       const verticalX2 = endX - 160;
       const linespacing = 17;
-      const datespace = 45;
+      const datespace = 35;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas before drawing
 
@@ -186,7 +186,7 @@
         for (let i = 0; i < dates.length; i++) {
           ctx.save();
           ctx.translate(verticalX1 + datespace + (i * datespace), safeEndY + linespacing + 15);
-          ctx.rotate(-Math.PI / 9);
+          ctx.rotate(-Math.PI / 6);
           writeRightAlignedText(dates[i], 0, 0, 13);
           ctx.restore();
         }
@@ -353,7 +353,7 @@
   }
 
   function adjustCanvasWidth() {
-    const datespace = 45; // Set date space to 45
+    const datespace = 35;
     const newWidth = formattedDates.length * datespace + 400; // Minimum width plus calculated width
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
