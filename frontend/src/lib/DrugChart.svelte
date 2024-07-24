@@ -336,6 +336,7 @@
 
   $: if (isDataInitialized) {
     adjustCanvasWidth();
+    adjustCanvasHeight();
     draw();
   }
 
@@ -357,6 +358,16 @@
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }
+
+  function adjustCanvasHeight() {
+    let linespacing = 17;
+    let newLineY = 80 + (drugs.length * linespacing);
+    let safeEndY = newLineY + (toxic.length * linespacing) + (safe.length * linespacing);
+    const newHeight = safeEndY + linespacing * 4 + 30;
+    canvas.height = newHeight;
+    canvas.style.height = `${newHeight}px`;
+  }
+
 </script>
 
-<canvas bind:this={canvas} height="1500" style="border:1px solid #000000; width: 100%;"></canvas>
+<canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height:100%;"></canvas>
