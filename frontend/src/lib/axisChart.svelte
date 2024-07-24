@@ -121,7 +121,7 @@
       ctx.strokeStyle = 'black';
 
       const startX = 33;
-      const datespace = 45;
+      const datespace = 35;
       const verticalX1 = startX + 160;
 
       // 필요한 함수 정의
@@ -136,7 +136,7 @@
         for (let i = 0; i < dates.length; i++) {
           ctx.save();
           ctx.translate(startX + (i * datespace), canvas.height - 15);
-          ctx.rotate(-Math.PI / 9);
+          ctx.rotate(-Math.PI / 6);
           writeRightAlignedText(dates[i], 17, 0, 13);
           ctx.restore();
         }
@@ -206,7 +206,7 @@
   }
     
   function adjustCanvasWidth() {
-    const datespace = 45;
+    const datespace = 35;
     const newWidth = formattedDates.length * datespace+20;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
@@ -221,6 +221,7 @@
     canvas.height = newHeight;
     canvas.style.height = `${newHeight}px`;
   }
+
   function adjustCanvasSize() {
     if (type === 'row') {
       adjustCanvasWidth();
