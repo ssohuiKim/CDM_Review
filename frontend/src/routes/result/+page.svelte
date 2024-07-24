@@ -141,7 +141,7 @@
 	  position: absolute;
 	  top: 48px;
 	  left: 0;
-	  z-index: 1;
+	  z-index: 2;  /* column이 날짜 행보다 위에 덮여짐 */
 	  pointer-events: none;
 	  background-color: rgba(22, 3, 3, 0.3);
 	}
