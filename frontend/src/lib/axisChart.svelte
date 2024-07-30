@@ -158,7 +158,7 @@
       ctx.strokeStyle = '#000';
       ctx.stroke();
 
-      const startX = 33;
+      const startX = 0;
       const startY = 0;
       const verticalX1 = startX + 160;
       const linespacing = 17;
@@ -228,8 +228,8 @@
       canvas.height = 35;
       canvas.style.height = '35px';
     } else {
-      canvas.width = 200;
-      canvas.style.width = '200px';
+      canvas.width = 167;
+      canvas.style.width = '167';
       adjustCanvasHeight();
     }
   }

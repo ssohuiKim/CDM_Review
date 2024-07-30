@@ -134,16 +134,16 @@
 	  left: 183px;
 	  z-index: 1;
 	  pointer-events: none;
-	  background-color: rgba(22, 3, 3, 0.3);
+	  background-color: rgba(255, 255, 255, 0.7);
 	}
   
 	.fixed-col {
 	  position: absolute;
 	  top: 48px;
-	  left: 0;
+	  left: 33px;
 	  z-index: 2;  /* column이 날짜 행보다 위에 덮여짐 */
 	  pointer-events: none;
-	  background-color: rgba(22, 3, 3, 0.3);
+	  background-color: rgba(255, 255, 255, 0.7);
 	}
   
 	.text-button {

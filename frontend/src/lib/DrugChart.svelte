@@ -1,4 +1,3 @@
-<!-- chart의 height 조절하기!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <script>
   import { onMount } from 'svelte';
   import dateFormat from 'dateformat'; 
@@ -10,6 +9,7 @@
   let drugExposureDates = [];
   let measurements = [];
   let hepatotoxicityGrade = [];
+  export let diagnosis;
 
   let toxic = [];
   let safe = [];
@@ -44,6 +44,9 @@
   async function initializeData() {
     if (selectedPatient && patientData[selectedPatient]) {
       const data = patientData[selectedPatient];
+
+      diagnosis = data[0].diagnosis;
+      console.log(diagnosis);
 
       measurements = data.map(row => row.measurement_date || 0); // 결측치 0으로 채우기
 
@@ -152,32 +155,32 @@
         ctx.fillText(text, x, y);
       }
       function ICI() {
-        // drawLine(startX, newLineY, endX, newLineY);
-        drawLine(startX, newLineY, verticalX2, newLineY);
+        drawLine(startX, newLineY, endX, newLineY);
+        // drawLine(startX, newLineY, verticalX2, newLineY);
         for (let i = 0; i < drugs.length; i++) {
           writeRightAlignedText(drugs[i], startX + 153, startY + 42 + (i * linespacing), 15, 'blue');
-          // writeLeftAlignedText(drugs[i], endX - 153, startY + 42 + (i * linespacing), 15, 'blue');
+          writeLeftAlignedText(drugs[i], endX - 153, startY + 42 + (i * linespacing), 15, 'blue');
         }
       }       
 
       function writeDrugName() {
         let startToxicY = newLineY + linespacing;
         let safeWriteEndY = safeEndY + linespacing;
-        // drawRectangle(margin, margin + moveDown, canvas.width - margin, safeWriteEndY + linespacing * 3 + 15);
-        drawRectangle(margin, margin + moveDown, verticalX2, safeWriteEndY + linespacing * 3 + 15);
+        drawRectangle(margin, margin + moveDown, canvas.width - margin, safeWriteEndY + linespacing * 3 + 15);
+        // drawRectangle(margin, margin + moveDown, verticalX2, safeWriteEndY + linespacing * 3 + 15);
         drawLine(verticalX1, startY, verticalX1, safeWriteEndY);
         drawLine(verticalX2, startY, verticalX2, safeWriteEndY);
         drawLine(verticalX1, safeWriteEndY, verticalX2, safeWriteEndY);
         
         for (let i = 0; i < toxic.length; i++) {
           writeRightAlignedText(toxic[i], startX + 153, startToxicY + (i * linespacing), 15, 'blue');
-          // writeLeftAlignedText(toxic[i], endX - 153, startToxicY + (i * linespacing), 15, 'blue');
+          writeLeftAlignedText(toxic[i], endX - 153, startToxicY + (i * linespacing), 15, 'blue');
         }
 
         let safeWriteStartY = safeStartY + linespacing;
         for (let i = 0; i < safe.length; i++) {
           writeRightAlignedText(safe[i], startX + 153, safeWriteStartY + (i * linespacing), 15);
-          // writeLeftAlignedText(safe[i], endX - 153, safeWriteStartY + (i * linespacing), 15);
+          writeLeftAlignedText(safe[i], endX - 153, safeWriteStartY + (i * linespacing), 15);
         }
         if (safe.includes('LOLA*') || safe.includes('MCTs')) {
           writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, safeWriteEndY + linespacing * 3 + 8, 12);
@@ -319,13 +322,13 @@
         });
       }
       
-      // drawLine(startX, y, endX, y);
-      drawLine(startX, y, verticalX2, y);
+      drawLine(startX, y, endX, y);
+      // drawLine(startX, y, verticalX2, y);
       writeLeftAlignedText('Patient number: ' + selectedPatient, margin + 10, 20);
-      writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
+      writeLeftAlignedText('Type of cancer diagnosis: ' + diagnosis, margin + 10, 40);
       writeRightAlignedText('hepatotoxicity', startX + 153, startY + 17, 15, 'red'); 
-      // writeLeftAlignedText('hepatotoxicity', endX - 153, startY + 17, 15, 'red');
-      ICI();
+      writeLeftAlignedText('hepatotoxicity', endX - 153, startY + 17, 15, 'red');
+      ICI(); 
       writeDrugName();
       writeDate();
       drawToxic();
