@@ -35,7 +35,7 @@
   }
 
   async function fetchMasterList() {
-    const response = await fetch('/toxicdrugs.json');
+    const response = await fetch('/toxicDrugs.json');
     const jsonData = await response.json();
     return jsonData
       .map(entry => entry.trim().toLowerCase());

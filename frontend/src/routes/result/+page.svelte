@@ -40,7 +40,7 @@
 		chartContainer.style.left = '-9999px'; // 화면에서 보이지 않도록 함
 		document.body.appendChild(chartContainer);
   
-		const chart = new DrugChart({
+		const chart = new DrugChart({     // DrugChart만 다운로드 됨(축 X)
 		  target: chartContainer,
 		  props: { selectedPatient: patientNum, patientData }
 		});
