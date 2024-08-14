@@ -1,6 +1,7 @@
-<script>
+<!-- <script>
   import { onMount } from 'svelte';
   import dateFormat from 'dateformat';
+  import {initializeDuckDB } from './duckdb.js';
 
   export let type; // "row" or "col"
   export let selectedPatient;
@@ -37,6 +38,7 @@
     const jsonData = await response.json();
     return jsonData.map(entry => entry.trim().toLowerCase());
   }
+
 
   async function initializeData() {
     if (selectedPatient && patientData[selectedPatient]) {
@@ -243,4 +245,4 @@
   canvas {
     pointer-events: none;
   }
-</style>
+</style> -->
