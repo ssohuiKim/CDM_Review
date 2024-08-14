@@ -1,22 +1,24 @@
 <script>
   import { onMount } from 'svelte';
+  import {afterUpdate} from 'svelte';
   import dateFormat from 'dateformat'; 
 
   export let selectedPatient;
   export let patientData;
 
-  let takenDrugs = [];
-  let drugExposureDates = [];
-  let measurements = [];
-  let hepatotoxicityGrade = [];
+
+  let drug_exposure_date = [];
+  let drug_concept_id = [];
+  let drug_name = [];
+  let ICI = [];
+  let ICI_lasting = [];
+  let sum_quantity = [];
+  let measurement_date = [];
+  let grade = [];
+
 
   let toxic = [];
   let safe = [];
-  let uniqueDates = [];
-  let formattedDates = [];
-  let drugs = [];
-  let drugAll = [];
-  let isDataInitialized = false;
 
   const idToDrugMap = {
     42920398: 'atezolizumab',
@@ -27,6 +29,13 @@
     42922127: 'nivolumab',
     42921578: 'pembrolizumab'
   };
+
+  import nan from '../img/nan.png';
+  import grade1 from '../img/grade1.png';
+  import grade2 from '../img/grade2.png';
+  import grade3 from '../img/grade3.png';
+  import grade4 from '../img/grade4.png';
+
 
   function formatDate(dateString, isFirstDate = false) {
     let d = new Date(dateString);
@@ -44,17 +53,20 @@
     if (selectedPatient && patientData[selectedPatient]) {
       const data = patientData[selectedPatient];
 
-      measurements = data.map(row => row.measurement_date || 0); // 결측치 0으로 채우기
+      measurement_date = data.map(row => row.measurement_date || 0); // 결측치 0으로 채우기
 
-      drugExposureDates = data.map(row => row.drug_exposure_start_date || row.measurement_date).filter(Boolean);
-      uniqueDates = Array.from(new Set(drugExposureDates));
-      formattedDates = uniqueDates.map((date, index) => formatDate(date, index === 0));
+      drug_exposure_date = data.map(row => row.drug_exposure_start_date || row.measurement_date).filter(Boolean);
 
-      drugs = Array.from(new Set(data.map(row => row.drug_concept_id).filter(id => idToDrugMap[id]).map(id => idToDrugMap[id])));
+      ICI = Array.from(new Set(data.map(row => row.drug_concept_id).filter(id => idToDrugMap[id]).map(id => idToDrugMap[id])));
+      drug_concept_id = data.map(row => row.drug_concept_id).filter(Boolean);
+      ICI_lasting = data.map(row => row.ICI_lasting).filter(Boolean);
+      sum_quantity = data.map(row => row.sum_quantity).filter(Boolean);
+      grade = data.map(row => row.grade).filter(Boolean);
 
-      takenDrugs = data.map(row => row.drug_name).filter(Boolean);
-      takenDrugs = takenDrugs.map(drug => drug.toLowerCase());
-      takenDrugs = takenDrugs.map(drug => {
+
+      drug_name = data.map(row => row.drug_name).filter(Boolean);
+      drug_name = drug_name.map(drug => drug.toLowerCase());
+      drug_name = drug_name.map(drug => {
         if (drug === 'l-ornithine-l-') {
           return 'LOLA*';
         } else if (drug === 'medium chain t') {
@@ -63,54 +75,87 @@
           return drug;
         }
       });
-      
-      drugAll = Array.from(new Set(takenDrugs)).filter(name => !drugs.includes(name));
-      const masterList = await fetchMasterList();
-
-      return { data, masterList };
     }
     return null;
   }
 
-  function processData(data, masterList) {
-    return new Promise((resolve) => {
-      const worker = new Worker('/worker.js');
-      worker.postMessage({ data: drugAll, toxicList: masterList });
-      worker.onmessage = function(e) {
-        const { toxic: toxicDrugs, safe: safeDrugs } = e.data;
-        toxic = Array.from(new Set(toxicDrugs));
-        safe = Array.from(new Set(safeDrugs));
-        hepatotoxicityGrade = data.map(row => row.grade).filter(Boolean);
-        resolve();
-      };
-    });
-  }
 
   function draw() {
     if (canvas && canvas.getContext) {
       var ctx = canvas.getContext("2d");
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      function drawRectangle(startX, startY, endX, endY) {
+        ctx.beginPath();
+        ctx.rect(startX, startY, endX - startX, endY - startY);
+        ctx.stroke();
+      }
+      function drawLine(startX, startY, endX, endY) {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.lineWidth = 5;
+        ctx.stroke();
+      }
+      function writeLeftAlignedText(text, x, y, size = 15, color = 'black') {
+        ctx.font = `${size}px Arial`;
+        ctx.fillStyle = color;
+        ctx.textAlign = 'left';
+        ctx.fillText(text, x, y);
+      }
+      function writeRotatedText(text, x, y, size = 20, color = 'black') {
+        ctx.save();
+        ctx.font = `${size}px Arial`;
+        ctx.fillStyle = color;
+        ctx.translate(x, y);
+        ctx.rotate(-Math.PI/2); // 반시계 방향으로 90도 회전
+        ctx.textAlign = 'left';
+        ctx.fillText(text, x, y);
+        ctx.restore();
+      }
+      function drawImage(img, x, y) {
+        const image = new Image();
+          image.src = img;
+          image.onload = function() {
+            ctx.drawImage(image, x, y, 60, 30);
+        };
+      }
+
+
+      const marginY = 50;
+      const marginX = 20;
+      const endX = canvas.width - marginX;
+      const endY = canvas.height - marginY;
+      
+      
+
+
+
+      writeLeftAlignedText('Patient number: ' + selectedPatient, marginX, marginY);
+      drawRectangle(marginX, marginY + 20, endX, endY);
+      writeRotatedText('Other drug', marginX-100, marginX+160);
+
+      writeRotatedText('ICIs', marginX-140, marginX+200);
+  
 
     }
   }
 
   let canvas;
 
-  $: if (isDataInitialized) {
+  onMount(() => {
+    initializeData();
     draw();
-  }
+  });
 
-  $: {
-    if (selectedPatient && patientData) {
-      isDataInitialized = false;
-      initializeData().then(async result => {
-        if (result) {
-          await processData(result.data, result.masterList);
-          isDataInitialized = true;
-        }
-      });
-    }
-  }
+  afterUpdate(() => {
+    initializeData();
+    draw();
+  });
 
 </script>
 
-<canvas bind:this={canvas} width="2000" height="1600" style="border:1px solid #000000; width: 100%;"></canvas>
+<canvas bind:this={canvas} width="1600" height="750" style="border:1px solid #000000; width: 100%;"></canvas>
+
+
