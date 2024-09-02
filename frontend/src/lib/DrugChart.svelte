@@ -134,9 +134,9 @@
 
       writeLeftAlignedText('Patient number: ' + selectedPatient, marginX, marginY);
       drawRectangle(marginX, marginY + 20, endX, endY);
-      writeRotatedText('Other drug', marginX-100, marginX+160);
-
-      writeRotatedText('ICIs', marginX-140, marginX+200);
+      writeRotatedText('Other drug', marginX-90, marginY+160);
+      writeRotatedText('ICIs', marginX-180, marginY+250);  // 같은 수 만큼 x에서 빼고 y에서 더해줘야함
+      
   
 
     }
