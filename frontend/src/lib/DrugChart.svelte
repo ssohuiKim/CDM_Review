@@ -104,16 +104,24 @@
         ctx.textAlign = 'left';
         ctx.fillText(text, x, y);
       }
-      function writeRotatedText(text, x, y, size = 20, color = 'black') {
+      function drawGrayRectangle(startX, startY, width, height, color) {
+        ctx.beginPath();
+        ctx.rect(startX, startY, width, height);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      function writeRotatedText(text, x, y, angle = -Math.PI / 2, size = 20, color = 'black') {
         ctx.save();
         ctx.font = `${size}px Arial`;
         ctx.fillStyle = color;
         ctx.translate(x, y);
-        ctx.rotate(-Math.PI/2); // 반시계 방향으로 90도 회전
+        ctx.rotate(angle); // 반시계 방향으로 90도 회전
         ctx.textAlign = 'left';
-        ctx.fillText(text, x, y);
+        ctx.fillText(text, 0, 0); // 회전된 상태에서 텍스트를 그리기 때문에, 좌표는 0, 0
         ctx.restore();
       }
+
       function drawImage(img, x, y) {
         const image = new Image();
           image.src = img;
@@ -134,8 +142,10 @@
 
       writeLeftAlignedText('Patient number: ' + selectedPatient, marginX, marginY);
       drawRectangle(marginX, marginY + 20, endX, endY);
-      writeRotatedText('Other drug', marginX-90, marginY+160);
-      writeRotatedText('ICIs', marginX-180, marginY+250);  // 같은 수 만큼 x에서 빼고 y에서 더해줘야함
+      writeRotatedText('Other drug', marginX+100, marginY+250);
+      writeRotatedText('ICIs', marginX+100, marginY+400);
+
+      drawGrayRectangle(marginX+200, marginY+500, endX-280, 10,'gainsboro');
       
   
 
