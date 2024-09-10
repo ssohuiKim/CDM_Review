@@ -16,10 +16,8 @@
   let measurement_date = [];
   let grade = [];
 
-
   let toxic = [];
   let safe = [];
-
   const idToDrugMap = {
     42920398: 'atezolizumab',
     1594046: 'durvalumab',
@@ -29,6 +27,9 @@
     42922127: 'nivolumab',
     42921578: 'pembrolizumab'
   };
+  const listICIs = ['Atezolizumab', 'Durvalumab', 'Ipilimumab', 'Nivolumab', 'Pembrolizumab']
+
+  
 
   import nan from '../img/nan.png';
   import grade1 from '../img/grade1.png';
@@ -86,30 +87,44 @@
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      function drawRectangle(startX, startY, endX, endY) {
-        ctx.beginPath();
-        ctx.rect(startX, startY, endX - startX, endY - startY);
-        ctx.stroke();
-      }
       function drawLine(startX, startY, endX, endY) {
         ctx.beginPath();
         ctx.moveTo(startX, startY);
         ctx.lineTo(endX, endY);
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 1;
         ctx.stroke();
       }
-      function writeLeftAlignedText(text, x, y, size = 15, color = 'black') {
+
+      function writeLeftAlignedText(text, x, y, size, color = 'black') {
         ctx.font = `${size}px Arial`;
         ctx.fillStyle = color;
         ctx.textAlign = 'left';
         ctx.fillText(text, x, y);
       }
-      function drawGrayRectangle(startX, startY, width, height, color) {
+      function writeRightAlignedText(text, x, y, size, color = 'black') {
+        ctx.font = `${size}px Arial`;
+        ctx.fillStyle = color;
+        ctx.textAlign = 'right';
+        ctx.fillText(text, x, y);
+      }
+      function drawRoundRect(startX, startY, width, height, color, radius = 3) {
         ctx.beginPath();
-        ctx.rect(startX, startY, width, height);
+        ctx.moveTo(startX + radius, startY);
+        ctx.arcTo(startX + width, startY, startX + width, startY + height, radius);
+        ctx.arcTo(startX + width, startY + height, startX, startY + height, radius);
+        ctx.arcTo(startX, startY + height, startX, startY, radius);
+        ctx.arcTo(startX, startY, startX + width, startY, radius);
         ctx.fillStyle = color;
         ctx.fill();
       }
+
+      function drawGrayRectangle(startX, startY, width, height) {
+        ctx.beginPath();
+        ctx.rect(startX, startY, width, height);
+        ctx.fillStyle = 'silver';
+        ctx.fill();
+      }
+
 
       function writeRotatedText(text, x, y, angle = -Math.PI / 2, size = 20, color = 'black') {
         ctx.save();
@@ -130,22 +145,38 @@
         };
       }
 
+      function iciList(){
+        const linespace = 17;
+        listICIs.forEach((ici, index) => {
+          writeLeftAlignedText(ici, marginX+115, marginY+535 + (index * linespace), 12);
+        });
+        
+      }
+
 
       const marginY = 50;
       const marginX = 20;
       const endX = canvas.width - marginX;
-      const endY = canvas.height - marginY;
+      const endY = canvas.height - marginY;      
+
+
+      writeLeftAlignedText('patient number: ' + selectedPatient, marginX, 25, 13);
       
-      
+      drawRoundRect(marginX, 45, 23, 6, 'blue');
+      writeLeftAlignedText('Hepatotoxic Drugs(Ref: LiverTox)', marginX + 28, 50, 12, 'black');
+      drawRoundRect(marginX+220, 45, 23, 6, 'black');
+      writeLeftAlignedText('Non-hepatotoxic drug', marginX + 248, 50, 12, 'black');
+
+      writeRightAlignedText('Other Drug', marginX+90, 100, 15, 'black');
+      drawGrayRectangle(marginX+100, 85, 3, 460);
+      writeRightAlignedText('ICIs', marginX+90, marginY+540, 15, 'black');
+      drawGrayRectangle(marginX+100, marginY+520, 3, 90); 
+      writeRightAlignedText('Hepatotoxicity', marginX+90, marginY+650, 15, 'black');
+      drawGrayRectangle(marginX+100, marginY+635, 3, 35); 
 
 
 
-      writeLeftAlignedText('Patient number: ' + selectedPatient, marginX, marginY);
-      drawRectangle(marginX, marginY + 20, endX, endY);
-      writeRotatedText('Other drug', marginX+100, marginY+250);
-      writeRotatedText('ICIs', marginX+100, marginY+400);
-
-      drawGrayRectangle(marginX+200, marginY+500, endX-280, 10,'gainsboro');
+      iciList();
       
   
 
@@ -166,6 +197,6 @@
 
 </script>
 
-<canvas bind:this={canvas} width="1600" height="750" style="border:1px solid #000000; width: 100%;"></canvas>
+<canvas bind:this={canvas} width="1600" height="800" style="border:1px solid #000000; width: 100%;"></canvas>
 
 
