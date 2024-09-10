@@ -150,8 +150,39 @@
         listICIs.forEach((ici, index) => {
           writeLeftAlignedText(ici, marginX+115, marginY+535 + (index * linespace), 12);
         });
-        
       }
+
+      function gradeGuide() {
+          const images = [nan, grade1, grade2, grade3, grade4];
+          const grades = ['Nan', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4'];
+
+          const spacing = 110; // 이미지 간의 간격
+
+          images.forEach((src, index) => {
+              const image = new Image();
+              image.onload = function() {
+                  ctx.drawImage(image, marginX + (index*spacing), endY+15, 30, 16);
+                  writeLeftAlignedText(grades[index], marginX + (index*spacing) + 35, endY+27, 12);
+              };
+              image.src = src;
+          });
+      }
+
+      function Grid(boxWidth, boxHeight, columns, rows, startX, startY) {
+          const spacingX = 2;
+          const spacingY = 4;
+          ctx.fillStyle = 'lightgray'; 
+
+          for (let row = 0; row < rows; row++) {
+              for (let col = 0; col < columns; col++) {
+                  const x = startX + col * (boxWidth + spacingX);
+                  const y = startY + row * (boxHeight + spacingY);
+                  ctx.fillRect(x, y, boxWidth, boxHeight);
+              }
+          }
+      }
+
+
 
 
       const marginY = 50;
@@ -162,22 +193,29 @@
 
       writeLeftAlignedText('patient number: ' + selectedPatient, marginX, 25, 13);
       
-      drawRoundRect(marginX, 45, 23, 6, 'blue');
-      writeLeftAlignedText('Hepatotoxic Drugs(Ref: LiverTox)', marginX + 28, 50, 12, 'black');
-      drawRoundRect(marginX+220, 45, 23, 6, 'black');
-      writeLeftAlignedText('Non-hepatotoxic drug', marginX + 248, 50, 12, 'black');
+      drawRoundRect(marginX, 45, 25, 6, 'blue');
+      writeLeftAlignedText('Hepatotoxic Drugs(Ref: LiverTox)', marginX + 30, 50, 12, 'black');
+      drawRoundRect(marginX+220, 45, 25, 6, 'black');
+      writeLeftAlignedText('Non-hepatotoxic drug', marginX + 250, 50, 12, 'black');
 
       writeRightAlignedText('Other Drug', marginX+90, 100, 15, 'black');
       drawGrayRectangle(marginX+100, 85, 3, 460);
-      writeRightAlignedText('ICIs', marginX+90, marginY+540, 15, 'black');
+      writeRightAlignedText('ICIs', marginX+90, marginY+535, 15, 'black');
       drawGrayRectangle(marginX+100, marginY+520, 3, 90); 
+      iciList();
       writeRightAlignedText('Hepatotoxicity', marginX+90, marginY+650, 15, 'black');
       drawGrayRectangle(marginX+100, marginY+635, 3, 35); 
 
+      gradeGuide();
+
+      Grid(22, 13, 50, 5, marginX+205, marginY+525);
+      Grid(22*10 + 2*9, 20, 5, 20, marginX+205, 85);
 
 
-      iciList();
+ 
+
       
+  
   
 
     }
