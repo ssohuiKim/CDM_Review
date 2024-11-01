@@ -1,0 +1,4394 @@
+[
+  {
+    "ingredient": "allopurinol",
+    "cdm_id": "21112654"
+  },
+  {
+    "ingredient": "allopurinol",
+    "cdm_id": "42965904"
+  },
+  {
+    "ingredient": "allopurinol",
+    "cdm_id": "1167322"
+  },
+  {
+    "ingredient": "aminosalicylic acid",
+    "cdm_id": "2011748"
+  },
+  {
+    "ingredient": "aminosalicylic acid",
+    "cdm_id": "42964056"
+  },
+  {
+    "ingredient": "aminosalicylic acid",
+    "cdm_id": "2050968"
+  },
+  {
+    "ingredient": "aminosalicylic acid",
+    "cdm_id": "1726228"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "19133832"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "41349044"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "1309944"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "2028920"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "2065876"
+  },
+  {
+    "ingredient": "asparaginase",
+    "cdm_id": "43268981"
+  },
+  {
+    "ingredient": "asparaginase",
+    "cdm_id": "2046102"
+  },
+  {
+    "ingredient": "asparaginase",
+    "cdm_id": "2046103"
+  },
+  {
+    "ingredient": "asparaginase",
+    "cdm_id": "19012585"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "1545998"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "1545999"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "1545958"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972935"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19123593"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972721"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972751"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "43260317"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42973067"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972920"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19128163"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972638"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "43271238"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "43527029"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19128165"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "43527032"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972641"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19128151"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972632"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972747"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19068781"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972555"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972960"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "42966091"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "42966092"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "19014878"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "42966100"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "2045980"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "42966099"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "1734132"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "1734104"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "42949579"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "2050632"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "2050638"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "35603391"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "2050609"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "21029222"
+  },
+  {
+    "ingredient": "black cohosh extract",
+    "cdm_id": "41305003"
+  },
+  {
+    "ingredient": "black cohosh extract",
+    "cdm_id": "1391648"
+  },
+  {
+    "ingredient": "black cohosh extract",
+    "cdm_id": "43675375"
+  },
+  {
+    "ingredient": "busulfan",
+    "cdm_id": "42920661"
+  },
+  {
+    "ingredient": "busulfan",
+    "cdm_id": "1333357"
+  },
+  {
+    "ingredient": "busulfan",
+    "cdm_id": "2027400"
+  },
+  {
+    "ingredient": "busulfan",
+    "cdm_id": "2027399"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946833"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946835"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "40166956"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946842"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "740275"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "19074680"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946836"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946843"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42919362"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "2031875"
+  },
+  {
+    "ingredient": "chlorpromazine",
+    "cdm_id": "42947903"
+  },
+  {
+    "ingredient": "chlorpromazine",
+    "cdm_id": "794852"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "1759842"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951724"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951756"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951408"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951753"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951405"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2052449"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "19133019"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919826"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919823"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2011814"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919817"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2052243"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919832"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919917"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919828"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951320"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2052192"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42948460"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2011810"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2052123"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2051672"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2011778"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919802"
+  },
+  {
+    "ingredient": "danazol",
+    "cdm_id": "42964048"
+  },
+  {
+    "ingredient": "danazol",
+    "cdm_id": "1511449"
+  },
+  {
+    "ingredient": "dantrolene",
+    "cdm_id": "42942268"
+  },
+  {
+    "ingredient": "dantrolene",
+    "cdm_id": "711714"
+  },
+  {
+    "ingredient": "dapsone",
+    "cdm_id": "42948129"
+  },
+  {
+    "ingredient": "dapsone",
+    "cdm_id": "1711759"
+  },
+  {
+    "ingredient": "diclofenac",
+    "cdm_id": "42921946"
+  },
+  {
+    "ingredient": "diclofenac",
+    "cdm_id": "2029752"
+  },
+  {
+    "ingredient": "diclofenac",
+    "cdm_id": "1124300"
+  },
+  {
+    "ingredient": "diclofenac",
+    "cdm_id": "2029749"
+  },
+  {
+    "ingredient": "didanosine",
+    "cdm_id": "2050977"
+  },
+  {
+    "ingredient": "didanosine",
+    "cdm_id": "2050976"
+  },
+  {
+    "ingredient": "didanosine",
+    "cdm_id": "1724869"
+  },
+  {
+    "ingredient": "drospirenone",
+    "cdm_id": "1512674"
+  },
+  {
+    "ingredient": "drospirenone",
+    "cdm_id": "19124099"
+  },
+  {
+    "ingredient": "drospirenone",
+    "cdm_id": "43256701"
+  },
+  {
+    "ingredient": "drospirenone",
+    "cdm_id": "19071361"
+  },
+  {
+    "ingredient": "dydrogesterone",
+    "cdm_id": "21080074"
+  },
+  {
+    "ingredient": "dydrogesterone",
+    "cdm_id": "19040060"
+  },
+  {
+    "ingredient": "dydrogesterone",
+    "cdm_id": "2075051"
+  },
+  {
+    "ingredient": "dydrogesterone",
+    "cdm_id": "2044163"
+  },
+  {
+    "ingredient": "efavirenz",
+    "cdm_id": "43277370"
+  },
+  {
+    "ingredient": "efavirenz",
+    "cdm_id": "1738135"
+  },
+  {
+    "ingredient": "erythromycin",
+    "cdm_id": "2031636"
+  },
+  {
+    "ingredient": "erythromycin",
+    "cdm_id": "1746940"
+  },
+  {
+    "ingredient": "erythromycin",
+    "cdm_id": "2023793"
+  },
+  {
+    "ingredient": "erythromycin",
+    "cdm_id": "2031633"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "19026230"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "1548195"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "19027323"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075044"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "43256701"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "42943300"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "43294679"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075054"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075013"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075051"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "43153692"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "42943298"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2024013"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075029"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075027"
+  },
+  {
+    "ingredient": "estriol",
+    "cdm_id": "42971273"
+  },
+  {
+    "ingredient": "estriol",
+    "cdm_id": "19049038"
+  },
+  {
+    "ingredient": "estriol",
+    "cdm_id": "2043821"
+  },
+  {
+    "ingredient": "estriol",
+    "cdm_id": "2011166"
+  },
+  {
+    "ingredient": "estropipate",
+    "cdm_id": "2024015"
+  },
+  {
+    "ingredient": "estropipate",
+    "cdm_id": "1525278"
+  },
+  {
+    "ingredient": "estropipate",
+    "cdm_id": "42931182"
+  },
+  {
+    "ingredient": "ethinyl estradiol",
+    "cdm_id": "1549786"
+  },
+  {
+    "ingredient": "ethinyl estradiol",
+    "cdm_id": "19060529"
+  },
+  {
+    "ingredient": "ethinyl estradiol",
+    "cdm_id": "19124099"
+  },
+  {
+    "ingredient": "ethinyl estradiol",
+    "cdm_id": "19071361"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "42920309"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "2009512"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "42920649"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "42921149"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "2009564"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "955632"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "2009646"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "43707750"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "41220763"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "42921865"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "42920607"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "713192"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "2029604"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "2027392"
+  },
+  {
+    "ingredient": "hydralazine",
+    "cdm_id": "2032036"
+  },
+  {
+    "ingredient": "hydralazine",
+    "cdm_id": "42929489"
+  },
+  {
+    "ingredient": "hydralazine",
+    "cdm_id": "42922292"
+  },
+  {
+    "ingredient": "hydralazine",
+    "cdm_id": "1373928"
+  },
+  {
+    "ingredient": "17-alpha-hydroxyprogesterone",
+    "cdm_id": "36249938"
+  },
+  {
+    "ingredient": "17-alpha-hydroxyprogesterone",
+    "cdm_id": "19077143"
+  },
+  {
+    "ingredient": "17-alpha-hydroxyprogesterone",
+    "cdm_id": "2009873"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "19078461"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "1177480"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42948431"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923455"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42918274"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923550"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923464"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42918279"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "2032376"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923551"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923559"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "19024626"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42918282"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "2032386"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "43291470"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "41339644"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "2029716"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "937368"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "937369"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "2037160"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "21092406"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "2010486"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "2037159"
+  },
+  {
+    "ingredient": "interferon alfa-2a",
+    "cdm_id": "2010220"
+  },
+  {
+    "ingredient": "interferon alfa-2a",
+    "cdm_id": "42922845"
+  },
+  {
+    "ingredient": "interferon alfa-2a",
+    "cdm_id": "1379969"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "2009783"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "42922253"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "2009784"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "42922255"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "1380068"
+  },
+  {
+    "ingredient": "interferon beta-1b",
+    "cdm_id": "2010025"
+  },
+  {
+    "ingredient": "interferon beta-1b",
+    "cdm_id": "713196"
+  },
+  {
+    "ingredient": "interferon beta-1b",
+    "cdm_id": "42957485"
+  },
+  {
+    "ingredient": "interferon beta-1a",
+    "cdm_id": "722424"
+  },
+  {
+    "ingredient": "interferon beta-1a",
+    "cdm_id": "2010221"
+  },
+  {
+    "ingredient": "interferon beta-1a",
+    "cdm_id": "37593707"
+  },
+  {
+    "ingredient": "ipilimumab",
+    "cdm_id": "46275962"
+  },
+  {
+    "ingredient": "ipilimumab",
+    "cdm_id": "40238188"
+  },
+  {
+    "ingredient": "isoniazid",
+    "cdm_id": "42948574"
+  },
+  {
+    "ingredient": "isoniazid",
+    "cdm_id": "1782521"
+  },
+  {
+    "ingredient": "isoniazid",
+    "cdm_id": "42948571"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "42917588"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "985708"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "2024368"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "2033225"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "2074959"
+  },
+  {
+    "ingredient": "ledipasvir",
+    "cdm_id": "45775164"
+  },
+  {
+    "ingredient": "ledipasvir",
+    "cdm_id": "45775020"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42919102"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "1742253"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42921484"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965222"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2025427"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965254"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42921466"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2031677"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965510"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42919478"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965220"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965511"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2025834"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965215"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2031686"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965244"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965252"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965440"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42919971"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2026271"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965387"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "42918825"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "19068758"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "40710339"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "1736887"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "42918828"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "42953631"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "40224794"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "1500211"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "40224837"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "2075054"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "19026052"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "35789782"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "42920597"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "2032265"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "1300978"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "42920253"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "2032253"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "42918904"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "42921069"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "2027849"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "2032255"
+  },
+  {
+    "ingredient": "mercaptopurine",
+    "cdm_id": "42963844"
+  },
+  {
+    "ingredient": "mercaptopurine",
+    "cdm_id": "1436650"
+  },
+  {
+    "ingredient": "methimazole",
+    "cdm_id": "42929481"
+  },
+  {
+    "ingredient": "methimazole",
+    "cdm_id": "1504620"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42953686"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "1305058"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "35778988"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42922094"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42922090"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "21078790"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42922091"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "21167143"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2029649"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42920386"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "35783111"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "35782641"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42919943"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42920716"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2034277"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "35783906"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42920384"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2034348"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42920715"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42919942"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2027436"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2026865"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2026355"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2027437"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2026356"
+  },
+  {
+    "ingredient": "minocycline",
+    "cdm_id": "19035316"
+  },
+  {
+    "ingredient": "minocycline",
+    "cdm_id": "1708880"
+  },
+  {
+    "ingredient": "minocycline",
+    "cdm_id": "35134234"
+  },
+  {
+    "ingredient": "nitrofurantoin",
+    "cdm_id": "920334"
+  },
+  {
+    "ingredient": "nitrofurantoin",
+    "cdm_id": "920293"
+  },
+  {
+    "ingredient": "nivolumab",
+    "cdm_id": "42920744"
+  },
+  {
+    "ingredient": "nivolumab",
+    "cdm_id": "42922127"
+  },
+  {
+    "ingredient": "nivolumab",
+    "cdm_id": "45892628"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "1521369"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "42943300"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "2075013"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "42943298"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "2075029"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "2075027"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "923081"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2023319"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42921368"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42918055"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42918056"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2030646"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42921371"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2030647"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42921353"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42952918"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42921359"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2030621"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2030606"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920230"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920059"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2026852"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "1318011"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920581"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920235"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "40714290"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2027419"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920586"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "40715712"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2026488"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920236"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2026490"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920587"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2026851"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2027418"
+  },
+  {
+    "ingredient": "oxymetholone",
+    "cdm_id": "42948916"
+  },
+  {
+    "ingredient": "oxymetholone",
+    "cdm_id": "1525741"
+  },
+  {
+    "ingredient": "pembrolizumab",
+    "cdm_id": "42921578"
+  },
+  {
+    "ingredient": "pembrolizumab",
+    "cdm_id": "45775965"
+  },
+  {
+    "ingredient": "phenytoin",
+    "cdm_id": "42941522"
+  },
+  {
+    "ingredient": "phenytoin",
+    "cdm_id": "2028169"
+  },
+  {
+    "ingredient": "phenytoin",
+    "cdm_id": "740910"
+  },
+  {
+    "ingredient": "phenytoin",
+    "cdm_id": "42921163"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "36260024"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "1552382"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "1552310"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "19017494"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "21060698"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "43669940"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "2054741"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "2054743"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "2054742"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "19127049"
+  },
+  {
+    "ingredient": "propylthiouracil",
+    "cdm_id": "42967493"
+  },
+  {
+    "ingredient": "propylthiouracil",
+    "cdm_id": "1554072"
+  },
+  {
+    "ingredient": "pyrazinamide",
+    "cdm_id": "42970084"
+  },
+  {
+    "ingredient": "pyrazinamide",
+    "cdm_id": "1759455"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42924976"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42924986"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42924981"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42924980"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "1763204"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42948571"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "1314273"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "35784602"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "41450303"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "35782659"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "41399130"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "41370629"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "1356446"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "1356444"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "42920543"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "40165246"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "40165262"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "40165254"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "1510813"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969191"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969441"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969250"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969644"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969041"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969662"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "2063262"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969485"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969086"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969868"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969083"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969309"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969023"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42936847"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42708398"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42936852"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42708401"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "1539403"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42936788"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "21141482"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42936791"
+  },
+  {
+    "ingredient": "sofosbuvir",
+    "cdm_id": "44785097"
+  },
+  {
+    "ingredient": "sofosbuvir",
+    "cdm_id": "45775164"
+  },
+  {
+    "ingredient": "sofosbuvir",
+    "cdm_id": "44785094"
+  },
+  {
+    "ingredient": "stavudine",
+    "cdm_id": "2047894"
+  },
+  {
+    "ingredient": "stavudine",
+    "cdm_id": "1781406"
+  },
+  {
+    "ingredient": "sulfadiazine",
+    "cdm_id": "1836392"
+  },
+  {
+    "ingredient": "sulfadiazine",
+    "cdm_id": "43169035"
+  },
+  {
+    "ingredient": "sulfamethoxazole",
+    "cdm_id": "19024445"
+  },
+  {
+    "ingredient": "sulfamethoxazole",
+    "cdm_id": "42921524"
+  },
+  {
+    "ingredient": "sulfamethoxazole",
+    "cdm_id": "1836430"
+  },
+  {
+    "ingredient": "sulfamethoxazole",
+    "cdm_id": "42921523"
+  },
+  {
+    "ingredient": "sulfasalazine",
+    "cdm_id": "42937747"
+  },
+  {
+    "ingredient": "sulfasalazine",
+    "cdm_id": "42937748"
+  },
+  {
+    "ingredient": "sulfasalazine",
+    "cdm_id": "964339"
+  },
+  {
+    "ingredient": "ticlopidine",
+    "cdm_id": "42934160"
+  },
+  {
+    "ingredient": "ticlopidine",
+    "cdm_id": "1302398"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "2028581"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931742"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931727"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "2053914"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931710"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "745466"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "40238249"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42919003"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "2031838"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931728"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "2053919"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931721"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931743"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939787"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939994"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "1125315"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928300"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939841"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42940117"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42948431"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "1128524"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928316"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "40241587"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42918304"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2010087"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "740261"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939780"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928273"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "19123143"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928314"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42940074"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939754"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939997"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42957260"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2013365"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42940006"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928315"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939846"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2071493"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "1103360"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2013377"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42940102"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2071596"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42950014"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42950011"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42950032"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "1112807"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "43706824"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949821"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949831"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "2072047"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949962"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949826"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949950"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "2072049"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949949"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949935"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "920458"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "42917527"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "41501966"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "42917335"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023451"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023450"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023440"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023439"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023454"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "41502632"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023442"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031946"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "1518254"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42922451"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42948533"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42922453"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031941"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42918031"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "36279039"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2024018"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2024021"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031951"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "35780908"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42921298"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031920"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "36282879"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "40160931"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42918032"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42919617"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2024027"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "36282882"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "43040058"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031935"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42918049"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2055917"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2024029"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42920796"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031910"
+  },
+  {
+    "ingredient": "ferrous sulfate",
+    "cdm_id": "42931300"
+  },
+  {
+    "ingredient": "ferrous sulfate",
+    "cdm_id": "1396131"
+  },
+  {
+    "ingredient": "ferrous sulfate",
+    "cdm_id": "2032282"
+  },
+  {
+    "ingredient": "ferrous sulfate",
+    "cdm_id": "43133006"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "35781503"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2027285"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "1596977"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42922213"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42921646"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "43286093"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2027287"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2028811"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42920631"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42920628"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2028822"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2027272"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42920626"
+  },
+  {
+    "ingredient": "iron",
+    "cdm_id": "2028296"
+  },
+  {
+    "ingredient": "iron",
+    "cdm_id": "1360067"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "42934728"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "1506270"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2057265"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "42934742"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "42917368"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2057243"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "41482202"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2024075"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2022315"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2024067"
+  },
+  {
+    "ingredient": "niacin",
+    "cdm_id": "42948783"
+  },
+  {
+    "ingredient": "niacin",
+    "cdm_id": "2055990"
+  },
+  {
+    "ingredient": "niacin",
+    "cdm_id": "1517824"
+  },
+  {
+    "ingredient": "niacin",
+    "cdm_id": "2055978"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "753626"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42920468"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "2027088"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42919727"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42921121"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42920553"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42920277"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "2026288"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "2026767"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42920278"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "2026286"
+  },
+  {
+    "ingredient": "tetracycline",
+    "cdm_id": "42938162"
+  },
+  {
+    "ingredient": "tetracycline",
+    "cdm_id": "1836948"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42921531"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42971998"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "19008339"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42918971"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42921532"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "2033037"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "2032282"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "43133006"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42918816"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "2074300"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "21121903"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "21112205"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "1529331"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "2055381"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "2055382"
+  },
+  {
+    "ingredient": "acitretin",
+    "cdm_id": "21053263"
+  },
+  {
+    "ingredient": "acitretin",
+    "cdm_id": "929638"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "1119119"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "1592709"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "2033423"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "42922663"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "2033422"
+  },
+  {
+    "ingredient": "amitriptyline",
+    "cdm_id": "42931443"
+  },
+  {
+    "ingredient": "amitriptyline",
+    "cdm_id": "710062"
+  },
+  {
+    "ingredient": "amitriptyline",
+    "cdm_id": "42931453"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "1713332"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951724"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951756"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951408"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951753"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42952235"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42952233"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951405"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2052449"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42952220"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "19133019"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919826"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919823"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2011814"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919817"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2052243"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42952221"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2031797"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919832"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919917"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919828"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42918510"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951320"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2052192"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2011810"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2052123"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2011778"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2051672"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919802"
+  },
+  {
+    "ingredient": "atezolizumab",
+    "cdm_id": "42920398"
+  },
+  {
+    "ingredient": "atezolizumab",
+    "cdm_id": "42629079"
+  },
+  {
+    "ingredient": "atezolizumab",
+    "cdm_id": "1366763"
+  },
+  {
+    "ingredient": "benzbromarone",
+    "cdm_id": "42931083"
+  },
+  {
+    "ingredient": "benzbromarone",
+    "cdm_id": "42931082"
+  },
+  {
+    "ingredient": "benzbromarone",
+    "cdm_id": "19016754"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "42926243"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "43767721"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "19010538"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "1344381"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "44100020"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "42926247"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "42926238"
+  },
+  {
+    "ingredient": "captopril",
+    "cdm_id": "42957538"
+  },
+  {
+    "ingredient": "captopril",
+    "cdm_id": "42957540"
+  },
+  {
+    "ingredient": "captopril",
+    "cdm_id": "1340128"
+  },
+  {
+    "ingredient": "captopril",
+    "cdm_id": "42957542"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "42947161"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "2011578"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "1771162"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "2011580"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "42947169"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "42947162"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "2011581"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2025800"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048075"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "1777806"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "42941696"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048088"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "42941778"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048118"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048146"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "42941849"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048197"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048212"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "1118088"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "1118084"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "1118087"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "42927269"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "42927359"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "997276"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "42922401"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2033071"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "42944113"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "42921973"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2073467"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2009763"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2073466"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "41343922"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2033068"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42918949"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948271"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "1797513"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2025385"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948179"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2025381"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42920760"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2033076"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948272"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948270"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2025758"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42919374"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2025760"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948151"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42920879"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2031471"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2026235"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "1750500"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "21113674"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "21035073"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958036"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "2049636"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958026"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "35754434"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "2049419"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958218"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "21074536"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42919445"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42919429"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "2049420"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958016"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958180"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "42921552"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "2028688"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "997881"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "42943292"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "43521561"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "36809661"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "1322185"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42928924"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42928967"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "1322184"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42928991"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42928993"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42949821"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42949831"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42949826"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "19004691"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "2040365"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "19004670"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "2040369"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "800878"
+  },
+  {
+    "ingredient": "cyclophosphamide",
+    "cdm_id": "2065859"
+  },
+  {
+    "ingredient": "cyclophosphamide",
+    "cdm_id": "1310317"
+  },
+  {
+    "ingredient": "cyclophosphamide",
+    "cdm_id": "42944032"
+  },
+  {
+    "ingredient": "cyproterone",
+    "cdm_id": "19010792"
+  },
+  {
+    "ingredient": "cyproterone",
+    "cdm_id": "2075044"
+  },
+  {
+    "ingredient": "cyproterone",
+    "cdm_id": "21096430"
+  },
+  {
+    "ingredient": "dacarbazine",
+    "cdm_id": "2065615"
+  },
+  {
+    "ingredient": "dacarbazine",
+    "cdm_id": "42950349"
+  },
+  {
+    "ingredient": "dacarbazine",
+    "cdm_id": "1311409"
+  },
+  {
+    "ingredient": "dasabuvir",
+    "cdm_id": "21120034"
+  },
+  {
+    "ingredient": "dasabuvir",
+    "cdm_id": "45892558"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "1338512"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "35783409"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "35780897"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2026574"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2028363"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "42946862"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2012753"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2062391"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "42946877"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "41361791"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2026575"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "42946876"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2028364"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2012752"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2027393"
+  },
+  {
+    "ingredient": "doxycycline",
+    "cdm_id": "42963336"
+  },
+  {
+    "ingredient": "doxycycline",
+    "cdm_id": "1738521"
+  },
+  {
+    "ingredient": "doxycycline",
+    "cdm_id": "42963331"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "35775279"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "35775278"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "715259"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "42945956"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "42946004"
+  },
+  {
+    "ingredient": "durvalumab",
+    "cdm_id": "1594046"
+  },
+  {
+    "ingredient": "durvalumab",
+    "cdm_id": "1594038"
+  },
+  {
+    "ingredient": "durvalumab",
+    "cdm_id": "1594034"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "42941353"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "42941377"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "2062308"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "1341927"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "2062235"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "42941354"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "42941384"
+  },
+  {
+    "ingredient": "erlotinib",
+    "cdm_id": "40236069"
+  },
+  {
+    "ingredient": "erlotinib",
+    "cdm_id": "40236071"
+  },
+  {
+    "ingredient": "erlotinib",
+    "cdm_id": "1325363"
+  },
+  {
+    "ingredient": "erlotinib",
+    "cdm_id": "42949107"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "41127461"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "904453"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968161"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "40940024"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "21085042"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968049"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968244"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "2039611"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968069"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968036"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968162"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42967955"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968264"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968232"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "1151789"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2032455"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "42922271"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "42924452"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2070527"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2070528"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2033765"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2033766"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "44047688"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "2054909"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "1551803"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "41189798"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "21141482"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "42937076"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "42919736"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "43666014"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "1754994"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "2049308"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "41391110"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "21029441"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "2049365"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "42937069"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "2026263"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "42937083"
+  },
+  {
+    "ingredient": "fluvastatin",
+    "cdm_id": "21035494"
+  },
+  {
+    "ingredient": "fluvastatin",
+    "cdm_id": "1549686"
+  },
+  {
+    "ingredient": "gefitinib",
+    "cdm_id": "19102199"
+  },
+  {
+    "ingredient": "gefitinib",
+    "cdm_id": "1319193"
+  },
+  {
+    "ingredient": "gefitinib",
+    "cdm_id": "42932501"
+  },
+  {
+    "ingredient": "glyburide",
+    "cdm_id": "40166003"
+  },
+  {
+    "ingredient": "glyburide",
+    "cdm_id": "40165998"
+  },
+  {
+    "ingredient": "glyburide",
+    "cdm_id": "1559684"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "2031752"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42922320"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42922321"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "766529"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42936536"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42936555"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42936545"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42936550"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "21026396"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "1304107"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "42965870"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "42965842"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "42965847"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "42965864"
+  },
+  {
+    "ingredient": "imipramine",
+    "cdm_id": "42940620"
+  },
+  {
+    "ingredient": "imipramine",
+    "cdm_id": "778268"
+  },
+  {
+    "ingredient": "inotuzumab ozogamicin",
+    "cdm_id": "2040846"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42921304"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42922070"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42920500"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "1367268"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42920702"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2026994"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2028271"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2029558"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2029556"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42658385"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2027350"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2028269"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2027349"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2027345"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42922073"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42921307"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "42934962"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "21118365"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "2031825"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "1703653"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "35783418"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "1703661"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "35783410"
+  },
+  {
+    "ingredient": "ketamine",
+    "cdm_id": "42920662"
+  },
+  {
+    "ingredient": "ketamine",
+    "cdm_id": "785649"
+  },
+  {
+    "ingredient": "ketamine",
+    "cdm_id": "2027253"
+  },
+  {
+    "ingredient": "lamotrigine",
+    "cdm_id": "19006207"
+  },
+  {
+    "ingredient": "lamotrigine",
+    "cdm_id": "19006208"
+  },
+  {
+    "ingredient": "lamotrigine",
+    "cdm_id": "19006206"
+  },
+  {
+    "ingredient": "lamotrigine",
+    "cdm_id": "705103"
+  },
+  {
+    "ingredient": "lapatinib",
+    "cdm_id": "1359551"
+  },
+  {
+    "ingredient": "lapatinib",
+    "cdm_id": "2060290"
+  },
+  {
+    "ingredient": "lapatinib",
+    "cdm_id": "1359548"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "42953257"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "42953256"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "1101922"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "42953240"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "1101898"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "42953239"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "1101923"
+  },
+  {
+    "ingredient": "lisinopril",
+    "cdm_id": "19003851"
+  },
+  {
+    "ingredient": "lisinopril",
+    "cdm_id": "1308216"
+  },
+  {
+    "ingredient": "lovastatin",
+    "cdm_id": "42935379"
+  },
+  {
+    "ingredient": "lovastatin",
+    "cdm_id": "42935373"
+  },
+  {
+    "ingredient": "lovastatin",
+    "cdm_id": "1592085"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40164930"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40164898"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943062"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "1503297"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942975"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943166"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943012"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942973"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40164923"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42953763"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40164892"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942977"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42953918"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "45775861"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42953705"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961491"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42953823"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961488"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942982"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42968754"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40166003"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40231403"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942984"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40231395"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943005"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40165998"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943067"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942980"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942970"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42963147"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "2057411"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "2057410"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "2057685"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961320"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961323"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961495"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42963149"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "45775863"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961174"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961171"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42960760"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961326"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42963153"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "1154192"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "1154161"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964404"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964374"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "2070121"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "1154193"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "1154196"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964241"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964085"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "2070334"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964109"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "19102732"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "1716903"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "42921219"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "1716904"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "42918875"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "2031787"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "42944487"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "2025244"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "2031784"
+  },
+  {
+    "ingredient": "naproxen",
+    "cdm_id": "42965811"
+  },
+  {
+    "ingredient": "naproxen",
+    "cdm_id": "1115008"
+  },
+  {
+    "ingredient": "naproxen",
+    "cdm_id": "42967955"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "42935148"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "42935145"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "1318853"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "42935143"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "2064019"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "2064014"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "19016821"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "19047064"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "19016799"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "44098838"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "44060182"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "785788"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "21082226"
+  },
+  {
+    "ingredient": "ombitasvir",
+    "cdm_id": "42963128"
+  },
+  {
+    "ingredient": "ombitasvir",
+    "cdm_id": "45892552"
+  },
+  {
+    "ingredient": "omeprazole",
+    "cdm_id": "42945767"
+  },
+  {
+    "ingredient": "omeprazole",
+    "cdm_id": "42945673"
+  },
+  {
+    "ingredient": "omeprazole",
+    "cdm_id": "923645"
+  },
+  {
+    "ingredient": "omeprazole",
+    "cdm_id": "2037962"
+  },
+  {
+    "ingredient": "paritaprevir",
+    "cdm_id": "42963128"
+  },
+  {
+    "ingredient": "paritaprevir",
+    "cdm_id": "45892554"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "42953204"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "42953213"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "722158"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "722031"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "42953193"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "42953203"
+  },
+  {
+    "ingredient": "penicillamine",
+    "cdm_id": "42972320"
+  },
+  {
+    "ingredient": "penicillamine",
+    "cdm_id": "42972318"
+  },
+  {
+    "ingredient": "penicillamine",
+    "cdm_id": "19028050"
+  },
+  {
+    "ingredient": "phenobarbital",
+    "cdm_id": "42956846"
+  },
+  {
+    "ingredient": "phenobarbital",
+    "cdm_id": "2031964"
+  },
+  {
+    "ingredient": "phenobarbital",
+    "cdm_id": "42922491"
+  },
+  {
+    "ingredient": "phenobarbital",
+    "cdm_id": "734275"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "42973730"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "1146810"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "2010065"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "42917419"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "2024172"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "42973718"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970622"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970630"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970626"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970625"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "1551860"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970621"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "41189798"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970634"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970629"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970633"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "41184652"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "43783758"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "1353256"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "40841232"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "43711724"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "766815"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "766816"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "766814"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "19133813"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "19134839"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "19134843"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "19134841"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42939201"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "961047"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42955054"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42939285"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "2028554"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42939225"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42921551"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42955063"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "35773874"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "961266"
+  },
+  {
+    "ingredient": "regorafenib",
+    "cdm_id": "42901617"
+  },
+  {
+    "ingredient": "regorafenib",
+    "cdm_id": "42903460"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "40244449"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "40244445"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "40241334"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "40241331"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "35200880"
+  },
+  {
+    "ingredient": "sertraline",
+    "cdm_id": "19037684"
+  },
+  {
+    "ingredient": "sertraline",
+    "cdm_id": "19037642"
+  },
+  {
+    "ingredient": "sertraline",
+    "cdm_id": "739138"
+  },
+  {
+    "ingredient": "sorafenib",
+    "cdm_id": "1363390"
+  },
+  {
+    "ingredient": "sorafenib",
+    "cdm_id": "1363387"
+  },
+  {
+    "ingredient": "sunitinib",
+    "cdm_id": "42946810"
+  },
+  {
+    "ingredient": "sunitinib",
+    "cdm_id": "42946812"
+  },
+  {
+    "ingredient": "sunitinib",
+    "cdm_id": "42946814"
+  },
+  {
+    "ingredient": "sunitinib",
+    "cdm_id": "1336539"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "44111236"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "42925189"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "1436678"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "42925190"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "19007458"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "44033709"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "42925193"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "21092621"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "21082850"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "21122001"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "2012750"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "42934048"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "42934054"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "2012751"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "1341149"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "42934059"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "2012749"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "1741309"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "42928589"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "42917794"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "42928563"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "2023891"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "2031724"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "42920061"
+  },
+  {
+    "ingredient": "thalidomide",
+    "cdm_id": "42967868"
+  },
+  {
+    "ingredient": "thalidomide",
+    "cdm_id": "42967876"
+  },
+  {
+    "ingredient": "thalidomide",
+    "cdm_id": "2039944"
+  },
+  {
+    "ingredient": "thalidomide",
+    "cdm_id": "19137042"
+  },
+  {
+    "ingredient": "trazodone",
+    "cdm_id": "42972222"
+  },
+  {
+    "ingredient": "trazodone",
+    "cdm_id": "42972221"
+  },
+  {
+    "ingredient": "trazodone",
+    "cdm_id": "703547"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "42971929"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2025858"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2052966"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "42971908"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "42971895"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "1707687"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2052964"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "42971896"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2052976"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2052985"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "19079834"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2011856"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2011860"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "42956068"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "42956054"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "2054085"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "2054040"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "42956073"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "743670"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "42956058"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "42956025"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "42956019"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "1307863"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "42922095"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "2029646"
+  },
+  {
+    "ingredient": "voriconazole",
+    "cdm_id": "1714304"
+  },
+  {
+    "ingredient": "voriconazole",
+    "cdm_id": "19098454"
+  },
+  {
+    "ingredient": "voriconazole",
+    "cdm_id": "2051349"
+  },
+  {
+    "ingredient": "voriconazole",
+    "cdm_id": "1714277"
+  },
+  {
+    "ingredient": "zidovudine",
+    "cdm_id": "19047527"
+  },
+  {
+    "ingredient": "zidovudine",
+    "cdm_id": "1710612"
+  },
+  {
+    "ingredient": "zidovudine",
+    "cdm_id": "2052721"
+  },
+  {
+    "ingredient": "zidovudine",
+    "cdm_id": "42967484"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "42918994"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "1133201"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "42918996"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "42918995"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "42919507"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "19007262"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "1301267"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "2068874"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "1301292"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "2068873"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "2068872"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "1389036"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "2058657"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "21083803"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "2058655"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "2058659"
+  }
+]
