@@ -217,12 +217,12 @@
 		</div>
 		<div class="scroll-container" on:scroll={handleScroll}>
 		  {#if selectedPatient !== null}
-			<div class="fixed-row">
+			<!-- <div class="fixed-row">
 			  <AxisChart type="row" {selectedPatient} {patientData} />
 			</div>
 			<div class="fixed-col">
 			  <AxisChart type="col" {selectedPatient} {patientData} />
-			</div>
+			</div> -->
 			<DrugChart {selectedPatient} {patientData} />
 		  {:else}
 			<p>Please select a patient to view their data.</p>
