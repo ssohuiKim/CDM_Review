@@ -6,49 +6,16 @@
   export let selectedPatient;
   export let patientData;
 
-
-  let drug_exposure_date = [];
-  let drug_concept_id = [];
-  let drug_name = [];
-  let ICI = [];
-  let ICI_lasting = [];
-  let sum_quantity = [];
-  let measurement_date = [];
-  let grade = [];
-
-  let toxic = [];
-  let safe = [];
-  const idToDrugMap = {
-    42920398: 'atezolizumab',
-    1594046: 'durvalumab',
-    1594038: 'durvalumab',
-    46275962: 'ipilimumab',
-    42920744: 'nivolumab',
-    42922127: 'nivolumab',
-    42921578: 'pembrolizumab'
-  };
-  const listICIs = ['Atezolizumab', 'Durvalumab', 'Ipilimumab', 'Nivolumab', 'Pembrolizumab']
-
-  
-
-  import nan from '../img/nan.png';
-  import grade1 from '../img/grade1.png';
-  import grade2 from '../img/grade2.png';
-  import grade3 from '../img/grade3.png';
-  import grade4 from '../img/grade4.png';
-
-
-  function formatDate(dateString, isFirstDate = false) {
-    let d = new Date(dateString);
-    return isFirstDate ? dateFormat(d, "yy.mm.dd") : dateFormat(d, "mm.dd");
-  }
-
-  async function fetchMasterList() {
-    const response = await fetch('/toxicDrugs.json');
-    const jsonData = await response.json();
-    return jsonData
-      .map(entry => entry.trim().toLowerCase());
-  }
+  // let 
+  //   measurement_date = [],
+  //   drug_exposure_date = [],
+  //   drug_concept_id = [],
+  //   ICI_lasting = [],
+  //   sum_quantity = [],
+  //   grade = [],
+  //   drug_name = [];
+    
+    
 
   async function initializeData() {
     if (selectedPatient && patientData[selectedPatient]) {
@@ -80,6 +47,17 @@
     return null;
   }
 
+  function formatDate(dateString, isFirstDate = false) {
+    let d = new Date(dateString);
+    return isFirstDate ? dateFormat(d, "yy.mm.dd") : dateFormat(d, "mm.dd");
+  }
+
+  async function fetchMasterList() {
+    const response = await fetch('/toxicDrugs.json');
+    const jsonData = await response.json();
+    return jsonData
+      .map(entry => entry.trim().toLowerCase());
+  }
 
   function draw() {
     if (canvas && canvas.getContext) {
@@ -187,37 +165,34 @@
 
       const marginY = 50;
       const marginX = 20;
-      const endX = canvas.width - marginX;
-      const endY = canvas.height - marginY;      
+      const endX = canvas.width;
+      const endY = canvas.height;      
 
 
       writeLeftAlignedText('patient number: ' + selectedPatient, marginX, 25, 13);
+
+      // 고정된 부분 (grade표시 및 Drugs 표시)
+      writeLeftAlignedText('Hepatotoxicity', marginX, endY-marginY, 12, 'black');
+
+      writeLeftAlignedText('Drugs', marginX, endY-(marginY-25), 12, 'black');
       
-      drawRoundRect(marginX, 45, 25, 6, 'blue');
-      writeLeftAlignedText('Hepatotoxic Drugs(Ref: LiverTox)', marginX + 30, 50, 12, 'black');
-      drawRoundRect(marginX+220, 45, 25, 6, 'black');
-      writeLeftAlignedText('Non-hepatotoxic drug', marginX + 250, 50, 12, 'black');
+      // drawRoundRect(marginX, 45, 25, 6, 'blue');
+      // writeLeftAlignedText('Hepatotoxic Drugs(Ref: LiverTox)', marginX + 30, 50, 12, 'black');
+      // drawRoundRect(marginX+220, 45, 25, 6, 'black');
+      // writeLeftAlignedText('Non-hepatotoxic drug', marginX + 250, 50, 12, 'black');
 
-      writeRightAlignedText('Other Drug', marginX+90, 100, 15, 'black');
-      drawGrayRectangle(marginX+100, 85, 3, 460);
-      writeRightAlignedText('ICIs', marginX+90, marginY+535, 15, 'black');
-      drawGrayRectangle(marginX+100, marginY+520, 3, 90); 
-      iciList();
-      writeRightAlignedText('Hepatotoxicity', marginX+90, marginY+650, 15, 'black');
-      drawGrayRectangle(marginX+100, marginY+635, 3, 35); 
+      // writeRightAlignedText('Other Drug', marginX+90, 100, 15, 'black');
+      // drawGrayRectangle(marginX+100, 85, 3, 460);
+      // writeRightAlignedText('ICIs', marginX+90, marginY+535, 15, 'black');
+      // drawGrayRectangle(marginX+100, marginY+520, 3, 90); 
+      // iciList();
+      // writeRightAlignedText('Hepatotoxicity', marginX+90, marginY+650, 15, 'black');
+      // drawGrayRectangle(marginX+100, marginY+635, 3, 35); 
 
-      gradeGuide();
+      // gradeGuide();
 
-      Grid(22, 13, 50, 5, marginX+205, marginY+525);
-      Grid(22*10 + 2*9, 20, 5, 20, marginX+205, 85);
-
-
- 
-
-      
-  
-  
-
+      // Grid(22, 13, 50, 5, marginX+205, marginY+525);
+      // Grid(22*10 + 2*9, 20, 5, 20, marginX+205, 85);
     }
   }
 

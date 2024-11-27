@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import DrugChart from '../../lib/DrugChart.svelte';
 	import AxisChart from '../../lib/axisChart.svelte';
-	import { groupedPatientData } from '$lib/stores';
+	import { groupedPatientData } from '$lib/duckdb';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
 	import pkg from 'file-saver';
@@ -23,6 +23,7 @@
 	  groupedPatientData.subscribe(data => {
 		patients = Object.keys(data);
 		patientData = data;
+		console.log(data)
 	  });
 	});
   

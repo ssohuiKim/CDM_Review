@@ -1,15 +1,14 @@
 <script>
   import { Card, CardBody, CardFooter, El, Button, CardActions, FileUpload, Icon } from "yesvelte";
   import { goto } from '$app/navigation';
-  import { parsedData, groupedPatientData } from '$lib/stores';
-  import { initializeDuckDB } from '$lib/duckdb';
+  import { initializeDuckDB, parsedData, groupedPatientData } from '$lib/duckdb';
   import Spinner from '$lib/components/Spinner.svelte';
   import { writable } from 'svelte/store';
 
   let files_1;
   let hint_1 = "";
   let state_1 = void 0;
-  const loading = writable(false); // 로딩 상태를 관리하는 변수
+  const loading = writable(false); // 로딩 상태를 관리
 
   $: console.log(files_1);
 
@@ -71,6 +70,7 @@
 
         // 그룹화된 데이터 스토어에 업데이트
         groupedPatientData.set(groupedData);
+        // console.log("Grouped Patient Data:", groupedData);
         loading.set(false); // 로딩 종료
         goto('/result');
       };
