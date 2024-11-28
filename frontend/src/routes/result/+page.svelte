@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import DrugChart from '../../lib/DrugChart.svelte';
 	import AxisChart from '../../lib/axisChart.svelte';
-	import { groupedPatientData } from '$lib/duckdb';
+	import { groupedPatientData } from '$lib/stores';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
 	import pkg from 'file-saver';
@@ -23,7 +23,6 @@
 	  groupedPatientData.subscribe(data => {
 		patients = Object.keys(data);
 		patientData = data;
-		console.log(data)
 	  });
 	});
   
@@ -31,60 +30,7 @@
 	  selectedPatient = patientNum;
 	  console.log('Selected Patient:', selectedPatient);
 	}
-
-	// async function downloadAllCharts() {
-	// 	showLoading = true;
-	// 	const zip = new JSZip();
-	// 	for (const patientNum of patients) {
-	// 		// Create a container to render charts
-	// 		const chartContainer = document.createElement('div');
-	// 		chartContainer.style.position = 'absolute';
-	// 		chartContainer.style.left = '-9999px';   // 안보이도록 함
-	// 		chartContainer.style.top = '0';
-	// 		chartContainer.style.width = '800px';  // 조정하기
-	// 		chartContainer.style.height = '600px'; // 조정하기
-	// 		document.body.appendChild(chartContainer);
-
-	// 		// Render all charts within the container
-	// 		const drugChart = new DrugChart({
-	// 		target: chartContainer,
-	// 		props: { selectedPatient: patientNum, patientData }
-	// 		});
-
-	// 		const rowChart = new AxisChart({
-	// 		target: chartContainer,
-	// 		props: { type: 'row', selectedPatient: patientNum, patientData }
-	// 		});
-
-	// 		const colChart = new AxisChart({
-	// 		target: chartContainer,
-	// 		props: { type: 'col', selectedPatient: patientNum, patientData }
-	// 		});
-
-	// 		// Allow time for charts to render
-	// 		await new Promise(resolve => setTimeout(resolve, 500));
-
-	// 		// Use html2canvas to capture the entire container with overlapping charts
-	// 		const dataUrl = await html2canvas(chartContainer, { backgroundColor: null }).then(canvas => canvas.toDataURL('image/png'));
-
-	// 		// Add the captured image to the zip
-	// 		zip.file(`patient-${patientNum}.png`, dataUrl.split(',')[1], { base64: true });
-
-	// 		// Destroy chart instances and remove container
-	// 		drugChart.$destroy();
-	// 		rowChart.$destroy();
-	// 		colChart.$destroy();
-	// 		document.body.removeChild(chartContainer);
-	// 	}
-
-	// 	// Generate the zip file and trigger download
-	// 	const content = await zip.generateAsync({ type: 'blob' });
-	// 	saveAs(content, 'charts.zip');
-	// 	showLoading = false; // Hide loading modal after download
-	// }
-
-
-
+  
 	async function downloadAllCharts() {
 	  showLoading = true; // 다운로드 시작 시 로딩 모달 표시
 	  const zip = new JSZip();
@@ -94,7 +40,7 @@
 		chartContainer.style.left = '-9999px'; // 화면에서 보이지 않도록 함
 		document.body.appendChild(chartContainer);
   
-		const chart = new DrugChart({     // DrugChart만 다운로드 됨(축 X)
+		const chart = new DrugChart({
 		  target: chartContainer,
 		  props: { selectedPatient: patientNum, patientData }
 		});
@@ -185,19 +131,19 @@
 	.fixed-row {
 	  position: absolute;
 	  bottom: 0;
-	  left: 183px;
+	  left: 190px;
 	  z-index: 1;
 	  pointer-events: none;
-	  background-color: rgba(255, 255, 255, 0.7);
+	  background-color: rgba(22, 3, 3, 0.3);
 	}
   
 	.fixed-col {
 	  position: absolute;
 	  top: 48px;
-	  left: 33px;
+	  left: 0;
 	  z-index: 2;  /* column이 날짜 행보다 위에 덮여짐 */
 	  pointer-events: none;
-	  background-color: rgba(255, 255, 255, 0.7);
+	  background-color: rgba(22, 3, 3, 0.3);
 	}
   
 	.text-button {
@@ -248,25 +194,35 @@
   </style>
   
   <El container m="0" p="4" style="height: 100%;">
-	<El row alignItems="start" p="0" m="0">
-	  <El col='auto' tag="h1" p="0" m="0">Results</El>
-	  <El col='auto' alignSelf="center">
+	<div class="header">
+	  <div class="header-title">
+		<h1>Results</h1>
 		<button class="img-button" on:click={() => (show = !show)}>
 		  <img src="/tooltip.svg" alt="Tooltip Icon">
 		</button>
-	  </El>
-	</El>
+	  </div>
+	  <button class="text-button" on:click={downloadAllCharts}>
+		Export Data
+	  </button>
+	</div>
+  
 	<El row style="margin-top: 24px; height: 100%">
 	  <div class="card">
 		<div class="sidebar">
 		  {#each patients as patientNum}
-			<button on:click={() => selectPatient(patientNum)}>
-			  Patient {patientNum}
-			</button>
+		  <button on:click={() => selectPatient(patientNum)}>
+			Patient {patientNum}
+		  </button>
 		  {/each}
 		</div>
-		<div class="scroll-container">
+		<div class="scroll-container" on:scroll={handleScroll}>
 		  {#if selectedPatient !== null}
+			<!-- <div class="fixed-row">
+			  <AxisChart type="row" {selectedPatient} {patientData} />
+			</div>
+			<div class="fixed-col">
+			  <AxisChart type="col" {selectedPatient} {patientData} />
+			</div> -->
 			<DrugChart {selectedPatient} {patientData} />
 		  {:else}
 			<p>Please select a patient to view their data.</p>
