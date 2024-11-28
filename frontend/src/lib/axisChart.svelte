@@ -1,4 +1,3 @@
-<!-- chart의 height 조절하기!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <script>
   import { onMount } from 'svelte';
   import dateFormat from 'dateformat'; 
@@ -10,6 +9,8 @@
   let drugExposureDates = [];
   let measurements = [];
   let hepatotoxicityGrade = [];
+  let toxic_id = [];
+  let toxicIndexMap = new Map();
 
   let toxic = [];
   let safe = [];
@@ -17,7 +18,11 @@
   let formattedDates = [];
   let drugs = [];
   let drugAll = [];
+  let drug_concept_id = [];
   let isDataInitialized = false;
+  let test = [];
+  let drug_id_unique = [];
+  let all_drugs = [];
 
   const idToDrugMap = {
     42920398: 'atezolizumab',
@@ -35,57 +40,78 @@
   }
 
   async function fetchMasterList() {
-    const response = await fetch('/temp.json');
+    const response = await fetch('/csvjson.json');
     const jsonData = await response.json();
     return jsonData
-      .map(entry => entry.trim().toLowerCase());
+      // .map(entry => entry.trim().toLowerCase());
   }
 
   async function initializeData() {
-    if (selectedPatient && patientData[selectedPatient]) {
-      const data = patientData[selectedPatient];
+  if (selectedPatient && patientData[selectedPatient]) {
+    const data = patientData[selectedPatient];
+    test = new Set(data.map(row => row.new_drug_exposure_date));
 
-      measurements = data.map(row => row.measurement_date || 0); // 결측치 0으로 채우기
+    // console.log('test', test);
+    measurements = data.map(row => row.measurement_date || 0); // 결측치 0으로 채우기
 
-      drugExposureDates = data.map(row => row.drug_exposure_start_date || row.measurement_date).filter(Boolean);
-      uniqueDates = Array.from(new Set(drugExposureDates));
-      formattedDates = uniqueDates.map((date, index) => formatDate(date, index === 0));
+    drugExposureDates = data.map(row => row.new_drug_exposure_start_date || row.measurement_date).filter(Boolean);
+    // uniqueDates = Array.from(new Set(drugExposureDates));
+    uniqueDates = Array.from(new Set(data.map(row => row.new_drug_exposure_date || row.measurement_date)));
+    console.log(uniqueDates);
+    console.log("uniqueDates:", uniqueDates, typeof uniqueDates);
+ 
+    formattedDates = uniqueDates.map((date, index) => formatDate(date, index === 0));
+    
+    drugs = Array.from(new Set(data.map(row => row.drug_concept_id).filter(id => idToDrugMap[id]).map(id => idToDrugMap[id])));  // ICI
+    
+    all_drugs = Array.from(data.map(row => row.drug_name || 0));  // name 전부 공백 0으로 채우기
 
-      drugs = Array.from(new Set(data.map(row => row.drug_concept_id).filter(id => idToDrugMap[id]).map(id => idToDrugMap[id])));
+    drug_concept_id = Array.from(data.map(row => row.drug_concept_id || 0));  // id 전부, 공백 0으로 채우기
 
-      takenDrugs = data.map(row => row.drug_name).filter(Boolean);
-      takenDrugs = takenDrugs.map(drug => drug.toLowerCase());
-      takenDrugs = takenDrugs.map(drug => {
-        if (drug === 'l-ornithine-l-') {
-          return 'LOLA*';
-        } else if (drug === 'medium chain t') {
-          return 'MCTs*';
-        } else {
-          return drug;
-        }
+    drug_id_unique = Array.from(new Set(drug_concept_id));  // id 중복 제거
+
+    // takenDrugs = data.map(row => row.drug_name).filter(Boolean);
+    // takenDrugs = takenDrugs.map(drug => drug.toLowerCase());
+    takenDrugs = all_drugs.map(drug => (drug !== 0 ? drug.toLowerCase() : drug));
+    console.log(all_drugs.length);
+    console.log(takenDrugs.length);
+
+    drugAll = Array.from(new Set(takenDrugs)).filter(name => !drugs.includes(name));
+    const masterList = await fetchMasterList();
+
+    return { data, masterList };
+  }
+  return null;
+}
+
+function processData(data, masterList) {
+  return new Promise((resolve) => {
+    const worker = new Worker('/worker.js');
+    
+    worker.postMessage({ data: drug_id_unique, toxicList: masterList });
+
+    worker.onmessage = function(e) {
+      const { toxic_ingredients: toxic_drug, toxic_id: toxicID, safe_id: safeID, toxicIndexMap: toxicmap } = e.data;
+      toxic = toxic_drug;
+      toxic_id = toxicID;
+      toxicIndexMap = toxicmap;
+      console.log(toxicIndexMap);
+
+      safe = safeID.map(safeDrug => {
+        const index = drug_concept_id.indexOf(safeDrug);
+        return all_drugs[index];
       });
-      
-      drugAll = Array.from(new Set(takenDrugs)).filter(name => !drugs.includes(name));
-      const masterList = await fetchMasterList();
 
-      return { data, masterList };
-    }
-    return null;
-  }
+      // 0제거, 중복제거
+      safe = [...new Set(safe.filter(drug => drug !== 0))];
+      safe = safe.map(drug => drug.toLowerCase());
 
-  function processData(data, masterList) {
-    return new Promise((resolve) => {
-      const worker = new Worker('/worker.js');
-      worker.postMessage({ data: drugAll, toxicList: masterList });
-      worker.onmessage = function(e) {
-        const { toxic: toxicDrugs, safe: safeDrugs } = e.data;
-        toxic = Array.from(new Set(toxicDrugs));
-        safe = Array.from(new Set(safeDrugs));
-        hepatotoxicityGrade = data.map(row => row.grade).filter(Boolean);
-        resolve();
-      };
-    });
-  }
+      hepatotoxicityGrade = data.map(row => row.grade).filter(Boolean);
+      resolve();
+    };
+  });
+}
+
 
   import BlackDia from '../img/BlackDia.png';
   import BlueDia from '../img/BlueDia.png';
@@ -96,11 +122,13 @@
   import DateRed from '../img/DateRed.png';
   import OrangeDia from '../img/OrangeDia.png';
 
-  const getToxicIndex = (name) => toxic.indexOf(name) + 1;
+  // const getToxicIndex = (name) => toxic_id.indexOf(name) + 1;
+  const getToxicIndex = (cdm_id) => toxicIndexMap.get(cdm_id) || -1;
   const getSafeIndex = (name) => safe.indexOf(name) + 1;
   const getDateIndex = (date) => uniqueDates.indexOf(date) + 1;
   const getDateOriginalIndex = (date) => drugExposureDates.indexOf(date) + 1;
   const getDrugIndex = (drug) => drugs.indexOf(drug) + 1;
+  const getSafeName = (ID) => safe.indexOf(ID) + 1;
 
   function draw() {
     if (canvas && canvas.getContext) {
@@ -177,9 +205,9 @@
           writeRightAlignedText(safe[i], startX + 153, safeWriteStartY + (i * linespacing), 15);
           writeLeftAlignedText(safe[i], endX - 153, safeWriteStartY + (i * linespacing), 15);
         }
-        if (safe.includes('LOLA*') || safe.includes('MCTs')) {
-          writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, safeWriteEndY + linespacing * 3 + 8, 12);
-        }
+        // if (safe.includes('LOLA*') || safe.includes('MCTs')) {
+        //   writeLeftAlignedText('LOLA* : L-ornithine L-aspartate; MCTs : Medium Chain Triglycerides', margin + 8, safeWriteEndY + linespacing * 3 + 8, 12);
+        // }
       }
 
       function writeDate() {
@@ -194,9 +222,9 @@
       
       function drawToxic() {
         let drugIndex, dateIndex;
-        for (let i = 0; i < takenDrugs.length; i++) {
-          if (toxic.includes(takenDrugs[i])) { // Check if takenDrug is toxic
-            drugIndex = getToxicIndex(takenDrugs[i]);
+        for (let i = 0; i < drug_concept_id.length; i++) {
+          if (toxic_id.includes(drug_concept_id[i])) {
+            drugIndex = getToxicIndex(drug_concept_id[i]);
             dateIndex = getDateIndex(drugExposureDates[i]);
             drawBlueDia(dateIndex, drugIndex);
           }
@@ -209,6 +237,9 @@
           if (safe.includes(takenDrugs[i])) { // Check if takenDrug is safe
             drugIndex = getSafeIndex(takenDrugs[i]);
             dateIndex = getDateIndex(drugExposureDates[i]);
+            if (takenDrugs[i] === "bevacizumab") {
+              console.log(drugExposureDates[i]);
+            }
             drawBlackDia(dateIndex, drugIndex);
           }
         }

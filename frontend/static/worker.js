@@ -31,10 +31,10 @@ self.onmessage = function(e) {
     const toxicMap = new Map(toxicList.map(item => [item.cdm_id, item.ingredient]));
     
     
-    const acetaminophenEntries = Array.from(toxicMap.entries())
-        .filter(([cdm_id, ingredient]) => ingredient === "acetaminophen");
+    // const acetaminophenEntries = Array.from(toxicMap.entries())
+    //     .filter(([cdm_id, ingredient]) => ingredient === "acetaminophen");
 
-    console.log("Acetaminophen cdm_ids and their ingredients:", acetaminophenEntries);
+    // console.log("Acetaminophen cdm_ids and their ingredients:", acetaminophenEntries);
     
     // 독성 성분 필터링 및 매핑
     const toxic_ingredients_with_ids = data
