@@ -1,26 +1,24 @@
 <script>
   import { Card, CardBody, CardFooter, El, Button, CardActions, FileUpload, Icon } from "yesvelte";
   import { goto } from '$app/navigation';
-  import { initializeDuckDB, parsedData, groupedPatientData } from '$lib/duckdb';
+  import { parsedData, groupedPatientData } from '$lib/duckdb';
+  import { initializeDuckDB } from '$lib/duckdb';
   import Spinner from '$lib/components/Spinner.svelte';
   import { writable } from 'svelte/store';
 
   let files_1;
   let hint_1 = "";
   let state_1 = void 0;
-  const loading = writable(false); // 로딩 상태를 관리
+  const loading = writable(false); // 로딩 상태를 관리하는 변수
 
-  // $: console.log(files_1);
+  $: console.log(files_1);
 
-  $: if (files_1 && files_1[0]) {
-    const fileExtension = files_1[0].name.split('.').pop().toLowerCase();
-    if (fileExtension !== 'txt') {
-      hint_1 = "File type should be txt";
-      state_1 = "invalid";
-    } else {
-      hint_1 = "";
-      state_1 = void 0;
-    }
+  $: if (files_1 && files_1[0] && files_1[0].type !== "text/csv") {
+    hint_1 = "File type should be csv";
+    state_1 = "invalid";
+  } else {
+    hint_1 = "";
+    state_1 = void 0;
   }
 
   // 프록시 객체를 일반 객체로 변환하는 함수
@@ -44,13 +42,13 @@
       const db = await initializeDuckDB();
       const reader = new FileReader();
       reader.onload = async (event) => {
-        const tsvData = event.target.result;
+        const csvData = event.target.result;
 
-        // TSV 데이터를 DuckDB에 등록하고 파싱
-        await db.registerFileText('data.txt', tsvData);
+        // CSV 데이터를 DuckDB에 등록하고 파싱
+        await db.registerFileText('data.csv', csvData);
         const connection = await db.connect();
         await connection.query(`
-          CREATE TABLE patients AS SELECT * FROM read_csv_auto('data.txt', delim='\t');
+          CREATE TABLE patients AS SELECT * FROM read_csv_auto('data.csv');
         `);
 
         // 파싱된 데이터 가져오기
@@ -60,7 +58,7 @@
 
         // Patient_no 기준으로 데이터 그룹화
         const groupedData = parsedResult.reduce((acc, row) => {
-          const patientNo = row.patient_no;
+          const patientNo = row.Patient_no;
           if (!acc[patientNo]) {
             acc[patientNo] = [];
           }
@@ -70,7 +68,6 @@
 
         // 그룹화된 데이터 스토어에 업데이트
         groupedPatientData.set(groupedData);
-        // console.log("Grouped Patient Data:", groupedData);
         loading.set(false); // 로딩 종료
         goto('/result');
       };
@@ -89,7 +86,7 @@
     <El row style="margin-top: 52px;">
       <Card col="7">
         <CardBody>
-          <El row tag="strong">Choose a txt file</El>
+          <El row tag="strong">Choose a csv file</El>
           <FileUpload mt="2" state={state_1} bind:files={files_1} />
           <El textColor="danger" tag="small">{hint_1}</El>
         </CardBody>
