@@ -6,43 +6,40 @@
   export let selectedPatient;
   export let patientData;
 
-  // let 
-  //   measurement_date = [],
-  //   drug_exposure_date = [],
-  //   drug_concept_id = [],
-  //   ICI_lasting = [],
-  //   sum_quantity = [],
-  //   grade = [],
-  //   drug_name = [];
-    
-    
+  let 
+    measurement_date = [],
+    grade = [],
+    drug_concept_id = [],
+    drug_name = [],
+    drug_name_dose = [],
+    ICI_lasting = [],
+    day_num = [],
+    drug_exposure_date = []
+  ;
 
-  async function initializeData() {
+  let 
+    ICI = [],
+    safe = [],
+    toxic = []
+  ;
+
+  const ICI_id = ['42920398', '1594046', '1594038', '46275962', '42920744', '42922127', '42921578']
+
+  async function initializeData() {    // 왜 initializeData 함수가 두 번 호출되는지 확인하기
     if (selectedPatient && patientData[selectedPatient]) {
       const data = patientData[selectedPatient];
 
-      measurement_date = data.map(row => row.measurement_date || 0); // 결측치 0으로 채우기
+      measurement_date = data.map(entry => entry.measurement_date || 0);
+      drug_concept_id = data.map(entry => entry.drug_concept_id || 0);
+      drug_name = data.map(entry => entry.drug_name || 0);
+      drug_name_dose = data.map(entry => entry.drug_name_dose || 0);
+      grade = data.map(entry => entry.grade || 0);
+      ICI_lasting = data.map(entry => entry.ICI_lasting || 0);
+      day_num = data.map(entry => entry.day_num || 0);
+      drug_exposure_date = data.map(entry => entry.drug_exposure_date || 0);
 
-      drug_exposure_date = data.map(row => row.drug_exposure_start_date || row.measurement_date).filter(Boolean);
-
-      ICI = Array.from(new Set(data.map(row => row.drug_concept_id).filter(id => idToDrugMap[id]).map(id => idToDrugMap[id])));
-      drug_concept_id = data.map(row => row.drug_concept_id).filter(Boolean);
-      ICI_lasting = data.map(row => row.ICI_lasting).filter(Boolean);
-      sum_quantity = data.map(row => row.sum_quantity).filter(Boolean);
-      grade = data.map(row => row.grade).filter(Boolean);
-
-
-      drug_name = data.map(row => row.drug_name).filter(Boolean);
-      drug_name = drug_name.map(drug => drug.toLowerCase());
-      drug_name = drug_name.map(drug => {
-        if (drug === 'l-ornithine-l-') {
-          return 'LOLA*';
-        } else if (drug === 'medium chain t') {
-          return 'MCTs*';
-        } else {
-          return drug;
-        }
-      });
+      const masterList = await fetchMasterList();
+      await processData(drug_concept_id, masterList);
     }
     return null;
   }
@@ -53,12 +50,33 @@
   }
 
   async function fetchMasterList() {
-    const response = await fetch('/toxicDrugs.json');
+    const response = await fetch('/toxic_drug.json');
     const jsonData = await response.json();
-    return jsonData
-      .map(entry => entry.trim().toLowerCase());
+    return jsonData.map(entry => ({
+        Ingredient: entry.Ingredient?.trim().toLowerCase(),
+        cdm_id: entry.cdm_id,
+        DrugName: entry["Drug name"]?.trim().toLowerCase()
+    }));
   }
 
+  function processData(data, masterList) {
+    return new Promise((resolve) => {
+      const worker = new Worker('/worker.js');
+      worker.postMessage({ data: drug_concept_id, toxicList: masterList });
+      worker.onmessage = function(e) {
+
+
+        const { toxic: toxicDrugs, safe: safeDrugs } = e.data;
+        toxic = Array.from(new Set(toxicDrugs));
+        safe = Array.from(new Set(safeDrugs));
+        console.log('toxic', toxic);
+        resolve();
+      };
+    });
+  }
+
+
+  
   function draw() {
     if (canvas && canvas.getContext) {
       var ctx = canvas.getContext("2d");

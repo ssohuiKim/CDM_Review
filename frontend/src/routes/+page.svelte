@@ -10,7 +10,7 @@
   let state_1 = void 0;
   const loading = writable(false); // 로딩 상태를 관리
 
-  $: console.log(files_1);
+  // $: console.log(files_1);
 
   $: if (files_1 && files_1[0]) {
     const fileExtension = files_1[0].name.split('.').pop().toLowerCase();

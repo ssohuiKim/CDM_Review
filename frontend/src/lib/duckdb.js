@@ -27,7 +27,7 @@ export async function initializeDuckDB() {
     const logger = new duckdb.ConsoleLogger();
     const db = new duckdb.AsyncDuckDB(logger, worker);
     await db.instantiate(bundle.mainModule, bundle.mainWorker);
-    console.log('DuckDB initialized successfully');
+    // console.log('DuckDB initialized successfully');
     return db;
   } catch (error) {
     console.error('Error initializing DuckDB:', error);
