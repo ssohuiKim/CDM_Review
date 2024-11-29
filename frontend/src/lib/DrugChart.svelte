@@ -48,7 +48,6 @@
     firstDate = new Date(new_drug_exposure_date[0]);
     lastDate = new Date(new_drug_exposure_date[new_drug_exposure_date.length - 1]);
     day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
-    console.log("Calculated day:", day, typeof day);
 
     drug_concept_id = data.map(row => row.drug_concept_id || 0);
     uniq_id = Array.from(new Set(drug_concept_id));  
@@ -56,7 +55,6 @@
     ICI_lasting = data.map(row => row.ICI_lasting || 0);
     measurement_date = data.map(row => row.measurement_date || 0);
     grade = data.map(row => row.grade || "-1");
-    console.log("grade:", grade);
     
     
     const masterList = await fetchMasterList();
@@ -84,7 +82,6 @@
         toxic = toxic_drug;
         toxic_id = toxicID;
         toxicIndexMap = toxicmap;
-        // console.log(toxicIndexMap);
 
         safe = safeID.map(safeDrug => {
           const index = drug_concept_id.indexOf(safeDrug);
@@ -129,15 +126,42 @@
         ctx.fillText(text, x, y);
       }
 
+      function drawGridLines(margin, day, boxWidth, spacingX, toxic_start, height) {
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 1;
+        ctx.fillStyle = "black";
+        ctx.font = "12px Arial";
+
+        for (let col = 0; col <= day; col++) {
+          if (col % 10 === 0) {
+            const x = margin + col * (boxWidth + spacingX);
+
+            // 세로선 그리기
+            ctx.beginPath();
+            ctx.moveTo(x, toxic_start); // 위쪽 시작
+            ctx.lineTo(x, height); // 아래쪽 끝
+            ctx.stroke();
+
+            // 눈금 표시
+            if (col > 0) {
+              ctx.fillText(col, x - 5, height + 15); // 눈금을 x 좌표에 맞춰 표시
+            }
+          }
+        }
+        
+      }
+
+
       function draw_toxic() {
         ctx.fillStyle = "lightblue";
         for (let row = 0; row < toxic.length; row++) {
           for (let col = 0; col < day; col++) {
               const x = margin + col * (boxWidth + spacingX);
-              const y = toxic_start + row * (boxHeight + spacingY);
+              const y = 120 + row * (boxHeight + spacingY);
               ctx.fillRect(x, y, boxWidth, boxHeight);
           }
         }
+        drawGridLines(margin, day, boxWidth, spacingX, 120, 200);
       }
 
       function draw_safe() {
@@ -152,20 +176,19 @@
       }
 
       function drawGrade() {
-        const colors = {"0": "#ffcccc", "1": "#ff9999", "2": "#ff6666", "3": "#ff3333", "4": "#ff0000", "-1": "grey"};
+        const colors = {"0": "#FEE3D6", "1": "#FCBEA5", "2": "#FC9575", "3": "#EF3B2C", "4": "#CA171C"};
 
         for (let i = 0; i < grade.length; i++) {
-          const gradeValue = grade[i]; // grade 배열에서 현재 값 가져오기
-          const dateIndex = days[i]; // days에서 동일한 인덱스의 값 가져오기
+          const gradeValue = grade[i];
+          const dateIndex = days[i];
 
           // x 좌표 계산 (박스 위치)
           const x = margin + (dateIndex - 1) * (boxWidth + spacingX);
 
           if (colors.hasOwnProperty(gradeValue)) {
-            // gradeValue가 0~4에 해당하면 색상 적용
+            console.log(gradeValue, dateIndex);
             ctx.fillStyle = colors[gradeValue];
           } else {
-            // 값이 없거나 매칭되지 않는 경우 회색
             ctx.fillStyle = "grey";
           }
 
@@ -174,9 +197,6 @@
         }
       }
 
-
-
-      
       // drawLine(startX, 25, endX, 25);
       writeLeftAlignedText('Patient number: ' + selectedPatient, margin + 10, 20);
       writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
