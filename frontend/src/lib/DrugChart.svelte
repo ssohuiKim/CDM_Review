@@ -22,7 +22,8 @@
       toxicIndexMap=new Map(),
       uniq_id=[],
       firstDate,
-      lastDate;
+      lastDate,
+      days=[];
       
 
   const idToDrugMap = {
@@ -41,7 +42,8 @@
     const data = patientData[selectedPatient];
 
     new_drug_exposure_date = data.map(row => row.new_drug_exposure_date || row.measurement_date);
-    day_num = Array.from(new Set(data.map(row => row.day_num || 0)));
+    days = data.map(row => row.day_num || 0);
+    day_num = Array.from(new Set(days));
     // day = day_num[day_num.length - 1]; 
     firstDate = new Date(new_drug_exposure_date[0]);
     lastDate = new Date(new_drug_exposure_date[new_drug_exposure_date.length - 1]);
@@ -53,7 +55,8 @@
     drug_name = data.map(row => row.drug_name || 0);
     ICI_lasting = data.map(row => row.ICI_lasting || 0);
     measurement_date = data.map(row => row.measurement_date || 0);
-    grade = data.map(row => row.grade || 0);
+    grade = data.map(row => row.grade || "-1");
+    console.log("grade:", grade);
     
     
     const masterList = await fetchMasterList();
@@ -92,11 +95,12 @@
         safe = [...new Set(safe.filter(drug => drug !== 0))];
         safe = safe.map(drug => drug.toLowerCase());
 
-        grade = data.map(row => row.grade).filter(Boolean);
         resolve();
       };
     });
   }
+
+  const getDateIndex = (date) => grade.indexOf(date) + 1;
 
 
   function draw() {
@@ -104,11 +108,13 @@
       var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const startX = 0;
-      const endX = canvas.width;
-      const startY = 0;
-      const endY = canvas.height;
       const margin = 33;
+      const spacingX = 2;
+      const spacingY = 4;
+      const boxWidth = 5;
+      const boxHeight = 14;
+      const toxic_start = 200;
+      const toxic_end = toxic.length*(boxHeight + spacingY) + toxic_start + 20;
 
       function drawLine(startX, startY, endX, endY) {
         ctx.beginPath();
@@ -123,23 +129,60 @@
         ctx.fillText(text, x, y);
       }
 
-      function Grid(day, toxic, startX, startY, spacingX = 2, spacingY = 4, boxWidth = 5, boxHeight = 14) {
-        ctx.fillStyle = 'lightgray';
-        for (let row = 0; row < toxic.length; row++) { // 세로 방향: toxic.length만큼 반복
-          for (let col = 0; col < day; col++) { // 가로 방향: day만큼 반복
-              const x = startX + col * (boxWidth + spacingX); // 가로 위치 계산
-              const y = startY + row * (boxHeight + spacingY); // 세로 위치 계산
-              ctx.fillRect(x, y, boxWidth, boxHeight); // 네모 그리기
+      function draw_toxic() {
+        ctx.fillStyle = "lightblue";
+        for (let row = 0; row < toxic.length; row++) {
+          for (let col = 0; col < day; col++) {
+              const x = margin + col * (boxWidth + spacingX);
+              const y = toxic_start + row * (boxHeight + spacingY);
+              ctx.fillRect(x, y, boxWidth, boxHeight);
           }
         }
       }
+
+      function draw_safe() {
+        ctx.fillStyle = "lightgreen";
+        for (let row = 0; row < safe.length; row++) {
+          for (let col = 0; col < day; col++) {
+              const x = margin + col * (boxWidth + spacingX);
+              const y = toxic_end + row * (boxHeight + spacingY);
+              ctx.fillRect(x, y, boxWidth, boxHeight);
+          }
+        }
+      }
+
+      function drawGrade() {
+        const colors = {"0": "#ffcccc", "1": "#ff9999", "2": "#ff6666", "3": "#ff3333", "4": "#ff0000", "-1": "grey"};
+
+        for (let i = 0; i < grade.length; i++) {
+          const gradeValue = grade[i]; // grade 배열에서 현재 값 가져오기
+          const dateIndex = days[i]; // days에서 동일한 인덱스의 값 가져오기
+
+          // x 좌표 계산 (박스 위치)
+          const x = margin + (dateIndex - 1) * (boxWidth + spacingX);
+
+          if (colors.hasOwnProperty(gradeValue)) {
+            // gradeValue가 0~4에 해당하면 색상 적용
+            ctx.fillStyle = colors[gradeValue];
+          } else {
+            // 값이 없거나 매칭되지 않는 경우 회색
+            ctx.fillStyle = "grey";
+          }
+
+          // 박스 그리기
+          ctx.fillRect(x, 120, boxWidth, boxHeight);
+        }
+      }
+
+
+
       
       // drawLine(startX, 25, endX, 25);
       writeLeftAlignedText('Patient number: ' + selectedPatient, margin + 10, 20);
       writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
-      Grid(day, toxic, 50, 50);
-
-
+      draw_toxic();
+      draw_safe();
+      drawGrade();
 
 
 
