@@ -42,7 +42,7 @@
     const data = patientData[selectedPatient];
 
     new_drug_exposure_date = data.map(row => row.new_drug_exposure_date || row.measurement_date);
-    days = data.map(row => row.day_num || 0);
+    days = data.map(row => Number(row.day_num) || 0);                                
     day_num = Array.from(new Set(days));
     // day = day_num[day_num.length - 1]; 
     firstDate = new Date(new_drug_exposure_date[0]);
@@ -97,21 +97,21 @@
     });
   }
 
-  const getDateIndex = (date) => grade.indexOf(date) + 1;
-
 
   function draw() {
     if (canvas && canvas.getContext) {
       var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const margin = 33;
+      const margin2 = 110;
+      const margin1 = 28
       const spacingX = 2;
-      const spacingY = 4;
+      const spacingY = 1;
       const boxWidth = 5;
       const boxHeight = 14;
       const toxic_start = 200;
-      const toxic_end = toxic.length*(boxHeight + spacingY) + toxic_start + 20;
+      const safe_start = toxic.length*(boxHeight + spacingY) + toxic_start + 20;
+      const safe_end = safe.length*(boxHeight + spacingY) + safe_start;
 
       function drawLine(startX, startY, endX, endY) {
         ctx.beginPath();
@@ -119,93 +119,110 @@
         ctx.lineTo(endX, endY);
         ctx.stroke();
       }
-      function writeLeftAlignedText(text, x, y, size = 15, color = 'black') {
+      function writeLeftAlignedText(text, x, y, size, color = 'black') {
         ctx.font = `${size}px Arial`;
         ctx.fillStyle = color;
         ctx.textAlign = 'left';
         ctx.fillText(text, x, y);
       }
+      function writeRightAlignedText(text, x, y, size, color = 'black') {
+        ctx.font = `${size}px Arial`;
+        ctx.fillStyle = color;
+        ctx.textAlign = 'right';
+        ctx.fillText(text, x, y);
+      }
 
-      function drawGridLines(margin, day, boxWidth, spacingX, toxic_start, height) {
+      function writeDrugNames() {
+        ctx.fillStyle = "black";
+        ctx.font = "12px Arial";
+        ctx.textAlign = 'center';
+        for (let i = 0; i < toxic.length; i++) {
+          const y = toxic_start + i * (boxHeight + spacingY) + 10;
+          writeRightAlignedText(toxic[i], margin2-5, y, 12);
+        }
+        for (let i = 0; i < safe.length; i++) {
+          const y = safe_start + i * (boxHeight + spacingY) + 10;
+          writeRightAlignedText(safe[i], margin2-5, y, 12);
+        }
+      }
+
+      function drawGridLines(margin2, day, boxWidth, spacingX) {
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
         ctx.fillStyle = "black";
         ctx.font = "12px Arial";
 
-        for (let col = 0; col <= day; col++) {
+        for (let col = 1; col <= day; col++) {
           if (col % 10 === 0) {
-            const x = margin + col * (boxWidth + spacingX);
-
-            // 세로선 그리기
-            ctx.beginPath();
-            ctx.moveTo(x, toxic_start); // 위쪽 시작
-            ctx.lineTo(x, height); // 아래쪽 끝
-            ctx.stroke();
-
-            // 눈금 표시
+            const x = margin2 + col * (boxWidth + spacingX);
+            drawLine(x, toxic_start, x, safe_end+10);
             if (col > 0) {
-              ctx.fillText(col, x - 5, height + 15); // 눈금을 x 좌표에 맞춰 표시
+              ctx.fillText(col, x - 5, safe_end + 25); // 눈금을 x 좌표에 맞춰 표시
             }
           }
         }
-        
+      }
+
+      function drawGrid() {
+        ctx.fillStyle = "gainsboro";
+        const drawRows = (startY, rowCount) => {
+            for (let row = 0; row < rowCount; row++) {
+                for (let col = 0; col < day; col++) {
+                    const x = margin2 + col * (boxWidth + spacingX);
+                    const y = startY + row * (boxHeight + spacingY);
+                    ctx.fillRect(x, y, boxWidth, boxHeight);
+                }
+            }
+        };
+        drawRows(150, 1); // grade
+        drawRows(safe_start, safe.length); // safe 섹션
+        drawRows(toxic_start, toxic.length); // toxic 섹션
       }
 
 
-      function draw_toxic() {
-        ctx.fillStyle = "lightblue";
-        for (let row = 0; row < toxic.length; row++) {
-          for (let col = 0; col < day; col++) {
-              const x = margin + col * (boxWidth + spacingX);
-              const y = 120 + row * (boxHeight + spacingY);
-              ctx.fillRect(x, y, boxWidth, boxHeight);
-          }
-        }
-        drawGridLines(margin, day, boxWidth, spacingX, 120, 200);
-      }
-
-      function draw_safe() {
-        ctx.fillStyle = "lightgreen";
-        for (let row = 0; row < safe.length; row++) {
-          for (let col = 0; col < day; col++) {
-              const x = margin + col * (boxWidth + spacingX);
-              const y = toxic_end + row * (boxHeight + spacingY);
-              ctx.fillRect(x, y, boxWidth, boxHeight);
-          }
-        }
-      }
-
-      function drawGrade() {
+      function colorGrade() {
         const colors = {"0": "#FEE3D6", "1": "#FCBEA5", "2": "#FC9575", "3": "#EF3B2C", "4": "#CA171C"};
-
-        for (let i = 0; i < grade.length; i++) {
+        for (let i=0; i<grade.length; i++) {
           const gradeValue = grade[i];
           const dateIndex = days[i];
 
-          // x 좌표 계산 (박스 위치)
-          const x = margin + (dateIndex - 1) * (boxWidth + spacingX);
-
+          const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
           if (colors.hasOwnProperty(gradeValue)) {
-            console.log(gradeValue, dateIndex);
             ctx.fillStyle = colors[gradeValue];
-          } else {
-            ctx.fillStyle = "grey";
+            ctx.fillRect(x, 150, boxWidth, boxHeight);
           }
-
-          // 박스 그리기
-          ctx.fillRect(x, 120, boxWidth, boxHeight);
         }
       }
 
+      function colorToxic() {
+        for (let i=0; i<drug_concept_id.length; i++) {
+          const drug_id = drug_concept_id[i];
+          const toxicIndex = toxicIndexMap.get(drug_id);
+          const dateIndex = days[i];
+          if (toxic_id.includes(drug_id)) {
+            const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+            const y = toxic_start + toxicIndex * (boxHeight + spacingY);
+            ctx.fillStyle = "#1E88E5";
+            ctx.fillRect(x, y, boxWidth, boxHeight);
+
+          }
+        }
+      }
+      
+
+
       // drawLine(startX, 25, endX, 25);
-      writeLeftAlignedText('Patient number: ' + selectedPatient, margin + 10, 20);
-      writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin + 10, 40);
-      draw_toxic();
-      draw_safe();
-      drawGrade();
+      writeLeftAlignedText('Patient number: ' + selectedPatient, margin1 + 10, 20, 12);
+      writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin1 + 10, 35, 12);
+      writeLeftAlignedText('시작일...   ' + dateFormat(firstDate, "yyyy-mm-dd"), margin1 + 10, 55, 12);
+      // 순서 중요!!
+      drawGrid();
+      colorGrade();
+      writeDrugNames();
+      colorToxic();
 
 
-
+      drawGridLines(margin2, day, boxWidth, spacingX);
 
     }
   }
@@ -231,17 +248,14 @@
   }
 
   function adjustCanvasWidth() {
-    const datespace = 8;
-    const newWidth = day*datespace + 400; // Minimum width plus calculated width
+    const datespace = 10 + 4;
+    const newWidth = 2900; // Minimum width plus calculated width
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }
 
   function adjustCanvasHeight() {
-    let linespacing = 17;
-    let newLineY = 80 + ((toxic.length+safe.length) * linespacing);
-    let safeEndY = newLineY + (toxic.length * linespacing) + (safe.length * linespacing);
-    const newHeight = safeEndY + linespacing * 4 + 30;
+    const newHeight = 2800;
     canvas.height = newHeight;
     canvas.style.height = `${newHeight}px`;
   }
