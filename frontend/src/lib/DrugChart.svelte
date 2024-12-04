@@ -25,18 +25,6 @@
       lastDate,
       days=[],
       safe_id=[];
-      
-
-  const idToDrugMap = {
-    42920398: 'atezolizumab',
-    1594046: 'durvalumab',
-    1594038: 'durvalumab',
-    46275962: 'ipilimumab',
-    42920744: 'nivolumab',
-    42922127: 'nivolumab',
-    42921578: 'pembrolizumab'
-  };
-
 
   async function initializeData() {
   if (selectedPatient && patientData[selectedPatient]) {
@@ -63,8 +51,6 @@
     }
     return null;
   }
-  
-
 
   async function fetchMasterList() {
     const response = await fetch('/csvjson.json');
@@ -111,7 +97,11 @@
       const spacingY = 1;
       const boxWidth = 5;
       const boxHeight = 14;
-      const toxic_start = 200;
+      const gradeHeight = 25;
+      const grade_start = 100;
+      const ICI_start = grade_start + gradeHeight + 12;
+      const ratio_start = ICI_start + 4*(boxHeight + spacingY) + 12;
+      const toxic_start = ratio_start + 50 + 12;
       const safe_start = toxic.length*(boxHeight + spacingY) + toxic_start + 20;
       const safe_end = safe.length*(boxHeight + spacingY) + safe_start;
 
@@ -146,6 +136,11 @@
           const y = safe_start + i * (boxHeight + spacingY) + 10;
           writeRightAlignedText(safe[i], margin2-5, y, 12);
         }
+        const ICI = ["Atezolizumab", "Durvalumab", "Ipuilimumab", "Nivolumab"];
+        for (let i = 0; i < ICI.length; i++) {
+          const y = ICI_start + i * (boxHeight + spacingY) + 10;
+          writeRightAlignedText(ICI[i], margin2-5, y, 12);
+        }
       }
 
       function drawGridLines(margin2, day, boxWidth, spacingX) {
@@ -167,18 +162,20 @@
 
       function drawGrid() {
         ctx.fillStyle = "gainsboro";
-        const drawRows = (startY, rowCount) => {
+        const drawRows = (startY, rowCount, width, height) => {
             for (let row = 0; row < rowCount; row++) {
                 for (let col = 0; col < day; col++) {
-                    const x = margin2 + col * (boxWidth + spacingX);
-                    const y = startY + row * (boxHeight + spacingY);
-                    ctx.fillRect(x, y, boxWidth, boxHeight);
+                    const x = margin2 + col * (width + spacingX);
+                    const y = startY + row * (height + spacingY);
+                    ctx.fillRect(x, y, width, height);
                 }
             }
         };
-        drawRows(150, 1); // grade
-        drawRows(safe_start, safe.length); // safe 섹션
-        drawRows(toxic_start, toxic.length); // toxic 섹션
+        drawRows(grade_start, 1, boxWidth, gradeHeight); // grade
+        drawRows(ICI_start, 4, boxWidth, boxHeight);
+        drawRows(ratio_start, 1, boxWidth, 50);
+        drawRows(safe_start, safe.length, boxWidth, boxHeight); // safe 섹션
+        drawRows(toxic_start, toxic.length, boxWidth, boxHeight); // toxic 섹션
       }
 
 
@@ -191,7 +188,7 @@
           const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
           if (colors.hasOwnProperty(gradeValue)) {
             ctx.fillStyle = colors[gradeValue];
-            ctx.fillRect(x, 150, boxWidth, boxHeight);
+            ctx.fillRect(x, grade_start, boxWidth, gradeHeight);
           }
         }
       }
@@ -220,10 +217,20 @@
             ctx.fillStyle = "#4CAF50";
             ctx.fillRect(x, y, boxWidth, boxHeight);
           }
-
-        }
-        
+        }        
       }
+
+      function colorICI() {
+        for (i=0; i<ICI_lasting.length; i++) {
+          const dateIndex = days[i];
+          const duration = ICI_lasting[i];
+          if (duration != 0) {
+            console.loe(dateIndex, duration);
+          }
+        }
+      }
+
+      
       
 
 
@@ -237,6 +244,7 @@
       writeDrugNames();
       colorToxic();
       colorSafe();
+      colorICI();
 
 
       drawGridLines(margin2, day, boxWidth, spacingX);
