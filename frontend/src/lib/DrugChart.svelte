@@ -23,7 +23,8 @@
       uniq_id=[],
       firstDate,
       lastDate,
-      days=[];
+      days=[],
+      safe_id=[];
       
 
   const idToDrugMap = {
@@ -51,7 +52,7 @@
 
     drug_concept_id = data.map(row => row.drug_concept_id || 0);
     uniq_id = Array.from(new Set(drug_concept_id));  
-    drug_name = data.map(row => row.drug_name || 0);
+    drug_name = data.map(row => row.drug_name || '');
     ICI_lasting = data.map(row => row.ICI_lasting || 0);
     measurement_date = data.map(row => row.measurement_date || 0);
     grade = data.map(row => row.grade || "-1");
@@ -89,8 +90,9 @@
         });
 
         // 0제거, 중복제거
-        safe = [...new Set(safe.filter(drug => drug !== 0))];
+        safe = [...new Set(safe.filter(drug => drug !== ""))];
         safe = safe.map(drug => drug.toLowerCase());
+        safe_id = [...new Set(safeID.filter(drug => drug !== "0"))];
 
         resolve();
       };
@@ -157,7 +159,7 @@
             const x = margin2 + col * (boxWidth + spacingX);
             drawLine(x, toxic_start, x, safe_end+10);
             if (col > 0) {
-              ctx.fillText(col, x - 5, safe_end + 25); // 눈금을 x 좌표에 맞춰 표시
+              ctx.fillText(col, x+5, safe_end + 25); // 눈금을 x 좌표에 맞춰 표시
             }
           }
         }
@@ -204,9 +206,23 @@
             const y = toxic_start + toxicIndex * (boxHeight + spacingY);
             ctx.fillStyle = "#1E88E5";
             ctx.fillRect(x, y, boxWidth, boxHeight);
-
           }
         }
+      }
+
+      function colorSafe() {
+        for (let i=0; i<drug_concept_id.length; i++) {
+          const drugName = drug_name[i].toLowerCase();
+          const dateIndex = days[i];
+          if (safe.includes(drugName)) {
+            const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+            const y = safe_start + safe.indexOf(drugName) * (boxHeight + spacingY);
+            ctx.fillStyle = "#4CAF50";
+            ctx.fillRect(x, y, boxWidth, boxHeight);
+          }
+
+        }
+        
       }
       
 
@@ -220,6 +236,7 @@
       colorGrade();
       writeDrugNames();
       colorToxic();
+      colorSafe();
 
 
       drawGridLines(margin2, day, boxWidth, spacingX);
