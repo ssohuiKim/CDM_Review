@@ -104,6 +104,7 @@
       const toxic_start = ratio_start + 50 + 12;
       const safe_start = toxic.length*(boxHeight + spacingY) + toxic_start + 20;
       const safe_end = safe.length*(boxHeight + spacingY) + safe_start;
+      const ICI = ["Atezolizumab", "Durvalumab", "Ipuilimumab", "Nivolumab"];
 
       function drawLine(startX, startY, endX, endY) {
         ctx.beginPath();
@@ -136,7 +137,6 @@
           const y = safe_start + i * (boxHeight + spacingY) + 10;
           writeRightAlignedText(safe[i], margin2-5, y, 12);
         }
-        const ICI = ["Atezolizumab", "Durvalumab", "Ipuilimumab", "Nivolumab"];
         for (let i = 0; i < ICI.length; i++) {
           const y = ICI_start + i * (boxHeight + spacingY) + 10;
           writeRightAlignedText(ICI[i], margin2-5, y, 12);
@@ -221,17 +221,37 @@
       }
 
       function colorICI() {
-        for (i=0; i<ICI_lasting.length; i++) {
-          const dateIndex = days[i];
-          const duration = ICI_lasting[i];
-          if (duration != 0) {
-            console.loe(dateIndex, duration);
-          }
+        for (let i = 0; i < ICI_lasting.length; i++) {
+            const dateIndex = new_drug_exposure_date[i];
+            const duration = ICI_lasting[i];
+            const ICI_drug = drug_name[i];
+
+            if (duration != 0) {
+                const durationDate = new Date(duration);
+                const dateIndexDate = new Date(dateIndex);
+                const index = ICI.findIndex(drug => drug.toLowerCase() === ICI_drug.toLowerCase());
+                let drug_duration = Math.ceil((durationDate - dateIndexDate) / (1000 * 60 * 60 * 24)) + 1;
+
+                // 시작 박스의 x, y 좌표
+                const x = margin2 + (days[i] - 1) * (boxWidth + spacingX);
+                const y = ICI_start + index * (boxHeight + spacingY);
+
+                // 시작 부분 박스 (전체 높이)
+                ctx.fillStyle = "#FFC107";
+                ctx.fillRect(x, y, boxWidth, boxHeight); // 시작 부분만 전체 높이
+
+                // 나머지 지속 기간 박스 (짧게)
+                const shortHeight = boxHeight / 2; // 나머지 박스 높이를 줄임
+                const shortY = y + (boxHeight - shortHeight) / 2; // 중간에 위치하도록 조정
+                ctx.fillRect(
+                    x + boxWidth, // 시작 박스의 바로 오른쪽부터
+                    shortY,
+                    (drug_duration - 1) * (boxWidth + spacingX), // 나머지 지속 기간 길이
+                    shortHeight
+                );
+            }
         }
       }
-
-      
-      
 
 
       // drawLine(startX, 25, endX, 25);
