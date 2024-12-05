@@ -25,6 +25,7 @@
       lastDate,
       days=[],
       safe_id=[];
+  const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
   async function initializeData() {
   if (selectedPatient && patientData[selectedPatient]) {
@@ -33,10 +34,10 @@
     new_drug_exposure_date = data.map(row => row.new_drug_exposure_date || row.measurement_date);
     days = data.map(row => Number(row.day_num) || 0);                                
     day_num = Array.from(new Set(days));
-    // day = day_num[day_num.length - 1]; 
-    firstDate = new Date(new_drug_exposure_date[0]);
-    lastDate = new Date(new_drug_exposure_date[new_drug_exposure_date.length - 1]);
-    day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
+    // firstDate = new Date(new_drug_exposure_date[0]);
+    // lastDate = new Date(new_drug_exposure_date[new_drug_exposure_date.length - 1]);
+    // day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
+    day = find_day_num();
 
     drug_concept_id = data.map(row => row.drug_concept_id || 0);
     uniq_id = Array.from(new Set(drug_concept_id));  
@@ -50,6 +51,19 @@
     return { data, masterList };
     }
     return null;
+  }
+
+  function find_day_num() {
+    const firstDate = new Date(new_drug_exposure_date[0]);
+    const validDurationDates = ICI_lasting
+    .filter(date => date !== 0) // 0 제거
+    .map(date => new Date(date));
+    const maxDurationDate = validDurationDates.length > 0 ? new Date(Math.max(...validDurationDates.map(date => date.getTime()))) : null;
+    const lastDrugExposureDate = new Date(new_drug_exposure_date[new_drug_exposure_date.length - 1]);
+    const lastDate = maxDurationDate && maxDurationDate > lastDrugExposureDate ? maxDurationDate : lastDrugExposureDate;
+    const day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
+    console.log(firstDate);
+    return day;
   }
 
   async function fetchMasterList() {
@@ -97,7 +111,6 @@
       const spacingY = 1;
       const boxWidth = 5;
       const boxHeight = 14;
-      const ICI = ["Atezolizumab", "Durvalumab", "Ipuilimumab", "Nivolumab", "Pembrolizumab"];
       const gradeHeight = 25;
       const grade_start = 100;
       const ICI_start = grade_start + gradeHeight + 12;
@@ -258,7 +271,6 @@
       // drawLine(startX, 25, endX, 25);
       writeLeftAlignedText('Patient number: ' + selectedPatient, margin1 + 10, 20, 12);
       writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin1 + 10, 35, 12);
-      writeLeftAlignedText('시작일...   ' + dateFormat(firstDate, "yyyy-mm-dd"), margin1 + 10, 55, 12);
       // 순서 중요!!
       drawGrid();
       colorGrade();
@@ -294,14 +306,17 @@
   }
 
   function adjustCanvasWidth() {
-    const datespace = 10 + 4;
-    const newWidth = 2900; // Minimum width plus calculated width
+    const boxWidth = 5;
+    const spacingX = 2;
+    const newWidth = 33 + day * (boxWidth + spacingX) +  150;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }
 
   function adjustCanvasHeight() {
-    const newHeight = 2800;
+    const boxHeight = 14;
+    const spacingY = 1;
+    const newHeight = 250 + (toxic.length + safe.length + ICI.length) * (boxHeight + spacingY) + 50;
     canvas.height = newHeight;
     canvas.style.height = `${newHeight}px`;
   }
