@@ -97,14 +97,15 @@
       const spacingY = 1;
       const boxWidth = 5;
       const boxHeight = 14;
+      const ICI = ["Atezolizumab", "Durvalumab", "Ipuilimumab", "Nivolumab", "Pembrolizumab"];
       const gradeHeight = 25;
       const grade_start = 100;
       const ICI_start = grade_start + gradeHeight + 12;
-      const ratio_start = ICI_start + 4*(boxHeight + spacingY) + 12;
+      const ratio_start = ICI_start + ICI.length*(boxHeight + spacingY) + 12;
       const toxic_start = ratio_start + 50 + 12;
       const safe_start = toxic.length*(boxHeight + spacingY) + toxic_start + 20;
       const safe_end = safe.length*(boxHeight + spacingY) + safe_start;
-      const ICI = ["Atezolizumab", "Durvalumab", "Ipuilimumab", "Nivolumab"];
+      
 
       function drawLine(startX, startY, endX, endY) {
         ctx.beginPath();
@@ -172,7 +173,7 @@
             }
         };
         drawRows(grade_start, 1, boxWidth, gradeHeight); // grade
-        drawRows(ICI_start, 4, boxWidth, boxHeight);
+        drawRows(ICI_start, ICI.length, boxWidth, boxHeight);
         drawRows(ratio_start, 1, boxWidth, 50);
         drawRows(safe_start, safe.length, boxWidth, boxHeight); // safe 섹션
         drawRows(toxic_start, toxic.length, boxWidth, boxHeight); // toxic 섹션
