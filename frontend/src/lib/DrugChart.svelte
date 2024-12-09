@@ -17,14 +17,15 @@
       toxic_id=[],
       safe=[],
       day,
-      uniqueDates=[],
-      formattedDates=[],
       toxicIndexMap=new Map(),
       uniq_id=[],
       firstDate,
       lastDate,
       days=[],
-      safe_id=[];
+      safe_id=[],
+      ICI_lasting_end,
+      drug_exposure_date_end;
+
   const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
   async function initializeData() {
@@ -34,10 +35,6 @@
     new_drug_exposure_date = data.map(row => row.new_drug_exposure_date || row.measurement_date);
     days = data.map(row => Number(row.day_num) || 0);                                
     day_num = Array.from(new Set(days));
-    // firstDate = new Date(new_drug_exposure_date[0]);
-    // lastDate = new Date(new_drug_exposure_date[new_drug_exposure_date.length - 1]);
-    // day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
-    day = find_day_num();
 
     drug_concept_id = data.map(row => row.drug_concept_id || 0);
     uniq_id = Array.from(new Set(drug_concept_id));  
@@ -45,25 +42,20 @@
     ICI_lasting = data.map(row => row.ICI_lasting || 0);
     measurement_date = data.map(row => row.measurement_date || 0);
     grade = data.map(row => row.grade || "-1");
-    
+
+    ICI_lasting_end = (data.map(row => row.ICI_lasting).filter(value => value !== null));
+    ICI_lasting_end = ICI_lasting_end[ICI_lasting_end.length - 1];
+    drug_exposure_date_end = new_drug_exposure_date[new_drug_exposure_date.length - 1];
+    console.log(ICI_lasting_end, drug_exposure_date_end);
+    firstDate = new Date(new_drug_exposure_date[0]);
+    lastDate = new Date(Math.max(new Date(ICI_lasting_end), new Date(drug_exposure_date_end)));
+
+    day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
     
     const masterList = await fetchMasterList();
     return { data, masterList };
     }
     return null;
-  }
-
-  function find_day_num() {
-    const firstDate = new Date(new_drug_exposure_date[0]);
-    const validDurationDates = ICI_lasting
-    .filter(date => date !== 0) // 0 제거
-    .map(date => new Date(date));
-    const maxDurationDate = validDurationDates.length > 0 ? new Date(Math.max(...validDurationDates.map(date => date.getTime()))) : null;
-    const lastDrugExposureDate = new Date(new_drug_exposure_date[new_drug_exposure_date.length - 1]);
-    const lastDate = maxDurationDate && maxDurationDate > lastDrugExposureDate ? maxDurationDate : lastDrugExposureDate;
-    const day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
-    console.log(firstDate);
-    return day;
   }
 
   async function fetchMasterList() {
