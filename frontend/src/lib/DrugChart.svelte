@@ -25,6 +25,9 @@
       safe_id=[],
       ICI_lasting_end,
       drug_exposure_date_end;
+  let safe_num = [],
+      toxic_num = [];
+  
 
   const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
@@ -107,13 +110,14 @@
       const grade_start = 100;
       const ICI_start = grade_start + gradeHeight + 12;
       const ratio_start = ICI_start + ICI.length*(boxHeight + spacingY) + 12;
-      const toxic_start = ratio_start + 50 + 12;
+      const toxic_start = ratio_start + 62;
       const safe_start = toxic.length*(boxHeight + spacingY) + toxic_start + 20;
       const safe_end = safe.length*(boxHeight + spacingY) + safe_start;
       
 
-      function drawLine(startX, startY, endX, endY) {
+      function drawLine(startX, startY, endX, endY, width) {
         ctx.beginPath();
+        ctx.lineWidth = width;
         ctx.moveTo(startX, startY);
         ctx.lineTo(endX, endY);
         ctx.stroke();
@@ -158,7 +162,7 @@
         for (let col = 1; col <= day; col++) {
           if (col % 10 === 0) {
             const x = margin2 + col * (boxWidth + spacingX);
-            drawLine(x, toxic_start, x, safe_end+10);
+            drawLine(x, toxic_start, x, safe_end+10, 1);
             if (col > 0) {
               ctx.fillText(col, x+5, safe_end + 25); // 눈금을 x 좌표에 맞춰 표시
             }
@@ -200,18 +204,25 @@
       }
 
       function colorToxic() {
-        for (let i=0; i<drug_concept_id.length; i++) {
-          const drug_id = drug_concept_id[i];
-          const toxicIndex = toxicIndexMap.get(drug_id);
-          const dateIndex = days[i];
-          if (toxic_id.includes(drug_id)) {
-            const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
-            const y = toxic_start + toxicIndex * (boxHeight + spacingY);
-            ctx.fillStyle = "#1E88E5";
-            ctx.fillRect(x, y, boxWidth, boxHeight);
-          }
+        // toxic_num 리스트 초기화 (날짜마다 0으로 시작)
+        const toxic_num = Array.from({ length: day }, () => 0);
+
+        for (let i = 0; i < drug_concept_id.length; i++) {
+            const drug_id = drug_concept_id[i];
+            const toxicIndex = toxicIndexMap.get(drug_id);
+            const dateIndex = days[i]; // 날짜 인덱스 (1-based)
+
+            if (toxic_id.includes(drug_id)) {
+                toxic_num[dateIndex - 1]++;
+                const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+                const y = toxic_start + toxicIndex * (boxHeight + spacingY);
+                ctx.fillStyle = "#1E88E5";
+                ctx.fillRect(x, y, boxWidth, boxHeight);
+            }
         }
+        console.log("Toxic count per day:", toxic_num);
       }
+
 
       function colorSafe() {
         for (let i=0; i<drug_concept_id.length; i++) {
@@ -260,9 +271,16 @@
       }
 
 
-      // drawLine(startX, 25, endX, 25);
       writeLeftAlignedText('Patient number: ' + selectedPatient, margin1 + 10, 20, 12);
       writeLeftAlignedText('Type of cancer diagnosis: liver cancer', margin1 + 10, 35, 12);
+      // ICI ratio 선 표시
+      drawLine(margin2-10, ratio_start, margin2-10, ratio_start+50, 2.3);
+      drawLine(margin2-10, ratio_start+1, margin2-22, ratio_start+1, 2.3);
+      drawLine(margin2-10, ratio_start+24, margin2-22, ratio_start+24, 2.3);
+      drawLine(margin2-10, ratio_start+49, margin2-22, ratio_start+49, 2.3);
+      writeRightAlignedText('0', margin2-30, ratio_start+4, 12);
+      writeRightAlignedText('0.5', margin2-30, ratio_start+27, 12);
+      writeRightAlignedText('1', margin2-30, ratio_start+52, 12);
       // 순서 중요!!
       drawGrid();
       colorGrade();
