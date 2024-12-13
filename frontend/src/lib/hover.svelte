@@ -116,161 +116,47 @@
         const safe_end = safe.length*(boxHeight + spacingY) + safe_start;
         
   
-        function drawLine(startX, startY, endX, endY, width) {
-          ctx.beginPath();
-          ctx.lineWidth = width;
-          ctx.moveTo(startX, startY);
-          ctx.lineTo(endX, endY);
-          ctx.stroke();
-        }
-        function writeLeftAlignedText(text, x, y, size, color = 'black') {
-          ctx.font = `${size}px Arial`;
-          ctx.fillStyle = color;
-          ctx.textAlign = 'left';
-          ctx.fillText(text, x, y);
-        }
-        function writeRightAlignedText(text, x, y, size, color = 'black') {
-          ctx.font = `${size}px Arial`;
-          ctx.fillStyle = color;
-          ctx.textAlign = 'right';
-          ctx.fillText(text, x, y);
-        }
-  
-        function writeDrugNames() {
-          ctx.fillStyle = "black";
-          ctx.font = "12px Arial";
-          ctx.textAlign = 'center';
-          for (let i = 0; i < toxic.length; i++) {
-            const y = toxic_start + i * (boxHeight + spacingY) + 10;
-            writeRightAlignedText(toxic[i], margin2-5, y, 12);
-          }
-          for (let i = 0; i < safe.length; i++) {
-            const y = safe_start + i * (boxHeight + spacingY) + 10;
-            writeRightAlignedText(safe[i], margin2-5, y, 12);
-          }
-          for (let i = 0; i < ICI.length; i++) {
-            const y = ICI_start + i * (boxHeight + spacingY) + 10;
-            writeRightAlignedText(ICI[i], margin2-5, y, 12);
-          }
-        }
-  
-        function drawGridLines(margin2, day, boxWidth, spacingX) {
-          ctx.strokeStyle = "black";
-          ctx.lineWidth = 1;
-          ctx.fillStyle = "black";
-          ctx.font = "12px Arial";
-  
-          for (let col = 1; col <= day; col++) {
-            if (col % 10 === 0) {
-              const x = margin2 + col * (boxWidth + spacingX);
-              drawLine(x, toxic_start, x, safe_end+10, 1);
-              if (col > 0) {
-                ctx.fillText(col, x+5, safe_end + 25); // 눈금을 x 좌표에 맞춰 표시
-              }
-            }
-          }
-        }
-  
-        function drawGrid() {
-          ctx.fillStyle = "gainsboro";
-          const drawRows = (startY, rowCount, width, height) => {
-              for (let row = 0; row < rowCount; row++) {
-                  for (let col = 0; col < day; col++) {
-                      const x = margin2 + col * (width + spacingX);
-                      const y = startY + row * (height + spacingY);
-                      ctx.fillRect(x, y, width, height);
-                  }
-              }
-          };
-          drawRows(grade_start, 1, boxWidth, gradeHeight); // grade
-          drawRows(ICI_start, ICI.length, boxWidth, boxHeight);
-          drawRows(ratio_start, 1, boxWidth, 50);
-          drawRows(safe_start, safe.length, boxWidth, boxHeight); // safe 섹션
-          drawRows(toxic_start, toxic.length, boxWidth, boxHeight); // toxic 섹션
-        }
-  
-        function colorToxic() {
-            const boxes = []; // 박스 정보를 저장할 배열
-  
+        function colorBoxes() {
+            const toxicBoxes = []; // 독성 박스 정보
+            const safeBoxes = []; // 안전 박스 정보
+
+            // 독성 박스 처리
             for (let i = 0; i < drug_concept_id.length; i++) {
                 const drug_id = drug_concept_id[i];
                 const toxicIndex = toxicIndexMap.get(drug_id);
                 const dateIndex = days[i]; // 날짜 인덱스 (1-based)
-  
+
                 if (toxic_id.includes(drug_id)) {
                     toxic_num[dateIndex - 1]++;
                     const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
                     const y = toxic_start + toxicIndex * (boxHeight + spacingY);
-                    ctx.fillStyle = "#1E88E5";
+
+                    ctx.fillStyle = "#1E88E5"; // 파란색으로 박스 채우기
                     ctx.fillRect(x, y, boxWidth, boxHeight);
-  
-                    // 박스 정보를 저장
-                    boxes.push({
+
+                    toxicBoxes.push({
                         x: x,
                         y: y,
                         width: boxWidth,
                         height: boxHeight,
-                        drug_id: drug_id, // 박스에 관련된 데이터 저장
+                        drug_id: drug_id, // 약물 ID 저장
                     });
                 }
             }
-  
-            console.log("Toxic count per day:", toxic_num);
-  
-            // 캔버스에 마우스 이벤트 추가
-            canvas.addEventListener("mousemove", function (e) {
-                const rect = canvas.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left;
-                const mouseY = e.clientY - rect.top;
-  
-                // 캔버스 초기화
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-                // 모든 박스를 다시 그리기
-                for (const box of boxes) {
-                    ctx.fillStyle = "#1E88E5";
-                    ctx.fillRect(box.x, box.y, box.width, box.height);
-                }
-  
-                // 박스 위에 마우스가 있으면 텍스트 표시
-                for (const box of boxes) {
-                    if (
-                        mouseX >= box.x &&
-                        mouseX <= box.x + box.width &&
-                        mouseY >= box.y &&
-                        mouseY <= box.y + box.height
-                    ) {
-                        // 박스 위에 텍스트 그리기
-                        ctx.fillStyle = "black";
-                        ctx.font = "12px Arial";
-                        ctx.fillText(
-                            `Drug ID: ${box.drug_id}`,
-                            box.x,
-                            box.y - 5 // 박스 위에 텍스트 출력
-                        );
-                    }
-                }
-            });
-        }
-  
-  
-        function colorSafe() {
-            const safeBoxes = []; // 박스 정보 저장
-  
+
+            // 안전 박스 처리
             for (let i = 0; i < drug_concept_id.length; i++) {
                 const drugName = drug_name[i].toLowerCase();
                 const dateIndex = days[i]; // 날짜 인덱스 (1-based)
-  
+
                 if (safe.includes(drugName)) {
-                  safe_num[dateIndex - 1]++; // 날짜별 안전 약물 갯수 증가
-  
+                    safe_num[dateIndex - 1]++; // 날짜별 안전 약물 갯수 증가
                     const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
                     const y = safe_start + safe.indexOf(drugName) * (boxHeight + spacingY);
-  
+
                     ctx.fillStyle = "#4CAF50"; // 초록색으로 박스 채우기
                     ctx.fillRect(x, y, boxWidth, boxHeight);
-  
-                    // 박스 정보 저장
+
                     safeBoxes.push({
                         x: x,
                         y: y,
@@ -281,25 +167,50 @@
                     });
                 }
             }
-  
+
+            console.log("Toxic count per day:", toxic_num);
             console.log("Safe drug count per day:", safe_num);
-  
+
             // 캔버스에 마우스 이벤트 추가
             canvas.addEventListener("mousemove", function (e) {
                 const rect = canvas.getBoundingClientRect();
                 const mouseX = e.clientX - rect.left;
                 const mouseY = e.clientY - rect.top;
-  
+
                 // 캔버스 초기화
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-                // 모든 박스를 다시 그리기
+
+                // 모든 독성 박스를 다시 그리기
+                for (const box of toxicBoxes) {
+                    ctx.fillStyle = "#1E88E5";
+                    ctx.fillRect(box.x, box.y, box.width, box.height);
+                }
+
+                // 모든 안전 박스를 다시 그리기
                 for (const box of safeBoxes) {
                     ctx.fillStyle = "#4CAF50";
                     ctx.fillRect(box.x, box.y, box.width, box.height);
                 }
-  
-                // 박스 위에 마우스가 있으면 텍스트 표시
+
+                // 독성 박스 위에 마우스가 있으면 텍스트 표시
+                for (const box of toxicBoxes) {
+                    if (
+                        mouseX >= box.x &&
+                        mouseX <= box.x + box.width &&
+                        mouseY >= box.y &&
+                        mouseY <= box.y + box.height
+                    ) {
+                        ctx.fillStyle = "black";
+                        ctx.font = "12px Arial";
+                        ctx.fillText(
+                            `Toxic Drug ID: ${box.drug_id}`,
+                            box.x,
+                            box.y - 5
+                        );
+                    }
+                }
+
+                // 안전 박스 위에 마우스가 있으면 텍스트 표시
                 for (const box of safeBoxes) {
                     if (
                         mouseX >= box.x &&
@@ -307,21 +218,18 @@
                         mouseY >= box.y &&
                         mouseY <= box.y + box.height
                     ) {
-                        // 박스 위에 텍스트 그리기
                         ctx.fillStyle = "black";
                         ctx.font = "12px Arial";
                         ctx.fillText(
-                            `Drug: ${box.drugName}, Date: ${box.dateIndex}`,
+                            `Safe Drug: ${box.drugName}, Date: ${box.dateIndex}`,
                             box.x,
-                            box.y - 5 // 박스 위에 텍스트 출력
+                            box.y - 5
                         );
                     }
                 }
             });
         }
-  
-        colorToxic();
-        // colorSafe();
+        colorBoxes();
   
       }
     }

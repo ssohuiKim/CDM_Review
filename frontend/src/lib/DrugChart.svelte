@@ -205,14 +205,10 @@
       }
 
       function colorToxic() {
-        // toxic_num 리스트 초기화 (날짜마다 0으로 시작)
-        const toxic_num = Array.from({ length: day }, () => 0);
-
         for (let i = 0; i < drug_concept_id.length; i++) {
             const drug_id = drug_concept_id[i];
             const toxicIndex = toxicIndexMap.get(drug_id);
             const dateIndex = days[i]; // 날짜 인덱스 (1-based)
-
             if (toxic_id.includes(drug_id)) {
                 toxic_num[dateIndex - 1]++;
                 const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
@@ -221,7 +217,7 @@
                 ctx.fillRect(x, y, boxWidth, boxHeight);
             }
         }
-        console.log("Toxic count per day:", toxic_num);
+        console.log("Toxic count per day_drugchart:", toxic_num);
       }
 
       function colorSafe() {
@@ -229,12 +225,14 @@
           const drugName = drug_name[i].toLowerCase();
           const dateIndex = days[i];
           if (safe.includes(drugName)) {
+            safe_num[dateIndex - 1]++;
             const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
             const y = safe_start + safe.indexOf(drugName) * (boxHeight + spacingY);
             ctx.fillStyle = "#4CAF50";
             ctx.fillRect(x, y, boxWidth, boxHeight);
           }
         }        
+        console.log("safe count per day_drugchart:", safe_num);
       }
 
       function colorICI() {
@@ -269,6 +267,7 @@
             }
         }
       }
+
 
 
       writeLeftAlignedText('Patient number: ' + selectedPatient, margin1 + 10, 20, 12);
