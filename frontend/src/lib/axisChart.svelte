@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { onMount } from 'svelte';
   import dateFormat from 'dateformat'; 
 
@@ -401,4 +401,4 @@ function processData(data, masterList) {
 
 </script>
 
-<canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height:100%;"></canvas>
+<canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height:100%;"></canvas> -->

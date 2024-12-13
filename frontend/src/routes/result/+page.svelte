@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import DrugChart from '../../lib/DrugChart.svelte';
 	import AxisChart from '../../lib/axisChart.svelte';
+	import HoverBox from '../../lib/hover.svelte';
 	import { groupedPatientData } from '$lib/duckdb';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
@@ -127,24 +128,8 @@
 	  flex: 1;
 	  overflow: auto;
 	}
-  
-	.fixed-row {
-	  position: absolute;
-	  bottom: 0;
-	  left: 190px;
-	  z-index: 1;
-	  pointer-events: none;
-	  background-color: rgba(22, 3, 3, 0.3);
-	}
-  
-	.fixed-col {
-	  position: absolute;
-	  top: 48px;
-	  left: 0;
-	  z-index: 2;  /* column이 날짜 행보다 위에 덮여짐 */
-	  pointer-events: none;
-	  background-color: rgba(22, 3, 3, 0.3);
-	}
+
+
   
 	.text-button {
 	  background: #216BC4;
@@ -191,6 +176,34 @@
 	  border-radius: 5px;
 	  text-align: center;
 	}
+
+	.canvas-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.canvas-container > :global(*) {
+		position: absolute; /* 자식 요소들을 겹치게 배치 */
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.canvas-container > :global(AxisChart) {
+		z-index: 1; /* 가장 아래 */
+	}
+
+	.canvas-container > :global(DrugChart) {
+		z-index: 2; /* 중간 */
+	}
+
+	.canvas-container > :global(HoverBox) {
+		z-index: 8; /* 가장 위 */
+	}
+
+
   </style>
   
   <El container m="0" p="4" style="height: 100%;">
@@ -217,13 +230,12 @@
 		</div>
 		<div class="scroll-container" on:scroll={handleScroll}>
 		  {#if selectedPatient !== null}
-			<!-- <div class="fixed-row">
-			  <AxisChart type="row" {selectedPatient} {patientData} />
+			<div class="canvas-container">
+				<!-- <HoverBox {selectedPatient} {patientData} /> -->
+				<DrugChart {selectedPatient} {patientData} />
+				<AxisChart {selectedPatient} {patientData} />
+				<HoverBox {selectedPatient} {patientData} />
 			</div>
-			<div class="fixed-col">
-			  <AxisChart type="col" {selectedPatient} {patientData} />
-			</div> -->
-			<DrugChart {selectedPatient} {patientData} />
 		  {:else}
 			<p>Please select a patient to view their data.</p>
 		  {/if}

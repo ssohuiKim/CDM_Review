@@ -25,8 +25,8 @@
       safe_id=[],
       ICI_lasting_end,
       drug_exposure_date_end;
-  let safe_num = [],
-      toxic_num = [];
+  let toxic_num = [],
+      safe_num = [];
   
 
   const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
@@ -49,11 +49,12 @@
     ICI_lasting_end = (data.map(row => row.ICI_lasting).filter(value => value !== null));
     ICI_lasting_end = ICI_lasting_end[ICI_lasting_end.length - 1];
     drug_exposure_date_end = new_drug_exposure_date[new_drug_exposure_date.length - 1];
-    console.log(ICI_lasting_end, drug_exposure_date_end);
     firstDate = new Date(new_drug_exposure_date[0]);
     lastDate = new Date(Math.max(new Date(ICI_lasting_end), new Date(drug_exposure_date_end)));
 
     day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
+    toxic_num = Array.from({ length: day }, () => 0);
+    safe_num = Array.from({ length: day }, () => 0);
     
     const masterList = await fetchMasterList();
     return { data, masterList };
@@ -203,84 +204,25 @@
         }
       }
 
-      // function colorToxic() {
-      //   // toxic_num 리스트 초기화 (날짜마다 0으로 시작)
-      //   const toxic_num = Array.from({ length: day }, () => 0);
-
-      //   for (let i = 0; i < drug_concept_id.length; i++) {
-      //       const drug_id = drug_concept_id[i];
-      //       const toxicIndex = toxicIndexMap.get(drug_id);
-      //       const dateIndex = days[i]; // 날짜 인덱스 (1-based)
-
-      //       if (toxic_id.includes(drug_id)) {
-      //           toxic_num[dateIndex - 1]++;
-      //           const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
-      //           const y = toxic_start + toxicIndex * (boxHeight + spacingY);
-      //           ctx.fillStyle = "#1E88E5";
-      //           ctx.fillRect(x, y, boxWidth, boxHeight);
-      //       }
-      //   }
-      //   console.log("Toxic count per day:", toxic_num);
-      // }
-
       function colorToxic() {
-          // toxic_num 리스트 초기화 (날짜마다 0으로 시작)
-          const toxic_num = Array.from({ length: day }, () => 0);
-          const boxes = []; // 박스 정보를 저장할 배열
+        // toxic_num 리스트 초기화 (날짜마다 0으로 시작)
+        const toxic_num = Array.from({ length: day }, () => 0);
 
-          for (let i = 0; i < drug_concept_id.length; i++) {
-              const drug_id = drug_concept_id[i];
-              const toxicIndex = toxicIndexMap.get(drug_id);
-              const dateIndex = days[i]; // 날짜 인덱스 (1-based)
+        for (let i = 0; i < drug_concept_id.length; i++) {
+            const drug_id = drug_concept_id[i];
+            const toxicIndex = toxicIndexMap.get(drug_id);
+            const dateIndex = days[i]; // 날짜 인덱스 (1-based)
 
-              if (toxic_id.includes(drug_id)) {
-                  toxic_num[dateIndex - 1]++;
-                  const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
-                  const y = toxic_start + toxicIndex * (boxHeight + spacingY);
-                  ctx.fillStyle = "#1E88E5";
-                  ctx.fillRect(x, y, boxWidth, boxHeight);
-
-                  // 박스 정보를 저장
-                  boxes.push({
-                      x: x,
-                      y: y,
-                      width: boxWidth,
-                      height: boxHeight,
-                      drug_id: drug_id, // 박스에 관련된 데이터 저장
-                  });
-              }
-          }
-
-          console.log("Toxic count per day:", toxic_num);
-
-          // 캔버스에 마우스 이벤트 추가
-          canvas.addEventListener("mousemove", function (e) {
-              const rect = canvas.getBoundingClientRect();
-              const mouseX = e.clientX - rect.left;
-              const mouseY = e.clientY - rect.top;
-
-              // 박스 위에 마우스가 있으면 텍스트 표시
-              for (const box of boxes) {
-                  if (
-                      mouseX >= box.x &&
-                      mouseX <= box.x + box.width &&
-                      mouseY >= box.y &&
-                      mouseY <= box.y + box.height
-                  ) {
-                      // 박스 위에 텍스트 그리기
-                      ctx.fillStyle = "black";
-                      ctx.font = "12px Arial";
-                      ctx.fillText(
-                          `Drug ID: ${box.drug_id}`,
-                          box.x,
-                          box.y - 5 // 박스 위에 텍스트 출력
-                      );
-                  }
-              }
-          });
+            if (toxic_id.includes(drug_id)) {
+                toxic_num[dateIndex - 1]++;
+                const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+                const y = toxic_start + toxicIndex * (boxHeight + spacingY);
+                ctx.fillStyle = "#1E88E5";
+                ctx.fillRect(x, y, boxWidth, boxHeight);
+            }
+        }
+        console.log("Toxic count per day:", toxic_num);
       }
-
-
 
       function colorSafe() {
         for (let i=0; i<drug_concept_id.length; i++) {
