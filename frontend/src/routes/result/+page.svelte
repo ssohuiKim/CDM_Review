@@ -2,12 +2,14 @@
 	import {
 	  El,
 	  Button,
-	  Modal, ModalBody, ModalFooter
+	  Modal, ModalBody, ModalFooter,
+	  Spinner
 	} from 'yesvelte';
 	import { onMount } from 'svelte';
 	import DrugChart from '../../lib/DrugChart.svelte';
 	import AxisChart from '../../lib/axisChart.svelte';
 	import HoverBox from '../../lib/hover.svelte';
+	import Survey from './survey.svelte';
 	import { groupedPatientData } from '$lib/duckdb';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
@@ -240,6 +242,9 @@
 			<p>Please select a patient to view their data.</p>
 		  {/if}
 		</div>
+		<div class="survey">
+			<Survey />
+		</div>
 	  </div>
 	</El>
   
@@ -247,6 +252,7 @@
 	<div class="loading-modal">
 	  <div class="loading-content">
 		<p>Downloading charts, please wait...</p>
+		<Spinner color="dark" />
 	  </div>
 	</div>
 	{/if}

@@ -25,8 +25,6 @@
         safe_id=[],
         ICI_lasting_end,
         drug_exposure_date_end;
-    let toxic_num = [],
-        safe_num = [];
     
   
     const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
@@ -53,8 +51,6 @@
       lastDate = new Date(Math.max(new Date(ICI_lasting_end), new Date(drug_exposure_date_end)));
   
       day = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
-      toxic_num = Array.from({ length: day }, () => 0);
-      safe_num = Array.from({ length: day }, () => 0);
       
       const masterList = await fetchMasterList();
       return { data, masterList };
@@ -127,7 +123,6 @@
                 const dateIndex = days[i]; // 날짜 인덱스 (1-based)
 
                 if (toxic_id.includes(drug_id)) {
-                    toxic_num[dateIndex - 1]++;
                     const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
                     const y = toxic_start + toxicIndex * (boxHeight + spacingY);
 
@@ -150,7 +145,6 @@
                 const dateIndex = days[i]; // 날짜 인덱스 (1-based)
 
                 if (safe.includes(drugName)) {
-                    safe_num[dateIndex - 1]++; // 날짜별 안전 약물 갯수 증가
                     const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
                     const y = safe_start + safe.indexOf(drugName) * (boxHeight + spacingY);
 
@@ -167,9 +161,6 @@
                     });
                 }
             }
-
-            console.log("Toxic count per day:", toxic_num);
-            console.log("Safe drug count per day:", safe_num);
 
             // 캔버스에 마우스 이벤트 추가
             canvas.addEventListener("mousemove", function (e) {
@@ -272,4 +263,4 @@ function adjustCanvasHeight() {
 
 </script>
 
-<canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height:100%;"></canvas>
+<canvas bind:this={canvas} style="border:1px solid #000000; width 1900; height:2100;"></canvas>

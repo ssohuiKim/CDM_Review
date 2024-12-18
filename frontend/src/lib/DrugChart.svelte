@@ -217,7 +217,7 @@
                 ctx.fillRect(x, y, boxWidth, boxHeight);
             }
         }
-        console.log("Toxic count per day_drugchart:", toxic_num);
+        // console.log("Toxic count per day_drugchart:", toxic_num);
       }
 
       function colorSafe() {
@@ -232,7 +232,7 @@
             ctx.fillRect(x, y, boxWidth, boxHeight);
           }
         }        
-        console.log("safe count per day_drugchart:", safe_num);
+        // console.log("safe count per day_drugchart:", safe_num);
       }
 
       function colorICI() {
