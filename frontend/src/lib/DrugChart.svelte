@@ -275,8 +275,7 @@
           // 0이 아니라면 safe와 toxic의 비율을 합 1로 나타내기
           const ratio_safe = total === 0 ? 0 : safe_num[i] / total;
           const safe_x = margin2 + i * (boxWidth + spacingX);
-          // const safe_y = ratio_start + 50 - ratio_safe * 50;
-          const safe_y = ratio_start;
+          const safe_y = ratio_start + 50 - ratio_safe * 50;
           ctx.fillStyle = "#4CAF50";
           ctx.fillRect(safe_x, safe_y, boxWidth, ratio_safe * 50);
 
@@ -284,7 +283,7 @@
 
           const ratio_tox = total === 0 ? 0 : toxic_num[i] / total;
           const tox_x = margin2 + i * (boxWidth + spacingX);
-          const tox_y = ratio_start + 50 - ratio_tox * 50;
+          const tox_y = ratio_start;
           ctx.fillStyle = "#1E88E5";
           ctx.fillRect(tox_x, tox_y, boxWidth, ratio_tox * 50);
          }
