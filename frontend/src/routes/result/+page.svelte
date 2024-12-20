@@ -131,8 +131,6 @@
 	  overflow: auto;
 	}
 
-
-  
 	.text-button {
 	  background: #216BC4;
 	  border: none;
@@ -193,18 +191,28 @@
 		height: 100%;
 	}
 
-	.canvas-container > :global(AxisChart) {
-		z-index: 1; /* 가장 아래 */
+	/* .canvas-container > :global(AxisChart) {
+		z-index: 1;
 	}
 
 	.canvas-container > :global(DrugChart) {
-		z-index: 2; /* 중간 */
+		z-index: 2;
 	}
 
 	.canvas-container > :global(HoverBox) {
-		z-index: 8; /* 가장 위 */
-	}
+		z-index: 8;
+	} */
 
+	.survey {
+		/* position: fixed; */
+		/* top: 25%; */
+		right: 0;
+		width: 250px;
+		margin-left: 20px;
+		margin-right: 20px;
+		z-index: 1000;
+
+	}
 
   </style>
   
@@ -233,18 +241,16 @@
 		<div class="scroll-container" on:scroll={handleScroll}>
 		  {#if selectedPatient !== null}
 			<div class="canvas-container">
-				<!-- <HoverBox {selectedPatient} {patientData} /> -->
 				<DrugChart {selectedPatient} {patientData} />
 				<AxisChart {selectedPatient} {patientData} />
 				<HoverBox {selectedPatient} {patientData} />
 			</div>
+			<div class="survey">
+				<Survey />
+			</div>
 		  {:else}
 			<p>Please select a patient to view their data.</p>
 		  {/if}
-		</div>
-		<div class="survey">
-			<Survey />
-		</div>
 	  </div>
 	</El>
   
