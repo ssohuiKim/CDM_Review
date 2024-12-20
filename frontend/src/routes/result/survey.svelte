@@ -30,16 +30,16 @@
 
     function createInitialAnswers() {
         return {
-            q1: [],
-            q2: [],
+            q1: [items[0].code],
+            q2: [items[0].code],
             q3: [],
             q4: [],
             q5: [],
-            q6: [],
-            q7: [],
+            q6: [items[2].code],
+            q7: [items[2].code],
             q8: [],
-            q9: [],
-            q10: []
+            q9: [items[2].code],
+            q10: [items[0].code]
         };
     }
 
