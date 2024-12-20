@@ -21,6 +21,7 @@
 	let patients = [];
 	let selectedPatient = null;
 	let patientData = {};
+	let surveyRef;
   
 	onMount(() => {
 	  groupedPatientData.subscribe(data => {
@@ -30,9 +31,14 @@
 	});
   
 	function selectPatient(patientNum) {
-	  selectedPatient = patientNum;
-	  console.log('Selected Patient:', selectedPatient);
-	}
+        selectedPatient = patientNum;
+
+        if (surveyRef && typeof surveyRef.reset === "function") {
+            surveyRef.reset(); // 설문 상태 초기화
+        }
+
+        console.log("Selected Patient:", selectedPatient);
+    }
   
 	async function downloadAllCharts() {
 	  showLoading = true; // 다운로드 시작 시 로딩 모달 표시
@@ -242,11 +248,11 @@
 		  {#if selectedPatient !== null}
 			<div class="canvas-container">
 				<DrugChart {selectedPatient} {patientData} />
-				<AxisChart {selectedPatient} {patientData} />
+				<!-- <AxisChart {selectedPatient} {patientData} /> -->
 				<HoverBox {selectedPatient} {patientData} />
 			</div>
 			<div class="survey">
-				<Survey />
+				<Survey bind:this={surveyRef} {selectedPatient} {patientData} />
 			</div>
 		  {:else}
 			<p>Please select a patient to view their data.</p>
