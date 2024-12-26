@@ -1,5 +1,5 @@
 <script>
-    import { Card, FormCheckboxGroup, CardBody, Fieldset, FormTextarea } from "yesvelte";
+    import { Checkbox, Card, CardBody, Fieldset, FormTextarea } from "yesvelte";
 
     export let selectedPatient;
     export let patientData;
@@ -91,11 +91,24 @@
 
     <CardBody>
         {#each questions as questionText, index}
-            <FormCheckboxGroup
-                label="{index + 1}. {questionText}"
-                bind:value={answers[`q${index + 1}`]}
-                items={items.map(item => item.text)}
-            />
+            <div style="margin-bottom: 16px;">
+                <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {questionText}</p>
+                {#each items as item}
+                    <Checkbox
+                        label={item.text}
+                        checked={answers[`q${index + 1}`].includes(item.code)}
+                        on:change={() => {
+                            let selected = answers[`q${index + 1}`];
+                            if (selected.includes(item.code)) {
+                                selected = selected.filter(code => code !== item.code);
+                            } else {
+                                selected = [item.code];
+                            }
+                            answers[`q${index + 1}`] = selected;
+                        }}
+                    />
+                {/each}
+            </div>
         {/each}
     </CardBody>
 
