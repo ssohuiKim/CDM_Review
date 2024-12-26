@@ -213,7 +213,7 @@
 		/* position: fixed; */
 		/* top: 25%; */
 		right: 0;
-		width: 250px;
+		width: 280px;
 		margin-left: 20px;
 		margin-right: 20px;
 		z-index: 1000;

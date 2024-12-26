@@ -1,5 +1,5 @@
 <script>
-    import { Checkbox, Card, CardBody, Fieldset, FormTextarea } from "yesvelte";
+    import { Checkbox, Card, CardBody, Fieldset, FormTextarea, Button } from "yesvelte";
 
     export let selectedPatient;
     export let patientData;
@@ -116,7 +116,8 @@
         <FormTextarea col="12" label="Note" placeholder="Enter your notes here" />
     </Fieldset>
 
-    <CardBody>
-        <p style="font-weight: bold;">Total Score: {totalScore}</p>
+    <CardBody style="display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+        <p style="font-weight: bold; text-align: left; margin: 0; font-size: 16px;">({totalScore}) possible ADR</p>
+        <Button color="secondary" style="padding: 8px 14px; font-size: 16px;">Submit</Button>
     </CardBody>
 </Card>
