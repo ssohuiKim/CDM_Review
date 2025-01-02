@@ -96,15 +96,9 @@
                 {#each items as item}
                     <Checkbox
                         label={item.text}
-                        checked={answers[`q${index + 1}`].includes(item.code)}
+                        checked={answers[`q${index + 1}`][0] === item.code}
                         on:change={() => {
-                            let selected = answers[`q${index + 1}`];
-                            if (selected.includes(item.code)) {
-                                selected = selected.filter(code => code !== item.code);
-                            } else {
-                                selected = [item.code];
-                            }
-                            answers[`q${index + 1}`] = selected;
+                            answers[`q${index + 1}`] = [item.code];
                         }}
                     />
                 {/each}
