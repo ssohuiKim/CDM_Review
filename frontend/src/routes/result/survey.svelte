@@ -94,14 +94,19 @@
             <div style="margin-bottom: 16px;">
                 <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {questionText}</p>
                 {#each items as item}
-                    <Checkbox
-                        label={item.text}
-                        checked={answers[`q${index + 1}`][0] === item.code}
-                        on:change={() => {
-                            answers[`q${index + 1}`] = [item.code];
-                        }}
-                    />
-                {/each}
+                <Checkbox
+                    label={item.text}
+                    checked={answers[`q${index + 1}`][0] === item.code}
+                    on:change={() => {
+                        answers = { 
+                            ...answers, 
+                            [`q${index + 1}`]: [item.code] 
+                        };
+                        totalScore = calculateScore();
+                    }}
+                />
+            {/each}
+            
             </div>
         {/each}
     </CardBody>
