@@ -97,7 +97,7 @@
         var ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-        const margin2 = 110;
+        const margin2 = 120;
         const margin1 = 28
         const spacingX = 2;
         const spacingY = 1;
@@ -248,7 +248,7 @@ $: {
 function adjustCanvasWidth() {
   const boxWidth = 5;
   const spacingX = 2;
-  const newWidth = 33 + day * (boxWidth + spacingX) +  150;
+  const newWidth = 33 + day * (boxWidth + spacingX) +  120;
   canvas.width = newWidth;
   canvas.style.width = `${newWidth}px`;
 }

@@ -101,7 +101,7 @@
       var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const margin2 = 110;
+      const margin2 = 120;
       const margin1 = 28
       const spacingX = 2;
       const spacingY = 1;
@@ -196,7 +196,7 @@
           const gradeValue = grade[i];
           const dateIndex = days[i];
 
-          const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+          const x = margin2 + (dateIndex) * (boxWidth + spacingX);
           if (colors.hasOwnProperty(gradeValue)) {
             ctx.fillStyle = colors[gradeValue];
             ctx.fillRect(x, grade_start, boxWidth, gradeHeight);
@@ -217,7 +217,6 @@
                 ctx.fillRect(x, y, boxWidth, boxHeight);
             }
         }
-        // console.log("Toxic count per day_drugchart:", toxic_num);
       }
 
       function colorSafe() {
@@ -232,7 +231,6 @@
             ctx.fillRect(x, y, boxWidth, boxHeight);
           }
         }        
-        // console.log("safe count per day_drugchart:", safe_num);
       }
 
       function colorICI() {
@@ -339,7 +337,7 @@
   function adjustCanvasWidth() {
     const boxWidth = 5;
     const spacingX = 2;
-    const newWidth = 33 + day * (boxWidth + spacingX) +  150;
+    const newWidth = 33 + day * (boxWidth + spacingX) +  120;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }

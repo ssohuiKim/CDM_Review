@@ -9,7 +9,7 @@
 	import DrugChart from '../../lib/DrugChart.svelte';
 	import AxisChart from '../../lib/axisChart.svelte';
 	import HoverBox from '../../lib/hover.svelte';
-	import Survey from './survey.svelte';
+	import Survey from '../../lib/survey.svelte';
 	import { groupedPatientData } from '$lib/duckdb';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
@@ -71,15 +71,15 @@
   
 	function handleScroll(event) {
 	  const scrollContainer = event.target;
-	  const fixedRow = scrollContainer.querySelector('.fixed-row');
-	  const fixedCol = scrollContainer.querySelector('.fixed-col');
+	//   const fixedRow = scrollContainer.querySelector('.fixed-row');
+	//   const fixedCol = scrollContainer.querySelector('.fixed-col');
   
-	  if (fixedRow) {
-		fixedRow.style.transform = `translateY(${scrollContainer.scrollTop}px)`;
-	  }
-	  if (fixedCol) {
-		fixedCol.style.transform = `translateX(${scrollContainer.scrollLeft}px)`;
-	  }
+	//   if (fixedRow) {
+	// 	fixedRow.style.transform = `translateY(${scrollContainer.scrollTop}px)`;
+	//   }
+	//   if (fixedCol) {
+	// 	fixedCol.style.transform = `translateX(${scrollContainer.scrollLeft}px)`;
+	//   }
 	}
   </script>
   
@@ -105,7 +105,7 @@
 	  display: flex;
 	  flex-direction: row;
 	  height: 100%;
-	  overflow: auto;
+	  overflow: hidden;
 	}
   
 	.sidebar {
@@ -197,27 +197,17 @@
 		height: 100%;
 	}
 
-	/* .canvas-container > :global(AxisChart) {
-		z-index: 1;
-	}
-
-	.canvas-container > :global(DrugChart) {
-		z-index: 2;
-	}
-
-	.canvas-container > :global(HoverBox) {
-		z-index: 8;
-	} */
-
 	.survey {
-		/* position: fixed; */
-		/* top: 25%; */
-		right: 0;
-		width: 280px;
-		margin-left: 20px;
-		margin-right: 20px;
-		z-index: 1000;
-
+	  width: 300px; /* 고정된 너비 */
+	  background-color: white;
+	  border: 1px solid #dcdcdc;
+	  border-radius: 8px;
+	  padding: 16px;
+	  margin-left: 15px;
+	  height: calc(100vh - 150px); /* 화면 높이 */
+	  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	  overflow-y: auto;
+	  flex-shrink: 0; /* 크기 고정 */
 	}
 
   </style>
@@ -236,28 +226,33 @@
 	</div>
   
 	<El row style="margin-top: 24px; height: 100%">
-	  <div class="card">
-		<div class="sidebar">
-		  {#each patients as patientNum}
-		  <button on:click={() => selectPatient(patientNum)}>
-			Patient {patientNum}
-		  </button>
-		  {/each}
-		</div>
-		<div class="scroll-container" on:scroll={handleScroll}>
-		  {#if selectedPatient !== null}
-			<div class="canvas-container">
-				<DrugChart {selectedPatient} {patientData} />
-				<!-- <AxisChart {selectedPatient} {patientData} /> -->
-				<HoverBox {selectedPatient} {patientData} />
+		<div class="card">
+			<!-- Sidebar (왼쪽 환자 목록) -->
+			<div class="sidebar">
+				{#each patients as patientNum}
+					<button on:click={() => selectPatient(patientNum)}>
+						Patient {patientNum}
+					</button>
+				{/each}
 			</div>
+	
+			<!-- DrugChart 중앙 -->
+			<div class="scroll-container">
+				{#if selectedPatient !== null}
+					<div class="canvas-container">
+						<DrugChart {selectedPatient} {patientData} />
+						<HoverBox {selectedPatient} {patientData} />
+					</div>
+				{:else}
+					<p>Please select a patient to view their data.</p>
+				{/if}
+			</div>
+	
+			<!-- 오른쪽 Survey -->
 			<div class="survey">
 				<Survey bind:this={surveyRef} {selectedPatient} {patientData} />
 			</div>
-		  {:else}
-			<p>Please select a patient to view their data.</p>
-		  {/if}
-	  </div>
+		</div>
 	</El>
   
 	{#if showLoading}

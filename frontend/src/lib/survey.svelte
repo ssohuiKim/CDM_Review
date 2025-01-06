@@ -81,6 +81,16 @@
         }, 0);
     }
 
+    function saveToLocalStorage() {
+        const dataToSave = {
+            patientNumber: selectedPatient,
+            totalScore,
+            answers
+        };
+        localStorage.setItem('naranjoAlgorithmData', JSON.stringify(dataToSave));
+        console.log("Data saved to local storage:", dataToSave);
+    }
+
     $: totalScore = calculateScore();
 </script>
 
@@ -106,7 +116,6 @@
                     }}
                 />
             {/each}
-            
             </div>
         {/each}
     </CardBody>
@@ -117,6 +126,6 @@
 
     <CardBody style="display: flex; align-items: center; justify-content: space-between; gap: 15px;">
         <p style="font-weight: bold; text-align: left; margin: 0; font-size: 16px;">({totalScore}) possible ADR</p>
-        <Button color="secondary" style="padding: 8px 14px; font-size: 16px;">Submit</Button>
+        <Button color="secondary" style="padding: 8px 14px; font-size: 16px;" on:click={saveToLocalStorage}>Submit</Button>
     </CardBody>
 </Card>
