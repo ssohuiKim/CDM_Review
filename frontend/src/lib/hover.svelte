@@ -25,6 +25,7 @@
         safe_id=[],
         ICI_lasting_end,
         drug_exposure_date_end;
+    let drug_dose = [];
     
   
     const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
@@ -38,6 +39,8 @@
       day_num = Array.from(new Set(days));
   
       drug_concept_id = data.map(row => row.drug_concept_id || 0);
+      drug_dose = data.map(row => row.drug_name_dose || '');
+      console.log(drug_dose);
       uniq_id = Array.from(new Set(drug_concept_id));  
       drug_name = data.map(row => row.drug_name || '');
       ICI_lasting = data.map(row => row.ICI_lasting || 0);
@@ -142,6 +145,7 @@
             // 안전 박스 처리
             for (let i = 0; i < drug_concept_id.length; i++) {
                 const drugName = drug_name[i].toLowerCase();
+                const drugDose = drug_dose[i]
                 const dateIndex = days[i]; // 날짜 인덱스 (1-based)
 
                 if (safe.includes(drugName)) {
@@ -156,7 +160,7 @@
                         y: y,
                         width: boxWidth,
                         height: boxHeight,
-                        drugName: drugName, // 약물 이름 저장
+                        drugDose: drugDose,
                         dateIndex: dateIndex // 날짜 인덱스 저장
                     });
                 }
@@ -212,7 +216,8 @@
                         ctx.fillStyle = "black";
                         ctx.font = "12px Arial";
                         ctx.fillText(
-                            `Safe Drug: ${box.drugName}, Date: ${box.dateIndex}`,
+                            `${box.drugDose}`,
+                            // `${box.drugDose}, Date: ${box.dateIndex}`,
                             box.x,
                             box.y - 5
                         );
