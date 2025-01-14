@@ -11,7 +11,7 @@ self.onmessage = function(e) {
 
     // 고유한 toxic 약물 이름과 ID를 각각 배열에 저장
     const toxic_ingredients = [...new Set(toxic_ingredients_with_ids.map(item => item.ingredient))];
-
+    
     // 각 ingredient에 고유 인덱스를 부여하는 맵
     const ingredientIndexMap = new Map(toxic_ingredients.map((ingredient, index) => [ingredient, index ]));
 

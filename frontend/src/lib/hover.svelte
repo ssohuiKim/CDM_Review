@@ -40,7 +40,6 @@
   
       drug_concept_id = data.map(row => row.drug_concept_id || 0);
       drug_dose = data.map(row => row.drug_name_dose || '');
-      console.log(drug_dose);
       uniq_id = Array.from(new Set(drug_concept_id));  
       drug_name = data.map(row => row.drug_name || '');
       ICI_lasting = data.map(row => row.ICI_lasting || 0);
@@ -62,7 +61,7 @@
     }
   
     async function fetchMasterList() {
-      const response = await fetch('/csvjson.json');
+      const response = await fetch('/Rxnorm_without_blank.json');
       const jsonData = await response.json();
       return jsonData
     }

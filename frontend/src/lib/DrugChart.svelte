@@ -63,7 +63,7 @@
   }
 
   async function fetchMasterList() {
-    const response = await fetch('/csvjson.json');
+    const response = await fetch('/Rxnorm_without_blank.json');
     const jsonData = await response.json();
     return jsonData
   }
@@ -79,6 +79,7 @@
         toxic = toxic_drug;
         toxic_id = toxicID;
         toxicIndexMap = toxicmap;
+        // console.log(toxicIndexMap);
 
         safe = safeID.map(safeDrug => {
           const index = drug_concept_id.indexOf(safeDrug);

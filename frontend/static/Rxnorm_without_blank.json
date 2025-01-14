@@ -1,0 +1,5492 @@
+[
+  {
+    "ingredient": "allopurinol",
+    "cdm_id": "21112654",
+    "drug_name": "Allopurinol 100 MG Oral Tablet [Zyloric]"
+  },
+  {
+    "ingredient": "allopurinol",
+    "cdm_id": "42965904",
+    "drug_name": "Allopurinol 100 MG Oral Tablet [YUYU ALLOPURINOL]"
+  },
+  {
+    "ingredient": "allopurinol",
+    "cdm_id": "1167322",
+    "drug_name": "allopurinol"
+  },
+  {
+    "ingredient": "aminosalicylic acid",
+    "cdm_id": "2011748",
+    "drug_name": "aminosalicylic acid 800 MG Oral Granules [DID-PAS] by Dongindang"
+  },
+  {
+    "ingredient": "aminosalicylic acid",
+    "cdm_id": "42964056",
+    "drug_name": "aminosalicylic acid 2640 MG Oral Granules [DID-PAS]"
+  },
+  {
+    "ingredient": "aminosalicylic acid",
+    "cdm_id": "2050968",
+    "drug_name": "aminosalicylic acid 800 MG Oral Granules [SKY PASCALCIUM] by CMG"
+  },
+  {
+    "ingredient": "aminosalicylic acid",
+    "cdm_id": "1726228",
+    "drug_name": "aminosalicylic acid"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "19133832",
+    "drug_name": "amiodarone hydrochloride 200 MG Oral Tablet [Cordarone]"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "41349044",
+    "drug_name": "3 ML Amiodarone 50 MG/ML Injectable Solution [Cordarone]"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "1309944",
+    "drug_name": "amiodarone"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "2028920",
+    "drug_name": "3 ML amiodarone 50 MG/ML Injectable Solution [Cordarone] by Sanofi"
+  },
+  {
+    "ingredient": "amiodarone",
+    "cdm_id": "2065876",
+    "drug_name": "amiodarone 200 MG Oral Tablet [AMIRON] by Kwangdong"
+  },
+  {
+    "ingredient": "asparaginase",
+    "cdm_id": "43268981",
+    "drug_name": "ASPARAGINASE 10000 UNT Injection [Leunase]"
+  },
+  {
+    "ingredient": "asparaginase",
+    "cdm_id": "2046102",
+    "drug_name": "asparaginase 10000 UNT Injection [Leunase] by Kyowa Kirin"
+  },
+  {
+    "ingredient": "asparaginase",
+    "cdm_id": "2046103",
+    "drug_name": "asparaginase 10000 UNT Injection [Leunase] by JW"
+  },
+  {
+    "ingredient": "asparaginase",
+    "cdm_id": "19012585",
+    "drug_name": "asparaginase"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "1545998",
+    "drug_name": "atorvastatin 10 MG Oral Tablet [Lipitor]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "1545999",
+    "drug_name": "atorvastatin 20 MG Oral Tablet [Lipitor]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "1545958",
+    "drug_name": "atorvastatin"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972935",
+    "drug_name": "atorvastatin 20 MG Oral Tablet [LIPILOW]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19123593",
+    "drug_name": "atorvastatin 40 MG Oral Tablet [Lipitor]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972721",
+    "drug_name": "atorvastatin 10 MG Oral Tablet [LIPILOW]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972751",
+    "drug_name": "atorvastatin 10 MG Oral Tablet [LIPINON]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "43260317",
+    "drug_name": "atorvastatin 10 MG / ezetimibe 10 MG Oral Tablet [Atozet]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42973067",
+    "drug_name": "atorvastatin 40 MG Oral Tablet [LIPILOW]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972920",
+    "drug_name": "atorvastatin 20 MG Oral Tablet [LIPIKHAN]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19128163",
+    "drug_name": "amlodipine 5 MG / atorvastatin 10 MG Oral Tablet [Caduet]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972638",
+    "drug_name": "atorvastatin 10 MG / irbesartan 150 MG Oral Tablet [ROVELITO]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "43271238",
+    "drug_name": "atorvastatin 20 MG / ezetimibe 10 MG Oral Tablet [Atozet]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "43527029",
+    "drug_name": "atorvastatin 10 MG / ezetimibe 10 MG Oral Tablet"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19128165",
+    "drug_name": "amlodipine 5 MG / atorvastatin 20 MG Oral Tablet [Caduet]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "43527032",
+    "drug_name": "atorvastatin 20 MG / ezetimibe 10 MG Oral Tablet"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972641",
+    "drug_name": "atorvastatin 20 MG / irbesartan 150 MG Oral Tablet [ROVELITO]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19128151",
+    "drug_name": "amlodipine 10 MG / atorvastatin 20 MG Oral Tablet [Caduet]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972632",
+    "drug_name": "atorvastatin 10 MG / irbesartan 300 MG Oral Tablet [ROVELITO]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972747",
+    "drug_name": "atorvastatin 10 MG Oral Tablet [YUHAN ATORVA]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "19068781",
+    "drug_name": "atorvastatin 80 MG Oral Tablet [Lipitor]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972555",
+    "drug_name": "Amlodipine 5 MG / atorvastatin 20 MG Oral Tablet [TWOMIX]"
+  },
+  {
+    "ingredient": "atorvastatin",
+    "cdm_id": "42972960",
+    "drug_name": "atorvastatin 20 MG Oral Tablet [LIPINON]"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "42966091",
+    "drug_name": "Azathioprine 50 MG Oral Tablet [AZAFRINE]"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "42966092",
+    "drug_name": "Azathioprine 50 MG Oral Tablet [IMMUTHERA]"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "19014878",
+    "drug_name": "azathioprine"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "42966100",
+    "drug_name": "Azathioprine 25 MG Oral Tablet [AZABIO]"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "2045980",
+    "drug_name": "azathioprine 50 MG Oral Tablet by Handok"
+  },
+  {
+    "ingredient": "azathioprine",
+    "cdm_id": "42966099",
+    "drug_name": "Azathioprine 25 MG Oral Tablet [AZAFRINE]"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "1734132",
+    "drug_name": "azithromycin 250 MG Oral Tablet [Zithromax]"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "1734104",
+    "drug_name": "azithromycin"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "42949579",
+    "drug_name": "Azithromycin 250 MG Oral Tablet [AZITOPS]"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "2050632",
+    "drug_name": "azithromycin 40 MG Oral Suspension [Zithromax] by Pfizer"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "2050638",
+    "drug_name": "azithromycin 40 MG Oral Suspension by Daewoong"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "35603391",
+    "drug_name": "azithromycin 500 MG Injection [Zithromax]"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "2050609",
+    "drug_name": "azithromycin 500 MG Injection [AZITOPS] by Ildong"
+  },
+  {
+    "ingredient": "azithromycin",
+    "cdm_id": "21029222",
+    "drug_name": "15 ML Azithromycin 40 MG/ML Oral Suspension [Zithromax]"
+  },
+  {
+    "ingredient": "black cohosh extract",
+    "cdm_id": "41305003",
+    "drug_name": "Black Cohosh Extract 0.25 MG / Sanguinaria canadensis extract 0.25 MG / Sepia officinalis juice 0.25 MG / Strychnos ignatii preparation 0.025 MG Oral Tablet"
+  },
+  {
+    "ingredient": "black cohosh extract",
+    "cdm_id": "1391648",
+    "drug_name": "black cohosh extract"
+  },
+  {
+    "ingredient": "black cohosh extract",
+    "cdm_id": "43675375",
+    "drug_name": "Black Cohosh Extract 3.75 MG / ST. JOHN'S WORT EXTRACT 75 MG Oral Tablet"
+  },
+  {
+    "ingredient": "busulfan",
+    "cdm_id": "42920661",
+    "drug_name": "10 ML Busulfan 6 MG/ML Injectable Solution [Busulfex]"
+  },
+  {
+    "ingredient": "busulfan",
+    "cdm_id": "1333357",
+    "drug_name": "busulfan"
+  },
+  {
+    "ingredient": "busulfan",
+    "cdm_id": "2027400",
+    "drug_name": "10 ML busulfan 6 MG/ML Injectable Solution [Busulfex] by Otsuka"
+  },
+  {
+    "ingredient": "busulfan",
+    "cdm_id": "2027399",
+    "drug_name": "10 ML busulfan 6 MG/ML Injectable Solution [Busulfex] by Kyowa Kirin"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946833",
+    "drug_name": "Carbamazepine 200 MG Oral Tablet [CARMAZEPINE]"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946835",
+    "drug_name": "Carbamazepine 200 MG Extended Release Oral Tablet [CARMAZEPINE]"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "40166956",
+    "drug_name": "carbamazepine 200 MG Extended Release Oral Tablet [Tegretol]"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946842",
+    "drug_name": "Carbamazepine 300 MG Extended Release Oral Tablet [CARMAZEPINE]"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "740275",
+    "drug_name": "carbamazepine"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "19074680",
+    "drug_name": "carbamazepine 200 MG Oral Tablet [Tegretol]"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946836",
+    "drug_name": "Carbamazepine 200 MG Extended Release Oral Tablet [CARMINE]"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42946843",
+    "drug_name": "Carbamazepine 300 MG Extended Release Oral Tablet [BUKWANG TIMONIL]"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "42919362",
+    "drug_name": "100 ML Carbamazepine 20 MG/ML Oral Suspension [Tegretol]"
+  },
+  {
+    "ingredient": "carbamazepine",
+    "cdm_id": "2031875",
+    "drug_name": "1 ML carbamazepine 20 MG/ML Oral Suspension [Tegretol] by Novartis"
+  },
+  {
+    "ingredient": "chlorpromazine",
+    "cdm_id": "42947903",
+    "drug_name": "Chlorpromazine 100 MG Oral Tablet [NEOMAZINE]"
+  },
+  {
+    "ingredient": "chlorpromazine",
+    "cdm_id": "794852",
+    "drug_name": "chlorpromazine"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "1759842",
+    "drug_name": "clavulanate"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951724",
+    "drug_name": "Amoxicillin 500 MG / Clavulanate 125 MG Oral Tablet [CLAMONEX]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951756",
+    "drug_name": "Amoxicillin 500 MG / Clavulanate 125 MG Oral Tablet [MOXICLE]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951408",
+    "drug_name": "Amoxicillin 250 MG / Clavulanate 125 MG Oral Tablet [MOXICLE]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951753",
+    "drug_name": "Amoxicillin 500 MG / Clavulanate 125 MG Oral Tablet [YUCLA]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951405",
+    "drug_name": "Amoxicillin 250 MG / Clavulanate 125 MG Oral Tablet [YUCLA]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2052449",
+    "drug_name": "amoxicillin 40 MG / clavulanate 5.7 MG Oral Suspension [AUGMENTIN DUO] by Ilsung"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "19133019",
+    "drug_name": "amoxicillin 250 MG / clavulanate 125 MG Oral Tablet [Augmentin]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919826",
+    "drug_name": "50 ML Amoxicillin 40 MG/ML / Clavulanate 5.7 MG/ML Oral Suspension [AMOCLA DUO]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919823",
+    "drug_name": "50 ML Amoxicillin 40 MG/ML / Clavulanate 5.7 MG/ML Oral Suspension [Augmentin Duo]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2011814",
+    "drug_name": "amoxicillin 40 MG / clavulanate 5.7 MG Oral Suspension [CRAMOTIN DUO] by Dong-a"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919817",
+    "drug_name": "50 ML Amoxicillin 25 MG/ML / Clavulanate 6.25 MG/ML Oral Suspension [AMOXCLAN]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2052243",
+    "drug_name": "amoxicillin 25 MG / clavulanate 6.25 MG Oral Suspension [AMOXCLAN] by Hanmi"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919832",
+    "drug_name": "50 ML Amoxicillin 40 MG/ML / Clavulanate 5.7 MG/ML Oral Suspension [AUGMEX DUO]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919917",
+    "drug_name": "50 ML Amoxicillin 120 MG/ML / Clavulanate 8.58 MG/ML Oral Suspension [AMOCLA NEO]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919828",
+    "drug_name": "50 ML Amoxicillin 40 MG/ML / Clavulanate 5.7 MG/ML Oral Suspension [AMOXCLAN DUO]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42951320",
+    "drug_name": "Amoxicillin 200 MG / Clavulanate 50 MG Tablet for Oral Suspension [CAMODIX]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2052192",
+    "drug_name": "amoxicillin 125 MG / clavulanate 8.58 MG Oral Suspension [AMOCLA NEO] by Kuhnil"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42948460",
+    "drug_name": "Clavulanate 100 MG / Ticarcillin 1650 MG Injection [TIOCLA]"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2011810",
+    "drug_name": "amoxicillin 100 MG / clavulanate 25 MG Tablet for Oral Suspension [CAMODIX] by Sam-a"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2052123",
+    "drug_name": "amoxicillin 125 MG / clavulanate 31.2 MG Tablet for Oral Suspension [AMOXCLAN] by Hanmi"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2051672",
+    "drug_name": "amoxicillin 62.5 MG / clavulanate 15.6 MG Tablet for Oral Suspension [AMOXCLAN] by Hanmi"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "2011778",
+    "drug_name": "amoxicillin 62.5 MG / clavulanate 15.6 MG Tablet for Oral Suspension [CAMODIX] by Sam-a"
+  },
+  {
+    "ingredient": "clavulanate",
+    "cdm_id": "42919802",
+    "drug_name": "50 ML Amoxicillin 25 MG/ML / Clavulanate 6.25 MG/ML Oral Suspension [Augmentin]"
+  },
+  {
+    "ingredient": "danazol",
+    "cdm_id": "42964048",
+    "drug_name": "Danazol 200 MG Oral Capsule [YOUNGPOONG DANAZOL]"
+  },
+  {
+    "ingredient": "danazol",
+    "cdm_id": "1511449",
+    "drug_name": "danazol"
+  },
+  {
+    "ingredient": "dantrolene",
+    "cdm_id": "42942268",
+    "drug_name": "Dantrolene 25 MG Oral Capsule [Anorex]"
+  },
+  {
+    "ingredient": "dantrolene",
+    "cdm_id": "711714",
+    "drug_name": "dantrolene"
+  },
+  {
+    "ingredient": "dapsone",
+    "cdm_id": "42948129",
+    "drug_name": "Dapsone 100 MG Oral Tablet [TAIGUK DAPSONE]"
+  },
+  {
+    "ingredient": "dapsone",
+    "cdm_id": "1711759",
+    "drug_name": "dapsone"
+  },
+  {
+    "ingredient": "diclofenac",
+    "cdm_id": "42921946",
+    "drug_name": "2 ML Diclofenac 45 MG/ML Injectable Solution [DICKNOL]"
+  },
+  {
+    "ingredient": "diclofenac",
+    "cdm_id": "2029752",
+    "drug_name": "2 ML diclofenac 45 MG/ML Injectable Solution [DICKNOL] by Myungmoon"
+  },
+  {
+    "ingredient": "diclofenac",
+    "cdm_id": "1124300",
+    "drug_name": "diclofenac"
+  },
+  {
+    "ingredient": "diclofenac",
+    "cdm_id": "2029749",
+    "drug_name": "2 ML diclofenac 45 MG/ML Injectable Solution [NEWFENAC] by Aju"
+  },
+  {
+    "ingredient": "didanosine",
+    "cdm_id": "2050977",
+    "drug_name": "didanosine 250 MG Extended Release Oral Capsule [Videx EC] by BMS"
+  },
+  {
+    "ingredient": "didanosine",
+    "cdm_id": "2050976",
+    "drug_name": "didanosine 400 MG Extended Release Oral Capsule [Videx EC] by BMS"
+  },
+  {
+    "ingredient": "didanosine",
+    "cdm_id": "1724869",
+    "drug_name": "didanosine"
+  },
+  {
+    "ingredient": "drospirenone",
+    "cdm_id": "1512674",
+    "drug_name": "drospirenone"
+  },
+  {
+    "ingredient": "drospirenone",
+    "cdm_id": "19124099",
+    "drug_name": "drospirenone 3 MG / ethinyl estradiol 0.02 MG Oral Tablet"
+  },
+  {
+    "ingredient": "drospirenone",
+    "cdm_id": "43256701",
+    "drug_name": "drospirenone 2 MG / Estradiol 1 MG Oral Tablet [Angeliq]"
+  },
+  {
+    "ingredient": "drospirenone",
+    "cdm_id": "19071361",
+    "drug_name": "drospirenone 3 MG / ethinyl estradiol 0.03 MG Oral Tablet"
+  },
+  {
+    "ingredient": "dydrogesterone",
+    "cdm_id": "21080074",
+    "drug_name": "Dydrogesterone 10 MG Oral Tablet [Duphaston] by Abbott"
+  },
+  {
+    "ingredient": "dydrogesterone",
+    "cdm_id": "19040060",
+    "drug_name": "dydrogesterone"
+  },
+  {
+    "ingredient": "dydrogesterone",
+    "cdm_id": "2075051",
+    "drug_name": "{14 (Dydrogesterone 10 MG / Estradiol 2 MG Oral Tablet) / 14 (estradiol 2 MG Oral Tablet) } Pack [Femoston] by JW"
+  },
+  {
+    "ingredient": "dydrogesterone",
+    "cdm_id": "2044163",
+    "drug_name": "dydrogesterone 10 MG Oral Tablet [JW DUPHASTON] by JW"
+  },
+  {
+    "ingredient": "efavirenz",
+    "cdm_id": "43277370",
+    "drug_name": "efavirenz 600 MG Oral Tablet [Stocrin]"
+  },
+  {
+    "ingredient": "efavirenz",
+    "cdm_id": "1738135",
+    "drug_name": "efavirenz"
+  },
+  {
+    "ingredient": "erythromycin",
+    "cdm_id": "2031636",
+    "drug_name": "1 ML erythromycin 25 MG/ML Oral Suspension [Ilosone] by Yungjin"
+  },
+  {
+    "ingredient": "erythromycin",
+    "cdm_id": "1746940",
+    "drug_name": "erythromycin"
+  },
+  {
+    "ingredient": "erythromycin",
+    "cdm_id": "2023793",
+    "drug_name": "1000 MG colistin 0.005 MG/MG / erythromycin 0.005 MG/MG Ophthalmic Ointment [Ecolicin] by Taejoon"
+  },
+  {
+    "ingredient": "erythromycin",
+    "cdm_id": "2031633",
+    "drug_name": "1 ML colistin 5 MG/ML / erythromycin 5 MG/ML Ophthalmic Solution [Ecolicin] by Taejoon"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "19026230",
+    "drug_name": "estradiol 2 MG Oral Tablet [Progynova]"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "1548195",
+    "drug_name": "estradiol"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "19027323",
+    "drug_name": "estradiol 1 MG Oral Tablet [Progynova]"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075044",
+    "drug_name": "{12 (Cyproterone 1 MG / Estradiol 2 MG Oral Tablet) / 16 (estradiol 2 MG Oral Tablet) } Pack [Climen] by Bayer"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "43256701",
+    "drug_name": "drospirenone 2 MG / Estradiol 1 MG Oral Tablet [Angeliq]"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "42943300",
+    "drug_name": "Estradiol 2 MG / Norethindrone 1 MG Oral Tablet [CLIANE]"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "43294679",
+    "drug_name": "dienogest / Estradiol Oral Tablet [Qlaira]"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075054",
+    "drug_name": "{10 (estradiol 2 MG / medroxyprogesterone 10 MG Oral Tablet) / 11 (estradiol 2 MG Oral Tablet) } Pack [DIVINA] by Hyundai"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075013",
+    "drug_name": "{6 (estradiol 1 MG Oral Tablet) / 10 (estradiol 2 MG / norethindrone 1 MG Oral Tablet) / 12 (estradiol 2 MG Oral Tablet) } Pack [Trisequens] by Novonordisk"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075051",
+    "drug_name": "{14 (Dydrogesterone 10 MG / Estradiol 2 MG Oral Tablet) / 14 (estradiol 2 MG Oral Tablet) } Pack [Femoston] by JW"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "43153692",
+    "drug_name": "50000 MG Estradiol 0.001 MG/MG Topical Gel [ESTREVA]"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "42943298",
+    "drug_name": "Estradiol 1 MG / Norethindrone 0.5 MG Oral Tablet [ESDIOL-HALF]"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2024013",
+    "drug_name": "1000 MG estradiol 0.001 MG/MG Topical Gel [Divigel] by Hyundai"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075029",
+    "drug_name": "{28 (estradiol 1 MG / norethindrone acetate 0.5 MG Oral Tablet) } Pack [ACTIVELLE] by Novonordisk"
+  },
+  {
+    "ingredient": "estradiol",
+    "cdm_id": "2075027",
+    "drug_name": "{28 (estradiol 1 MG / norethindrone acetate 0.5 MG Oral Tablet) } Pack [KLIOGEST] by Novonordisk"
+  },
+  {
+    "ingredient": "estriol",
+    "cdm_id": "42971273",
+    "drug_name": "Estriol 0.03 MG / Lactobacillus acidophilus 10000000 IU Vaginal Tablet [Gynoflor]"
+  },
+  {
+    "ingredient": "estriol",
+    "cdm_id": "19049038",
+    "drug_name": "estriol"
+  },
+  {
+    "ingredient": "estriol",
+    "cdm_id": "2043821",
+    "drug_name": "estriol 0.5 MG Vaginal Suppository [Ovestin] by MSD"
+  },
+  {
+    "ingredient": "estriol",
+    "cdm_id": "2011166",
+    "drug_name": "estriol 0.5 MG Vaginal Suppository [Ovestin] by Schering-Plough"
+  },
+  {
+    "ingredient": "estropipate",
+    "cdm_id": "2024015",
+    "drug_name": "1000 MG estropipate 0.0015 MG/MG Vaginal Cream [ESGEN] by Myungmoon"
+  },
+  {
+    "ingredient": "estropipate",
+    "cdm_id": "1525278",
+    "drug_name": "estropipate"
+  },
+  {
+    "ingredient": "estropipate",
+    "cdm_id": "42931182",
+    "drug_name": "estropipate 0.75 MG Oral Tablet [ESGEN]"
+  },
+  {
+    "ingredient": "ethinyl estradiol",
+    "cdm_id": "1549786",
+    "drug_name": "ethinyl estradiol"
+  },
+  {
+    "ingredient": "ethinyl estradiol",
+    "cdm_id": "19060529",
+    "drug_name": "ethinyl estradiol 0.03 MG / gestodene 0.075 MG Oral Tablet"
+  },
+  {
+    "ingredient": "ethinyl estradiol",
+    "cdm_id": "19124099",
+    "drug_name": "drospirenone 3 MG / ethinyl estradiol 0.02 MG Oral Tablet"
+  },
+  {
+    "ingredient": "ethinyl estradiol",
+    "cdm_id": "19071361",
+    "drug_name": "drospirenone 3 MG / ethinyl estradiol 0.03 MG Oral Tablet"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "42920309",
+    "drug_name": "20 ML Fluorouracil 50 MG/ML Injectable Solution [CHOONGWAE 5-FU]"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "2009512",
+    "drug_name": "20 ML fluorouracil 50 MG/ML Injectable Solution [JW 5-FU] by JW"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "42920649",
+    "drug_name": "10 ML Fluorouracil 50 MG/ML Injectable Solution [CHOONGWAE 5-FU]"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "42921149",
+    "drug_name": "5 ML Fluorouracil 50 MG/ML Injectable Solution [CHOONGWAE 5-FU]"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "2009564",
+    "drug_name": "10 ML fluorouracil 50 MG/ML Injectable Solution [JW 5-FU] by JW"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "955632",
+    "drug_name": "fluorouracil"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "2009646",
+    "drug_name": "5 ML fluorouracil 50 MG/ML Injectable Solution [JW 5-FU] by JW"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "43707750",
+    "drug_name": "Fluorouracil 0.005 MG/MG / Salicylic Acid 0.1 MG/MG Topical Solution"
+  },
+  {
+    "ingredient": "fluorouracil",
+    "cdm_id": "41220763",
+    "drug_name": "Fluorouracil 0.05 MG/MG Topical Cream [Efudix]"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "42921865",
+    "drug_name": "2 ML fosphenytoin 75 MG/ML Injectable Solution [Cerebyx]"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "42920607",
+    "drug_name": "10 ML fosphenytoin 75 MG/ML Injectable Solution [Cerebyx]"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "713192",
+    "drug_name": "fosphenytoin"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "2029604",
+    "drug_name": "2 ML fosphenytoin 75 MG/ML Injectable Solution [Cerebyx] by Hanlim"
+  },
+  {
+    "ingredient": "fosphenytoin",
+    "cdm_id": "2027392",
+    "drug_name": "10 ML fosphenytoin 75 MG/ML Injectable Solution [Cerebyx] by Hanlim"
+  },
+  {
+    "ingredient": "hydralazine",
+    "cdm_id": "2032036",
+    "drug_name": "1 ML hydralazine 20 MG/ML Injectable Solution by Samjin"
+  },
+  {
+    "ingredient": "hydralazine",
+    "cdm_id": "42929489",
+    "drug_name": "Hydralazine 25 MG Oral Tablet [HYDRALAZINE HCL SAMJIN]"
+  },
+  {
+    "ingredient": "hydralazine",
+    "cdm_id": "42922292",
+    "drug_name": "1 ML Hydralazine 20 MG/ML Injectable Solution [HYDRALAZINE HCL SAMJIN]"
+  },
+  {
+    "ingredient": "hydralazine",
+    "cdm_id": "1373928",
+    "drug_name": "hydralazine"
+  },
+  {
+    "ingredient": "17-alpha-hydroxyprogesterone",
+    "cdm_id": "36249938",
+    "drug_name": "1 ML hydroxyprogesterone caproate (USP) 250 MG/ML Injection"
+  },
+  {
+    "ingredient": "17-alpha-hydroxyprogesterone",
+    "cdm_id": "19077143",
+    "drug_name": "17-alpha-hydroxyprogesterone"
+  },
+  {
+    "ingredient": "17-alpha-hydroxyprogesterone",
+    "cdm_id": "2009873",
+    "drug_name": "1 ML 17-alpha-hydroxyprogesterone 250 MG/ML Injectable Solution [JENAPHARM PROGESTERON DEPOT] by Serpentem"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "19078461",
+    "drug_name": "ibuprofen 200 MG Oral Tablet"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "1177480",
+    "drug_name": "ibuprofen"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42948431",
+    "drug_name": "Acetaminophen 250 MG / Codeine 10 MG / Ibuprofen 200 MG Oral Capsule [MYPOL]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923455",
+    "drug_name": "Ibuprofen 300 MG Oral Tablet [DICAROL]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42918274",
+    "drug_name": "500 ML Ibuprofen 12 MG/ML Oral Suspension [MAXIBUPEN]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923550",
+    "drug_name": "Ibuprofen 400 MG Oral Tablet [IBUPROFEN DAEHWA]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923464",
+    "drug_name": "Ibuprofen 300 MG Oral Tablet [ANYFEN]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42918279",
+    "drug_name": "500 ML Ibuprofen 12 MG/ML Oral Suspension [ANYFEN]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "2032376",
+    "drug_name": "1 ML ibuprofen 12 MG/ML Oral Suspension [ANYFEN] by Ahngook"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923551",
+    "drug_name": "Ibuprofen 400 MG Oral Tablet [IBUPROFEN NELSON]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42923559",
+    "drug_name": "Ibuprofen 400 MG Oral Tablet [IBUFEN]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "19024626",
+    "drug_name": "ibuprofen 400 MG Oral Tablet [Brufen]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "42918282",
+    "drug_name": "500 ML Ibuprofen 12 MG/ML Oral Suspension [KOKO PED]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "2032386",
+    "drug_name": "1 ML ibuprofen 12 MG/ML Oral Suspension [MAXIBUPEN] by Hanmi"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "43291470",
+    "drug_name": "4 ML Ibuprofen 100 MG/ML Injection"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "41339644",
+    "drug_name": "2 ML Ibuprofen 5 MG/ML Injectable Solution [Pedea]"
+  },
+  {
+    "ingredient": "ibuprofen",
+    "cdm_id": "2029716",
+    "drug_name": "2 ML ibuprofen 5 MG/ML Injectable Solution [Pedea] by Samoh"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "937368",
+    "drug_name": "infliximab"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "937369",
+    "drug_name": "infliximab 100 MG Injection [Remicade]"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "2037160",
+    "drug_name": "infliximab 100 MG Injection [Remicade] by Janssen"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "21092406",
+    "drug_name": "infliximab 100 MG Injection [Remsima]"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "2010486",
+    "drug_name": "infliximab 100 MG Injection [Remicade] by Schering-Plough"
+  },
+  {
+    "ingredient": "infliximab",
+    "cdm_id": "2037159",
+    "drug_name": "infliximab 100 MG Injection [Remsima] by Celltrion"
+  },
+  {
+    "ingredient": "interferon alfa-2a",
+    "cdm_id": "2010220",
+    "drug_name": "0.5 ML interferon alfa-2a 6000000 IU/ML Prefilled Syringe [Roferon-A] by Roche"
+  },
+  {
+    "ingredient": "interferon alfa-2a",
+    "cdm_id": "42922845",
+    "drug_name": "0.5 ML Interferon Alfa-2a 6000000 IU/ML Prefilled Syringe [Roferon-A]"
+  },
+  {
+    "ingredient": "interferon alfa-2a",
+    "cdm_id": "1379969",
+    "drug_name": "interferon alfa-2a"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "2009783",
+    "drug_name": "1.2 ML interferon alfa-2b 15000000 IU/ML Pen Injector [Intron A] by MSD"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "42922253",
+    "drug_name": "1.2 ML Interferon Alfa-2b 15000000 IU/ML Pen Injector [Intron A]"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "2009784",
+    "drug_name": "1.2 ML interferon alfa-2b 15000000 IU/ML Pen Injector [Intron A] by Schering-Plough"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "42922255",
+    "drug_name": "1.2 ML Interferon Alfa-2b 25000000 IU/ML Pen Injector [Intron A]"
+  },
+  {
+    "ingredient": "interferon alfa-2b",
+    "cdm_id": "1380068",
+    "drug_name": "interferon alfa-2b"
+  },
+  {
+    "ingredient": "interferon beta-1b",
+    "cdm_id": "2010025",
+    "drug_name": "1 ML interferon beta-1b 0.3 MG/ML Injectable Solution [Betaferon] by Bayer"
+  },
+  {
+    "ingredient": "interferon beta-1b",
+    "cdm_id": "713196",
+    "drug_name": "interferon beta-1b"
+  },
+  {
+    "ingredient": "interferon beta-1b",
+    "cdm_id": "42957485",
+    "drug_name": "interferon beta-1b 0.3 MG Injection [Betaferon]"
+  },
+  {
+    "ingredient": "interferon beta-1a",
+    "cdm_id": "722424",
+    "drug_name": "interferon beta-1a"
+  },
+  {
+    "ingredient": "interferon beta-1a",
+    "cdm_id": "2010221",
+    "drug_name": "0.5 ML interferon beta-1a 0.088 MG/ML Pen Injector [REBIDOSE] by Merck"
+  },
+  {
+    "ingredient": "interferon beta-1a",
+    "cdm_id": "37593707",
+    "drug_name": "0.5 ML Interferon beta-1a 0.044 MG/ML Prefilled Syringe [Rebif] by Merck"
+  },
+  {
+    "ingredient": "ipilimumab",
+    "cdm_id": "46275962",
+    "drug_name": "10 ML ipilimumab 5 MG/ML Injection"
+  },
+  {
+    "ingredient": "ipilimumab",
+    "cdm_id": "40238188",
+    "drug_name": "ipilimumab"
+  },
+  {
+    "ingredient": "isoniazid",
+    "cdm_id": "42948574",
+    "drug_name": "isoniazid 100 MG Oral Tablet [YUHAN-ZID]"
+  },
+  {
+    "ingredient": "isoniazid",
+    "cdm_id": "1782521",
+    "drug_name": "isoniazid"
+  },
+  {
+    "ingredient": "isoniazid",
+    "cdm_id": "42948571",
+    "drug_name": "isoniazid 150 MG / Rifampin 300 MG Oral Tablet [TUBES2]"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "42917588",
+    "drug_name": "20000 MG Ketoconazole 0.02 MG/MG Topical Cream [TAIGUK KETOCONAZOLE]"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "985708",
+    "drug_name": "ketoconazole"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "2024368",
+    "drug_name": "1000 MG ketoconazole 0.02 MG/MG Topical Cream [Nizoral] by Janssen"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "2033225",
+    "drug_name": "1 ML ketoconazole 20 MG/ML Topical Solution [NASOL] by Hanmi"
+  },
+  {
+    "ingredient": "ketoconazole",
+    "cdm_id": "2074959",
+    "drug_name": "ketoconazole 200 MG Oral Tablet [CASZOL] by CMG"
+  },
+  {
+    "ingredient": "ledipasvir",
+    "cdm_id": "45775164",
+    "drug_name": "ledipasvir 90 MG / sofosbuvir 400 MG Oral Tablet [Harvoni]"
+  },
+  {
+    "ingredient": "ledipasvir",
+    "cdm_id": "45775020",
+    "drug_name": "ledipasvir"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42919102",
+    "drug_name": "150 ML Levofloxacin 5 MG/ML Injectable Solution [CRAVIT]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "1742253",
+    "drug_name": "levofloxacin"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42921484",
+    "drug_name": "5 ML Levofloxacin 15 MG/ML Ophthalmic Solution [CRAVIT]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965222",
+    "drug_name": "Levofloxacin 500 MG Oral Tablet [LEVOFEXIN]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2025427",
+    "drug_name": "150 ML levofloxacin 5 MG/ML Injectable Solution [CRAVIT] by Jeil"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965254",
+    "drug_name": "Levofloxacin 250 MG Oral Tablet [LEVOFEXIN]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42921466",
+    "drug_name": "5 ML Levofloxacin 5 MG/ML Ophthalmic Solution [CRAVIT]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2031677",
+    "drug_name": "1 ML levofloxacin 5 MG/ML Ophthalmic Solution [LEVOCLE] by Hanlim"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965510",
+    "drug_name": "Levofloxacin 750 MG Oral Tablet [LEVOKACIN]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42919478",
+    "drug_name": "100 ML Levofloxacin 5 MG/ML Injectable Solution [CRAVIT]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965220",
+    "drug_name": "Levofloxacin 500 MG Oral Tablet [LEVOXACIN]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965511",
+    "drug_name": "Levofloxacin 750 MG Oral Tablet [LEVOPLUS]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2025834",
+    "drug_name": "100 ML levofloxacin 5 MG/ML Injectable Solution [CRAVIT] by Jeil"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965215",
+    "drug_name": "Levofloxacin 500 MG Oral Tablet [CRAVIT]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2031686",
+    "drug_name": "1 ML levofloxacin 5 MG/ML Ophthalmic Solution [CRAVIT] by Santen"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965244",
+    "drug_name": "Levofloxacin 250 MG Oral Tablet [CRAVIT]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965252",
+    "drug_name": "Levofloxacin 250 MG Oral Tablet [LEVOXACIN]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965440",
+    "drug_name": "Levofloxacin 100 MG Oral Tablet [LEVOFEXIN]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42919971",
+    "drug_name": "50 ML Levofloxacin 5 MG/ML Injectable Solution [CRAVIT]"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "2026271",
+    "drug_name": "50 ML levofloxacin 5 MG/ML Injectable Solution [CRAVIT] by Jeil"
+  },
+  {
+    "ingredient": "levofloxacin",
+    "cdm_id": "42965387",
+    "drug_name": "Levofloxacin 100 MG Oral Tablet [JEIL CRAVIT]"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "42918825",
+    "drug_name": "300 ML linezolid 2 MG/ML Injectable Solution [Zyvox]"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "19068758",
+    "drug_name": "linezolid 600 MG Oral Tablet [Zyvox]"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "40710339",
+    "drug_name": "300 ML linezolid 2 MG/ML Injectable Solution [Zyvox] by Pfizer"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "1736887",
+    "drug_name": "linezolid"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "42918828",
+    "drug_name": "300 ML linezolid 2 MG/ML Injectable Solution [CINEZOLID]"
+  },
+  {
+    "ingredient": "linezolid",
+    "cdm_id": "42953631",
+    "drug_name": "linezolid 300 MG Oral Tablet [LINEZOLIN]"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "40224794",
+    "drug_name": "medroxyprogesterone acetate 10 MG Oral Tablet [Provera]"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "1500211",
+    "drug_name": "medroxyprogesterone"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "40224837",
+    "drug_name": "medroxyprogesterone acetate 5 MG Oral Tablet [Provera]"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "2075054",
+    "drug_name": "{10 (estradiol 2 MG / medroxyprogesterone 10 MG Oral Tablet) / 11 (estradiol 2 MG Oral Tablet) } Pack [DIVINA] by Hyundai"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "19026052",
+    "drug_name": "medroxyprogesterone acetate 500 MG Oral Tablet [Farlutal]"
+  },
+  {
+    "ingredient": "medroxyprogesterone",
+    "cdm_id": "35789782",
+    "drug_name": "0.65 ML Medroxyprogesterone 160 MG/ML Injectable Solution"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "42920597",
+    "drug_name": "10 ML Megestrol 40 MG/ML Oral Suspension [Megace]"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "2032265",
+    "drug_name": "1 ML megestrol 40 MG/ML Oral Suspension [Megace] by Boryung"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "1300978",
+    "drug_name": "megestrol"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "42920253",
+    "drug_name": "20 ML Megestrol 40 MG/ML Oral Suspension [Megace]"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "2032253",
+    "drug_name": "1 ML megestrol 40 MG/ML Oral Suspension [MEGETROL] by Dongsung"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "42918904",
+    "drug_name": "240 ML Megestrol 40 MG/ML Oral Suspension [Megace]"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "42921069",
+    "drug_name": "5.2 ML Megestrol 125 MG/ML Oral Suspension [APETROL ES]"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "2027849",
+    "drug_name": "5.2 ML megestrol 125 MG/ML Oral Suspension [APETROL ES] by LG"
+  },
+  {
+    "ingredient": "megestrol",
+    "cdm_id": "2032255",
+    "drug_name": "1 ML megestrol 40 MG/ML Oral Suspension [MEGEROL] by Hanmi"
+  },
+  {
+    "ingredient": "mercaptopurine",
+    "cdm_id": "42963844",
+    "drug_name": "mercaptopurine 50 MG Oral Tablet [PURINETONE]"
+  },
+  {
+    "ingredient": "mercaptopurine",
+    "cdm_id": "1436650",
+    "drug_name": "mercaptopurine"
+  },
+  {
+    "ingredient": "methimazole",
+    "cdm_id": "42929481",
+    "drug_name": "Methimazole 5 MG Oral Tablet [METHIMAZOLE BUKWANG]"
+  },
+  {
+    "ingredient": "methimazole",
+    "cdm_id": "1504620",
+    "drug_name": "methimazole"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42953686",
+    "drug_name": "Methotrexate 2.5 MG Oral Tablet [METHOTREXATE KOREA UNITED]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "1305058",
+    "drug_name": "methotrexate"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "35778988",
+    "drug_name": "2 ML Methotrexate 25 MG/ML Injectable Solution by Hospira"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42922094",
+    "drug_name": "2 ML Methotrexate 25 MG/ML Injectable Solution [PFIZER METHOTREXATE]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42922090",
+    "drug_name": "2 ML Methotrexate 25 MG/ML Injectable Solution [METHOTREXATE YUHAN]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "21078790",
+    "drug_name": "0.3 ML Methotrexate 50 MG/ML Prefilled Syringe [Metoject]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42922091",
+    "drug_name": "2 ML Methotrexate 25 MG/ML Injectable Solution [EMTHEXATE PF]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "21167143",
+    "drug_name": "0.2 ML Methotrexate 50 MG/ML Prefilled Syringe [Metoject]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2029649",
+    "drug_name": "2 ML methotrexate 25 MG/ML Injectable Solution [EMTHEXATE PF] by Handok"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42920386",
+    "drug_name": "20 ML Methotrexate 25 MG/ML Injectable Solution [PFIZER METHOTREXATE]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "35783111",
+    "drug_name": "20 ML Methotrexate 25 MG/ML Injectable Solution by Hospira"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "35782641",
+    "drug_name": "10 ML Methotrexate 100 MG/ML Injectable Solution by Hospira"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42919943",
+    "drug_name": "50 ML Methotrexate 100 MG/ML Injectable Solution [PFIZER METHOTREXATE]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42920716",
+    "drug_name": "10 ML Methotrexate 100 MG/ML Injectable Solution [PFIZER METHOTREXATE]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2034277",
+    "drug_name": "0.3 ML methotrexate 50 MG/ML Injectable Solution [Metoject] by BL&H"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "35783906",
+    "drug_name": "50 ML Methotrexate 100 MG/ML Injectable Solution by Hospira"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42920384",
+    "drug_name": "20 ML Methotrexate 25 MG/ML Injectable Solution [EMTHEXATE PF]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2034348",
+    "drug_name": "0.2 ML methotrexate 50 MG/ML Injectable Solution [Metoject] by BL&H"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42920715",
+    "drug_name": "10 ML Methotrexate 100 MG/ML Injectable Solution [EMTHEXATE PF]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "42919942",
+    "drug_name": "50 ML Methotrexate 100 MG/ML Injectable Solution [EMTHEXATE PF]"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2027436",
+    "drug_name": "10 ML methotrexate 100 MG/ML Injectable Solution [EMTHEXATE PF] by Handok"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2026865",
+    "drug_name": "20 ML methotrexate 25 MG/ML Injectable Solution [EMTHEXATE PF] by Handok"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2026355",
+    "drug_name": "50 ML methotrexate 100 MG/ML Injectable Solution [EMTHEXATE PF] by Handok"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2027437",
+    "drug_name": "10 ML methotrexate 100 MG/ML Injectable Solution [EMTHEXATE PF] by Myungji"
+  },
+  {
+    "ingredient": "methotrexate",
+    "cdm_id": "2026356",
+    "drug_name": "50 ML methotrexate 100 MG/ML Injectable Solution [EMTHEXATE PF] by Myungji"
+  },
+  {
+    "ingredient": "minocycline",
+    "cdm_id": "19035316",
+    "drug_name": "minocycline 50 MG Oral Capsule [Minocin]"
+  },
+  {
+    "ingredient": "minocycline",
+    "cdm_id": "1708880",
+    "drug_name": "minocycline"
+  },
+  {
+    "ingredient": "minocycline",
+    "cdm_id": "35134234",
+    "drug_name": "Minocycline 0.02 MG/MG Oral Ointment"
+  },
+  {
+    "ingredient": "nitrofurantoin",
+    "cdm_id": "920334",
+    "drug_name": "nitrofurantoin, macrocrystals 50 MG Oral Capsule"
+  },
+  {
+    "ingredient": "nitrofurantoin",
+    "cdm_id": "920293",
+    "drug_name": "nitrofurantoin"
+  },
+  {
+    "ingredient": "nivolumab",
+    "cdm_id": "42920744",
+    "drug_name": "10 ML nivolumab 10 MG/ML Injectable Solution [Opdivo]"
+  },
+  {
+    "ingredient": "nivolumab",
+    "cdm_id": "42922127",
+    "drug_name": "2 ML nivolumab 10 MG/ML Injectable Solution [Opdivo]"
+  },
+  {
+    "ingredient": "nivolumab",
+    "cdm_id": "45892628",
+    "drug_name": "nivolumab"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "1521369",
+    "drug_name": "norethindrone"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "42943300",
+    "drug_name": "Estradiol 2 MG / Norethindrone 1 MG Oral Tablet [CLIANE]"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "2075013",
+    "drug_name": "{6 (estradiol 1 MG Oral Tablet) / 10 (estradiol 2 MG / norethindrone 1 MG Oral Tablet) / 12 (estradiol 2 MG Oral Tablet) } Pack [Trisequens] by Novonordisk"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "42943298",
+    "drug_name": "Estradiol 1 MG / Norethindrone 0.5 MG Oral Tablet [ESDIOL-HALF]"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "2075029",
+    "drug_name": "{28 (estradiol 1 MG / norethindrone acetate 0.5 MG Oral Tablet) } Pack [ACTIVELLE] by Novonordisk"
+  },
+  {
+    "ingredient": "norethisterone",
+    "cdm_id": "2075027",
+    "drug_name": "{28 (estradiol 1 MG / norethindrone acetate 0.5 MG Oral Tablet) } Pack [KLIOGEST] by Novonordisk"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "923081",
+    "drug_name": "ofloxacin"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2023319",
+    "drug_name": "1000 MG ofloxacin 0.003 MG/MG Ophthalmic Ointment [TAEJOON TARIVID] by Taejoon"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42921368",
+    "drug_name": "5 ML Ofloxacin 3 MG/ML Otic Solution [Tarivid]"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42918055",
+    "drug_name": "3500 MG Ofloxacin 0.003 MG/MG Ophthalmic Ointment [EFFEXIN]"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42918056",
+    "drug_name": "3500 MG Ofloxacin 0.003 MG/MG Ophthalmic Ointment [TAEJOON TARIVID]"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2030646",
+    "drug_name": "1 ML ofloxacin 3 MG/ML Otic Solution [QUINOVID] by Hanlim"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42921371",
+    "drug_name": "5 ML Ofloxacin 3 MG/ML Otic Solution [EFFEXIN]"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2030647",
+    "drug_name": "1 ML ofloxacin 3 MG/ML Otic Solution [Tarivid] by Jeil"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42921353",
+    "drug_name": "5 ML Ofloxacin 3 MG/ML Ophthalmic Solution [OROCIN]"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42952918",
+    "drug_name": "Ofloxacin 200 MG Oral Tablet [JEIL TARIVID]"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "42921359",
+    "drug_name": "5 ML Ofloxacin 3 MG/ML Ophthalmic Solution [TAEJOON TARIVID]"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2030621",
+    "drug_name": "1 ML ofloxacin 3 MG/ML Ophthalmic Solution [OROCIN] by Hanmi"
+  },
+  {
+    "ingredient": "ofloxacin",
+    "cdm_id": "2030606",
+    "drug_name": "1 ML ofloxacin 3 MG/ML Ophthalmic Solution [TAEJOON TARIVID] by Taejoon"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920230",
+    "drug_name": "20 ML oxaliplatin 5 MG/ML Injectable Solution [Eloxatin]"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920059",
+    "drug_name": "30 ML oxaliplatin 5 MG/ML Injectable Solution [PLEOXTIN]"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2026852",
+    "drug_name": "20 ML oxaliplatin 5 MG/ML Injectable Solution [OXAPLA] by Yuhan"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "1318011",
+    "drug_name": "oxaliplatin"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920581",
+    "drug_name": "10 ML oxaliplatin 5 MG/ML Injectable Solution [Eloxatin]"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920235",
+    "drug_name": "20 ML oxaliplatin 5 MG/ML Injectable Solution [OXAPLA]"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "40714290",
+    "drug_name": "20 ML oxaliplatin 5 MG/ML Injectable Solution [Eloxatin] by Sanofi"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2027419",
+    "drug_name": "10 ML oxaliplatin 5 MG/ML Injectable Solution [OXAPLA] by Yuhan"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920586",
+    "drug_name": "10 ML oxaliplatin 5 MG/ML Injectable Solution [OXAPLA]"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "40715712",
+    "drug_name": "10 ML oxaliplatin 5 MG/ML Injectable Solution [Eloxatin] by Sanofi"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2026488",
+    "drug_name": "30 ML oxaliplatin 5 MG/ML Injectable Solution [PLEOXTIN] by Jeil"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920236",
+    "drug_name": "20 ML oxaliplatin 5 MG/ML Injectable Solution [OXALITIN]"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2026490",
+    "drug_name": "30 ML oxaliplatin 5 MG/ML Injectable Solution [OXALITIN] by Boryung"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "42920587",
+    "drug_name": "10 ML oxaliplatin 5 MG/ML Injectable Solution [OXALITIN]"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2026851",
+    "drug_name": "20 ML oxaliplatin 5 MG/ML Injectable Solution [OXALITIN] by Boryung"
+  },
+  {
+    "ingredient": "oxaliplatin",
+    "cdm_id": "2027418",
+    "drug_name": "10 ML oxaliplatin 5 MG/ML Injectable Solution [OXALITIN] by Boryung"
+  },
+  {
+    "ingredient": "oxymetholone",
+    "cdm_id": "42948916",
+    "drug_name": "Oxymetholone 50 MG Oral Tablet [CELLTRION OXYMETHOLONE]"
+  },
+  {
+    "ingredient": "oxymetholone",
+    "cdm_id": "1525741",
+    "drug_name": "oxymetholone"
+  },
+  {
+    "ingredient": "pembrolizumab",
+    "cdm_id": "42921578",
+    "drug_name": "4 ML pembrolizumab 25 MG/ML Injectable Solution [Keytruda]"
+  },
+  {
+    "ingredient": "pembrolizumab",
+    "cdm_id": "45775965",
+    "drug_name": "pembrolizumab"
+  },
+  {
+    "ingredient": "phenytoin",
+    "cdm_id": "42941522",
+    "drug_name": "Phenytoin 100 MG Oral Capsule [PHENYTOIN BUKWANG]"
+  },
+  {
+    "ingredient": "phenytoin",
+    "cdm_id": "2028169",
+    "drug_name": "5 ML phenytoin 50 MG/ML Injectable Solution by Samjin"
+  },
+  {
+    "ingredient": "phenytoin",
+    "cdm_id": "740910",
+    "drug_name": "phenytoin"
+  },
+  {
+    "ingredient": "phenytoin",
+    "cdm_id": "42921163",
+    "drug_name": "5 ML Phenytoin 50 MG/ML Injectable Solution [SAMJIN PHENYTOIN SODIUM]"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "36260024",
+    "drug_name": "Progesterone 200 MG Vaginal Suppository [Utrogestan]"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "1552382",
+    "drug_name": "progesterone 50 MG/ML Injectable Solution"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "1552310",
+    "drug_name": "progesterone"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "19017494",
+    "drug_name": "progesterone 0.08 MG/MG Vaginal Gel [Crinone]"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "21060698",
+    "drug_name": "Progesterone 100 MG Oral Capsule [Utrogestan]"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "43669940",
+    "drug_name": "1.12 ML Progesterone 25 MG/ML Injectable Solution [Prolutex]"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "2054741",
+    "drug_name": "progesterone 100 MG Oral Capsule [ESTIMA] by Dalim Biotech"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "2054743",
+    "drug_name": "progesterone 100 MG Oral Capsule [Utrogestan] by Hanwha"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "2054742",
+    "drug_name": "progesterone 100 MG Oral Capsule [ESTIMA] by Namsun"
+  },
+  {
+    "ingredient": "progesterone",
+    "cdm_id": "19127049",
+    "drug_name": "progesterone 100 MG Vaginal Insert [Endometrin]"
+  },
+  {
+    "ingredient": "propylthiouracil",
+    "cdm_id": "42967493",
+    "drug_name": "Propylthiouracil 50 MG Oral Tablet [ANTIROID]"
+  },
+  {
+    "ingredient": "propylthiouracil",
+    "cdm_id": "1554072",
+    "drug_name": "propylthiouracil"
+  },
+  {
+    "ingredient": "pyrazinamide",
+    "cdm_id": "42970084",
+    "drug_name": "Pyrazinamide 500 MG Oral Tablet [PYRAZINAMIDE YUHAN]"
+  },
+  {
+    "ingredient": "pyrazinamide",
+    "cdm_id": "1759455",
+    "drug_name": "pyrazinamide"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42924976",
+    "drug_name": "Rifampin 150 MG Oral Capsule [YUHAN RIFAMPIN]"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42924986",
+    "drug_name": "Rifampin 300 MG Oral Tablet [RIFODEX]"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42924981",
+    "drug_name": "Rifampin 600 MG Oral Tablet [RIFODEX]"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42924980",
+    "drug_name": "Rifampin 600 MG Oral Tablet [YUHAN RIFAMPIN]"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "1763204",
+    "drug_name": "rifampin"
+  },
+  {
+    "ingredient": "rifampin",
+    "cdm_id": "42948571",
+    "drug_name": "isoniazid 150 MG / Rifampin 300 MG Oral Tablet [TUBES2]"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "1314273",
+    "drug_name": "rituximab"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "35784602",
+    "drug_name": "50 ML rituximab 10 MG/ML Injectable Solution [MabThera] by Roche"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "41450303",
+    "drug_name": "11.7 ML rituximab 120 MG/ML Injectable Solution [MabThera]"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "35782659",
+    "drug_name": "10 ML rituximab 10 MG/ML Injectable Solution [MabThera] by Roche"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "41399130",
+    "drug_name": "50 ML rituximab 10 MG/ML Injectable Solution [MabThera]"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "41370629",
+    "drug_name": "10 ML rituximab 10 MG/ML Injectable Solution [MabThera]"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "1356446",
+    "drug_name": "50 ML rituximab-abbs 10 MG/ML Injection [Truxima]"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "1356444",
+    "drug_name": "10 ML rituximab-abbs 10 MG/ML Injection [Truxima]"
+  },
+  {
+    "ingredient": "rituximab",
+    "cdm_id": "42920543",
+    "drug_name": "13.4 ML rituximab 120 MG/ML Injectable Solution [MabThera]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "40165246",
+    "drug_name": "rosuvastatin calcium 10 MG Oral Tablet [Crestor]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "40165262",
+    "drug_name": "rosuvastatin calcium 5 MG Oral Tablet [Crestor]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "40165254",
+    "drug_name": "rosuvastatin calcium 20 MG Oral Tablet [Crestor]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "1510813",
+    "drug_name": "rosuvastatin"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969191",
+    "drug_name": "ezetimibe 10 MG / rosuvastatin 10 MG Oral Tablet [ROSUZET]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969441",
+    "drug_name": "rosuvastatin 10 MG Oral Tablet [ROVETIN]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969250",
+    "drug_name": "ezetimibe 10 MG / rosuvastatin 20 MG Oral Tablet [ROSUZET]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969644",
+    "drug_name": "rosuvastatin 20 MG Oral Tablet [ETEX ROSUVASTATIN CALCIUM]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969041",
+    "drug_name": "rosuvastatin 10 MG / telmisartan 40 MG Oral Tablet [DUOWELL]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969662",
+    "drug_name": "rosuvastatin 20 MG Oral Tablet [ROVETIN]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "2063262",
+    "drug_name": "amlodipine 5 MG / rosuvastatin 10 MG Oral Tablet [ROSUAMPIN] by Yuhan"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969485",
+    "drug_name": "rosuvastatin 10 MG Oral Tablet [ROSULORD]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969086",
+    "drug_name": "rosuvastatin 10 MG / valsartan 160 MG Oral Tablet [ROVATITAN]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969868",
+    "drug_name": "rosuvastatin 5 MG Oral Tablet [ROSULORD]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969083",
+    "drug_name": "rosuvastatin 10 MG / valsartan 80 MG Oral Tablet [ROVATITAN]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969309",
+    "drug_name": "ezetimibe 10 MG / rosuvastatin 5 MG Oral Tablet [ROSUZET]"
+  },
+  {
+    "ingredient": "rosuvastatin",
+    "cdm_id": "42969023",
+    "drug_name": "rosuvastatin 10 MG / telmisartan 80 MG Oral Tablet [DUOWELL]"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42936847",
+    "drug_name": "Simvastatin 20 MG Oral Tablet [SIMVASTAR]"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42708398",
+    "drug_name": "ezetimibe 10 MG / simvastatin 10 MG Oral Tablet [Vytorin]"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42936852",
+    "drug_name": "Simvastatin 20 MG Oral Tablet [CHOLESNONE]"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42708401",
+    "drug_name": "ezetimibe 10 MG / simvastatin 20 MG Oral Tablet [Vytorin]"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "1539403",
+    "drug_name": "simvastatin"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42936788",
+    "drug_name": "Simvastatin 40 MG Oral Tablet [SISTAR]"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "21141482",
+    "drug_name": "Fenofibrate 145 MG / Simvastatin 20 MG Oral Tablet [Cholib]"
+  },
+  {
+    "ingredient": "simvastatin",
+    "cdm_id": "42936791",
+    "drug_name": "Simvastatin 40 MG Oral Tablet [SIMVAST]"
+  },
+  {
+    "ingredient": "sofosbuvir",
+    "cdm_id": "44785097",
+    "drug_name": "sofosbuvir 400 MG Oral Tablet [Sovaldi]"
+  },
+  {
+    "ingredient": "sofosbuvir",
+    "cdm_id": "45775164",
+    "drug_name": "ledipasvir 90 MG / sofosbuvir 400 MG Oral Tablet [Harvoni]"
+  },
+  {
+    "ingredient": "sofosbuvir",
+    "cdm_id": "44785094",
+    "drug_name": "sofosbuvir"
+  },
+  {
+    "ingredient": "stavudine",
+    "cdm_id": "2047894",
+    "drug_name": "stavudine 20 MG Oral Capsule [Zerit] by BMS"
+  },
+  {
+    "ingredient": "stavudine",
+    "cdm_id": "1781406",
+    "drug_name": "stavudine"
+  },
+  {
+    "ingredient": "sulfadiazine",
+    "cdm_id": "1836392",
+    "drug_name": "sulfadiazine 500 MG Oral Tablet"
+  },
+  {
+    "ingredient": "sulfadiazine",
+    "cdm_id": "43169035",
+    "drug_name": "Sulfadiazine 500 MG Oral Tablet [ADIAZINE]"
+  },
+  {
+    "ingredient": "sulfamethoxazole",
+    "cdm_id": "19024445",
+    "drug_name": "sulfamethoxazole 400 MG / trimethoprim 80 MG Oral Tablet [Septrin]"
+  },
+  {
+    "ingredient": "sulfamethoxazole",
+    "cdm_id": "42921524",
+    "drug_name": "5 ML Sulfamethoxazole 80 MG/ML / Trimethoprim 16 MG/ML Injectable Solution [SEVATRIM]"
+  },
+  {
+    "ingredient": "sulfamethoxazole",
+    "cdm_id": "1836430",
+    "drug_name": "sulfamethoxazole"
+  },
+  {
+    "ingredient": "sulfamethoxazole",
+    "cdm_id": "42921523",
+    "drug_name": "5 ML Sulfamethoxazole 80 MG/ML / Trimethoprim 16 MG/ML Injectable Solution [Cotrim]"
+  },
+  {
+    "ingredient": "sulfasalazine",
+    "cdm_id": "42937747",
+    "drug_name": "Sulfasalazine 500 MG Extended Release Oral Tablet [ZOPYRIN]"
+  },
+  {
+    "ingredient": "sulfasalazine",
+    "cdm_id": "42937748",
+    "drug_name": "Sulfasalazine 500 MG Extended Release Oral Tablet [SARAZOPYRIN EN]"
+  },
+  {
+    "ingredient": "sulfasalazine",
+    "cdm_id": "964339",
+    "drug_name": "sulfasalazine"
+  },
+  {
+    "ingredient": "ticlopidine",
+    "cdm_id": "42934160",
+    "drug_name": "Ticlopidine 250 MG Oral Tablet [YUYU CLID]"
+  },
+  {
+    "ingredient": "ticlopidine",
+    "cdm_id": "1302398",
+    "drug_name": "ticlopidine"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "2028581",
+    "drug_name": "4 ML valproate 100 MG/ML Injectable Solution [VALOIN] by Hanlim"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931742",
+    "drug_name": "Valproate 500 MG Extended Release Oral Tablet [DEPAKINE CHRONO]"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931727",
+    "drug_name": "Valproate 300 MG Extended Release Oral Tablet [DEPAKINE CHRONO]"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "2053914",
+    "drug_name": "valproate 500 MG Extended Release Oral Tablet [Depakote] by Abbott"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931710",
+    "drug_name": "Valproate 125 MG Oral Capsule [DEPAKOTE SPRINKLE]"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "745466",
+    "drug_name": "valproate"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "40238249",
+    "drug_name": "divalproex sodium 250 MG Extended Release Oral Tablet [Depakote]"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42919003",
+    "drug_name": "150 ML Valproate 60 MG/ML Oral Suspension [ORFIL]"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "2031838",
+    "drug_name": "1 ML valproate 60 MG/ML Oral Suspension [ORFIL] by Bukwang"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931728",
+    "drug_name": "Valproate 300 MG Extended Release Oral Tablet [VALEPTOL]"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "2053919",
+    "drug_name": "valproate 300 MG Extended Release Oral Capsule [ORFIL LONG] by Bukwang"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931721",
+    "drug_name": "Valproate 200 MG Extended Release Oral Tablet [PROMAG]"
+  },
+  {
+    "ingredient": "valproate",
+    "cdm_id": "42931743",
+    "drug_name": "Valproate 500 MG Extended Release Oral Tablet [PROMAG]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939787",
+    "drug_name": "Acetaminophen 325 MG / Tramadol 37.5 MG Oral Tablet [PARAMACET]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939994",
+    "drug_name": "Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "1125315",
+    "drug_name": "acetaminophen"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928300",
+    "drug_name": "Acetaminophen 650 MG Extended Release Oral Tablet [TACENOL]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939841",
+    "drug_name": "Acetaminophen 325 MG / Tramadol 37.5 MG Extended Release Oral Tablet [ULTRACET ER SEMI]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42940117",
+    "drug_name": "Acetaminophen 163 MG / Tramadol 18.8 MG Oral Tablet [PARAMACET SEMI]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42948431",
+    "drug_name": "Acetaminophen 250 MG / Codeine 10 MG / Ibuprofen 200 MG Oral Capsule [MYPOL]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "1128524",
+    "drug_name": "acetaminophen 650 MG Extended Release Oral Tablet [Tylenol]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928316",
+    "drug_name": "Acetaminophen 500 MG Oral Tablet [SAMNAM ACETAMINOPHEN]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "40241587",
+    "drug_name": "acetaminophen 160 MG Oral Tablet [Tylenol]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42918304",
+    "drug_name": "500 ML Acetaminophen 32 MG/ML Oral Suspension [SETOPEN]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2010087",
+    "drug_name": "1 ML acetaminophen 32 MG/ML Oral Suspension [SETOPEN] by Sam-a"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "740261",
+    "drug_name": "50 ML acetaminophen 10 MG/ML Injection"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939780",
+    "drug_name": "Acetaminophen 325 MG / Tramadol 37.5 MG Oral Tablet [SYNERJET]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928273",
+    "drug_name": "Acetaminophen 160 MG Oral Tablet [SETOPEN]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "19123143",
+    "drug_name": "acetaminophen 325 MG / dichloralphenazone 100 MG / isometheptene 65 MG Oral Capsule"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928314",
+    "drug_name": "Acetaminophen 500 MG Oral Tablet [CROWN ACETAMINOPHEN]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42940074",
+    "drug_name": "Acetaminophen 163 MG / Tramadol 18.8 MG Oral Tablet [CETAMADOLE SEMI]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939754",
+    "drug_name": "Acetaminophen 325 MG / Tramadol 37.5 MG Oral Tablet [CETAMADOLE]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939997",
+    "drug_name": "Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [TRAMAROL]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42957260",
+    "drug_name": "Acetaminophen 325 MG / Hydrocodone 7.5 MG Oral Tablet [HYCODONE]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2013365",
+    "drug_name": "acetaminophen 325 MG / tramadol 37.5 MG Oral Tablet [X-PAIN] by Aestura"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42940006",
+    "drug_name": "Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [PARAMACET]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42928315",
+    "drug_name": "Acetaminophen 500 MG Oral Tablet [SAMIK ACETAMINOPHEN]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42939846",
+    "drug_name": "Acetaminophen 325 MG / Tramadol 37.5 MG Extended Release Oral Tablet [PARAMACET ER SEMI]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2071493",
+    "drug_name": "acetaminophen 500 MG / hydrocodone 7.5 MG Oral Tablet [HYCODONE] by BC World"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "1103360",
+    "drug_name": "acetaminophen 325 MG / tramadol hydrochloride 37.5 MG Oral Tablet [Ultracet]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2013377",
+    "drug_name": "acetaminophen 163 MG / tramadol 18.8 MG Oral Tablet [X-PAIN SEMI] by Aestura"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "42940102",
+    "drug_name": "Acetaminophen 163 MG / Tramadol 18.8 MG Oral Tablet [ULTRACET SEMI]"
+  },
+  {
+    "ingredient": "acetaminophen",
+    "cdm_id": "2071596",
+    "drug_name": "acetaminophen 500 MG / oxycodone 5 MG Oral Capsule [TYLENOL OXY] by Janssen"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42950014",
+    "drug_name": "Aspirin 100 MG Extended Release Oral Capsule [BORYUNGBIO ASTRIX]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42950011",
+    "drug_name": "Aspirin 100 MG Extended Release Oral Capsule [BORYUNG ASTRIX]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42950032",
+    "drug_name": "Aspirin 100 MG Delayed Release Oral Tablet [HANMI ASPIRIN]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "1112807",
+    "drug_name": "aspirin"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "43706824",
+    "drug_name": "Aspirin 100 MG Delayed Release Oral Tablet [Aspirin Protect]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949821",
+    "drug_name": "Aspirin 100 MG / clopidogrel 75 MG Extended Release Oral Capsule [CLOPIRIN]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949831",
+    "drug_name": "Aspirin 100 MG / clopidogrel 75 MG Extended Release Oral Capsule [CLOSONE]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "2072047",
+    "drug_name": "aspirin 856 MG Injection [ARTHALGYL] by Ilyang"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949962",
+    "drug_name": "Aspirin 100 MG Oral Tablet [RHONAL]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949826",
+    "drug_name": "Aspirin 100 MG / clopidogrel 75 MG Extended Release Oral Capsule [SUPERPIRIN]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949950",
+    "drug_name": "Aspirin 500 MG Oral Tablet [RHONAL]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "2072049",
+    "drug_name": "aspirin 856 MG Injection by Shinpoong"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949949",
+    "drug_name": "Aspirin 500 MG Injection [ARTHALGYL]"
+  },
+  {
+    "ingredient": "aspirin",
+    "cdm_id": "42949935",
+    "drug_name": "Aspirin 25 MG / Dipyridamole 200 MG Extended Release Oral Capsule [STROXSTAR]"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "920458",
+    "drug_name": "betamethasone"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "42917527",
+    "drug_name": "30000 MG Betamethasone 0.0006 MG/MG / calcipotriene 0.00005 MG/MG Topical Ointment [CALCIBETA]"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "41501966",
+    "drug_name": "60000 MG Betamethasone 0.0006 MG/MG / calcipotriene 0.00005 MG/MG Topical Gel [Xamiol]"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "42917335",
+    "drug_name": "60000 MG Betamethasone 0.0006 MG/MG / calcipotriene 0.00005 MG/MG Topical Foam [ENSTILOOM]"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023451",
+    "drug_name": "1000 MG betamethasone 0.00064 MG/MG / calcipotriene 0.00005 MG/MG Topical Ointment [DAIVOBET] by Leo"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023450",
+    "drug_name": "1000 MG betamethasone 0.00064 MG/MG / calcipotriene 0.00005 MG/MG Topical Ointment [DAIVOBET] by Menarini"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023440",
+    "drug_name": "1000 MG betamethasone 0.00064 MG/MG / calcipotriene 0.00005 MG/MG Topical Gel [Xamiol] by Leo"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023439",
+    "drug_name": "1000 MG betamethasone 0.00064 MG/MG / calcipotriene 0.00005 MG/MG Topical Gel [Xamiol] by Menarini"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023454",
+    "drug_name": "1000 MG betamethasone 0.00064 MG/MG / calcipotriene 0.00005 MG/MG Topical Ointment [DAIVOBET] by Dongwha"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "41502632",
+    "drug_name": "60000 MG Betamethasone 0.0006 MG/MG / calcipotriene 0.00005 MG/MG Topical Ointment [DAIVOBET]"
+  },
+  {
+    "ingredient": "betamethasone",
+    "cdm_id": "2023442",
+    "drug_name": "1000 MG betamethasone 0.00064 MG/MG / calcipotriene 0.00005 MG/MG Topical Gel [Xamiol] by Dongwha"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031946",
+    "drug_name": "1 ML dexamethasone 5 MG/ML Injectable Solution by Yuhan"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "1518254",
+    "drug_name": "dexamethasone"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42922451",
+    "drug_name": "1 ML Dexamethasone 5 MG/ML Injectable Solution [JEIL DEXAMETHASONE]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42948533",
+    "drug_name": "Dexamethasone 0.75 MG Oral Tablet [BUKWANG DEXAMETHASONE]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42922453",
+    "drug_name": "1 ML Dexamethasone 5 MG/ML Injectable Solution [YUHAN DEXAMETHASONE DISODIUM PHOSPHATE]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031941",
+    "drug_name": "1 ML dexamethasone 5 MG/ML Injectable Solution by Daewon"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42918031",
+    "drug_name": "5000 MG Dexamethasone 0.001 MG/MG / Neomycin 0.0035 MG/MG / Polymyxin B 6 UNT/MG Ophthalmic Ointment [FORUS]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "36279039",
+    "drug_name": "5 ML Dexamethasone 1 MG/ML Ophthalmic Suspension [Maxidex] by Novartis"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2024018",
+    "drug_name": "1000 MG dexamethasone 0.001 MG/MG / neomycin 0.0035 MG/MG / polymyxin B 6 IU/MG Ophthalmic Ointment [NEODEX] by Hanlim"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2024021",
+    "drug_name": "1000 MG dexamethasone 0.001 MG/MG / neomycin 0.0035 MG/MG / polymyxin B 6 IU/MG Ophthalmic Ointment [Maxitrol] by Alcon"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031951",
+    "drug_name": "1 ML dexamethasone 1 MG/ML Ophthalmic Suspension [Maxidex] by Alcon"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "35780908",
+    "drug_name": "5 ML Dexamethasone 1 MG/ML Ophthalmic Suspension [Maxidex]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42921298",
+    "drug_name": "5 ML Dexamethasone 1 MG/ML / Tobramycin 3 MG/ML Ophthalmic Solution [TORAVINDEX]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031920",
+    "drug_name": "1 ML dexamethasone 1 MG/ML / tobramycin 3 MG/ML Ophthalmic Suspension [OKLEX] by Hanlim"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "36282879",
+    "drug_name": "3500 MG Dexamethasone 0.001 MG/MG Ophthalmic Ointment [Maxidex] by Novartis"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "40160931",
+    "drug_name": "dexamethasone 0.7 MG Drug Implant [Ozurdex]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42918032",
+    "drug_name": "5000 MG Dexamethasone 0.001 MG/MG / Neomycin 0.0035 MG/MG / Polymyxin B 6 UNT/MG Ophthalmic Ointment [NEODEX]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42919617",
+    "drug_name": "70 ACTUAT Dexamethasone 0.2 MG/ACTUAT Nasal Spray [ERIZAS]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2024027",
+    "drug_name": "1000 MG dexamethasone 0.001 MG/MG / tobramycin 0.003 MG/MG Ophthalmic Ointment [TORAVINDEX] by Taejoon"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "36282882",
+    "drug_name": "3500 MG Dexamethasone 0.001 MG/MG Ophthalmic Ointment [Maxidex]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "43040058",
+    "drug_name": "5 ML Dexamethasone 1 MG/ML / Tobramycin 3 MG/ML Ophthalmic Suspension [Tobradex] by Novartis"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031935",
+    "drug_name": "1 ML dexamethasone 1 MG/ML / tobramycin 3 MG/ML Ophthalmic Suspension [TORABINDEX] by Taejoon"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42918049",
+    "drug_name": "3500 MG Dexamethasone 0.001 MG/MG / Tobramycin 0.003 MG/MG Ophthalmic Ointment [TORAVINDEX]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2055917",
+    "drug_name": "dexamethasone 0.7 MG Drug Implant [Ozurdex] by Samil Allergan"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2024029",
+    "drug_name": "1000 MG dexamethasone 0.001 MG/MG Ophthalmic Ointment [Maxidex] by Alcon"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "42920796",
+    "drug_name": "10 ML Dexamethasone 1 MG/ML / Neomycin 3.5 MG/ML / Polymyxin B 6000 UNT/ML Ophthalmic Solution [FORUS]"
+  },
+  {
+    "ingredient": "dexamethasone",
+    "cdm_id": "2031910",
+    "drug_name": "1 ML dexamethasone 1 MG/ML / neomycin 3.5 MG/ML / polymyxin B 6000 IU/ML Ophthalmic Suspension [Maxitrol] by Alcon"
+  },
+  {
+    "ingredient": "ferrous sulfate",
+    "cdm_id": "42931300",
+    "drug_name": "ferrous sulfate 256 MG Extended Release Oral Tablet [FEROBA-U]"
+  },
+  {
+    "ingredient": "ferrous sulfate",
+    "cdm_id": "1396131",
+    "drug_name": "ferrous sulfate"
+  },
+  {
+    "ingredient": "ferrous sulfate",
+    "cdm_id": "2032282",
+    "drug_name": "1 ML ascorbic acid 0.152 MG/ML / biotin 0.00015 MG/ML / calcium lactate 10.8 MG/ML / caseinate 23.6 MG/ML / cholecalciferol 0.000005 MG/ML / choline 0.6 MG/ML / copper sulfate 3.93 MG/ML / corn oil 33.2 MG/ML / ... Oral Suspension [ENSURE] by Abbott"
+  },
+  {
+    "ingredient": "ferrous sulfate",
+    "cdm_id": "43133006",
+    "drug_name": "alpha Tocopherol / Ascorbic Acid / Biotin / calcium phosphate / Cholecalciferol / copper carbonate / ferrous sulfate / Folic Acid / magnesium acetate / manganese carbonate / Niacinamide / Phosphorus / ... Delayed Release Oral Tablet [ELEVIT]"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "35781503",
+    "drug_name": "10 ML Regular Insulin, Human 100 UNT/ML Injectable Solution [Humulin R]"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2027285",
+    "drug_name": "10 ML insulin, regular, human 100 IU/ML Injectable Solution [Humulin R] by Lilly"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "1596977",
+    "drug_name": "insulin, regular, human"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42922213",
+    "drug_name": "1.5 ML Regular Insulin, Human 300 UNT/ML Cartridge [Toujeo]"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42921646",
+    "drug_name": "3 ML Regular Insulin, Human 100 UNT/ML Prefilled Syringe [Lantus]"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "43286093",
+    "drug_name": "3 ML Regular Insulin, Human 100 UNT/ML Cartridge [Humulin N]"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2027287",
+    "drug_name": "10 ML insulin, regular, human 100 IU/ML Injectable Solution [Humulin N] by Lilly"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2028811",
+    "drug_name": "3 ML insulin, regular, human 100 IU/ML Pen Injector [Humulin N] by Lilly"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42920631",
+    "drug_name": "10 ML Regular Insulin, Human 100 UNT/ML Injectable Solution [Lantus]"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42920628",
+    "drug_name": "10 ML Regular Insulin, Human 100 UNT/ML Injectable Suspension [Humulin N]"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2028822",
+    "drug_name": "3 ML insulin, regular, human 100 IU/ML Prefilled Syringe [NOVOLET N] by Novonordisk"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "2027272",
+    "drug_name": "10 ML insulin, regular, human 100 IU/ML Injectable Suspension [Humulin] by Lilly"
+  },
+  {
+    "ingredient": "insulin",
+    "cdm_id": "42920626",
+    "drug_name": "10 ML Regular Insulin, Human 100 UNT/ML Injectable Suspension [Humulin]"
+  },
+  {
+    "ingredient": "iron",
+    "cdm_id": "2028296",
+    "drug_name": "5 ML iron 20 MG/ML Injectable Solution [VENOFERRUM] by JW"
+  },
+  {
+    "ingredient": "iron",
+    "cdm_id": "1360067",
+    "drug_name": "iron"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "42934728",
+    "drug_name": "Methylprednisolone 4 MG Oral Tablet [METHYLON]"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "1506270",
+    "drug_name": "methylprednisolone"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2057265",
+    "drug_name": "methylprednisolone 125 MG Injection [METHYSOL] by Alvogen"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "42934742",
+    "drug_name": "Methylprednisolone 4 MG Oral Tablet [SOMERON]"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "42917368",
+    "drug_name": "50000 MG Methylprednisolone 0.001 MG/MG Topical Lotion [TOPISOL]"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2057243",
+    "drug_name": "methylprednisolone 500 MG Injection [METHYSOL] by Alvogen"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "41482202",
+    "drug_name": "15100 MG Methylprednisolone 0.001 MG/MG Topical Cream [Advantan]"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2024075",
+    "drug_name": "1000 MG methylprednisolone 0.001 MG/MG Topical Cream [Advantan] by Menarini"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2022315",
+    "drug_name": "15000 MG methylprednisolone 0.001 MG/MG Topical Cream [Advantan] by Menarini"
+  },
+  {
+    "ingredient": "methylprednisolone",
+    "cdm_id": "2024067",
+    "drug_name": "1000 MG methylprednisolone 0.001 MG/MG Topical Lotion [TOPISOL] by Kolon"
+  },
+  {
+    "ingredient": "niacin",
+    "cdm_id": "42948783",
+    "drug_name": "Niacin 500 MG Extended Release Oral Tablet [EXLIP]"
+  },
+  {
+    "ingredient": "niacin",
+    "cdm_id": "2055990",
+    "drug_name": "niacin 500 MG Extended Release Oral Tablet [NIASPANOR] by Abbott"
+  },
+  {
+    "ingredient": "niacin",
+    "cdm_id": "1517824",
+    "drug_name": "niacin"
+  },
+  {
+    "ingredient": "niacin",
+    "cdm_id": "2055978",
+    "drug_name": "niacin 1000 MG Extended Release Oral Tablet [NIASPANOR] by Abbott"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "753626",
+    "drug_name": "propofol"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42920468",
+    "drug_name": "15 ML Propofol 10 MG/ML Injectable Solution [FRESOFOL MCT]"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "2027088",
+    "drug_name": "12 ML propofol 10 MG/ML Injectable Suspension [POFOL] by Dongkook"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42919727",
+    "drug_name": "50 ML Propofol 20 MG/ML Injectable Solution [FRESOFOL MCT]"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42921121",
+    "drug_name": "5 ML Propofol 10 MG/ML Injectable Solution [ANEPOL]"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42920553",
+    "drug_name": "12 ML Propofol 10 MG/ML Injectable Solution [POFOL]"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42920277",
+    "drug_name": "20 ML Propofol 10 MG/ML Injectable Solution [ANEPOL]"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "2026288",
+    "drug_name": "50 ML propofol 20 MG/ML Injectable Suspension [FRESOFOL MCT] by Fresenius Kabi"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "2026767",
+    "drug_name": "20 ML propofol 10 MG/ML Injectable Suspension [POFOL] by Dongkook"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "42920278",
+    "drug_name": "20 ML Propofol 10 MG/ML Injectable Solution [POFOL]"
+  },
+  {
+    "ingredient": "propofol",
+    "cdm_id": "2026286",
+    "drug_name": "50 ML propofol 20 MG/ML Injectable Suspension [Fresofol] by Fresenius Kabi"
+  },
+  {
+    "ingredient": "tetracycline",
+    "cdm_id": "42938162",
+    "drug_name": "Tetracycline 250 MG Oral Capsule [TERACYCLIN]"
+  },
+  {
+    "ingredient": "tetracycline",
+    "cdm_id": "1836948",
+    "drug_name": "tetracycline"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42921531",
+    "drug_name": "5 ML Ascorbic Acid 100 MG/ML / dexpanthenol 5 MG/ML / Ergocalciferol 200 UNT/ML / Niacinamide 20 MG/ML / pyridoxine 3 MG/ML / Riboflavin 2.5 MG/ML / Thiamine 10 MG/ML / Tocopherol 1 UNT/ML / Vitamin A 2000 UNT/ML Injectable Solution [MVH]"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42971998",
+    "drug_name": "Ascorbic Acid 100 MG / Biotin 0.06 MG / dexpanthenol 16.2 MG / Ergocalciferol 200 UNT / Folic Acid 0.4 MG / Niacinamide 42.5 MG / pyridoxine 5 MG / ... Injection [TAMIPOOL]"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "19008339",
+    "drug_name": "vitamin A"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42918971",
+    "drug_name": "200 ML Biotin 0.00004 MG/ML / Calcium Chloride 1.18 MG/ML / Calcium Citrate 0.395 MG/ML / Caseins 34 MG/ML / Cholecalciferol 0 MG/ML / ... Oral Solution [ENCOVER]"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42921532",
+    "drug_name": "5 ML Ascorbic Acid 100 MG/ML / dexpanthenol 5 MG/ML / Ergocalciferol 200 UNT/ML / Niacinamide 20 MG/ML / pyridoxine 3 MG/ML / Riboflavin 2.5 MG/ML / Thiamine 10 MG/ML / Tocopherol 1 UNT/ML / Vitamin A 2000 UNT/ML Injectable Solution [MULTIMIN]"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "2033037",
+    "drug_name": "1 ML biotin 0.0000386 MG/ML / calcium chloride 1.18 MG/ML / calcium citrate 0.395 MG/ML / caseins 34 MG/ML / cholecalciferol 0.0000034 MG/ML / copper sulfate 0.00393 MG/ML / ferrous gluconate 0.0329 MG/ML / ... Oral Solution [ENCOVER] by JW"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "2032282",
+    "drug_name": "1 ML ascorbic acid 0.152 MG/ML / biotin 0.00015 MG/ML / calcium lactate 10.8 MG/ML / caseinate 23.6 MG/ML / cholecalciferol 0.000005 MG/ML / choline 0.6 MG/ML / copper sulfate 3.93 MG/ML / corn oil 33.2 MG/ML / ... Oral Suspension [ENSURE] by Abbott"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "43133006",
+    "drug_name": "alpha Tocopherol / Ascorbic Acid / Biotin / calcium phosphate / Cholecalciferol / copper carbonate / ferrous sulfate / Folic Acid / magnesium acetate / manganese carbonate / Niacinamide / Phosphorus / ... Delayed Release Oral Tablet [ELEVIT]"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "42918816",
+    "drug_name": "400 ML Biotin 0.00004 MG/ML / Calcium Chloride 1.18 MG/ML / Calcium Citrate 0.395 MG/ML / Caseins 34 MG/ML / Cholecalciferol 0 MG/ML / ... Oral Solution [ENCOVER]"
+  },
+  {
+    "ingredient": "vitamin a",
+    "cdm_id": "2074300",
+    "drug_name": "ascorbic acid 125 MG / biotin 0.069 MG / cholecalciferol 220 IU / dexpanthenol 16.2 MG / folic acid 0.4 MG / niacinamide 46 MG / pyridoxine 5.5 MG / riboflavin 5.67 MG / thiamine 6 MG / vitamin A 3500 IU / vitamin B12 0.006 MG / ... Injection [Cernevit]"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "21121903",
+    "drug_name": "Acarbose 100 MG Oral Tablet [Glucobay]"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "21112205",
+    "drug_name": "Acarbose 50 MG Oral Tablet [Glucobay]"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "1529331",
+    "drug_name": "acarbose"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "2055381",
+    "drug_name": "acarbose 100 MG Oral Tablet [Glucobay] by Handok"
+  },
+  {
+    "ingredient": "acarbose",
+    "cdm_id": "2055382",
+    "drug_name": "acarbose 50 MG Oral Tablet [Glucobay] by Handok"
+  },
+  {
+    "ingredient": "acitretin",
+    "cdm_id": "21053263",
+    "drug_name": "Acitretin 10 MG Oral Capsule [Neotigason]"
+  },
+  {
+    "ingredient": "acitretin",
+    "cdm_id": "929638",
+    "drug_name": "acitretin"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "1119119",
+    "drug_name": "adalimumab"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "1592709",
+    "drug_name": "0.4 ML adalimumab 100 MG/ML Auto-Injector"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "2033423",
+    "drug_name": "0.8 ML adalimumab 50 MG/ML Prefilled Syringe [Humira] by Abbott"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "42922663",
+    "drug_name": "0.8 ML adalimumab 50 MG/ML Pen Injector [Humira]"
+  },
+  {
+    "ingredient": "adalimumab",
+    "cdm_id": "2033422",
+    "drug_name": "0.8 ML adalimumab 50 MG/ML Pen Injector [Humira] by Abbvie"
+  },
+  {
+    "ingredient": "amitriptyline",
+    "cdm_id": "42931443",
+    "drug_name": "Amitriptyline 10 MG Oral Tablet [ENAFON]"
+  },
+  {
+    "ingredient": "amitriptyline",
+    "cdm_id": "710062",
+    "drug_name": "amitriptyline"
+  },
+  {
+    "ingredient": "amitriptyline",
+    "cdm_id": "42931453",
+    "drug_name": "Amitriptyline 25 MG Oral Tablet [ETRAVIL]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "1713332",
+    "drug_name": "amoxicillin"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951724",
+    "drug_name": "Amoxicillin 500 MG / Clavulanate 125 MG Oral Tablet [CLAMONEX]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951756",
+    "drug_name": "Amoxicillin 500 MG / Clavulanate 125 MG Oral Tablet [MOXICLE]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951408",
+    "drug_name": "Amoxicillin 250 MG / Clavulanate 125 MG Oral Tablet [MOXICLE]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951753",
+    "drug_name": "Amoxicillin 500 MG / Clavulanate 125 MG Oral Tablet [YUCLA]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42952235",
+    "drug_name": "Amoxicillin 500 MG Oral Capsule [ILDONG AMOXICILLIN]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42952233",
+    "drug_name": "Amoxicillin 500 MG Oral Capsule [KYMOXIN]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951405",
+    "drug_name": "Amoxicillin 250 MG / Clavulanate 125 MG Oral Tablet [YUCLA]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2052449",
+    "drug_name": "amoxicillin 40 MG / clavulanate 5.7 MG Oral Suspension [AUGMENTIN DUO] by Ilsung"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42952220",
+    "drug_name": "Amoxicillin 250 MG Oral Capsule [KYMOXIN]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "19133019",
+    "drug_name": "amoxicillin 250 MG / clavulanate 125 MG Oral Tablet [Augmentin]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919826",
+    "drug_name": "50 ML Amoxicillin 40 MG/ML / Clavulanate 5.7 MG/ML Oral Suspension [AMOCLA DUO]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919823",
+    "drug_name": "50 ML Amoxicillin 40 MG/ML / Clavulanate 5.7 MG/ML Oral Suspension [Augmentin Duo]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2011814",
+    "drug_name": "amoxicillin 40 MG / clavulanate 5.7 MG Oral Suspension [CRAMOTIN DUO] by Dong-a"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919817",
+    "drug_name": "50 ML Amoxicillin 25 MG/ML / Clavulanate 6.25 MG/ML Oral Suspension [AMOXCLAN]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2052243",
+    "drug_name": "amoxicillin 25 MG / clavulanate 6.25 MG Oral Suspension [AMOXCLAN] by Hanmi"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42952221",
+    "drug_name": "Amoxicillin 250 MG Oral Capsule [ILDONG AMOXICILLIN]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2031797",
+    "drug_name": "1 ML amoxicillin 25 MG/ML Oral Suspension [PAMOXIN] by Dongwha"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919832",
+    "drug_name": "50 ML Amoxicillin 40 MG/ML / Clavulanate 5.7 MG/ML Oral Suspension [AUGMEX DUO]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919917",
+    "drug_name": "50 ML Amoxicillin 120 MG/ML / Clavulanate 8.58 MG/ML Oral Suspension [AMOCLA NEO]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919828",
+    "drug_name": "50 ML Amoxicillin 40 MG/ML / Clavulanate 5.7 MG/ML Oral Suspension [AMOXCLAN DUO]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42918510",
+    "drug_name": "500 ML Amoxicillin 25 MG/ML Oral Suspension [PAMOXIN]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42951320",
+    "drug_name": "Amoxicillin 200 MG / Clavulanate 50 MG Tablet for Oral Suspension [CAMODIX]"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2052192",
+    "drug_name": "amoxicillin 125 MG / clavulanate 8.58 MG Oral Suspension [AMOCLA NEO] by Kuhnil"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2011810",
+    "drug_name": "amoxicillin 100 MG / clavulanate 25 MG Tablet for Oral Suspension [CAMODIX] by Sam-a"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2052123",
+    "drug_name": "amoxicillin 125 MG / clavulanate 31.2 MG Tablet for Oral Suspension [AMOXCLAN] by Hanmi"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2011778",
+    "drug_name": "amoxicillin 62.5 MG / clavulanate 15.6 MG Tablet for Oral Suspension [CAMODIX] by Sam-a"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "2051672",
+    "drug_name": "amoxicillin 62.5 MG / clavulanate 15.6 MG Tablet for Oral Suspension [AMOXCLAN] by Hanmi"
+  },
+  {
+    "ingredient": "amoxicillin",
+    "cdm_id": "42919802",
+    "drug_name": "50 ML Amoxicillin 25 MG/ML / Clavulanate 6.25 MG/ML Oral Suspension [Augmentin]"
+  },
+  {
+    "ingredient": "atezolizumab",
+    "cdm_id": "42920398",
+    "drug_name": "20 ML atezolizumab 60 MG/ML Injectable Solution [TCENTRIQ]"
+  },
+  {
+    "ingredient": "atezolizumab",
+    "cdm_id": "42629079",
+    "drug_name": "atezolizumab"
+  },
+  {
+    "ingredient": "atezolizumab",
+    "cdm_id": "1366763",
+    "drug_name": "14 ML atezolizumab 60 MG/ML Injection [Tecentriq]"
+  },
+  {
+    "ingredient": "benzbromarone",
+    "cdm_id": "42931083",
+    "drug_name": "Benzbromarone 50 MG Oral Tablet [URINON]"
+  },
+  {
+    "ingredient": "benzbromarone",
+    "cdm_id": "42931082",
+    "drug_name": "Benzbromarone 50 MG Oral Tablet [MYUNGIN NARCARICIN]"
+  },
+  {
+    "ingredient": "benzbromarone",
+    "cdm_id": "19016754",
+    "drug_name": "benzbromarone"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "42926243",
+    "drug_name": "bicalutamide 50 MG Oral Tablet [CADEX]"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "43767721",
+    "drug_name": "bicalutamide 50 MG Oral Tablet [Bicadex]"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "19010538",
+    "drug_name": "bicalutamide 50 MG Oral Tablet [Casodex]"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "1344381",
+    "drug_name": "bicalutamide"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "44100020",
+    "drug_name": "bicalutamide 50 MG Oral Tablet [BICALUTAMIDE TEVA]"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "42926247",
+    "drug_name": "bicalutamide 50 MG Oral Tablet [PROCADEX]"
+  },
+  {
+    "ingredient": "bicalutamide",
+    "cdm_id": "42926238",
+    "drug_name": "bicalutamide 150 MG Oral Tablet [CALUTAMI]"
+  },
+  {
+    "ingredient": "captopril",
+    "cdm_id": "42957538",
+    "drug_name": "Captopril 12.5 MG Oral Tablet [CAPRIL]"
+  },
+  {
+    "ingredient": "captopril",
+    "cdm_id": "42957540",
+    "drug_name": "Captopril 25 MG Oral Tablet [CAPRIL]"
+  },
+  {
+    "ingredient": "captopril",
+    "cdm_id": "1340128",
+    "drug_name": "captopril"
+  },
+  {
+    "ingredient": "captopril",
+    "cdm_id": "42957542",
+    "drug_name": "Captopril 50 MG Oral Tablet [CAPRIL]"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "42947161",
+    "drug_name": "Cefazolin 1000 MG Injection [CKD CEFAZOLINE]"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "2011578",
+    "drug_name": "cefazolin 2000 MG Injection [CEFAMEZIN] by Dong-a"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "1771162",
+    "drug_name": "cefazolin"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "2011580",
+    "drug_name": "cefazolin 1000 MG Injection [CEFAMEZIN] by Dong-a"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "42947169",
+    "drug_name": "Cefazolin 2000 MG Injection [CEFAMEZIN]"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "42947162",
+    "drug_name": "Cefazolin 1000 MG Injection [CEFAMEZIN]"
+  },
+  {
+    "ingredient": "cefazolin",
+    "cdm_id": "2011581",
+    "drug_name": "cefazolin 500 MG Injection [CEFAMEZIN] by Dong-a"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2025800",
+    "drug_name": "100 ML ceftriaxone 20 MG/ML / sodium chloride 9 MG/ML Injectable Solution [TRISONKIT] by UK Chemipharm"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048075",
+    "drug_name": "ceftriaxone 2000 MG Injection [TRIAXONE] by Hanmi"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "1777806",
+    "drug_name": "ceftriaxone"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "42941696",
+    "drug_name": "Ceftriaxone 2000 MG Injection [TRIAXONE]"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048088",
+    "drug_name": "ceftriaxone 2000 MG Injection by CJ"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "42941778",
+    "drug_name": "Ceftriaxone 1000 MG Injection [TRIAXONE]"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048118",
+    "drug_name": "ceftriaxone 1000 MG Injection [TRIAXONE] by Hanmi"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048146",
+    "drug_name": "ceftriaxone 1000 MG Injection by Boryung"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "42941849",
+    "drug_name": "Ceftriaxone 500 MG Injection [TRIAXONE]"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048197",
+    "drug_name": "ceftriaxone 500 MG Injection [TRIAXONE] by Hanmi"
+  },
+  {
+    "ingredient": "ceftriaxone",
+    "cdm_id": "2048212",
+    "drug_name": "ceftriaxone 500 MG Injection by Boryung"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "1118088",
+    "drug_name": "celecoxib 200 MG Oral Capsule [Celebrex]"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "1118084",
+    "drug_name": "celecoxib"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "1118087",
+    "drug_name": "celecoxib 100 MG Oral Capsule [Celebrex]"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "42927269",
+    "drug_name": "celecoxib 200 MG Oral Tablet [CELEWON]"
+  },
+  {
+    "ingredient": "celecoxib",
+    "cdm_id": "42927359",
+    "drug_name": "celecoxib 200 MG Oral Capsule [CELSK]"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "997276",
+    "drug_name": "cimetidine"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "42922401",
+    "drug_name": "1 ML Cimetidine 4.8 MG/ML Injectable Solution [BROPIUM]"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2033071",
+    "drug_name": "1 ML cimetidine 4.8 MG/ML Injectable Solution [ALGIRON] by Handok"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "42944113",
+    "drug_name": "Cimetidine 200 MG Oral Tablet [BUKWANG CIMET]"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "42921973",
+    "drug_name": "2 ML Cimetidine 100 MG/ML Injectable Solution [H-2]"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2073467",
+    "drug_name": "cimetidine 50 MG Oral Tablet [ALGIRON] by Boehringer Ingelheim"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2009763",
+    "drug_name": "2 ML cimetidine 100 MG/ML Injectable Solution [H-2] by JW"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2073466",
+    "drug_name": "cimetidine 50 MG Oral Tablet [Tropium] by Kukje"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "41343922",
+    "drug_name": "2 ML Cimetidine 100 MG/ML Injectable Solution [Tagamet]"
+  },
+  {
+    "ingredient": "cimetidine",
+    "cdm_id": "2033068",
+    "drug_name": "1 ML cimetidine 4.8 MG/ML Injectable Solution [ALPIT] by Hana"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42918949",
+    "drug_name": "200 ML Ciprofloxacin 2 MG/ML Injectable Solution [CITOPCIN]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948271",
+    "drug_name": "Ciprofloxacin 500 MG Oral Tablet [CYCIN]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "1797513",
+    "drug_name": "ciprofloxacin"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2025385",
+    "drug_name": "200 ML ciprofloxacin 2 MG/ML Injectable Solution by JW"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948179",
+    "drug_name": "Ciprofloxacin 250 MG Oral Tablet [CITOPCIN]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2025381",
+    "drug_name": "200 ML ciprofloxacin 2 MG/ML Injectable Solution [CITOPCIN] by CJ"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42920760",
+    "drug_name": "10 ML Ciprofloxacin 3 MG/ML / fluocinolone 0.25 MG/ML Topical Solution [CETRAXAL PLUS]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2033076",
+    "drug_name": "1 ML ciprofloxacin 3 MG/ML / fluocinolone 0.25 MG/ML Otic Solution [CETRAXAL PLUS] by BL&H"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948272",
+    "drug_name": "Ciprofloxacin 500 MG Extended Release Oral Tablet [CIPROURO]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948270",
+    "drug_name": "Ciprofloxacin 500 MG Oral Tablet [CIROK]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2025758",
+    "drug_name": "100 ML ciprofloxacin 2 MG/ML Injectable Solution [LOFUCIN] by Korea"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42919374",
+    "drug_name": "100 ML Ciprofloxacin 2 MG/ML Injectable Solution [CITOPCIN]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2025760",
+    "drug_name": "100 ML ciprofloxacin 2 MG/ML Injectable Solution [CITOPCIN] by CJ"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42948151",
+    "drug_name": "Ciprofloxacin 1000 MG Extended Release Oral Tablet [CIPROURO]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "42920879",
+    "drug_name": "7 ML Ciprofloxacin 2 MG/ML / Hydrocortisone 10 MG/ML Otic Suspension [CIPROCIN HC OTIC SUSP]"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2031471",
+    "drug_name": "1 ML ciprofloxacin 2.33 MG/ML / hydrocortisone 10 MG/ML Otic Suspension [CIPROCIN HC] by Hanlim"
+  },
+  {
+    "ingredient": "ciprofloxacin",
+    "cdm_id": "2026235",
+    "drug_name": "50 ML ciprofloxacin 2 MG/ML Injectable Solution [LOFUCIN] by Korea"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "1750500",
+    "drug_name": "clarithromycin"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "21113674",
+    "drug_name": "Clarithromycin 500 MG Oral Tablet [Klaricid]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "21035073",
+    "drug_name": "Clarithromycin 250 MG Oral Tablet [Klaricid]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958036",
+    "drug_name": "Clarithromycin 500 MG Oral Tablet [CLARIC]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "2049636",
+    "drug_name": "clarithromycin 25 MG Oral Suspension [Klaricid] by Abbott"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958026",
+    "drug_name": "Clarithromycin 500 MG Oral Tablet [CLARI]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "35754434",
+    "drug_name": "Clarithromycin 500 MG Extended Release Oral Tablet [Klaricid]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "2049419",
+    "drug_name": "clarithromycin 500 MG Injection [Klaricid] by Abbott"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958218",
+    "drug_name": "Clarithromycin 250 MG Oral Tablet [CLARIC]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "21074536",
+    "drug_name": "Clarithromycin 500 MG Injection [Klaricid]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42919445",
+    "drug_name": "100 ML Clarithromycin 25 MG/ML Oral Suspension [KLARICID PEDIATRIC]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42919429",
+    "drug_name": "100 ML Clarithromycin 25 MG/ML Oral Suspension [CLARI]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "2049420",
+    "drug_name": "clarithromycin 500 MG Injection [Klaricid] by Ilsung"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958016",
+    "drug_name": "Clarithromycin 500 MG Oral Tablet [CLAROMA]"
+  },
+  {
+    "ingredient": "clarithromycin",
+    "cdm_id": "42958180",
+    "drug_name": "Clarithromycin 250 MG Oral Tablet [CLAROMA]"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "42921552",
+    "drug_name": "4 ML Clindamycin 150 MG/ML Injectable Solution [FULLGRAM]"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "2028688",
+    "drug_name": "4 ML clindamycin 150 MG/ML Injectable Solution [FULLGRAM] by Samjin"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "997881",
+    "drug_name": "clindamycin"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "42943292",
+    "drug_name": "Clindamycin 150 MG Oral Capsule [FULLGRAM]"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "43521561",
+    "drug_name": "25000 MG Benzoyl Peroxide 0.05 MG/MG / Clindamycin 0.01 MG/MG Topical Gel"
+  },
+  {
+    "ingredient": "clindamycin",
+    "cdm_id": "36809661",
+    "drug_name": "30000 MG Benzoyl Peroxide 0.03 MG/MG / Clindamycin 0.01 MG/MG Topical Gel"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "1322185",
+    "drug_name": "clopidogrel 75 MG Oral Tablet [Plavix]"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42928924",
+    "drug_name": "clopidogrel 75 MG Oral Tablet [CLOART]"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42928967",
+    "drug_name": "clopidogrel 75 MG Oral Tablet [PLATLESS]"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "1322184",
+    "drug_name": "clopidogrel"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42928991",
+    "drug_name": "clopidogrel 75 MG Oral Tablet [PLAVITOR]"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42928993",
+    "drug_name": "clopidogrel 75 MG Oral Tablet [PREGREL]"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42949821",
+    "drug_name": "Aspirin 100 MG / clopidogrel 75 MG Extended Release Oral Capsule [CLOPIRIN]"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42949831",
+    "drug_name": "Aspirin 100 MG / clopidogrel 75 MG Extended Release Oral Capsule [CLOSONE]"
+  },
+  {
+    "ingredient": "clopidogrel",
+    "cdm_id": "42949826",
+    "drug_name": "Aspirin 100 MG / clopidogrel 75 MG Extended Release Oral Capsule [SUPERPIRIN]"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "19004691",
+    "drug_name": "clozapine 100 MG Oral Tablet [Clozaril]"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "2040365",
+    "drug_name": "clozapine 100 MG Oral Tablet [Clozaril] by Whanin"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "19004670",
+    "drug_name": "clozapine 25 MG Oral Tablet [Clozaril]"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "2040369",
+    "drug_name": "clozapine 25 MG Oral Tablet [Clozaril] by Whanin"
+  },
+  {
+    "ingredient": "clozapine",
+    "cdm_id": "800878",
+    "drug_name": "clozapine"
+  },
+  {
+    "ingredient": "cyclophosphamide",
+    "cdm_id": "2065859",
+    "drug_name": "cyclophosphamide 500 MG Injection [Endoxan] by Bukwang"
+  },
+  {
+    "ingredient": "cyclophosphamide",
+    "cdm_id": "1310317",
+    "drug_name": "cyclophosphamide"
+  },
+  {
+    "ingredient": "cyclophosphamide",
+    "cdm_id": "42944032",
+    "drug_name": "Cyclophosphamide 50 MG Oral Tablet [ALKYLOXAN]"
+  },
+  {
+    "ingredient": "cyproterone",
+    "cdm_id": "19010792",
+    "drug_name": "cyproterone"
+  },
+  {
+    "ingredient": "cyproterone",
+    "cdm_id": "2075044",
+    "drug_name": "{12 (Cyproterone 1 MG / Estradiol 2 MG Oral Tablet) / 16 (estradiol 2 MG Oral Tablet) } Pack [Climen] by Bayer"
+  },
+  {
+    "ingredient": "cyproterone",
+    "cdm_id": "21096430",
+    "drug_name": "Cyproterone 50 MG Oral Tablet [Androcur]"
+  },
+  {
+    "ingredient": "dacarbazine",
+    "cdm_id": "2065615",
+    "drug_name": "dacarbazine 200 MG Injection [DTI] by Korea United Pharm"
+  },
+  {
+    "ingredient": "dacarbazine",
+    "cdm_id": "42950349",
+    "drug_name": "Dacarbazine 200 MG Injection [DTI FOR]"
+  },
+  {
+    "ingredient": "dacarbazine",
+    "cdm_id": "1311409",
+    "drug_name": "dacarbazine"
+  },
+  {
+    "ingredient": "dasabuvir",
+    "cdm_id": "21120034",
+    "drug_name": "dasabuvir 250 MG Oral Tablet [Exviera]"
+  },
+  {
+    "ingredient": "dasabuvir",
+    "cdm_id": "45892558",
+    "drug_name": "dasabuvir"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "1338512",
+    "drug_name": "doxorubicin"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "35783409",
+    "drug_name": "25 ML Doxorubicin 2 MG/ML Injectable Solution [Doxorubin]"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "35780897",
+    "drug_name": "5 ML Doxorubicin 2 MG/ML Injectable Solution [Doxorubin]"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2026574",
+    "drug_name": "25 ML doxorubicin 2 MG/ML Injectable Solution [AD MYCIN] by Boryung"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2028363",
+    "drug_name": "5 ML doxorubicin 2 MG/ML Injectable Solution [AD MYCIN] by Boryung"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "42946862",
+    "drug_name": "Doxorubicin 10 MG Injection [ADM]"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2012753",
+    "drug_name": "doxorubicin 10 MG Injection [ADM] by Dong-a"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2062391",
+    "drug_name": "doxorubicin 10 MG Injection [ILDONG ADRIAMYCIN RDF] by Ildong"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "42946877",
+    "drug_name": "Doxorubicin 50 MG Injection [ILDONG ADRIAMYCIN RDF]"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "41361791",
+    "drug_name": "10 ML Doxorubicin 2 MG/ML Injectable Suspension [Caelyx]"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2026575",
+    "drug_name": "25 ML doxorubicin 2 MG/ML Injectable Solution [Doxorubin] by Handok"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "42946876",
+    "drug_name": "Doxorubicin 50 MG Injection [ADM]"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2028364",
+    "drug_name": "5 ML doxorubicin 2 MG/ML Injectable Solution [Doxorubin] by Handok"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2012752",
+    "drug_name": "doxorubicin 50 MG Injection [ADM] by Dong-a"
+  },
+  {
+    "ingredient": "doxorubicin",
+    "cdm_id": "2027393",
+    "drug_name": "10 ML doxorubicin 2 MG/ML Injectable Suspension [Caelyx] by Janssen"
+  },
+  {
+    "ingredient": "doxycycline",
+    "cdm_id": "42963336",
+    "drug_name": "Doxycycline 100 MG Oral Capsule [DOXYCYCLINE HYCLATE KUKJE]"
+  },
+  {
+    "ingredient": "doxycycline",
+    "cdm_id": "1738521",
+    "drug_name": "doxycycline"
+  },
+  {
+    "ingredient": "doxycycline",
+    "cdm_id": "42963331",
+    "drug_name": "Doxycycline 100 MG Oral Tablet [DOXYCYCLINE YOUNGPOONG]"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "35775279",
+    "drug_name": "duloxetine 30 MG Extended Release Oral Capsule [Cymbalta]"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "35775278",
+    "drug_name": "duloxetine 60 MG Extended Release Oral Capsule [Cymbalta]"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "715259",
+    "drug_name": "duloxetine"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "42945956",
+    "drug_name": "duloxetine 30 MG Extended Release Oral Capsule [DULOXTA]"
+  },
+  {
+    "ingredient": "duloxetine",
+    "cdm_id": "42946004",
+    "drug_name": "duloxetine 60 MG Extended Release Oral Capsule [DULOXTA]"
+  },
+  {
+    "ingredient": "durvalumab",
+    "cdm_id": "1594046",
+    "drug_name": "10 ML durvalumab 50 MG/ML Injection"
+  },
+  {
+    "ingredient": "durvalumab",
+    "cdm_id": "1594038",
+    "drug_name": "2.4 ML durvalumab 50 MG/ML Injection"
+  },
+  {
+    "ingredient": "durvalumab",
+    "cdm_id": "1594034",
+    "drug_name": "durvalumab"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "42941353",
+    "drug_name": "Enalapril 5 MG Oral Tablet [ENAPRIN]"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "42941377",
+    "drug_name": "Enalapril 10 MG Oral Tablet [ENAPRIN]"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "2062308",
+    "drug_name": "enalapril 5 MG Oral Tablet [LENIPRIL] by JW"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "1341927",
+    "drug_name": "enalapril"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "2062235",
+    "drug_name": "enalapril 10 MG Oral Tablet [LENIPRIL] by JW"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "42941354",
+    "drug_name": "Enalapril 5 MG Oral Tablet [LENIPRIL]"
+  },
+  {
+    "ingredient": "enalapril",
+    "cdm_id": "42941384",
+    "drug_name": "Enalapril 10 MG Oral Tablet [LENIPRIL]"
+  },
+  {
+    "ingredient": "erlotinib",
+    "cdm_id": "40236069",
+    "drug_name": "erlotinib 100 MG Oral Tablet [Tarceva]"
+  },
+  {
+    "ingredient": "erlotinib",
+    "cdm_id": "40236071",
+    "drug_name": "erlotinib 150 MG Oral Tablet [Tarceva]"
+  },
+  {
+    "ingredient": "erlotinib",
+    "cdm_id": "1325363",
+    "drug_name": "erlotinib"
+  },
+  {
+    "ingredient": "erlotinib",
+    "cdm_id": "42949107",
+    "drug_name": "erlotinib 100 MG Oral Tablet [ERTINIB]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "41127461",
+    "drug_name": "Esomeprazole 20 MG Oral Tablet [Nexium]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "904453",
+    "drug_name": "esomeprazole"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968161",
+    "drug_name": "Esomeprazole 40 MG Injection [NEXIUM IV]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "40940024",
+    "drug_name": "Esomeprazole 40 MG Oral Tablet [Nexium]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "21085042",
+    "drug_name": "Esomeprazole 40 MG Injection [Nexium] by Astrazeneca"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968049",
+    "drug_name": "Esomeprazole 20 MG Oral Tablet [OMP S]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968244",
+    "drug_name": "Esomeprazole 40 MG Oral Tablet [OMP S]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "2039611",
+    "drug_name": "esomeprazole 20 MG / sodium bicarbonate 809 MG Oral Tablet [ESO DUO] by Chongkundang"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968069",
+    "drug_name": "Esomeprazole 20 MG Oral Capsule [ESOMEZOL]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968036",
+    "drug_name": "Esomeprazole 20 MG Oral Tablet [ESWONAMP]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968162",
+    "drug_name": "Esomeprazole 40 MG Injection [OMPS]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42967955",
+    "drug_name": "Esomeprazole 20 MG / Naproxen 500 MG Oral Tablet [NAXOZOL]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968264",
+    "drug_name": "Esomeprazole 40 MG Oral Capsule [ESOMEZOL]"
+  },
+  {
+    "ingredient": "esomeprazole",
+    "cdm_id": "42968232",
+    "drug_name": "Esomeprazole 40 MG Oral Tablet [ESWONAMP]"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "1151789",
+    "drug_name": "etanercept"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2032455",
+    "drug_name": "1 ML etanercept 50 MG/ML Prefilled Syringe [Enbrel] by Pfizer"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "42922271",
+    "drug_name": "1 ML Etanercept 50 MG/ML Pen Injector [ENBREL MYCLIC]"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "42924452",
+    "drug_name": "Etanercept 25 MG Injection [Enbrel]"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2070527",
+    "drug_name": "etanercept 25 MG Injection [Enbrel] by Wyeth"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2070528",
+    "drug_name": "etanercept 25 MG Injection [Enbrel] by Pfizer"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2033765",
+    "drug_name": "0.5 ML etanercept 50 MG/ML Prefilled Syringe [Enbrel] by Wyeth"
+  },
+  {
+    "ingredient": "etanercept",
+    "cdm_id": "2033766",
+    "drug_name": "0.5 ML etanercept 50 MG/ML Prefilled Syringe [Enbrel] by Pfizer"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "44047688",
+    "drug_name": "Fenofibrate 160 MG Oral Tablet [Lipidil Supra]"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "2054909",
+    "drug_name": "fenofibrate 160 MG Extended Release Oral Tablet [Lipidil Supra] by Greencross"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "1551803",
+    "drug_name": "fenofibrate"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "41189798",
+    "drug_name": "Fenofibrate 150 MG / Pravastatin 40 MG Oral Capsule [Pravafenix]"
+  },
+  {
+    "ingredient": "fenofibrate",
+    "cdm_id": "21141482",
+    "drug_name": "Fenofibrate 145 MG / Simvastatin 20 MG Oral Tablet [Cholib]"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "42937076",
+    "drug_name": "Fluconazole 50 MG Oral Capsule [PLUNAZOLE]"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "42919736",
+    "drug_name": "50 ML Fluconazole 2 MG/ML Injectable Solution [ONEFLU]"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "43666014",
+    "drug_name": "50 ML Fluconazole 2 MG/ML Injectable Solution [Diflucan] by Pfizer"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "1754994",
+    "drug_name": "fluconazole"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "2049308",
+    "drug_name": "fluconazole 50 MG Oral Capsule [PLUNAZOLE] by Daewoong"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "41391110",
+    "drug_name": "50 ML Fluconazole 2 MG/ML Injectable Solution [Diflucan]"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "21029441",
+    "drug_name": "35 ML Fluconazole 10 MG/ML Oral Suspension [Diflucan]"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "2049365",
+    "drug_name": "fluconazole 10 MG Oral Suspension [Diflucan] by Pfizer"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "42937069",
+    "drug_name": "Fluconazole 50 MG Oral Capsule [FUNAZOL]"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "2026263",
+    "drug_name": "50 ML fluconazole 2 MG/ML Injectable Solution [FLUKAN] by Korea United Pharm"
+  },
+  {
+    "ingredient": "fluconazole",
+    "cdm_id": "42937083",
+    "drug_name": "Fluconazole 50 MG Oral Capsule [DIFLEX]"
+  },
+  {
+    "ingredient": "fluvastatin",
+    "cdm_id": "21035494",
+    "drug_name": "fluvastatin 80 MG Extended Release Oral Tablet [Lescol XL]"
+  },
+  {
+    "ingredient": "fluvastatin",
+    "cdm_id": "1549686",
+    "drug_name": "fluvastatin"
+  },
+  {
+    "ingredient": "gefitinib",
+    "cdm_id": "19102199",
+    "drug_name": "gefitinib 250 MG Oral Tablet [Iressa]"
+  },
+  {
+    "ingredient": "gefitinib",
+    "cdm_id": "1319193",
+    "drug_name": "gefitinib"
+  },
+  {
+    "ingredient": "gefitinib",
+    "cdm_id": "42932501",
+    "drug_name": "gefitinib 250 MG Oral Tablet [IRETINIB]"
+  },
+  {
+    "ingredient": "glyburide",
+    "cdm_id": "40166003",
+    "drug_name": "glyburide 5 MG / metformin hydrochloride 500 MG Oral Tablet [Glucovance]"
+  },
+  {
+    "ingredient": "glyburide",
+    "cdm_id": "40165998",
+    "drug_name": "glyburide 2.5 MG / metformin hydrochloride 500 MG Oral Tablet [Glucovance]"
+  },
+  {
+    "ingredient": "glyburide",
+    "cdm_id": "1559684",
+    "drug_name": "glyburide"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "2031752",
+    "drug_name": "1 ML haloperidol 5 MG/ML Injectable Solution [PERIDOL] by Whanin"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42922320",
+    "drug_name": "1 ML Haloperidol 5 MG/ML Injectable Solution [PERIDOL]"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42922321",
+    "drug_name": "1 ML Haloperidol 5 MG/ML Injectable Solution [MYUNGIN HALOPERIDOL]"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "766529",
+    "drug_name": "haloperidol"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42936536",
+    "drug_name": "Haloperidol 1.5 MG Oral Tablet [PERIDOL]"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42936555",
+    "drug_name": "Haloperidol 5 MG Oral Tablet [PERIDOL]"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42936545",
+    "drug_name": "Haloperidol 10 MG Oral Tablet [PERIDOL]"
+  },
+  {
+    "ingredient": "haloperidol",
+    "cdm_id": "42936550",
+    "drug_name": "Haloperidol 3 MG Oral Tablet [PERIDOL]"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "21026396",
+    "drug_name": "imatinib 100 MG Oral Tablet [Glivec]"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "1304107",
+    "drug_name": "imatinib"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "42965870",
+    "drug_name": "imatinib 400 MG Oral Tablet [GLINIB]"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "42965842",
+    "drug_name": "imatinib 100 MG Oral Tablet [GLITIVE]"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "42965847",
+    "drug_name": "imatinib 100 MG Oral Tablet [GLINIB]"
+  },
+  {
+    "ingredient": "imatinib",
+    "cdm_id": "42965864",
+    "drug_name": "imatinib 400 MG Oral Tablet [GLITIVE]"
+  },
+  {
+    "ingredient": "imipramine",
+    "cdm_id": "42940620",
+    "drug_name": "Imipramine 25 MG Oral Tablet [WHANIN IMIPRAMINE HCL]"
+  },
+  {
+    "ingredient": "imipramine",
+    "cdm_id": "778268",
+    "drug_name": "imipramine"
+  },
+  {
+    "ingredient": "inotuzumab ozogamicin",
+    "cdm_id": "2040846",
+    "drug_name": "inotuzumab ozogamicin 1 MG Injection [Besponsa] by Pfizer"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42921304",
+    "drug_name": "5 ML irinotecan 20 MG/ML Injectable Solution [CALMTOP]"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42922070",
+    "drug_name": "2 ML irinotecan 20 MG/ML Injectable Solution [CALMTOP]"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42920500",
+    "drug_name": "15 ML irinotecan 20 MG/ML Injectable Solution [IRITECAN]"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "1367268",
+    "drug_name": "irinotecan"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42920702",
+    "drug_name": "10 ML irinotecan 20 MG/ML Injectable Solution [IRITECAN]"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2026994",
+    "drug_name": "15 ML irinotecan 20 MG/ML Injectable Solution [IRITECAN] by Jeil"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2028271",
+    "drug_name": "5 ML irinotecan 20 MG/ML Injectable Solution [CALMTOP] by CJ"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2029558",
+    "drug_name": "2 ML irinotecan 20 MG/ML Injectable Solution [CALMTOP] by CJ"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2029556",
+    "drug_name": "2 ML irinotecan 20 MG/ML Injectable Solution [IRITECAN] by Jeil"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42658385",
+    "drug_name": "10 ML irinotecan liposomal 4.3 MG/ML Injectable Solution"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2027350",
+    "drug_name": "10 ML irinotecan 20 MG/ML Injectable Solution [IRITECAN] by Jeil"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2028269",
+    "drug_name": "5 ML irinotecan 20 MG/ML Injectable Solution [IRITECAN] by Jeil"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2027349",
+    "drug_name": "10 ML irinotecan 20 MG/ML Injectable Solution [CAMTECAN] by Yuhan"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "2027345",
+    "drug_name": "10 ML irinotecan 20 MG/ML Injectable Solution [IRITECIN] by Kwangdong"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42922073",
+    "drug_name": "2 ML irinotecan 20 MG/ML Injectable Solution [IRITECAN]"
+  },
+  {
+    "ingredient": "irinotecan",
+    "cdm_id": "42921307",
+    "drug_name": "5 ML irinotecan 20 MG/ML Injectable Solution [IRITECAN]"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "42934962",
+    "drug_name": "Itraconazole 100 MG Oral Capsule [EFECTRA]"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "21118365",
+    "drug_name": "150 ML Itraconazole 10 MG/ML Oral Solution [Sporanox]"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "2031825",
+    "drug_name": "1 ML itraconazole 10 MG/ML Oral Solution [Sporanox] by Janssen"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "1703653",
+    "drug_name": "itraconazole"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "35783418",
+    "drug_name": "25 ML Itraconazole 10 MG/ML Injectable Solution [Sporanox] by Janssen"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "1703661",
+    "drug_name": "itraconazole 100 MG Oral Capsule [Sporanox]"
+  },
+  {
+    "ingredient": "itraconazole",
+    "cdm_id": "35783410",
+    "drug_name": "1\t25 ML Itraconazole 10 MG/ML Injectable Solution [Sporanox]"
+  },
+  {
+    "ingredient": "ketamine",
+    "cdm_id": "42920662",
+    "drug_name": "10 ML Ketamine 50 MG/ML Injectable Solution [HUONS KETAMINE HCL]"
+  },
+  {
+    "ingredient": "ketamine",
+    "cdm_id": "785649",
+    "drug_name": "ketamine"
+  },
+  {
+    "ingredient": "ketamine",
+    "cdm_id": "2027253",
+    "drug_name": "10 ML ketamine 50 MG/ML Injectable Solution by Huons"
+  },
+  {
+    "ingredient": "lamotrigine",
+    "cdm_id": "19006207",
+    "drug_name": "lamotrigine 100 MG Oral Tablet [Lamictal]"
+  },
+  {
+    "ingredient": "lamotrigine",
+    "cdm_id": "19006208",
+    "drug_name": "lamotrigine 25 MG Oral Tablet [Lamictal]"
+  },
+  {
+    "ingredient": "lamotrigine",
+    "cdm_id": "19006206",
+    "drug_name": "lamotrigine 50 MG Oral Tablet [Lamictal]"
+  },
+  {
+    "ingredient": "lamotrigine",
+    "cdm_id": "705103",
+    "drug_name": "lamotrigine"
+  },
+  {
+    "ingredient": "lapatinib",
+    "cdm_id": "1359551",
+    "drug_name": "lapatinib 250 MG Oral Tablet [Tykerb]"
+  },
+  {
+    "ingredient": "lapatinib",
+    "cdm_id": "2060290",
+    "drug_name": "lapatinib 250 MG Oral Tablet [Tykerb] by Glaxosmithkline"
+  },
+  {
+    "ingredient": "lapatinib",
+    "cdm_id": "1359548",
+    "drug_name": "lapatinib"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "42953257",
+    "drug_name": "leflunomide 10 MG Oral Tablet [RHEUMIDE]"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "42953256",
+    "drug_name": "leflunomide 10 MG Oral Tablet [R-A]"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "1101922",
+    "drug_name": "leflunomide 10 MG Oral Tablet [Arava]"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "42953240",
+    "drug_name": "leflunomide 20 MG Oral Tablet [RHEUMIDE]"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "1101898",
+    "drug_name": "leflunomide"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "42953239",
+    "drug_name": "leflunomide 20 MG Oral Tablet [R-A]"
+  },
+  {
+    "ingredient": "leflunomide",
+    "cdm_id": "1101923",
+    "drug_name": "leflunomide 20 MG Oral Tablet [Arava]"
+  },
+  {
+    "ingredient": "lisinopril",
+    "cdm_id": "19003851",
+    "drug_name": "lisinopril 10 MG Oral Tablet [Zestril]"
+  },
+  {
+    "ingredient": "lisinopril",
+    "cdm_id": "1308216",
+    "drug_name": "lisinopril"
+  },
+  {
+    "ingredient": "lovastatin",
+    "cdm_id": "42935379",
+    "drug_name": "Lovastatin 20 MG Oral Tablet [LOSTATIN]"
+  },
+  {
+    "ingredient": "lovastatin",
+    "cdm_id": "42935373",
+    "drug_name": "Lovastatin 20 MG Oral Tablet [LOVALORD]"
+  },
+  {
+    "ingredient": "lovastatin",
+    "cdm_id": "1592085",
+    "drug_name": "lovastatin"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40164930",
+    "drug_name": "metformin hydrochloride 500 MG Oral Tablet [Glucophage]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40164898",
+    "drug_name": "metformin hydrochloride 1000 MG Oral Tablet [Glucophage]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943062",
+    "drug_name": "Metformin 500 MG Extended Release Oral Tablet [DIABEX XR]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "1503297",
+    "drug_name": "metformin"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942975",
+    "drug_name": "Metformin 500 MG / vildagliptin 50 MG Oral Tablet [GALVUSMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943166",
+    "drug_name": "Metformin 850 MG Oral Tablet [GLUPA]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943012",
+    "drug_name": "Metformin 1000 MG Extended Release Oral Tablet [Glucophage XR]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942973",
+    "drug_name": "Metformin 1000 MG / vildagliptin 50 MG Oral Tablet [GALVUSMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40164923",
+    "drug_name": "metformin hydrochloride 500 MG / sitagliptin 50 MG Oral Tablet [Janumet]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42953763",
+    "drug_name": "glimepiride 2 MG / Metformin 500 MG Oral Tablet [AMARYL M]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40164892",
+    "drug_name": "metformin hydrochloride 1000 MG / sitagliptin 50 MG Oral Tablet [Janumet]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942977",
+    "drug_name": "Metformin 850 MG / vildagliptin 50 MG Oral Tablet [GALVUSMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42953918",
+    "drug_name": "glimepiride 1 MG / Metformin 500 MG Oral Tablet [AMARYL M]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "45775861",
+    "drug_name": "dapagliflozin 10 MG / metformin hydrochloride 1000 MG Extended Release Oral Tablet [Xigduo]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42953705",
+    "drug_name": "glimepiride 1 MG / Metformin 250 MG Oral Tablet [AMARYL M]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961491",
+    "drug_name": "gemigliptin 50 MG / Metformin 1000 MG Extended Release Oral Tablet [ZEMIMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42953823",
+    "drug_name": "glimepiride 2 MG / Metformin 500 MG Extended Release Oral Tablet [AMARYL-MEX]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961488",
+    "drug_name": "gemigliptin 25 MG / Metformin 500 MG Extended Release Oral Tablet [ZEMIMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942982",
+    "drug_name": "Linagliptin 2.5 MG / Metformin 500 MG Oral Tablet [TRAJENTA DUO]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42968754",
+    "drug_name": "Metformin 850 MG / pioglitazone 15 MG Oral Tablet [ACTOS MET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40166003",
+    "drug_name": "glyburide 5 MG / metformin hydrochloride 500 MG Oral Tablet [Glucovance]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40231403",
+    "drug_name": "metformin hydrochloride 500 MG / saxagliptin 5 MG Extended Release Oral Tablet [Kombiglyze]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942984",
+    "drug_name": "Linagliptin 2.5 MG / Metformin 850 MG Oral Tablet [TRAJENTA DUO]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40231395",
+    "drug_name": "metformin hydrochloride 1000 MG / saxagliptin 5 MG Extended Release Oral Tablet [Kombiglyze]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943005",
+    "drug_name": "Metformin 750 MG Extended Release Oral Tablet [GLUCODOWN OR]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "40165998",
+    "drug_name": "glyburide 2.5 MG / metformin hydrochloride 500 MG Oral Tablet [Glucovance]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42943067",
+    "drug_name": "Metformin 500 MG Extended Release Oral Tablet [MEGAFORMIN]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942980",
+    "drug_name": "Linagliptin 2.5 MG / Metformin 1000 MG Oral Tablet [TRAJENTA DUO]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42942970",
+    "drug_name": "Metformin 1000 MG / sitagliptin 100 MG Extended Release Oral Tablet [JANUMET XR]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42963147",
+    "drug_name": "empagliflozin 12.5 MG / Metformin 1000 MG Oral Tablet [JARDIANCE DUO]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "2057411",
+    "drug_name": "metformin 500 MG / saxagliptin 5 MG Extended Release Oral Tablet [Kombiglyze] by BMS"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "2057410",
+    "drug_name": "metformin 1000 MG / saxagliptin 5 MG Extended Release Oral Tablet [Kombiglyze] by BMS"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "2057685",
+    "drug_name": "metformin 850 MG / pioglitazone 15 MG Oral Tablet [ACTOS MET] by Lilly"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961320",
+    "drug_name": "evogliptin 2.5 MG / Metformin 500 MG Extended Release Oral Tablet [SUGAMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961323",
+    "drug_name": "evogliptin 2.5 MG / Metformin 850 MG Extended Release Oral Tablet [SUGAMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961495",
+    "drug_name": "gemigliptin 50 MG / Metformin 500 MG Extended Release Oral Tablet [ZEMIMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42963149",
+    "drug_name": "empagliflozin 12.5 MG / Metformin 500 MG Oral Tablet [JARDIANCE DUO]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "45775863",
+    "drug_name": "dapagliflozin 10 MG / metformin hydrochloride 500 MG Extended Release Oral Tablet [Xigduo]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961174",
+    "drug_name": "Metformin 500 MG / voglibose 0.2 MG Oral Tablet [VOGMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961171",
+    "drug_name": "Metformin 250 MG / voglibose 0.2 MG Oral Tablet [VOGMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42960760",
+    "drug_name": "lobeglitazone 0.415 MG / Metformin 1000 MG Extended Release Oral Tablet [DUVIMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42961326",
+    "drug_name": "evogliptin 5 MG / Metformin 1000 MG Extended Release Oral Tablet [SUGAMET]"
+  },
+  {
+    "ingredient": "metformin",
+    "cdm_id": "42963153",
+    "drug_name": "empagliflozin 5 MG / Metformin 500 MG Oral Tablet [JARDIANCE DUO]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "1154192",
+    "drug_name": "montelukast 10 MG Oral Tablet [Singulair]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "1154161",
+    "drug_name": "montelukast"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964404",
+    "drug_name": "montelukast 10 MG Oral Tablet [MONTEZAL]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964374",
+    "drug_name": "montelukast 10 MG Oral Tablet [LUKIO]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "2070121",
+    "drug_name": "montelukast 10 MG Oral Tablet [Lukair] by CJ"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "1154193",
+    "drug_name": "montelukast 5 MG Chewable Tablet [Singulair]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "1154196",
+    "drug_name": "montelukast 4 MG Chewable Tablet [Singulair]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964241",
+    "drug_name": "montelukast 5 MG Chewable Tablet [LUKIO]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964085",
+    "drug_name": "levocetirizine 5 MG / montelukast 10 MG Oral Capsule [MONTERIZINE]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "2070334",
+    "drug_name": "montelukast 4 MG Oral Granules [Singulair] by MSD"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "42964109",
+    "drug_name": "montelukast 4 MG Chewable Tablet [LUKIO]"
+  },
+  {
+    "ingredient": "montelukast",
+    "cdm_id": "19102732",
+    "drug_name": "montelukast 4 MG Oral Granules [Singulair]"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "1716903",
+    "drug_name": "moxifloxacin"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "42921219",
+    "drug_name": "5 ML moxifloxacin 5 MG/ML Ophthalmic Solution [MOROXACIN]"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "1716904",
+    "drug_name": "moxifloxacin 400 MG Oral Tablet [Avelox]"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "42918875",
+    "drug_name": "250 ML moxifloxacin 1.6 MG/ML Injectable Solution [Avelox]"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "2031787",
+    "drug_name": "1 ML moxifloxacin 5.45 MG/ML Ophthalmic Solution [Vigamox] by Alcon"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "42944487",
+    "drug_name": "moxifloxacin 400 MG Oral Tablet [MOVELOXIN]"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "2025244",
+    "drug_name": "250 ML moxifloxacin 1.8 MG/ML Injectable Solution [Avelox] by Bayer"
+  },
+  {
+    "ingredient": "moxifloxacin",
+    "cdm_id": "2031784",
+    "drug_name": "1 ML moxifloxacin 5.45 MG/ML Ophthalmic Solution [MOROXACIN] by Hanmi"
+  },
+  {
+    "ingredient": "naproxen",
+    "cdm_id": "42965811",
+    "drug_name": "Naproxen 500 MG Oral Tablet [NAXEN F]"
+  },
+  {
+    "ingredient": "naproxen",
+    "cdm_id": "1115008",
+    "drug_name": "naproxen"
+  },
+  {
+    "ingredient": "naproxen",
+    "cdm_id": "42967955",
+    "drug_name": "Esomeprazole 20 MG / Naproxen 500 MG Oral Tablet [NAXOZOL]"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "42935148",
+    "drug_name": "Nifedipine 33 MG Extended Release Oral Tablet [ADALAT OROS]"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "42935145",
+    "drug_name": "Nifedipine 60 MG Extended Release Oral Tablet [ADALAT OROS]"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "1318853",
+    "drug_name": "nifedipine"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "42935143",
+    "drug_name": "Nifedipine 40 MG Extended Release Oral Tablet [NIFERON]"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "2064019",
+    "drug_name": "nifedipine 33 MG Extended Release Oral Tablet [NIFEDSOL] by Aestura"
+  },
+  {
+    "ingredient": "nifedipine",
+    "cdm_id": "2064014",
+    "drug_name": "nifedipine 40 MG Extended Release Oral Tablet [NIFERON] by Alvogen"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "19016821",
+    "drug_name": "olanzapine 10 MG Oral Tablet [Zyprexa]"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "19047064",
+    "drug_name": "olanzapine 2.5 MG Oral Tablet [Zyprexa]"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "19016799",
+    "drug_name": "olanzapine 5 MG Oral Tablet [Zyprexa]"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "44098838",
+    "drug_name": "olanzapine 10 MG Disintegrating Oral Tablet [Zyprexa Zydis]"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "44060182",
+    "drug_name": "olanzapine 5 MG Disintegrating Oral Tablet [Zyprexa Zydis]"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "785788",
+    "drug_name": "olanzapine"
+  },
+  {
+    "ingredient": "olanzapine",
+    "cdm_id": "21082226",
+    "drug_name": "olanzapine 10 MG Injection [Zyprexa] by Lilly"
+  },
+  {
+    "ingredient": "ombitasvir",
+    "cdm_id": "42963128",
+    "drug_name": "ombitasvir 12.5 MG / paritaprevir 75 MG / Ritonavir 50 MG Oral Tablet [VIEKIRA]"
+  },
+  {
+    "ingredient": "ombitasvir",
+    "cdm_id": "45892552",
+    "drug_name": "ombitasvir"
+  },
+  {
+    "ingredient": "omeprazole",
+    "cdm_id": "42945767",
+    "drug_name": "Omeprazole 10 MG Extended Release Oral Tablet [OMED]"
+  },
+  {
+    "ingredient": "omeprazole",
+    "cdm_id": "42945673",
+    "drug_name": "Omeprazole 20 MG Extended Release Oral Tablet [OMED]"
+  },
+  {
+    "ingredient": "omeprazole",
+    "cdm_id": "923645",
+    "drug_name": "omeprazole"
+  },
+  {
+    "ingredient": "omeprazole",
+    "cdm_id": "2037962",
+    "drug_name": "omeprazole 20 MG Extended Release Oral Tablet [RESULT] by JW"
+  },
+  {
+    "ingredient": "paritaprevir",
+    "cdm_id": "42963128",
+    "drug_name": "ombitasvir 12.5 MG / paritaprevir 75 MG / Ritonavir 50 MG Oral Tablet [VIEKIRA]"
+  },
+  {
+    "ingredient": "paritaprevir",
+    "cdm_id": "45892554",
+    "drug_name": "paritaprevir"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "42953204",
+    "drug_name": "Paroxetine 20 MG Oral Tablet [HANDOK SEROXAT]"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "42953213",
+    "drug_name": "Paroxetine 12.5 MG Extended Release Oral Tablet [A-XAT CR]"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "722158",
+    "drug_name": "paroxetine hydrochloride 12.5 MG Extended Release Oral Tablet [Paxil]"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "722031",
+    "drug_name": "paroxetine"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "42953193",
+    "drug_name": "Paroxetine 25 MG Extended Release Oral Tablet [A-XAT CR]"
+  },
+  {
+    "ingredient": "paroxetine",
+    "cdm_id": "42953203",
+    "drug_name": "Paroxetine 20 MG Oral Tablet [PAROSENIN]"
+  },
+  {
+    "ingredient": "penicillamine",
+    "cdm_id": "42972320",
+    "drug_name": "Penicillamine 150 MG Oral Capsule [ARTAMIN]"
+  },
+  {
+    "ingredient": "penicillamine",
+    "cdm_id": "42972318",
+    "drug_name": "Penicillamine 250 MG Oral Capsule [ARTAMIN]"
+  },
+  {
+    "ingredient": "penicillamine",
+    "cdm_id": "19028050",
+    "drug_name": "penicillamine"
+  },
+  {
+    "ingredient": "phenobarbital",
+    "cdm_id": "42956846",
+    "drug_name": "Phenobarbital 30 MG Oral Tablet [PHENOBARBITAL HANA]"
+  },
+  {
+    "ingredient": "phenobarbital",
+    "cdm_id": "2031964",
+    "drug_name": "1 ML phenobarbital 100 MG/ML Injectable Solution by Jeil"
+  },
+  {
+    "ingredient": "phenobarbital",
+    "cdm_id": "42922491",
+    "drug_name": "1 ML Phenobarbital 100 MG/ML Injectable Solution [JEIL PHENOBARBITAL]"
+  },
+  {
+    "ingredient": "phenobarbital",
+    "cdm_id": "734275",
+    "drug_name": "phenobarbital"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "42973730",
+    "drug_name": "Piroxicam 48 MG Transdermal System [TRAST]"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "1146810",
+    "drug_name": "piroxicam"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "2010065",
+    "drug_name": "1 ML piroxicam 22.3 MG/ML Injectable Solution [RHEO-MA] by Samsung"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "42917419",
+    "drug_name": "50000 MG Piroxicam 0.005 MG/MG Topical Gel [TRAST]"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "2024172",
+    "drug_name": "1000 MG piroxicam 0.005 MG/MG Topical Gel [TRAST] by SK Chemical"
+  },
+  {
+    "ingredient": "piroxicam",
+    "cdm_id": "42973718",
+    "drug_name": "Piroxicam 10 MG Oral Tablet [KOLON BREXIN]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970622",
+    "drug_name": "Pravastatin 20 MG Oral Tablet [MEVALOTIN]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970630",
+    "drug_name": "Pravastatin 40 MG Oral Tablet [MEVALOTIN]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970626",
+    "drug_name": "Pravastatin 10 MG Oral Tablet [MEVALOTIN]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970625",
+    "drug_name": "Pravastatin 10 MG Oral Tablet [PRASTAN]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "1551860",
+    "drug_name": "pravastatin"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970621",
+    "drug_name": "Pravastatin 20 MG Oral Tablet [PRASTAN]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "41189798",
+    "drug_name": "Fenofibrate 150 MG / Pravastatin 40 MG Oral Capsule [Pravafenix]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970634",
+    "drug_name": "Pravastatin 5 MG Oral Tablet [MEVALOTIN]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970629",
+    "drug_name": "Pravastatin 40 MG Oral Tablet [PRASTAN]"
+  },
+  {
+    "ingredient": "pravastatin",
+    "cdm_id": "42970633",
+    "drug_name": "Pravastatin 5 MG Oral Tablet [PRASTAN]"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "41184652",
+    "drug_name": "Propafenone 225 MG Extended Release Oral Capsule [Rytmonorm]"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "43783758",
+    "drug_name": "Propafenone 150 MG Oral Tablet [Rytmonorm]"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "1353256",
+    "drug_name": "propafenone"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "40841232",
+    "drug_name": "Propafenone 325 MG Extended Release Oral Capsule [Rytmonorm]"
+  },
+  {
+    "ingredient": "propafenone",
+    "cdm_id": "43711724",
+    "drug_name": "Propafenone 300 MG Oral Tablet [Rytmonorm]"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "766815",
+    "drug_name": "quetiapine 25 MG Oral Tablet [Seroquel]"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "766816",
+    "drug_name": "quetiapine 100 MG Oral Tablet [Seroquel]"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "766814",
+    "drug_name": "quetiapine"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "19133813",
+    "drug_name": "quetiapine 50 MG Extended Release Oral Tablet [Seroquel]"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "19134839",
+    "drug_name": "quetiapine 200 MG Extended Release Oral Tablet [Seroquel]"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "19134843",
+    "drug_name": "quetiapine 400 MG Extended Release Oral Tablet [Seroquel]"
+  },
+  {
+    "ingredient": "quetiapine",
+    "cdm_id": "19134841",
+    "drug_name": "quetiapine 300 MG Extended Release Oral Tablet [Seroquel]"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42939201",
+    "drug_name": "Ranitidine 75 MG Oral Tablet [CURAN]"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "961047",
+    "drug_name": "ranitidine"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42955054",
+    "drug_name": "bismuth oxide 40 MG / Ranitidine 75 MG / Sucralfate 300 MG Oral Tablet [ALBIS]"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42939285",
+    "drug_name": "Ranitidine 150 MG Oral Tablet [CURAN]"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "2028554",
+    "drug_name": "4 ML ranitidine 25 MG/ML Injectable Solution [URANTAC] by Whanin"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42939225",
+    "drug_name": "Ranitidine 75 MG Oral Tablet [URANTAC]"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42921551",
+    "drug_name": "4 ML Ranitidine 25 MG/ML Injectable Solution [URANTAC]"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "42955063",
+    "drug_name": "bismuth oxide 40 MG / Ranitidine 75 MG / Sucralfate 300 MG Oral Tablet [WIBIS]"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "35773874",
+    "drug_name": "Ranitidine 75 MG Oral Tablet [Zantac] by Glaxosmithkline"
+  },
+  {
+    "ingredient": "ranitidine",
+    "cdm_id": "961266",
+    "drug_name": "ranitidine 75 MG Oral Tablet [Zantac]"
+  },
+  {
+    "ingredient": "regorafenib",
+    "cdm_id": "42901617",
+    "drug_name": "regorafenib 40 MG Oral Tablet [Stivarga]"
+  },
+  {
+    "ingredient": "regorafenib",
+    "cdm_id": "42903460",
+    "drug_name": "regorafenib"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "40244449",
+    "drug_name": "rivaroxaban 20 MG Oral Tablet [Xarelto]"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "40244445",
+    "drug_name": "rivaroxaban 15 MG Oral Tablet [Xarelto]"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "40241334",
+    "drug_name": "rivaroxaban 10 MG Oral Tablet [Xarelto]"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "40241331",
+    "drug_name": "rivaroxaban"
+  },
+  {
+    "ingredient": "rivaroxaban",
+    "cdm_id": "35200880",
+    "drug_name": "rivaroxaban 2.5 MG Oral Tablet [Xarelto]"
+  },
+  {
+    "ingredient": "sertraline",
+    "cdm_id": "19037684",
+    "drug_name": "sertraline 50 MG Oral Tablet [Zoloft]"
+  },
+  {
+    "ingredient": "sertraline",
+    "cdm_id": "19037642",
+    "drug_name": "sertraline 100 MG Oral Tablet [Zoloft]"
+  },
+  {
+    "ingredient": "sertraline",
+    "cdm_id": "739138",
+    "drug_name": "sertraline"
+  },
+  {
+    "ingredient": "sorafenib",
+    "cdm_id": "1363390",
+    "drug_name": "sorafenib 200 MG Oral Tablet [Nexavar]"
+  },
+  {
+    "ingredient": "sorafenib",
+    "cdm_id": "1363387",
+    "drug_name": "sorafenib"
+  },
+  {
+    "ingredient": "sunitinib",
+    "cdm_id": "42946810",
+    "drug_name": "sunitinib 25 MG Oral Capsule [SUTENE]"
+  },
+  {
+    "ingredient": "sunitinib",
+    "cdm_id": "42946812",
+    "drug_name": "sunitinib 50 MG Oral Capsule [SUTENE]"
+  },
+  {
+    "ingredient": "sunitinib",
+    "cdm_id": "42946814",
+    "drug_name": "sunitinib 12.5 MG Oral Capsule [SUTENE]"
+  },
+  {
+    "ingredient": "sunitinib",
+    "cdm_id": "1336539",
+    "drug_name": "sunitinib"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "44111236",
+    "drug_name": "Tamoxifen 20 MG Oral Tablet [Tamoplex]"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "42925189",
+    "drug_name": "Tamoxifen 20 MG Oral Tablet [NOLVADEX D]"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "1436678",
+    "drug_name": "tamoxifen"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "42925190",
+    "drug_name": "Tamoxifen 20 MG Oral Tablet [TAMOXIFEN KWANGDONG]"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "19007458",
+    "drug_name": "tamoxifen 10 MG Oral Tablet [Nolvadex]"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "44033709",
+    "drug_name": "Tamoxifen 10 MG Oral Tablet [Tamoplex]"
+  },
+  {
+    "ingredient": "tamoxifen",
+    "cdm_id": "42925193",
+    "drug_name": "Tamoxifen 10 MG Oral Tablet [TAMOXIFEN KWANGDONG]"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "21092621",
+    "drug_name": "temozolomide 100 MG Oral Capsule [Temodal]"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "21082850",
+    "drug_name": "temozolomide 20 MG Oral Capsule [Temodal]"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "21122001",
+    "drug_name": "temozolomide 250 MG Oral Capsule [Temodal]"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "2012750",
+    "drug_name": "temozolomide 100 MG Oral Capsule [Temodal] by Schering-Plough"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "42934048",
+    "drug_name": "temozolomide 20 MG Oral Capsule [TEMOLAM]"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "42934054",
+    "drug_name": "temozolomide 100 MG Oral Capsule [TEMOLAM]"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "2012751",
+    "drug_name": "temozolomide 20 MG Oral Capsule [Temodal] by Schering-Plough"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "1341149",
+    "drug_name": "temozolomide"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "42934059",
+    "drug_name": "temozolomide 250 MG Oral Capsule [TEMOLAM]"
+  },
+  {
+    "ingredient": "temozolomide",
+    "cdm_id": "2012749",
+    "drug_name": "temozolomide 250 MG Oral Capsule [Temodal] by Schering-Plough"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "1741309",
+    "drug_name": "terbinafine"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "42928589",
+    "drug_name": "terbinafine 125 MG Oral Tablet [CURASIL]"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "42917794",
+    "drug_name": "15000 MG terbinafine 0.01 MG/MG Topical Cream [MUJONAL]"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "42928563",
+    "drug_name": "terbinafine 125 MG Oral Tablet [Lamisil]"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "2023891",
+    "drug_name": "1000 MG terbinafine 0.01 MG/MG Topical Cream [MUJONAL] by Hanmi"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "2031724",
+    "drug_name": "1 ML terbinafine 10 MG/ML Topical Solution [MUJONAL] by Hanmi"
+  },
+  {
+    "ingredient": "terbinafine",
+    "cdm_id": "42920061",
+    "drug_name": "30 ML terbinafine 10 MG/ML Topical Solution [MUJONAL EXTERNAL]"
+  },
+  {
+    "ingredient": "thalidomide",
+    "cdm_id": "42967868",
+    "drug_name": "Thalidomide 50 MG Oral Capsule [CELGENE THALIDOMIDE]"
+  },
+  {
+    "ingredient": "thalidomide",
+    "cdm_id": "42967876",
+    "drug_name": "Thalidomide 100 MG Oral Capsule [THALIDE]"
+  },
+  {
+    "ingredient": "thalidomide",
+    "cdm_id": "2039944",
+    "drug_name": "thalidomide 100 MG Oral Capsule [THALOMA] by Chodang"
+  },
+  {
+    "ingredient": "thalidomide",
+    "cdm_id": "19137042",
+    "drug_name": "thalidomide"
+  },
+  {
+    "ingredient": "trazodone",
+    "cdm_id": "42972222",
+    "drug_name": "Trazodone 25 MG Oral Capsule [WHANIN TRAZODONE HCL]"
+  },
+  {
+    "ingredient": "trazodone",
+    "cdm_id": "42972221",
+    "drug_name": "Trazodone 25 MG Oral Capsule [MYUNGIN TRAZODONE]"
+  },
+  {
+    "ingredient": "trazodone",
+    "cdm_id": "703547",
+    "drug_name": "trazodone"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "42971929",
+    "drug_name": "Vancomycin 1000 MG Injection [VANCOMYCIN HCI CJ]"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2025858",
+    "drug_name": "100 ML sodium chloride 9 MG/ML / vancomycin 10 MG/ML Injectable Solution [VANCO KIT] by UK Chemipharm"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2052966",
+    "drug_name": "vancomycin 1000 MG Injection by CJ"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "42971908",
+    "drug_name": "Vancomycin 500 MG Injection [VANCOMYCIN HCI CJ]"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "42971895",
+    "drug_name": "Vancomycin 250 MG Injection [HANOMYCIN]"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "1707687",
+    "drug_name": "vancomycin"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2052964",
+    "drug_name": "vancomycin 1000 MG Injection [HANOMYCIN] by Samjin"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "42971896",
+    "drug_name": "Vancomycin 250 MG Oral Capsule [VANCOZIN]"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2052976",
+    "drug_name": "vancomycin 500 MG Injection by CJ"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2052985",
+    "drug_name": "vancomycin 250 MG Injection [HANOMYCIN] by Samjin"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "19079834",
+    "drug_name": "vancomycin 125 MG Oral Capsule"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2011856",
+    "drug_name": "vancomycin 1000 MG Injection [VANCOCIN-CP] by Menarini"
+  },
+  {
+    "ingredient": "vancomycin",
+    "cdm_id": "2011860",
+    "drug_name": "vancomycin 500 MG Injection [VANCOCIN-CP] by Menarini"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "42956068",
+    "drug_name": "venlafaxine 37.5 MG Extended Release Oral Capsule [EFEXOR XR]"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "42956054",
+    "drug_name": "venlafaxine 75 MG Extended Release Oral Capsule [EFEXOR XR]"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "2054085",
+    "drug_name": "venlafaxine 37.5 MG Extended Release Oral Capsule [EFEXOR XR] by Wyeth"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "2054040",
+    "drug_name": "venlafaxine 75 MG Extended Release Oral Capsule [EFEXOR XR] by Wyeth"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "42956073",
+    "drug_name": "venlafaxine 37.5 MG Extended Release Oral Capsule [VENEXOR XR]"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "743670",
+    "drug_name": "venlafaxine"
+  },
+  {
+    "ingredient": "venlafaxine",
+    "cdm_id": "42956058",
+    "drug_name": "venlafaxine 75 MG Extended Release Oral Capsule [VENEXOR XR]"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "42956025",
+    "drug_name": "Verapamil 40 MG Oral Tablet [ILSUNG ISOPTIN]"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "42956019",
+    "drug_name": "Verapamil 80 MG Oral Tablet [ILSUNG ISOPTIN]"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "1307863",
+    "drug_name": "verapamil"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "42922095",
+    "drug_name": "2 ML Verapamil 2.5 MG/ML Injectable Solution [ILSUNG ISOPTIN]"
+  },
+  {
+    "ingredient": "verapamil",
+    "cdm_id": "2029646",
+    "drug_name": "2 ML verapamil 2.5 MG/ML Injectable Solution [ILSUNG ISOPTIN] by Ilsung"
+  },
+  {
+    "ingredient": "voriconazole",
+    "cdm_id": "1714304",
+    "drug_name": "voriconazole 200 MG Oral Tablet [Vfend]"
+  },
+  {
+    "ingredient": "voriconazole",
+    "cdm_id": "19098454",
+    "drug_name": "voriconazole 200 MG Injection [Vfend]"
+  },
+  {
+    "ingredient": "voriconazole",
+    "cdm_id": "2051349",
+    "drug_name": "voriconazole 200 MG Injection [V FEND] by Pfizer"
+  },
+  {
+    "ingredient": "voriconazole",
+    "cdm_id": "1714277",
+    "drug_name": "voriconazole"
+  },
+  {
+    "ingredient": "zidovudine",
+    "cdm_id": "19047527",
+    "drug_name": "lamivudine 150 MG / zidovudine 300 MG Oral Tablet [Combivir]"
+  },
+  {
+    "ingredient": "zidovudine",
+    "cdm_id": "1710612",
+    "drug_name": "zidovudine"
+  },
+  {
+    "ingredient": "zidovudine",
+    "cdm_id": "2052721",
+    "drug_name": "zidovudine 100 MG Oral Capsule [AZIDOMINE] by Chunggei"
+  },
+  {
+    "ingredient": "zidovudine",
+    "cdm_id": "42967484",
+    "drug_name": "Zidovudine 100 MG Oral Capsule [AZIDOMINE]"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "42918994",
+    "drug_name": "168 HR Buprenorphine 0.01 MG/HR Transdermal System [Norspan]"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "1133201",
+    "drug_name": "buprenorphine"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "42918996",
+    "drug_name": "168 HR Buprenorphine 0.005 MG/HR Transdermal System [Norspan]"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "42918995",
+    "drug_name": "168 HR Buprenorphine 0.02 MG/HR Transdermal System [Norspan]"
+  },
+  {
+    "ingredient": "buprenorphine",
+    "cdm_id": "42919507",
+    "drug_name": "96 HR Buprenorphine 0.035 MG/HR Transdermal System [Transtec]"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "19007262",
+    "drug_name": "melphalan 2 MG Oral Tablet [Alkeran]"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "1301267",
+    "drug_name": "melphalan"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "2068874",
+    "drug_name": "melphalan 2 MG Oral Tablet [Alkeran] by Glaxosmithkline"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "1301292",
+    "drug_name": "melphalan 50 MG Injection"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "2068873",
+    "drug_name": "melphalan 50 MG Injection [Alkeran] by Samil"
+  },
+  {
+    "ingredient": "melphalan",
+    "cdm_id": "2068872",
+    "drug_name": "melphalan 50 MG Injection [Alkeran] by Glaxosmithkline"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "1389036",
+    "drug_name": "mitomycin"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "2058657",
+    "drug_name": "mitomycin 10 MG Injection by Korea United Pharm"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "21083803",
+    "drug_name": "Mitomycin 10 MG Injection [Mitomycin-C Kyowa]"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "2058655",
+    "drug_name": "mitomycin 10 MG Injection by Kyowa Kirin"
+  },
+  {
+    "ingredient": "mitomycin",
+    "cdm_id": "2058659",
+    "drug_name": "mitomycin 2 MG Injection by Korea United Pharm"
+  }
+]
