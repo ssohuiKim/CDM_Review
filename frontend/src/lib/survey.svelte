@@ -4,14 +4,12 @@
     export let selectedPatient;
     export let patientData;
 
-    // 질문 항목
     let items = [
         { text: "Yes", code: "yes" },
         { text: "No", code: "no" },
         { text: "Do not know or not done", code: "don't know" }
     ];
 
-    // 질문 텍스트
     let questions = [
         "Are there previous conclusive reports on this reaction?",
         "Did the adverse events appear after the suspected drug was given?",
@@ -25,8 +23,8 @@
         "Was the adverse event confirmed by any objective evidence?"
     ];
 
-    // 설문 초기화
     let answers = createInitialAnswers();
+    let noteValue = ""; // 메모 저장 변수
 
     function createInitialAnswers() {
         return {
@@ -45,12 +43,18 @@
 
     function reset() {
         answers = createInitialAnswers();
-        // console.log("Page has been reset:", answers);
+        noteValue = ""; // 메모 필드 초기화
     }
 
-    // 환자가 변경되면 reset 호출
+    // 환자가 변경되면 로컬스토리지에서 데이터 로드
     $: if (selectedPatient) {
         reset();
+
+        let storedData = JSON.parse(localStorage.getItem('naranjoAlgorithmData')) || {};
+        if (storedData[selectedPatient]) {
+            totalScore = storedData[selectedPatient].totalScore || 0;
+            noteValue = storedData[selectedPatient].note || ""; // 저장된 메모 로드
+        }
     }
 
     let scoringRules = {
@@ -82,18 +86,17 @@
     }
 
     function saveToLocalStorage() {
-    // 기존 로컬스토리지 데이터 불러오기
         let storedData = JSON.parse(localStorage.getItem('naranjoAlgorithmData')) || {};
 
-        // 새로운 데이터 추가 (키 = patientNumber, 값 = totalScore)
-        storedData[selectedPatient] = totalScore;
+        storedData[selectedPatient] = {
+            totalScore: totalScore,
+            note: noteValue // 메모 값도 저장
+        };
 
-        // 업데이트된 데이터를 다시 저장
         localStorage.setItem('naranjoAlgorithmData', JSON.stringify(storedData));
 
         console.log("Updated Local Storage:", storedData);
     }
-
 
     $: totalScore = calculateScore();
 </script>
@@ -125,7 +128,12 @@
     </CardBody>
 
     <Fieldset>
-        <FormTextarea col="12" label="Note" placeholder="Enter your notes here" />
+        <FormTextarea 
+            col="12" 
+            label="Note" 
+            placeholder="Enter your notes here" 
+            bind:value={noteValue}
+        />
     </Fieldset>
 
     <CardBody style="display: flex; align-items: center; justify-content: space-between; gap: 15px;">
