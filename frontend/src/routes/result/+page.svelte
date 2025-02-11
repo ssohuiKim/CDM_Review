@@ -105,7 +105,7 @@
 	  display: flex;
 	  flex-direction: row;
 	  height: 100%;
-	  overflow: hidden;
+	  /* overflow: hidden; */
 	}
   
 	.sidebar {
@@ -198,13 +198,13 @@
 	}
 
 	.survey {
-	  width: 300px; /* 고정된 너비 */
+	  width: 335px; /* 고정된 너비 */
 	  background-color: white;
 	  border: 1px solid #dcdcdc;
 	  border-radius: 8px;
 	  padding: 16px;
 	  margin-left: 15px;
-	  height: calc(100vh - 150px); /* 화면 높이 */
+	  height: calc(100vh - 300px); /* 화면 높이 */
 	  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	  overflow-y: auto;
 	  flex-shrink: 0; /* 크기 고정 */

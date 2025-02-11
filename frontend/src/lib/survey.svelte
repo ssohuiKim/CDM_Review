@@ -128,4 +128,5 @@
         <p style="font-weight: bold; text-align: left; margin: 0; font-size: 16px;">({totalScore}) possible ADR</p>
         <Button color="secondary" style="padding: 8px 14px; font-size: 16px;" on:click={saveToLocalStorage}>Submit</Button>
     </CardBody>
+    
 </Card>
