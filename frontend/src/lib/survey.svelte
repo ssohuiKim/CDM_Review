@@ -82,14 +82,18 @@
     }
 
     function saveToLocalStorage() {
-        const dataToSave = {
-            patientNumber: selectedPatient,
-            totalScore,
-            answers
-        };
-        localStorage.setItem('naranjoAlgorithmData', JSON.stringify(dataToSave));
-        console.log("Data saved to local storage:", dataToSave);
+    // 기존 로컬스토리지 데이터 불러오기
+        let storedData = JSON.parse(localStorage.getItem('naranjoAlgorithmData')) || {};
+
+        // 새로운 데이터 추가 (키 = patientNumber, 값 = totalScore)
+        storedData[selectedPatient] = totalScore;
+
+        // 업데이트된 데이터를 다시 저장
+        localStorage.setItem('naranjoAlgorithmData', JSON.stringify(storedData));
+
+        console.log("Updated Local Storage:", storedData);
     }
+
 
     $: totalScore = calculateScore();
 </script>
