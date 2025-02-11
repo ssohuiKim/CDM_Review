@@ -46,7 +46,7 @@
   const ICI_start = gradeStart + gradeHeight + 12;
   const ratioStart = ICI_start + ICI_LIST.length * (boxHeight + spacingY) + 12;
   const toxicStart = ratioStart + 62;
-  let safeStart; // toxic 길이에 따라 동적으로 계산됨
+  let safeStart;
 
   // 데이터 초기화 (선택된 환자와 환자 데이터가 있을 때)
   async function initializeData() {
@@ -118,12 +118,10 @@
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // safe 섹션의 시작 y 좌표는 toxic 섹션 아래에 동적으로 계산
     safeStart = toxicStart + toxic.length * (boxHeight + spacingY) + 20;
     const safeEnd = safeStart + safeDrugs.length * (boxHeight + spacingY);
     const cellWidth = boxWidth + spacingX;
 
-    // --- 헬퍼 함수 ---
     const drawLine = (x1, y1, x2, y2, width) => {
       ctx.beginPath();
       ctx.lineWidth = width;
@@ -265,7 +263,7 @@
       }
     };
 
-    // --- 헤더 텍스트 및 ICI ratio 가이드 그리기 ---
+    
     writeText('Patient number: ' + selectedPatient, marginLeft + 10, 20, 12);
     writeText('Type of cancer diagnosis: liver cancer', marginLeft + 10, 35, 12);
   

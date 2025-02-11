@@ -71,15 +71,15 @@
   
 	function handleScroll(event) {
 	  const scrollContainer = event.target;
-	//   const fixedRow = scrollContainer.querySelector('.fixed-row');
-	//   const fixedCol = scrollContainer.querySelector('.fixed-col');
+	  const fixedRow = scrollContainer.querySelector('.fixed-row');
+	  const fixedCol = scrollContainer.querySelector('.fixed-col');
   
-	//   if (fixedRow) {
-	// 	fixedRow.style.transform = `translateY(${scrollContainer.scrollTop}px)`;
-	//   }
-	//   if (fixedCol) {
-	// 	fixedCol.style.transform = `translateX(${scrollContainer.scrollLeft}px)`;
-	//   }
+	  if (fixedRow) {
+		fixedRow.style.transform = `translateY(${scrollContainer.scrollTop}px)`;
+	  }
+	  if (fixedCol) {
+		fixedCol.style.transform = `translateX(${scrollContainer.scrollLeft}px)`;
+	  }
 	}
   </script>
   
@@ -241,7 +241,8 @@
 				{#if selectedPatient !== null}
 					<div class="canvas-container">
 						<DrugChart {selectedPatient} {patientData} />
-						<HoverBox {selectedPatient} {patientData} />
+						<!-- <HoverBox {selectedPatient} {patientData} /> -->
+						<AxisChart {selectedPatient} {patientData} />
 					</div>
 				{:else}
 					<p>Please select a patient to view their data.</p>
