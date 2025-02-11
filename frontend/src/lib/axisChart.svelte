@@ -119,28 +119,29 @@
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     safeStart = toxicStart + toxic.length * (boxHeight + spacingY) + 20;
-
+    const safeEnd = safeStart + safeDrugs.length * (boxHeight + spacingY);
     const cellWidth = boxWidth + spacingX;
 
-    // totalDays: patientData의 day_num 중 최댓값(없으면 기본 100)
-    let totalDays = 100;
-    if (selectedPatient && patientData[selectedPatient]?.length) {
-      const days = patientData[selectedPatient].map(row => Number(row.day_num) || 1);
-      totalDays = Math.max(...days);
-    }
+    const drawLine = (x1, y1, x2, y2, width) => {
+      ctx.beginPath();
+      ctx.lineWidth = width;
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    };
 
     // ─ 가로 축 (하단에 눈금 및 숫자 표시, 10일 간격)
     ctx.strokeStyle = "black";
-    ctx.fillStyle  = "black";
+    ctx.lineWidth = 1;
+    ctx.fillStyle = "black";
     ctx.font = "12px Arial";
+
     for (let col = 1; col <= totalDays; col++) {
       if (col % 10 === 0) {
         const x = marginRight + col * cellWidth;
-        ctx.beginPath();
-        ctx.moveTo(x, canvas.height - 30);
-        ctx.lineTo(x, canvas.height - 10);
-        ctx.stroke();
-        ctx.fillText(col, x, canvas.height - 5);
+        drawLine(x, toxicStart, x, safeEnd + 10, 1);
+        ctx.textAlign = "right";
+        ctx.fillText(col, x + 5, safeEnd + 25);
       }
     }
 
