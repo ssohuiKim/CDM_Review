@@ -45,7 +45,7 @@
 
     function reset() {
         answers = createInitialAnswers();
-        console.log("Page has been reset:", answers);
+        // console.log("Page has been reset:", answers);
     }
 
     // 환자가 변경되면 reset 호출

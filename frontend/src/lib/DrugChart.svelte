@@ -75,26 +75,25 @@
       worker.postMessage({ data: uniq_id, toxicList: masterList });
 
       worker.onmessage = function(e) {
-        const { toxic_ingredients: toxic_drug, toxic_id: toxicID, safe_id: safeID, toxicIndexMap: toxicmap } = e.data;
-        toxic = toxic_drug;
-        toxic_id = toxicID;
-        toxicIndexMap = toxicmap;
-        // console.log(toxicIndexMap);
+          const { toxic_ingredients: toxic_drug, toxic_id: toxicID, safe_id: safeID, toxicIndexMap: toxicmap } = e.data;
+          toxic = toxic_drug;
+          toxic_id = toxicID;
 
-        safe = safeID.map(safeDrug => {
-          const index = drug_concept_id.indexOf(safeDrug);
-          return drug_name[index];
-        });
+          toxicIndexMap = toxicmap;
+          // console.log("hover", toxicIndexMap);
 
-        // 0제거, 중복제거
-        safe = [...new Set(safe.filter(drug => drug !== ""))];
-        safe = safe.map(drug => drug.toLowerCase());
-        safe_id = [...new Set(safeID.filter(drug => drug !== "0"))];
+          safe = safeID.map(safeDrug => {
+              const index = drug_concept_id.indexOf(safeDrug);
+              return drug_name[index];
+          });
 
-        resolve();
-      };
-    });
-  }
+          safe = [...new Set(safe.filter(drug => drug !== ""))];
+          safe = safe.map(drug => drug.toLowerCase());
+          safe_id = [...new Set(safeID.filter(drug => drug !== "0"))];
+          resolve();
+        };
+      });
+    }
 
 
   function draw() {

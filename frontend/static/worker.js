@@ -2,27 +2,70 @@ self.onmessage = function(e) {
     const ici = ["42920398", "1594046", "1594038", "46275962", "42920744", "42922127", "42921578"];
     const { data, toxicList } = e.data;
 
-    // toxicList에서 cdm_id를 키로, ingredient를 값으로 하는 객체 생성
-    const toxicMap = new Map(toxicList.map(item => [item.cdm_id, item.ingredient]));
+    // toxicList에서 cdm_id를 키로, ingredient와 drug_name을 값으로 하는 객체 생성
+    const toxicMap = new Map(toxicList.map(item => [item.cdm_id, { ingredient: item.ingredient, drug_name: item.drug_name }]));
+
     const toxic_ingredients_with_ids = data
         .filter(id => toxicMap.has(id) && !ici.includes(id))
-        .map(id => ({ id, ingredient: toxicMap.get(id) }))
+        .map(id => ({ id, ...toxicMap.get(id) }))
         .filter(item => item.ingredient !== "#REF!" && item.ingredient !== undefined);
 
     // 고유한 toxic 약물 이름과 ID를 각각 배열에 저장
     const toxic_ingredients = [...new Set(toxic_ingredients_with_ids.map(item => item.ingredient))];
-    
+
     // 각 ingredient에 고유 인덱스를 부여하는 맵
-    const ingredientIndexMap = new Map(toxic_ingredients.map((ingredient, index) => [ingredient, index ]));
+    const ingredientIndexMap = new Map(toxic_ingredients.map((ingredient, index) => [ingredient, index]));
 
     // cdm_id별로 동일한 ingredient 인덱스를 매핑
     const toxicIndexMap = new Map(
         toxic_ingredients_with_ids.map(item => [item.id, ingredientIndexMap.get(item.ingredient)])
     );
 
+    // cdm_id별 drug_name을 매핑하는 맵
+    const toxicDrugNameMap = new Map(
+        toxic_ingredients_with_ids.map(item => [item.id, item.drug_name])
+    );
+
     // safe_id 필터링
     const safe_id = data.filter(id => !toxicMap.has(id));
 
     // postMessage로 각 결과 전송
-    self.postMessage({ toxic_ingredients, toxic_id: [...toxicIndexMap.keys()], safe_id, toxicIndexMap });
+    self.postMessage({ 
+        toxic_ingredients, 
+        toxic_id: [...toxicIndexMap.keys()], 
+        safe_id, 
+        toxicIndexMap, 
+        toxicDrugNameMap 
+    });
 };
+
+
+
+// self.onmessage = function(e) {
+//     const ici = ["42920398", "1594046", "1594038", "46275962", "42920744", "42922127", "42921578"];
+//     const { data, toxicList } = e.data;
+
+//     // toxicList에서 cdm_id를 키로, ingredient를 값으로 하는 객체 생성
+//     const toxicMap = new Map(toxicList.map(item => [item.cdm_id, item.ingredient]));
+//     const toxic_ingredients_with_ids = data
+//         .filter(id => toxicMap.has(id) && !ici.includes(id))
+//         .map(id => ({ id, ingredient: toxicMap.get(id) }))
+//         .filter(item => item.ingredient !== "#REF!" && item.ingredient !== undefined);
+
+//     // 고유한 toxic 약물 이름과 ID를 각각 배열에 저장
+//     const toxic_ingredients = [...new Set(toxic_ingredients_with_ids.map(item => item.ingredient))];
+
+//     // 각 ingredient에 고유 인덱스를 부여하는 맵
+//     const ingredientIndexMap = new Map(toxic_ingredients.map((ingredient, index) => [ingredient, index ]));
+
+//     // cdm_id별로 동일한 ingredient 인덱스를 매핑
+//     const toxicIndexMap = new Map(
+//         toxic_ingredients_with_ids.map(item => [item.id, ingredientIndexMap.get(item.ingredient)])
+//     );
+
+//     // safe_id 필터링
+//     const safe_id = data.filter(id => !toxicMap.has(id));
+
+//     // postMessage로 각 결과 전송
+//     self.postMessage({ toxic_ingredients, toxic_id: [...toxicIndexMap.keys()], safe_id, toxicIndexMap });
+// };
