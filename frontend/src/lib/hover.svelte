@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     // import dateFormat from 'dateformat'; 
-  
+
     export let selectedPatient;
     export let patientData;
   

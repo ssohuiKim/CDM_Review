@@ -4,6 +4,7 @@
     "@types/mocha": "^10.0.7"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "html2canvas": "^1.4.1",
     "jszip": "^3.10.1"
   }

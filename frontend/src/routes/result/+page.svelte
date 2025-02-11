@@ -240,7 +240,7 @@
 			<div class="scroll-container">
 				{#if selectedPatient !== null}
 					<div class="canvas-container">
-						<DrugChart {selectedPatient} {patientData} />
+						<!-- <DrugChart {selectedPatient} {patientData} /> -->
 						<HoverBox {selectedPatient} {patientData} />
 					</div>
 				{:else}
