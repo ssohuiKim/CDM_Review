@@ -158,16 +158,18 @@
 		width: 120px; 
 		height: 100%;
 		pointer-events: none;
-		z-index: 1;
+		z-index: 2;
+		background-color: rgb(255, 255, 255, 0.5);
 	}
 	.fixed-row {
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		height: 40px;
+		height: 60px;
 		pointer-events: none;
 		z-index: 1;
+		background-color: rgb(255, 255, 255, 0.5);
 	}
 	.survey {
 		width: 335px;
