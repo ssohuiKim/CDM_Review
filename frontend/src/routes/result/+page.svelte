@@ -144,10 +144,9 @@
 	.fixed-col {
 		position: absolute;
 		top: 0;
-		left: 0;
+		left: 1px;
 		width: 120px; 
 		height: 100%;
-		/* background: rgba(255, 0, 0, 0.3); */
 		pointer-events: none;
 		z-index: 1;
 	}
@@ -157,7 +156,6 @@
 		left: 0;
 		width: 100%;
 		height: 40px;
-		background: rgba(255, 0, 0, 0.5);
 		pointer-events: none;
 		z-index: 1;
 	}
@@ -255,7 +253,7 @@
 				</div>
 				<!-- 좌측 고정 축 (col) -->
 				<div class="fixed-col">
-					<!-- <AxisChart type="col" {selectedPatient} {patientData} /> -->
+					<AxisChart type="col" {selectedPatient} {patientData} />
 				</div>
 				<!-- 하단 고정 축 (row) -->
 				<div class="fixed-row">

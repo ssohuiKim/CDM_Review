@@ -159,20 +159,14 @@
     });
   }
 
-  function drawLine(x1, y1, x2, y2, width) {
-    const ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.lineWidth = width;
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-  }
-
   // 사용자가 원하는 방식으로 adjustCanvasDimensions 함수 그대로 사용
   function adjustCanvasDimensions() {
     const cellWidth = boxWidth + spacingX;
-    const newWidth = 33 + totalDays * cellWidth + 120;
-    const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 55;
+    let newWidth = 33 + totalDays * cellWidth + 120;
+    if (type === "col") newWidth = 120;
+    console.log("axis", newWidth);
+
+    const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
     canvas.height = newHeight;
@@ -210,9 +204,12 @@
 
   // canvas에 아래와 같은 inline 스타일을 적용합니다.
   $: canvasStyle = type === "row"
-    ? "border: 1px solid #000; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"
-    : "border: 1px solid #000; width: 100%; height: 100%;";
+    ? "width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"
+    : "width: 100%; height: 100%;";
 </script>
 
-<!-- canvas에 canvasStyle를 style 바인딩 -->
+{#if selectedPatient}
 <canvas bind:this={canvas} style={canvasStyle}></canvas>
+{/if}
+
+

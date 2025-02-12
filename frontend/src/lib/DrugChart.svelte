@@ -292,6 +292,7 @@
   function adjustCanvasDimensions() {
     const cellWidth = boxWidth + spacingX;
     const newWidth = 33 + totalDays * cellWidth + 120;
+    console.log("chart", newWidth);
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
