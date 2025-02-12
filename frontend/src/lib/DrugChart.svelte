@@ -264,8 +264,8 @@
     };
 
     
-    writeText('Patient number: ' + selectedPatient, marginLeft + 10, 20, 12);
-    writeText('Type of cancer diagnosis: liver cancer', marginLeft + 10, 35, 12);
+    writeText('Patient number: ' + selectedPatient, marginRight, 60, 12);
+    writeText('Type of cancer diagnosis: liver cancer', marginRight, 75, 12);
   
     drawLine(marginRight - 10, ratioStart, marginRight - 10, ratioStart + 50, 2.3);
     drawLine(marginRight - 10, ratioStart + 1, marginRight - 22, ratioStart + 1, 2.3);

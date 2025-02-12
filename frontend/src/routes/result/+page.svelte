@@ -66,11 +66,21 @@
 		saveAs(content, 'charts.zip');
 		showLoading = false; // 다운로드 완료 시 로딩 모달 숨기기
 	}
+
+	let isRowScrolled = false;
+	let isColScrolled = false;
   
 	function handleScroll(event) {
 		const scrollContainer = event.target;
 		const fixedRow = scrollContainer.querySelector('.fixed-row');
 		const fixedCol = scrollContainer.querySelector('.fixed-col');
+
+		const maxScrollTop = scrollContainer.scrollHeight - scrollContainer.clientHeight; // 최대 스크롤 값
+		const scrolledX = scrollContainer.scrollLeft > 0;
+  		const scrolledY = scrollContainer.scrollTop < maxScrollTop;
+
+		isRowScrolled = scrolledY;
+		isColScrolled = scrolledX;
   
 		if (fixedRow) {
 			// 스크롤에 따라 하단 축 Y 이동 (예: scrollTop 만큼 translateY)
@@ -252,13 +262,17 @@
 					{/if}
 				</div>
 				<!-- 좌측 고정 축 (col) -->
-				<div class="fixed-col">
-					<AxisChart type="col" {selectedPatient} {patientData} />
-				</div>
-				<!-- 하단 고정 축 (row) -->
-				<div class="fixed-row">
-					<AxisChart type="row" {selectedPatient} {patientData} />
-				</div>
+				{#if isColScrolled}
+					<div class="fixed-col">
+						<AxisChart type="col" {selectedPatient} {patientData} />
+					</div>
+				{/if}
+				{#if isRowScrolled}
+					<!-- 하단 고정 축 (row) -->
+					<div class="fixed-row">
+						<AxisChart type="row" {selectedPatient} {patientData} />
+					</div>
+				{/if}
 			</div>
 	
 			<!-- 오른쪽 Survey 영역 -->
