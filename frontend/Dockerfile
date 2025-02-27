@@ -11,13 +11,15 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the entire project to the working directory except node_modules
-COPY . .
+# COPY . .
+COPY build /app/build
+
 
 # Build the SvelteKit project
 RUN npm run build
 
 # # Expose the port that the SvelteKit app will run on
-# EXPOSE 3000
+EXPOSE 3000
 
 # # Start the SvelteKit app
-# CMD ["node", "build/index.js"]
+CMD ["npx", "serve", "-s", "build"]
