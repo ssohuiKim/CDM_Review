@@ -54,10 +54,33 @@
   
 			await new Promise(resolve => setTimeout(resolve, 500)); // 차트 렌더링 시간 대기
   
+			// const canvas = chartContainer.querySelector('canvas');
+			// const dataUrl = await html2canvas(canvas).then(canvas => canvas.toDataURL('image/png'));
+
 			const canvas = chartContainer.querySelector('canvas');
-			const dataUrl = await html2canvas(canvas).then(canvas => canvas.toDataURL('image/png'));
+			let renderedContent = "";
+			if (canvas) {
+				const imgData = canvas.toDataURL('image/png');
+				renderedContent = `<img src="${imgData}" alt="Patient ${patientNum} Drug Chart">`;
+			}
+
+			const htmlContent = `
+				<!DOCTYPE html>
+				<html lang="en">
+				<head>
+					<meta charset="UTF-8">
+					<title>Patient ${patientNum} Drug Chart</title>
+					<style>${document.querySelector('style')?.innerHTML || ''}</style>
+				</head>
+				<body>
+					<h1>Patient ${patientNum} Drug Chart</h1>
+					${renderedContent}
+				</body>
+				</html>
+			`;
   
-			zip.file(`patient-${patientNum}.png`, dataUrl.split(',')[1], { base64: true });
+			// zip.file(`patient-${patientNum}.png`, dataUrl.split(',')[1], { base64: true });
+			zip.file(`patient-${patientNum}-drugchart.html`, htmlContent);
 			chart.$destroy();
 			document.body.removeChild(chartContainer);
 		}
