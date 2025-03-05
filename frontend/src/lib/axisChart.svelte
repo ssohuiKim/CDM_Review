@@ -164,7 +164,6 @@
     const cellWidth = boxWidth + spacingX;
     let newWidth = 33 + totalDays * cellWidth + 120;
     if (type === "col") newWidth = 120;
-    console.log("axis", newWidth);
 
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;
