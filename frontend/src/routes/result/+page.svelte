@@ -77,17 +77,21 @@
 				chartContent = `<img src="${imgData}" alt="Patient ${patientNum} Drug Chart">`;
 			}
 
-			// Survey를 html2canvas로 캡처하여 이미지로 저장
-			let surveyContent = "";
-			try {
-				const surveyCanvas = await html2canvas(surveyContainer);
-				const surveyImgData = surveyCanvas.toDataURL('image/png');
-				surveyContent = `<img src="${surveyImgData}" alt="Patient ${patientNum} Survey Results">`;
-			} catch (error) {
-				console.error('Survey 캡처 오류:', error);
-			}
+			// Survey에서 체크된 상태를 직접 HTML로 반영
+			const surveyClone = surveyContainer.cloneNode(true);
+			const checkboxes = surveyClone.querySelectorAll('input[type="checkbox"]');
 
-			// HTML 파일 생성
+			checkboxes.forEach(checkbox => {
+				if (checkbox.checked) {
+					checkbox.setAttribute("checked", "checked"); // HTML에 체크된 상태 반영
+				} else {
+					checkbox.removeAttribute("checked"); // 체크 해제된 경우 속성 제거
+				}
+			});
+
+			let surveyContent = surveyClone.innerHTML;
+
+			// HTML 파일 생성 (체크 상태 반영됨)
 			const htmlContent = `
 				<!DOCTYPE html>
 				<html lang="en">
@@ -120,6 +124,7 @@
 		saveAs(content, 'patient-reports.zip');
 		showLoading = false; // 로딩 모달 숨김
 	}
+
 
 
 	let isRowScrolled = false;
