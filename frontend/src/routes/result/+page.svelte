@@ -45,7 +45,7 @@
 		for (const patientNum of patients) {
 			const chartContainer = document.createElement('div');
 			const surveyContainer = document.createElement('div');
-			
+
 			chartContainer.style.position = 'absolute';
 			chartContainer.style.left = '-9999px'; // 화면에서 숨김
 			document.body.appendChild(chartContainer);
@@ -77,8 +77,15 @@
 				chartContent = `<img src="${imgData}" alt="Patient ${patientNum} Drug Chart">`;
 			}
 
-			// Survey HTML 캡처
-			let surveyContent = surveyContainer.innerHTML;
+			// Survey를 html2canvas로 캡처하여 이미지로 저장
+			let surveyContent = "";
+			try {
+				const surveyCanvas = await html2canvas(surveyContainer);
+				const surveyImgData = surveyCanvas.toDataURL('image/png');
+				surveyContent = `<img src="${surveyImgData}" alt="Patient ${patientNum} Survey Results">`;
+			} catch (error) {
+				console.error('Survey 캡처 오류:', error);
+			}
 
 			// HTML 파일 생성
 			const htmlContent = `
