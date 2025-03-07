@@ -37,6 +37,108 @@
 		}
 		console.log("Selected Patient:", selectedPatient);
 	}
+
+	async function downloadOneChart() {
+		if (!selectedPatient) {
+			alert("Please select a patient first.");
+			return;
+		}
+
+		showLoading = true; // 로딩 모달 표시
+
+		const chartContainer = document.createElement('div');
+		const surveyContainer = document.createElement('div');
+
+		chartContainer.style.position = 'absolute';
+		chartContainer.style.left = '-9999px'; // 화면에서 숨김
+		document.body.appendChild(chartContainer);
+
+		surveyContainer.style.position = 'absolute';
+		surveyContainer.style.left = '-9999px'; // 화면에서 숨김
+		document.body.appendChild(surveyContainer);
+
+		// 🟢 DrugChart 컴포넌트 렌더링
+		const chart = new DrugChart({
+			target: chartContainer,
+			props: { selectedPatient, patientData }
+		});
+
+		// 🟢 Survey 컴포넌트 렌더링
+		const survey = new Survey({
+			target: surveyContainer,
+			props: { selectedPatient, patientData }
+		});
+
+		await new Promise(resolve => setTimeout(resolve, 500)); // 렌더링 대기
+
+		// DrugChart 캡처
+		const canvas = chartContainer.querySelector('canvas');
+		let chartContent = "";
+
+		if (canvas) {
+			const imgData = canvas.toDataURL('image/png');
+			chartContent = `<img src="${imgData}" alt="Patient ${selectedPatient} Drug Chart">`;
+		}
+
+		// Survey를 html2canvas로 캡처하여 이미지로 저장
+		let surveyContent = "";
+		try {
+			const surveyCanvas = await html2canvas(surveyContainer);
+			const surveyImgData = surveyCanvas.toDataURL('image/png');
+			surveyContent = `<img src="${surveyImgData}" alt="Patient ${selectedPatient} Survey Results">`;
+		} catch (error) {
+			console.error('Survey 캡처 오류:', error);
+		}
+
+		// HTML 파일 생성
+		const htmlContent = `
+			<!DOCTYPE html>
+			<html lang="en">
+			<head>
+				<meta charset="UTF-8">
+				<title>Patient ${selectedPatient} Report</title>
+				<style>
+					body { font-family: Arial, sans-serif; padding: 20px; }
+					h1 { color: #333; }
+					.container { display: flex; flex-direction: column; gap: 20px; }
+					img { max-width: 100%; height: auto; border: 1px solid #ccc; padding: 5px; }
+				</style>
+			</head>
+			<body>
+				<h1>Patient ${selectedPatient} Report</h1>
+				<div class="container">
+					<div class="chart-section">
+						<h2>Drug Chart</h2>
+						${chartContent}
+					</div>
+					<div class="survey-section">
+						<h2>Survey Results</h2>
+						${surveyContent}
+					</div>
+				</div>
+			</body>
+			</html>
+		`;
+
+		// HTML 파일 저장 (ZIP 없이 단일 파일)
+		const blob = new Blob([htmlContent], { type: 'text/html' });
+		const link = document.createElement("a");
+		link.href = URL.createObjectURL(blob);
+		link.download = `patient-${selectedPatient}-report.html`;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+
+		// 정리
+		chart.$destroy();
+		survey.$destroy();
+		document.body.removeChild(chartContainer);
+		document.body.removeChild(surveyContainer);
+
+		showLoading = false; // 로딩 모달 숨김
+	}
+
+
   
 	async function downloadAllCharts() {
 		showLoading = true; // 로딩 모달 표시
@@ -77,21 +179,17 @@
 				chartContent = `<img src="${imgData}" alt="Patient ${patientNum} Drug Chart">`;
 			}
 
-			// Survey에서 체크된 상태를 직접 HTML로 반영
-			const surveyClone = surveyContainer.cloneNode(true);
-			const checkboxes = surveyClone.querySelectorAll('input[type="checkbox"]');
+			// Survey를 html2canvas로 캡처하여 이미지로 저장
+			let surveyContent = "";
+			try {
+				const surveyCanvas = await html2canvas(surveyContainer);
+				const surveyImgData = surveyCanvas.toDataURL('image/png');
+				surveyContent = `<img src="${surveyImgData}" alt="Patient ${patientNum} Survey Results">`;
+			} catch (error) {
+				console.error('Survey 캡처 오류:', error);
+			}
 
-			checkboxes.forEach(checkbox => {
-				if (checkbox.checked) {
-					checkbox.setAttribute("checked", "checked"); // HTML에 체크된 상태 반영
-				} else {
-					checkbox.removeAttribute("checked"); // 체크 해제된 경우 속성 제거
-				}
-			});
-
-			let surveyContent = surveyClone.innerHTML;
-
-			// HTML 파일 생성 (체크 상태 반영됨)
+			// HTML 파일 생성
 			const htmlContent = `
 				<!DOCTYPE html>
 				<html lang="en">
@@ -124,7 +222,6 @@
 		saveAs(content, 'patient-reports.zip');
 		showLoading = false; // 로딩 모달 숨김
 	}
-
 
 
 	let isRowScrolled = false;
@@ -243,12 +340,6 @@
 		overflow-y: auto;
 		flex-shrink: 0;
 	}
-	.header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-	}
 	.header-title {
 		display: flex;
 		align-items: center;
@@ -259,10 +350,23 @@
 		font-size: 14px;
 		padding: 8px 16px;
 		color: white;
-		width: 120px;
+		width: 135px;
 		height: 36px;
 		font-weight: bold;
 		border-radius: 6px;
+		white-space: nowrap;
+	}
+	.download-button {
+		background: #a3a3a3;
+		border: none;
+		font-size: 14px;
+		padding: 8px 10px;
+		color: white;
+		width: 140px;
+		height: 36px;
+		font-weight: bold;
+		border-radius: 6px;
+		white-space: nowrap;
 	}
 	.loading-modal {
 		display: flex;
@@ -282,6 +386,19 @@
 		border-radius: 5px;
 		text-align: center;
 	}
+
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between; /* 왼쪽 h1, 오른쪽 버튼 정렬 */
+		width: 100%;
+	}
+
+	.button-group {
+		display: flex;
+		gap: 8px; /* 버튼 간격 설정 */
+	}
+
 </style>
 
 <El container m="0" p="4" style="height: 100%;">
@@ -292,10 +409,17 @@
 				<img src="/tooltip.svg" alt="Tooltip Icon">
 			</button>
 		</div>
-		<button class="text-button" on:click={downloadAllCharts}>
-			Export Data
-		</button>
+		<!-- 버튼을 감싸는 div 추가 -->
+		<div class="button-group">
+			<button class="download-button" on:click={downloadOneChart}>
+				Export This Data
+			</button>
+			<button class="text-button" on:click={downloadAllCharts}>
+				Export All Data
+			</button>
+		</div>
 	</div>
+	
   
 	<El row style="margin-top: 24px; height: 100%;">
 		<div class="card">
