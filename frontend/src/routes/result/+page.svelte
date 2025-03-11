@@ -38,65 +38,55 @@
 		console.log("Selected Patient:", selectedPatient);
 	}
 
-	async function downloadOneChart() {
-		if (!selectedPatient) {
-			alert("Please select a patient first.");
-			return;
+	async function createHiddenContainer() {
+		const container = document.createElement('div');
+		container.style.position = 'absolute';
+		container.style.left = '-9999px'; // 화면에서 숨김
+		document.body.appendChild(container);
+		return container;
+	}
+
+	async function captureChart(chartContainer) {
+		const canvas = chartContainer.querySelector('canvas');
+		if (canvas) {
+			return `<img src="${canvas.toDataURL('image/png')}" alt="Drug Chart">`;
 		}
+		return "";
+	}
 
-		showLoading = true; // 로딩 모달 표시
+	async function captureSurvey(surveyContainer) {
+		try {
+			const surveyCanvas = await html2canvas(surveyContainer);
+			return `<img src="${surveyCanvas.toDataURL('image/png')}" alt="Survey Results">`;
+		} catch (error) {
+			console.error("Survey 캡처 오류:", error);
+			return "<p>Survey data unavailable</p>";
+		}
+	}
 
-		const chartContainer = document.createElement('div');
-		const surveyContainer = document.createElement('div');
+	async function generateReportHTML(patientNum, patientData) {
+		const chartContainer = await createHiddenContainer();
+		const surveyContainer = await createHiddenContainer();
 
-		chartContainer.style.position = 'absolute';
-		chartContainer.style.left = '-9999px'; // 화면에서 숨김
-		document.body.appendChild(chartContainer);
-
-		surveyContainer.style.position = 'absolute';
-		surveyContainer.style.left = '-9999px'; // 화면에서 숨김
-		document.body.appendChild(surveyContainer);
-
-		// 🟢 DrugChart 컴포넌트 렌더링
-		const chart = new DrugChart({
-			target: chartContainer,
-			props: { selectedPatient, patientData }
-		});
-
-		// 🟢 Survey 컴포넌트 렌더링
-		const survey = new Survey({
-			target: surveyContainer,
-			props: { selectedPatient, patientData }
-		});
+		const chart = new DrugChart({ target: chartContainer, props: { selectedPatient: patientNum, patientData } });
+		const survey = new Survey({ target: surveyContainer, props: { selectedPatient: patientNum, patientData } });
 
 		await new Promise(resolve => setTimeout(resolve, 500)); // 렌더링 대기
 
-		// DrugChart 캡처
-		const canvas = chartContainer.querySelector('canvas');
-		let chartContent = "";
+		const chartContent = await captureChart(chartContainer);
+		const surveyContent = await captureSurvey(surveyContainer);
 
-		if (canvas) {
-			const imgData = canvas.toDataURL('image/png');
-			chartContent = `<img src="${imgData}" alt="Patient ${selectedPatient} Drug Chart">`;
-		}
+		chart.$destroy();
+		survey.$destroy();
+		document.body.removeChild(chartContainer);
+		document.body.removeChild(surveyContainer);
 
-		// Survey를 html2canvas로 캡처하여 이미지로 저장
-		let surveyContent = "";
-		try {
-			const surveyCanvas = await html2canvas(surveyContainer);
-			const surveyImgData = surveyCanvas.toDataURL('image/png');
-			surveyContent = `<img src="${surveyImgData}" alt="Patient ${selectedPatient} Survey Results">`;
-		} catch (error) {
-			console.error('Survey 캡처 오류:', error);
-		}
-
-		// HTML 파일 생성
-		const htmlContent = `
+		return `
 			<!DOCTYPE html>
 			<html lang="en">
 			<head>
 				<meta charset="UTF-8">
-				<title>Patient ${selectedPatient} Report</title>
+				<title>Patient ${patientNum} Report</title>
 				<style>
 					body { font-family: Arial, sans-serif; padding: 20px; }
 					h1 { color: #333; }
@@ -105,7 +95,7 @@
 				</style>
 			</head>
 			<body>
-				<h1>Patient ${selectedPatient} Report</h1>
+				<h1>Patient ${patientNum} Report</h1>
 				<div class="container">
 					<div class="chart-section">
 						<h2>Drug Chart</h2>
@@ -119,109 +109,43 @@
 			</body>
 			</html>
 		`;
+	}
 
-		// HTML 파일 저장 (ZIP 없이 단일 파일)
-		const blob = new Blob([htmlContent], { type: 'text/html' });
+	function saveHTMLFile(filename, content) {
+		const blob = new Blob([content], { type: 'text/html' });
 		const link = document.createElement("a");
 		link.href = URL.createObjectURL(blob);
-		link.download = `patient-${selectedPatient}-report.html`;
+		link.download = filename;
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
-
-		// 정리
-		chart.$destroy();
-		survey.$destroy();
-		document.body.removeChild(chartContainer);
-		document.body.removeChild(surveyContainer);
-
-		showLoading = false; // 로딩 모달 숨김
 	}
 
+	async function downloadOneChart() {
+		if (!selectedPatient) {
+			alert("Please select a patient first.");
+			return;
+		}
+		showLoading = true;
+		const htmlContent = await generateReportHTML(selectedPatient, patientData);
+		saveHTMLFile(`patient-${selectedPatient}-report.html`, htmlContent);
+		showLoading = false;
+	}
 
-  
 	async function downloadAllCharts() {
-		showLoading = true; // 로딩 모달 표시
+		showLoading = true;
 		const zip = new JSZip();
-		
+
 		for (const patientNum of patients) {
-			const chartContainer = document.createElement('div');
-			const surveyContainer = document.createElement('div');
-
-			chartContainer.style.position = 'absolute';
-			chartContainer.style.left = '-9999px'; // 화면에서 숨김
-			document.body.appendChild(chartContainer);
-
-			surveyContainer.style.position = 'absolute';
-			surveyContainer.style.left = '-9999px'; // 화면에서 숨김
-			document.body.appendChild(surveyContainer);
-
-			// 🟢 DrugChart 컴포넌트 렌더링
-			const chart = new DrugChart({
-				target: chartContainer,
-				props: { selectedPatient: patientNum, patientData }
-			});
-
-			// 🟢 Survey 컴포넌트 렌더링
-			const survey = new Survey({
-				target: surveyContainer,
-				props: { selectedPatient: patientNum, patientData }
-			});
-
-			await new Promise(resolve => setTimeout(resolve, 500)); // 렌더링 대기
-
-			// DrugChart 캡처
-			const canvas = chartContainer.querySelector('canvas');
-			let chartContent = "";
-
-			if (canvas) {
-				const imgData = canvas.toDataURL('image/png');
-				chartContent = `<img src="${imgData}" alt="Patient ${patientNum} Drug Chart">`;
-			}
-
-			// Survey를 html2canvas로 캡처하여 이미지로 저장
-			let surveyContent = "";
-			try {
-				const surveyCanvas = await html2canvas(surveyContainer);
-				const surveyImgData = surveyCanvas.toDataURL('image/png');
-				surveyContent = `<img src="${surveyImgData}" alt="Patient ${patientNum} Survey Results">`;
-			} catch (error) {
-				console.error('Survey 캡처 오류:', error);
-			}
-
-			// HTML 파일 생성
-			const htmlContent = `
-				<!DOCTYPE html>
-				<html lang="en">
-				<head>
-					<meta charset="UTF-8">
-					<title>Patient ${patientNum} Report</title>
-					<style>${document.querySelector('style')?.innerHTML || ''}</style>
-				</head>
-				<body>
-					<h1>Patient ${patientNum} Report</h1>
-					<h2>Drug Chart</h2>
-					${chartContent}
-					<h2>Survey Results</h2>
-					${surveyContent}
-				</body>
-				</html>
-			`;
-
+			const htmlContent = await generateReportHTML(patientNum, patientData);
 			zip.file(`patient-${patientNum}-report.html`, htmlContent);
-
-			// 정리
-			chart.$destroy();
-			survey.$destroy();
-			document.body.removeChild(chartContainer);
-			document.body.removeChild(surveyContainer);
 		}
 
-		// ZIP 파일 저장
-		const content = await zip.generateAsync({ type: 'blob' });
-		saveAs(content, 'patient-reports.zip');
-		showLoading = false; // 로딩 모달 숨김
+		const zipContent = await zip.generateAsync({ type: 'blob' });
+		saveAs(zipContent, "patient-reports.zip");
+		showLoading = false;
 	}
+
 
 
 	let isRowScrolled = false;
