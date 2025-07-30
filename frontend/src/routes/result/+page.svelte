@@ -5,7 +5,7 @@
 	  Modal, ModalBody, ModalFooter,
 	  Spinner
 	} from 'yesvelte';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import DrugChart from '../../lib/DrugChart.svelte';
 	import AxisChart from '../../lib/axisChart.svelte';
 	import HoverBox from '../../lib/hover.svelte';
@@ -65,50 +65,162 @@
 	}
 
 	async function generateReportHTML(patientNum, patientData) {
-		const chartContainer = await createHiddenContainer();
-		const surveyContainer = await createHiddenContainer();
+    const chartContainer = await createHiddenContainer();
+    const surveyContainer = await createHiddenContainer();
 
-		const chart = new DrugChart({ target: chartContainer, props: { selectedPatient: patientNum, patientData } });
-		const survey = new Survey({ target: surveyContainer, props: { selectedPatient: patientNum, patientData } });
+    const chart = new DrugChart({ target: chartContainer, props: { selectedPatient: patientNum, patientData } });
+    const survey = new Survey({ target: surveyContainer, props: { selectedPatient: patientNum, patientData } });
 
-		await new Promise(resolve => setTimeout(resolve, 500)); // 렌더링 대기
+    await new Promise(resolve => setTimeout(resolve, 500)); // 렌더링 대기
 
-		const chartContent = await captureChart(chartContainer);
-		const surveyContent = await captureSurvey(surveyContainer);
 
-		chart.$destroy();
-		survey.$destroy();
-		document.body.removeChild(chartContainer);
-		document.body.removeChild(surveyContainer);
+    const chartContent = await captureChart(chartContainer);
+    const surveyContent = await captureSurvey(surveyContainer);
 
-		return `
-			<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8">
-				<title>Patient ${patientNum} Report</title>
-				<style>
-					body { font-family: Arial, sans-serif; padding: 20px; }
-					h1 { color: #333; }
-					.container { display: flex; flex-direction: column; gap: 20px; }
-					img { max-width: 100%; height: auto; border: 1px solid #ccc; padding: 5px; }
-				</style>
-			</head>
-			<body>
-				<h1>Patient ${patientNum} Report</h1>
-				<div class="container">
-					<div class="chart-section">
-						<h2>Drug Chart</h2>
-						${chartContent}
-					</div>
-					<div class="survey-section">
-						<h2>Survey Results</h2>
-						${surveyContent}
-					</div>
-				</div>
-			</body>
-			</html>
-		`;
+    chart.$destroy();
+    survey.$destroy();
+    document.body.removeChild(chartContainer);
+    document.body.removeChild(surveyContainer);
+
+    return `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Patient ${patientNum} Report</title>
+            <style>
+                body { 
+                    font-family: Arial, sans-serif; 
+                    margin: 0; 
+                    padding: 0; 
+                    background-color: #f4f4f4;
+                    display: flex; /* Flexbox를 사용하여 좌측 사이드바와 우측 콘텐츠 배열 */
+                    min-height: 100vh; /* 뷰포트 전체 높이 사용 */
+                    flex-direction: column; /* 제목과 컨테이너 분리 */
+                }
+                h1 { 
+                    color: #2c3e50; 
+                    padding: 20px;
+                    margin-bottom: 0; 
+                    background-color: #fff;
+                    border-bottom: 1px solid #eee;
+                    text-align: center; /* 제목 중앙 정렬 */
+                }
+                .report-wrapper {
+                    display: flex;
+                    flex: 1; /* 남은 공간 모두 차지 */
+                    width: 100%;
+                }
+                .sidebar-tabs {
+                    width: 200px;
+                    background-color: #333;
+                    color: white;
+                    padding-top: 20px;
+                    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+                    flex-shrink: 0; 
+                    overflow-y: auto; /* 탭이 많아질 경우 스크롤 */
+                }
+                .tab-button {
+                    display: block;
+                    width: 100%;
+                    padding: 15px 20px;
+                    text-align: left;
+                    background-color: #333;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 16px;
+                    transition: background-color 0.3s ease;
+                }
+                .tab-button:hover {
+                    background-color: #555;
+                }
+                .tab-button.active {
+                    background-color: #007bff; /* 활성화된 탭 색상 */
+                    font-weight: bold;
+                }
+                .content-area {
+                    flex: 1; /* 남은 공간 차지 */
+                    padding: 20px;
+                    background-color: #fff;
+                    overflow-y: auto; /* 내용이 길어지면 스크롤바 생성 */
+                    box-shadow: -2px 0 5px rgba(0,0,0,0.05); /* 사이드바와 콘텐츠 영역 경계 그림자 */
+                }
+                .tab-content {
+                    display: none; /* 기본적으로 모든 탭 콘텐츠 숨김 */
+                }
+                .tab-content.active {
+                    display: block; /* 활성화된 탭 콘텐츠만 보임 */
+                }
+                .section-title {
+                    color: #2c3e50; 
+                    border-bottom: 2px solid #eee; 
+                    padding-bottom: 10px; 
+                    margin-top: 0; 
+                    margin-bottom: 20px;
+                }
+                img { 
+                    max-width: 100%; 
+                    height: auto; 
+                    display: block; 
+                    margin: 0 auto; 
+                    border: 1px solid #ccc; 
+                    padding: 5px; 
+                    background-color: white; 
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
+                }
+                p { margin-bottom: 10px; }
+            </style>
+        </head>
+        <body>
+            <h1>Patient ${patientNum} Report</h1>
+            <div class="report-wrapper">
+                <div class="sidebar-tabs">
+                    <button class="tab-button active" onclick="openTab(event, 'DrugChart')">Drug Chart</button>
+                    <button class="tab-button" onclick="openTab(event, 'SurveyResults')">Survey Results</button>
+                </div>
+
+                <div class="content-area">
+                    <div id="DrugChart" class="tab-content active">
+                        <h2 class="section-title">Drug Chart</h2>
+                        ${chartContent}
+                    </div>
+                    <div id="SurveyResults" class="tab-content">
+                        <h2 class="section-title">Survey Results</h2>
+                        ${surveyContent}
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function openTab(evt, tabName) {
+					console.log("Opening tab:", tabName);
+
+
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tab-content");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                        tabcontent[i].classList.remove('active');
+                    }
+
+                    tablinks = document.getElementsByClassName("tab-button");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].classList.remove("active");
+                    }
+
+                    document.getElementById(tabName).style.display = "block";
+                    document.getElementById(tabName).classList.add('active');
+                    evt.currentTarget.classList.add("active");
+                }
+
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    document.querySelector('.tab-button.active')?.click(); 
+                });
+            </script\x3E </body>
+        </html>
+    `;
 	}
 
 

@@ -8,7 +8,6 @@
 		Tabs,
 		Card,
 		CardHeader,
-		Icon,
 		CardBody,
     El,
     Divider
@@ -16,18 +15,12 @@
 </script>
 
 <Card>
-	<Tabs vertical>
+	<Tabs>
 		<CardHeader>
-			<TabList>
-				<TabItem active>
-					Data Acquisition
-				</TabItem>
-				<TabItem>
-					Tool Guide
-				</TabItem>
-				<TabItem>
-					Download Guide
-				</TabItem>
+			<TabList grow>
+				<TabItem active>Data Acquisition</TabItem>
+				<TabItem>Tool Guide</TabItem>
+				<TabItem>Download Guide</TabItem>
 			</TabList>
 		</CardHeader>
 		<CardBody>
