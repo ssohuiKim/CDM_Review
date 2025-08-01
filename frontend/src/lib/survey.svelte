@@ -4,6 +4,7 @@
     export let selectedPatient;
     export let patientData;
 
+
     let items = [
         { text: "Yes", code: "yes" },
         { text: "No", code: "no" },
@@ -54,6 +55,9 @@
         if (storedData[selectedPatient]) {
             totalScore = storedData[selectedPatient].totalScore || 0;
             noteValue = storedData[selectedPatient].note || ""; // 저장된 메모 로드
+             if (storedData[selectedPatient].answers) {
+                answers = storedData[selectedPatient].answers;
+            }
         }
     }
 
@@ -85,12 +89,13 @@
         }, 0);
     }
 
-    function saveToLocalStorage() {
+    export function saveToLocalStorage() {
         let storedData = JSON.parse(localStorage.getItem('naranjoAlgorithmData')) || {};
 
         storedData[selectedPatient] = {
             totalScore: totalScore,
-            note: noteValue // 메모 값도 저장
+            note: noteValue, // 메모 값도 저장
+            answers: { ...answers } // 현재 답변 상태 저장
         };
 
         localStorage.setItem('naranjoAlgorithmData', JSON.stringify(storedData));

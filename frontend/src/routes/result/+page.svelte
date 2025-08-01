@@ -71,7 +71,9 @@
     const chart = new DrugChart({ target: chartContainer, props: { selectedPatient: patientNum, patientData } });
     const survey = new Survey({ target: surveyContainer, props: { selectedPatient: patientNum, patientData } });
 
-    await new Promise(resolve => setTimeout(resolve, 500)); // 렌더링 대기
+	await tick();
+	await new Promise(resolve => setTimeout(resolve, 300)); 
+
 
 
     const chartContent = await captureChart(chartContainer);
@@ -241,6 +243,14 @@
 			return;
 		}
 		showLoading = true;
+
+		if (surveyRef && typeof surveyRef.saveToLocalStorage === 'function') {
+			surveyRef.saveToLocalStorage();  // 수동 저장
+			await tick();                    // 렌더링 완료까지 대기
+			await new Promise(resolve => setTimeout(resolve, 300));
+		}
+
+
 		const htmlContent = await generateReportHTML(selectedPatient, patientData);
 		saveHTMLFile(`patient-${selectedPatient}-report.html`, htmlContent);
 		showLoading = false;
