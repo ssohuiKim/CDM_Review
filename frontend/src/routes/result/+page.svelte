@@ -54,15 +54,55 @@
 		return "";
 	}
 
-	async function captureSurvey(surveyContainer) {
-		try {
-			const surveyCanvas = await html2canvas(surveyContainer);
-			return `<img src="${surveyCanvas.toDataURL('image/png')}" alt="Survey Results">`;
-		} catch (error) {
-			console.error("Survey 캡처 오류:", error);
-			return "<p>Survey data unavailable</p>";
-		}
-	}
+	// async function captureSurvey(surveyContainer) {
+	// 	try {
+	// 		const surveyCanvas = await html2canvas(surveyContainer);
+	// 		return `<img src="${surveyCanvas.toDataURL('image/png')}" alt="Survey Results">`;
+	// 	} catch (error) {
+	// 		console.error("Survey 캡처 오류:", error);
+	// 		return "<p>Survey data unavailable</p>";
+	// 	}
+	// }
+
+	function generateSurveyHTML(patientNum) {
+		const storedData = JSON.parse(localStorage.getItem('naranjoAlgorithmData') || "{}");
+		const data = storedData[patientNum];
+
+		if (!data) return "<p>No survey data available.</p>";
+
+		const questions = [
+			"Are there previous conclusive reports on this reaction?",
+			"Did the adverse events appear after the suspected drug was given?",
+			"Did the adverse reaction improve when the drug was discontinued or a specific antagonist was given?",
+			"Did the adverse reaction appear when the drug was re-administered?",
+			"Are there alternative causes that could have caused the reaction?",
+			"Did the reaction reappear when a placebo was given?",
+			"Was the drug detected in any body fluid in toxic concentrations?",
+			"Was the reaction more severe when the dose was increased, or less severe when the dose was decreased?",
+			"Did the patient have a similar reaction to the same or similar drugs in any previous exposure?",
+			"Was the adverse event confirmed by any objective evidence?"
+		];
+
+		let result = `<div class="survey-box">`;
+
+		questions.forEach((q, i) => {
+			const qKey = `q${i + 1}`;
+			const answer = data.answers?.[qKey]?.[0] ?? "Not answered";
+			result += `
+				<div class="question-block">
+					<p class="question"><strong>${i + 1}. ${q}</strong></p>
+					<p class="answer">${answer}</p>
+				</div>
+			`;
+		});
+
+		result += `<div class="score">Total Score: ${data.totalScore}</div>`;
+		result += `<div class="note">Note: ${data.note ?? ""}</div>`;
+		result += `</div>`;
+
+		return result;
+}
+
 
 	async function generateReportHTML(patientNum, patientData) {
     const chartContainer = await createHiddenContainer();
@@ -77,7 +117,8 @@
 
 
     const chartContent = await captureChart(chartContainer);
-    const surveyContent = await captureSurvey(surveyContainer);
+    // const surveyContent = await captureSurvey(surveyContainer);
+	const surveyContent = generateSurveyHTML(patientNum);
 
     chart.$destroy();
     survey.$destroy();
@@ -109,6 +150,7 @@
                     border-bottom: 1px solid #eee;
                     text-align: center; /* 제목 중앙 정렬 */
                 }
+				
                 .report-wrapper {
                     display: flex;
                     flex: 1; /* 남은 공간 모두 차지 */
@@ -116,7 +158,7 @@
                 }
                 .sidebar-tabs {
                     width: 200px;
-                    background-color: #333;
+                    background-color: #2d2d2d;
                     color: white;
                     padding-top: 20px;
                     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -172,6 +214,31 @@
                     background-color: white; 
                     box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
                 }
+				.survey-box {
+					background: #f9f9f9;
+					border: 1px solid #ddd;
+					border-radius: 8px;
+					padding: 20px;
+					font-size: 15px;
+					}
+					.question-block {
+					margin-bottom: 24px;
+					padding-bottom: 16px;
+					border-bottom: 1px solid #e0e0e0;
+					}
+					.question {
+					margin: 0 0 4px 0;
+					}
+					.answer {
+					color: #1d4ed8;
+					font-weight: 500;
+					margin: 0;
+					}
+					.score, .note {
+					margin-top: 12px;
+					font-style: italic;
+					color: #555;
+					}
                 p { margin-bottom: 10px; }
             </style>
         </head>
