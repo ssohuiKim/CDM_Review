@@ -10,10 +10,21 @@
     let isLoading = false;
     let chatContainer;
     
+    // 드래그 관련 변수
+    let chatbotContainer;
+    let isDragging = false;
+    let dragOffset = { x: 0, y: 0 };
+    let containerPosition = { x: 0, y: 0 };
+    
     // PubMed 클라이언트 초기화
     const pubmedClient = new PubMedClient({
         maxRps: 3 // 3 requests per second rate limit
     });
+    
+    // 챗봇이 열릴 때 위치 초기화
+    $: if (isOpen) {
+        setTimeout(resetPosition, 0);
+    }
     
     // 샘플 논문 데이터 (fallback용 최소한만 유지)
     const samplePapers = {
@@ -162,13 +173,90 @@
             isOpen = false;
         }
     }
+    
+    // 드래그 기능 함수들
+    function handleMouseDown(event) {
+        if (event.target.closest('.header-buttons')) {
+            // 헤더 버튼을 클릭한 경우 드래그하지 않음
+            return;
+        }
+        
+        isDragging = true;
+        
+        // 현재 컨테이너의 위치를 고려한 오프셋 계산
+        const rect = chatbotContainer.getBoundingClientRect();
+        const overlayRect = chatbotContainer.parentElement.getBoundingClientRect();
+        
+        // 마우스 위치에서 컨테이너의 실제 위치까지의 오프셋
+        dragOffset.x = event.clientX - rect.left;
+        dragOffset.y = event.clientY - rect.top;
+        
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+        event.preventDefault();
+    }
+    
+    function handleMouseMove(event) {
+        if (!isDragging) return;
+        
+        // 오버레이 기준으로 새 위치 계산
+        const overlayRect = chatbotContainer.parentElement.getBoundingClientRect();
+        const newX = event.clientX - overlayRect.left - dragOffset.x;
+        const newY = event.clientY - overlayRect.top - dragOffset.y;
+        
+        // 화면 경계 체크 (오버레이 내부로 제한)
+        const containerWidth = chatbotContainer.offsetWidth;
+        const containerHeight = chatbotContainer.offsetHeight;
+        const overlayWidth = overlayRect.width;
+        const overlayHeight = overlayRect.height;
+        
+        const maxX = overlayWidth - containerWidth;
+        const maxY = overlayHeight - containerHeight;
+        
+        containerPosition.x = Math.max(0, Math.min(newX, maxX));
+        containerPosition.y = Math.max(0, Math.min(newY, maxY));
+        
+        // 컨테이너 위치 업데이트 (오버레이 기준 상대 위치)
+        chatbotContainer.style.position = 'absolute';
+        chatbotContainer.style.left = containerPosition.x + 'px';
+        chatbotContainer.style.top = containerPosition.y + 'px';
+        chatbotContainer.style.transform = 'none';
+        chatbotContainer.style.margin = '0';
+    }
+    
+    function handleMouseUp() {
+        isDragging = false;
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+    }
+    
+    // 챗봇이 열릴 때 위치 초기화
+    function resetPosition() {
+        if (chatbotContainer) {
+            containerPosition = { x: 0, y: 0 };
+            chatbotContainer.style.position = '';
+            chatbotContainer.style.left = '';
+            chatbotContainer.style.top = '';
+            chatbotContainer.style.transform = '';
+            chatbotContainer.style.margin = '';
+        }
+    }
 </script>
 
 {#if isOpen}
     <div class="chatbot-overlay" on:click={handleOverlayClick} on:keydown={(e) => e.key === 'Escape' && (isOpen = false)}>
-        <div class="chatbot-container" role="dialog" tabindex="-1">
-            <div class="chat-header">
-                <h4>📚 문헌 검색 챗봇</h4>
+        <div 
+            class="chatbot-container" 
+            class:dragging={isDragging}
+            role="dialog" 
+            tabindex="-1"
+            bind:this={chatbotContainer}
+        >
+            <div 
+                class="chat-header" 
+                on:mousedown={handleMouseDown}
+            >
+                <h4>📚 문헌 검색 챗봇 <span class="drag-hint">📌</span></h4>
                 <div class="header-buttons">
                     <button class="clear-btn" on:click={clearChat} title="대화 지우기">🗑️</button>
                     <button class="close-btn" on:click={() => isOpen = false}>✕</button>
@@ -273,6 +361,13 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        position: relative;
+        transition: box-shadow 0.2s ease;
+    }
+    
+    .chatbot-container.dragging {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        z-index: 10000;
     }
 
     .chat-header {
@@ -282,11 +377,35 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: move;
+        user-select: none;
+        position: relative;
+    }
+    
+    .chat-header:hover {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    }
+    
+    .chat-header:active {
+        cursor: grabbing;
     }
 
     .chat-header h4 {
         margin: 0;
         font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .drag-hint {
+        font-size: 0.9rem;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+    }
+    
+    .chat-header:hover .drag-hint {
+        opacity: 1;
     }
 
     .header-buttons {
@@ -302,6 +421,8 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 0.9rem;
+        position: relative;
+        z-index: 1;
     }
 
     .clear-btn:hover, .close-btn:hover {

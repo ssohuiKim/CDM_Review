@@ -92,13 +92,15 @@
             <h3>🔍 테스트 방법</h3>
             <p>
                 1. 왼쪽 하단의 챗봇 버튼을 클릭합니다.<br>
-                2. 텍스트 입력창에 검색하고 싶은 키워드를 입력합니다.<br>
-                3. 예시 키워드: "megestrol", "pembrolizumab", "drug toxicity" 등<br>
-                4. 입력창을 클릭해도 챗봇이 닫히지 않는지 확인해보세요.
+                2. <strong>상단 헤더바를 클릭하고 드래그</strong>하여 챗봇 창을 이동시킬 수 있습니다.<br>
+                3. 텍스트 입력창에 검색하고 싶은 키워드를 입력합니다.<br>
+                4. 예시 키워드: "megestrol", "pembrolizumab", "drug toxicity" 등<br>
+                5. 입력창을 클릭해도 챗봇이 닫히지 않는지 확인해보세요.
             </p>
             
             <h3>🎯 수정된 사항</h3>
             <p>
+                <strong>새로운 기능:</strong> 상단 헤더바를 드래그하여 챗봇 창 이동 가능<br>
                 <strong>이전 문제:</strong> 텍스트 입력창을 클릭하면 챗봇이 닫히는 문제<br>
                 <strong>해결 방법:</strong> 오버레이 클릭 처리 방식을 개선하여 컨테이너 내부 클릭 시에는 챗봇이 닫히지 않도록 수정
             </p>
@@ -144,8 +146,10 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                ">
-                    <h4 style="margin: 0; font-size: 1.1rem;">📚 문헌 검색 챗봇</h4>
+                    cursor: move;
+                    user-select: none;
+                " onmousedown="startDrag(event)">
+                    <h4 style="margin: 0; font-size: 1.1rem;">📚 문헌 검색 챗봇 <span style="font-size: 0.9rem; opacity: 0.7;">📌</span></h4>
                     <button onclick="closeChatbot()" style="
                         background: rgba(255, 255, 255, 0.2);
                         border: none;
@@ -242,14 +246,26 @@
     </div>
 
     <script>
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+        
         function openChatbot() {
-            document.getElementById('chatbot-modal').style.display = 'block';
+            const modal = document.getElementById('chatbot-modal');
+            modal.style.display = 'block';
+            // 위치 초기화
+            const container = modal.querySelector('[onclick="event.stopPropagation()"]');
+            container.style.position = '';
+            container.style.transform = '';
+            container.style.left = '';
+            container.style.top = '';
+            container.style.margin = '';
             document.getElementById('chatbot-input').focus();
         }
 
         function closeChatbot(event) {
             if (!event || event.target === event.currentTarget) {
                 document.getElementById('chatbot-modal').style.display = 'none';
+                isDragging = false;
             }
         }
 
@@ -264,6 +280,65 @@
                 alert(`검색 쿼리: "${query}"\n\n실제 환경에서는 PubMed API를 통해 논문을 검색합니다.`);
                 document.getElementById('chatbot-input').value = '';
             }
+        }
+        
+        function startDrag(event) {
+            if (event.target.closest('button')) {
+                return; // 버튼 클릭 시 드래그하지 않음
+            }
+            
+            isDragging = true;
+            const container = event.currentTarget.parentElement;
+            const modal = document.getElementById('chatbot-modal');
+            const overlay = modal.firstElementChild;
+            
+            // 현재 컨테이너와 오버레이의 위치를 고려한 오프셋 계산
+            const containerRect = container.getBoundingClientRect();
+            const overlayRect = overlay.getBoundingClientRect();
+            
+            dragOffset.x = event.clientX - containerRect.left;
+            dragOffset.y = event.clientY - containerRect.top;
+            
+            document.addEventListener('mousemove', handleDrag);
+            document.addEventListener('mouseup', stopDrag);
+            event.preventDefault();
+        }
+        
+        function handleDrag(event) {
+            if (!isDragging) return;
+            
+            const modal = document.getElementById('chatbot-modal');
+            const container = modal.querySelector('[onclick="event.stopPropagation()"]');
+            const overlay = modal.firstElementChild;
+            
+            // 오버레이 기준으로 새 위치 계산
+            const overlayRect = overlay.getBoundingClientRect();
+            const newX = event.clientX - overlayRect.left - dragOffset.x;
+            const newY = event.clientY - overlayRect.top - dragOffset.y;
+            
+            // 오버레이 내부로 경계 제한
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            const overlayWidth = overlayRect.width;
+            const overlayHeight = overlayRect.height;
+            
+            const maxX = overlayWidth - containerWidth;
+            const maxY = overlayHeight - containerHeight;
+            
+            const finalX = Math.max(0, Math.min(newX, maxX));
+            const finalY = Math.max(0, Math.min(newY, maxY));
+            
+            container.style.position = 'absolute';
+            container.style.left = finalX + 'px';
+            container.style.top = finalY + 'px';
+            container.style.transform = 'none';
+            container.style.margin = '0';
+        }
+        
+        function stopDrag() {
+            isDragging = false;
+            document.removeEventListener('mousemove', handleDrag);
+            document.removeEventListener('mouseup', stopDrag);
         }
 
         // 키보드 이벤트 처리
