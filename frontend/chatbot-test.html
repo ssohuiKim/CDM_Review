@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .chat-button:hover {
+            transform: scale(1.1);
+            background: #0056b3;
+        }
+        
+        /* 샘플 콘텐츠 스타일 */
+        .content {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .content h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .content p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .feature-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #007bff;
+            margin: 20px 0;
+        }
+        .feature-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .feature-list li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="content">
+            <h1>📚 의료 문헌 검색 챗봇 테스트</h1>
+            <p>
+                이 페이지는 의료 문헌 검색 챗봇의 기능을 테스트하기 위한 페이지입니다. 
+                왼쪽 하단의 파란색 원형 버튼을 클릭하여 챗봇을 열 수 있습니다.
+            </p>
+            
+            <div class="feature-list">
+                <h3>✨ 주요 기능</h3>
+                <ul>
+                    <li><strong>PubMed 직접 검색:</strong> NCBI E-utilities API를 통한 실시간 논문 검색</li>
+                    <li><strong>사용자 쿼리 보존:</strong> 입력한 키워드를 강제로 수정하지 않고 그대로 검색</li>
+                    <li><strong>보안 기능:</strong> 환자 개인정보 보호 및 민감한 정보 필터링</li>
+                    <li><strong>Rate Limiting:</strong> API 사용량 제한 (3req/sec) 준수</li>
+                    <li><strong>Fallback 지원:</strong> API 연결 실패 시 샘플 데이터 제공</li>
+                </ul>
+            </div>
+            
+            <h3>🔍 테스트 방법</h3>
+            <p>
+                1. 왼쪽 하단의 챗봇 버튼을 클릭합니다.<br>
+                2. 텍스트 입력창에 검색하고 싶은 키워드를 입력합니다.<br>
+                3. 예시 키워드: "megestrol", "pembrolizumab", "drug toxicity" 등<br>
+                4. 입력창을 클릭해도 챗봇이 닫히지 않는지 확인해보세요.
+            </p>
+            
+            <h3>🎯 수정된 사항</h3>
+            <p>
+                <strong>이전 문제:</strong> 텍스트 입력창을 클릭하면 챗봇이 닫히는 문제<br>
+                <strong>해결 방법:</strong> 오버레이 클릭 처리 방식을 개선하여 컨테이너 내부 클릭 시에는 챗봇이 닫히지 않도록 수정
+            </p>
+        </div>
+    </div>
+
+    <!-- 챗봇 버튼 -->
+    <button class="chat-button" onclick="openChatbot()" title="문헌 검색 챗봇">
+        💬
+    </button>
+
+    <!-- 챗봇 모달 (기본적으로 숨김) -->
+    <div id="chatbot-modal" style="display: none;">
+        <!-- 여기에 실제 Svelte 컴포넌트가 렌더링될 예정 -->
+        <div style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        " onclick="closeChatbot(event)">
+            <div style="
+                width: 90%;
+                max-width: 800px;
+                height: 80%;
+                max-height: 700px;
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            " onclick="event.stopPropagation()">
+                <div style="
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 1rem;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                ">
+                    <h4 style="margin: 0; font-size: 1.1rem;">📚 문헌 검색 챗봇</h4>
+                    <button onclick="closeChatbot()" style="
+                        background: rgba(255, 255, 255, 0.2);
+                        border: none;
+                        color: white;
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                    ">✕</button>
+                </div>
+                
+                <div style="
+                    background: #e8f5e8;
+                    color: #2d5a2d;
+                    padding: 0.5rem 1rem;
+                    font-size: 0.8rem;
+                    border-bottom: 1px solid #ddd;
+                    text-align: center;
+                ">
+                    🔒 보안 적용: 환자 정보는 외부 전송되지 않음 | 🌐 PubMed API 직접 연결
+                </div>
+                
+                <div style="
+                    flex: 1;
+                    padding: 1rem;
+                    overflow-y: auto;
+                    background: #f8f9fa;
+                ">
+                    <div style="text-align: center; color: #666; padding: 2rem;">
+                        <p>👋 안녕하세요! 의료 문헌 검색 챗봇입니다.</p>
+                        <p>약물명이나 관련 키워드를 입력하면 PubMed에서 직접 논문을 검색해드립니다.</p>
+                        <div style="margin: 1rem 0;">
+                            <p><strong>예시:</strong></p>
+                            <button onclick="setQuery('megestrol')" style="
+                                background: #e9ecef;
+                                border: 1px solid #ced4da;
+                                padding: 0.25rem 0.5rem;
+                                margin: 0.25rem;
+                                border-radius: 4px;
+                                cursor: pointer;
+                                font-size: 0.8rem;
+                            ">megestrol</button>
+                            <button onclick="setQuery('pembrolizumab hepatotoxicity')" style="
+                                background: #e9ecef;
+                                border: 1px solid #ced4da;
+                                padding: 0.25rem 0.5rem;
+                                margin: 0.25rem;
+                                border-radius: 4px;
+                                cursor: pointer;
+                                font-size: 0.8rem;
+                            ">pembrolizumab hepatotoxicity</button>
+                        </div>
+                        <div style="margin-top: 1rem; color: #6c757d;">
+                            <small>🌐 실시간 PubMed API 사용 | 📚 NCBI E-utilities 검색</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="
+                    border-top: 1px solid #e9ecef;
+                    padding: 1rem;
+                    background: white;
+                    display: flex;
+                    gap: 0.5rem;
+                    align-items: flex-end;
+                ">
+                    <textarea 
+                        id="chatbot-input"
+                        placeholder="약물명이나 관련 키워드를 입력하세요... (예: pembrolizumab, megestrol)"
+                        rows="2"
+                        style="
+                            flex: 1;
+                            border: 1px solid #ced4da;
+                            border-radius: 6px;
+                            padding: 0.5rem;
+                            resize: none;
+                            font-family: inherit;
+                            font-size: 0.9rem;
+                        "
+                        onclick="event.stopPropagation()"
+                    ></textarea>
+                    <button onclick="searchPubMed()" style="
+                        background: #007bff;
+                        color: white;
+                        border: none;
+                        padding: 0.5rem 1rem;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        font-size: 1rem;
+                    ">🔍</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openChatbot() {
+            document.getElementById('chatbot-modal').style.display = 'block';
+            document.getElementById('chatbot-input').focus();
+        }
+
+        function closeChatbot(event) {
+            if (!event || event.target === event.currentTarget) {
+                document.getElementById('chatbot-modal').style.display = 'none';
+            }
+        }
+
+        function setQuery(query) {
+            document.getElementById('chatbot-input').value = query;
+            document.getElementById('chatbot-input').focus();
+        }
+
+        function searchPubMed() {
+            const query = document.getElementById('chatbot-input').value.trim();
+            if (query) {
+                alert(`검색 쿼리: "${query}"\n\n실제 환경에서는 PubMed API를 통해 논문을 검색합니다.`);
+                document.getElementById('chatbot-input').value = '';
+            }
+        }
+
+        // 키보드 이벤트 처리
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeChatbot();
+            }
+        });
+
+        document.getElementById('chatbot-input').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                searchPubMed();
+            }
+        });
+    </script>
+</body>
+</html>

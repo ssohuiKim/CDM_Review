@@ -10,6 +10,9 @@
 	import AxisChart from '../../lib/axisChart.svelte';
 	import HoverBox from '../../lib/hover.svelte';
 	import Survey from '../../lib/survey.svelte';
+	// 챗봇 컴포넌트 추가
+	import CircularChatButton from '../../lib/chatbot/CircularChatButton.svelte';
+	import ChatBot from '../../lib/chatbot/ChatBot.svelte';
 	import { groupedPatientData } from '$lib/duckdb';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
@@ -22,6 +25,9 @@
 	let selectedPatient = null;
 	let patientData = {};
 	let surveyRef;
+	
+	// 챗봇 상태 추가
+	let isChatOpen = false;
   
 	onMount(() => {
 	  groupedPatientData.subscribe(data => {
@@ -605,3 +611,7 @@
 		<Button color="primary" on:click={() => (show = false)}>Checked</Button>
 	</ModalFooter>
 </Modal>
+
+<!-- 챗봇 UI 추가 -->
+<CircularChatButton bind:isOpen={isChatOpen} on:toggle={(event) => isChatOpen = event.detail.isOpen} />
+<ChatBot bind:isOpen={isChatOpen} />
