@@ -31,8 +31,8 @@
 	}
 </style>
 
-<El container style="height: 100%; width: 100%">
-	<El container bgColor="light" borderBottom style="position: sticky; top: 0; width: 100%;">
+<El container style="min-height: 100vh; display: flex; flex-direction: column; width: 100%;">
+	<El container bgColor="light" borderBottom style="position: sticky; top: 0; width: 100%; z-index: 1000; flex-shrink: 0;">
 		<El row alignItems="center" p='1' m="0">
 			<El col="auto" m="3" me="auto" tag="h1">
 				<button class = "logo-button" on:click={()=> location.href="/"}>LOGO</button>
@@ -50,11 +50,11 @@
 		</El>
 	</El>
 
-	<El container style="height: 90%; width: 100%">
-		<El row p="5" m="0" style="height: 95%;">
+	<El container style="flex: 1; display: flex; flex-direction: column; width: 100%;">
+		<El row p="5" m="0" style="flex: 1;">
 			<slot/>
 		</El>
-		<El row justifyContent="center" m="2" style="height: 5%;">
+		<El row justifyContent="center" m="2" style="flex-shrink: 0; padding: 1rem 0; border-top: 1px solid #e2e8f0;">
 			<El col='auto' alignSelf="center"> This website is maintained by</El>
 			<El col='auto' p='0' alignSelf="center"> <a href="https://pnucolab.com/">Computational Omics Laboratory</a></El>
 		</El>

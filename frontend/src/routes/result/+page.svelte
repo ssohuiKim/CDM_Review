@@ -414,6 +414,7 @@
 		position: relative;
 		flex: 1;
 		overflow: auto;
+		min-height: 70vh; /* 최소 높이를 70vh로 설정하여 차트 영역 확대 */
 	}
 	/* 기존 canvas-container 스타일 대신 오버랩 컨테이너 사용 */
 	.canvas-container {
@@ -456,7 +457,7 @@
 		border-radius: 8px;
 		padding: 16px;
 		margin-left: 15px;
-		height: calc(100vh - 300px);
+		height: calc(100vh - 150px); /* 높이를 늘려서 차트와 비슷하게 맞춤 */
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		overflow-y: auto;
 		flex-shrink: 0;
@@ -522,7 +523,7 @@
 
 </style>
 
-<El container m="0" p="4" style="height: 100%;">
+<El container m="0" p="2" style="height: 100%;">
 	<div class="header">
 		<div class="header-title">
 			<h1>Results</h1>
@@ -542,8 +543,8 @@
 	</div>
 	
   
-	<El row style="margin-top: 24px; height: 100%;">
-		<div class="card">
+	<El row style="margin-top: 12px; height: calc(100vh - 100px);">
+		<div class="card" style="height: 100%;">
 			<!-- 좌측 환자 목록 -->
 			<div class="sidebar">
 				{#each patients as patientNum}
