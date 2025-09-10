@@ -94,8 +94,8 @@
 {:else}
   <div class="container">
     <div class="main-content">
-      <h1 class="title">환자 데이터 파일 업로드</h1>
-      <p class="subtitle">아래 환자의 간독성 약물 데이터가 포함된 txt 파일을 업로드해주세요</p>
+      <h1 class="title">Upload Patient Data File</h1>
+      <p class="subtitle">Please upload a .txt file containing the patient’s hepatotoxic drug data below</p>
       
       <div class="upload-section">
         <div class="upload-area" 
@@ -122,7 +122,7 @@
               <p class="upload-title success">파일이 선택되었습니다</p>
               <p class="file-info-text">{files_1[0].name} ({(files_1[0].size / 1024).toFixed(1)} KB)</p>
             </div>
-            <button class="select-button success" type="button">다른 파일 선택</button>
+            <button class="select-button success" type="button">Choose another? file</button>
           {:else}
             <!-- 파일이 선택되지 않은 상태 -->
             <div class="upload-icon">
@@ -135,10 +135,10 @@
               </svg>
             </div>
             <div class="upload-text">
-              <p class="upload-title">파일을 드래그하여 업로드하거나</p>
-              <p class="upload-subtitle">아래 환자 데이터가 포함된 .txt 파일을 선택해주세요</p>
+              <p class="upload-title">Drag & drop your file here, or</p>
+              <p class="upload-subtitle">Select a .txt file with patient data</p>
             </div>
-            <button class="select-button" type="button">파일 선택</button>
+            <button class="select-button" type="button">Choose file</button>
           {/if}
           
           <input type="file" bind:this={fileInput} on:change={handleFileSelect} accept=".txt" style="display: none;" />
@@ -159,7 +159,7 @@
         </div>
         
         <button class="analyze-button" on:click={handleClick} disabled={!files_1 || files_1.length === 0 || state_1 === 'invalid'}>
-          분석 시작
+          Submit
         </button>
       </div>
     </div>
