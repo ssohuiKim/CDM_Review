@@ -33,7 +33,7 @@
 
   // 캔버스 그리기 상수
   const marginLeft  = 28;
-  const marginRight = 120;
+  let dynamicMarginRight = 120; // 동적으로 조정되는 marginRight
   const spacingX    = 2;
   const spacingY    = 1;
   const boxWidth    = 5;
@@ -41,6 +41,27 @@
   const gradeHeight = 25;
   const gradeStart  = 100;
   const ICI_LIST    = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
+
+  // 약물명 길이에 따라 margin을 동적으로 계산하는 함수
+  function calculateDynamicMargin() {
+    if (!canvas || !canvas.getContext) return 120;
+    
+    const ctx = canvas.getContext("2d");
+    ctx.font = "12px Arial";
+    
+    let maxWidth = 0;
+    const allDrugs = [...toxic, ...ICI_LIST, ...safeDrugs];
+    
+    allDrugs.forEach(drugName => {
+      if (drugName) {
+        const textWidth = ctx.measureText(drugName).width;
+        maxWidth = Math.max(maxWidth, textWidth);
+      }
+    });
+    
+    // 기본 여백 + 텍스트 최대 길이 + 추가 여백
+    return Math.max(120, maxWidth + 20);
+  }
 
   // DrugChart와 동일한 좌표 계산
   const ICI_start  = gradeStart + gradeHeight + 12;
@@ -133,7 +154,7 @@
     ctx.font = "12px Arial";
     for (let col = 1; col <= totalDays; col++) {
       if (col % 10 === 0) {
-        const x = marginRight + col * cellWidth;
+        const x = dynamicMarginRight + col * cellWidth;
         ctx.textAlign = "right";
         ctx.fillText(col, x + 5, safeEnd + 25);
       }
@@ -145,25 +166,28 @@
     toxic.forEach((drug, i) => {
       const y = toxicStart + i * (boxHeight + spacingY) + 10;
       ctx.textAlign = "right";
-      ctx.fillText(drug, marginRight - 5, y);
+      ctx.fillText(drug, dynamicMarginRight - 5, y);
     });
     ICI_LIST.forEach((drug, i) => {
       const y = ICI_start + i * (boxHeight + spacingY) + 10;
       ctx.textAlign = "right";
-      ctx.fillText(drug, marginRight - 5, y);
+      ctx.fillText(drug, dynamicMarginRight - 5, y);
     });
     safeDrugs.forEach((drug, i) => {
       const y = safeStart + i * (boxHeight + spacingY) + 10;
       ctx.textAlign = "right";
-      ctx.fillText(drug, marginRight - 5, y);
+      ctx.fillText(drug, dynamicMarginRight - 5, y);
     });
   }
 
   // 사용자가 원하는 방식으로 adjustCanvasDimensions 함수 그대로 사용
   function adjustCanvasDimensions() {
+    // 약물명 길이에 따라 margin을 먼저 계산
+    dynamicMarginRight = calculateDynamicMargin();
+    
     const cellWidth = boxWidth + spacingX;
-    let newWidth = 33 + totalDays * cellWidth + 120;
-    if (type === "col") newWidth = 120;
+    let newWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
+    if (type === "col") newWidth = dynamicMarginRight;
 
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;
