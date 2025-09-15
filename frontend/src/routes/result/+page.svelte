@@ -538,6 +538,12 @@
 		width: 100%;
 		height: 100%;
 	}
+	.overlap:first-child {
+		z-index: 1;
+	}
+	.overlap:last-child {
+		z-index: 1001;
+	}
 	.fixed-col {
 		position: absolute;
 		top: 0;

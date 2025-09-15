@@ -27,6 +27,7 @@
     ICI_lasting_end,
     drug_exposure_date_end;
   let drug_dose = [];
+  let marginLeft = 120; // 동적으로 계산될 값
 
   const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
@@ -97,9 +98,47 @@
         safe = [...new Set(safe.filter(drug => drug !== ""))];
         safe = safe.map(drug => drug.toLowerCase());
         safe_id = [...new Set(safeID.filter(drug => drug !== "0"))];
+        
+        // 동적 margin 계산
+        calculateDynamicMargin();
+        
         resolve();
       };
     });
+  }
+
+  // 동적 margin 계산 함수 (DrugChart와 동일한 로직)
+  function calculateDynamicMargin() {
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext("2d");
+    ctx.font = "12px Arial"; // 실제 그리기에서 사용할 폰트와 동일하게 설정
+    
+    // 모든 약물 이름 수집
+    const allDrugNames = [
+      ...toxic,
+      ...safe,
+      ...ICI
+    ];
+    
+    let maxWidth = 0;
+    
+    // 가장 긴 약물 이름의 너비 측정
+    allDrugNames.forEach(drugName => {
+      const textWidth = ctx.measureText(drugName).width;
+      if (textWidth > maxWidth) {
+        maxWidth = textWidth;
+      }
+    });
+    
+    // 여백 추가 (약물 이름 + 패딩)
+    const padding = 20; // 텍스트와 차트 사이 여백
+    const minMargin = 100; // 최소 margin
+    const maxMargin = 300; // 최대 margin (너무 길면 제한)
+    
+    marginLeft = Math.max(minMargin, Math.min(maxMargin, maxWidth + padding));
+    
+    console.log(`Hover dynamic margin calculated: ${marginLeft}px (max text width: ${maxWidth}px)`);
   }
 
   function draw() {
@@ -107,7 +146,6 @@
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const margin2 = 120;
       const spacingX = 2;
       const spacingY = 1;
       const boxWidth = 5;
@@ -130,7 +168,7 @@
           const dateIndex = days[i];
 
           if (toxic_id.includes(drug_id)) {
-            const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+            const x = marginLeft + (dateIndex - 1) * (boxWidth + spacingX);
             const y = toxic_start + toxicIndex * (boxHeight + spacingY);
             ctx.fillStyle = "#1E88E5";
             ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -145,7 +183,7 @@
           const dateIndex = days[i];
 
           if (safe.includes(drugName)) {
-            const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+            const x = marginLeft + (dateIndex - 1) * (boxWidth + spacingX);
             const y = safe_start + safe.indexOf(drugName) * (boxHeight + spacingY);
             ctx.fillStyle = "#4CAF50";
             ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -268,7 +306,7 @@
   function adjustCanvasWidth() {
     const boxWidth = 5;
     const spacingX = 2;
-    const newWidth = 33 + day * (boxWidth + spacingX) + 120;
+    const newWidth = 33 + day * (boxWidth + spacingX) + marginLeft;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }
@@ -282,7 +320,7 @@
   }
 </script>
 
-<canvas bind:this={canvas} style="border:1px solid #000000;"></canvas>
+<canvas bind:this={canvas} style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; pointer-events: auto; background: transparent;"></canvas>
 
 {#if tooltipVisible}
   <div use:popperContent class="tooltip">
@@ -300,6 +338,6 @@
     font-weight: 600;
     pointer-events: none;
     position: absolute;
-    z-index: 10;
+    z-index: 2000;
   }
 </style>

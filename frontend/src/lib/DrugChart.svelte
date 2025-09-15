@@ -267,18 +267,15 @@
       ICI_lasting.forEach((duration, i) => {
         const exposureDate = newDrugExposureDates[i];
         const ICI_drug = drugNames[i];
-        console.log(`Index ${i}: duration=${duration}, drug=${ICI_drug}, exposureDate=${exposureDate}`);
         if (duration != 0) {
           const durationDate = new Date(duration);
           const exposure = new Date(exposureDate);
           const index = ICI_LIST.findIndex(drug => drug.toLowerCase() === ICI_drug.toLowerCase());
-          console.log(`Found ICI drug: ${ICI_drug}, index: ${index}, durationDate: ${durationDate}, exposure: ${exposure}`);
           if (index >= 0) {
             const drugDuration = Math.ceil((durationDate - exposure) / (1000 * 60 * 60 * 24)) + 1;
             const dayIndex = days[i] - 1;
             const x = marginLeft + dayIndex * cellWidth;
             const y = ICI_start + index * (boxHeight + spacingY);
-            console.log(`Drawing ICI: drugDuration=${drugDuration}, dayIndex=${dayIndex}, x=${x}, y=${y}`);
             ctx.fillStyle = "#FFC107";
             ctx.fillRect(x, y, boxWidth, boxHeight);
             const shortHeight = boxHeight / 2;
@@ -362,4 +359,4 @@
   }
 </script>
 
-<canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height:100%;"></canvas>
+<canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height:100%; position: relative; z-index: 1;"></canvas>
