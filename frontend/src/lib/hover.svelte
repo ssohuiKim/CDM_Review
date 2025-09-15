@@ -27,6 +27,7 @@
     ICI_lasting_end,
     drug_exposure_date_end;
   let drug_dose = [];
+  let dynamicMargin2 = 120; // 동적으로 계산될 값
 
   const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
@@ -97,9 +98,34 @@
         safe = [...new Set(safe.filter(drug => drug !== ""))];
         safe = safe.map(drug => drug.toLowerCase());
         safe_id = [...new Set(safeID.filter(drug => drug !== "0"))];
+        
+        // 약물명 길이를 기준으로 동적 margin 계산
+        calculateDynamicMargin();
+        
         resolve();
       };
     });
+  }
+
+  // 약물명의 최대 길이를 기준으로 동적 margin 계산
+  function calculateDynamicMargin() {
+    const allDrugNames = [...toxic, ...safe, ...ICI];
+    
+    // 임시 캔버스를 생성하여 텍스트 폭 측정
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.font = '12px Arial';
+    
+    let maxWidth = 0;
+    allDrugNames.forEach(drugName => {
+      const textWidth = tempCtx.measureText(drugName).width;
+      if (textWidth > maxWidth) {
+        maxWidth = textWidth;
+      }
+    });
+    
+    // 최소 120px, 최대 300px로 제한하고 여유공간 20px 추가
+    dynamicMargin2 = Math.max(120, Math.min(300, maxWidth + 20));
   }
 
   function draw() {
@@ -107,7 +133,6 @@
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const margin2 = 120;
       const spacingX = 2;
       const spacingY = 1;
       const boxWidth = 5;
@@ -130,7 +155,7 @@
           const dateIndex = days[i];
 
           if (toxic_id.includes(drug_id)) {
-            const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+            const x = dynamicMargin2 + (dateIndex - 1) * (boxWidth + spacingX);
             const y = toxic_start + toxicIndex * (boxHeight + spacingY);
             ctx.fillStyle = "#1E88E5";
             ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -145,7 +170,7 @@
           const dateIndex = days[i];
 
           if (safe.includes(drugName)) {
-            const x = margin2 + (dateIndex - 1) * (boxWidth + spacingX);
+            const x = dynamicMargin2 + (dateIndex - 1) * (boxWidth + spacingX);
             const y = safe_start + safe.indexOf(drugName) * (boxHeight + spacingY);
             ctx.fillStyle = "#4CAF50";
             ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -268,7 +293,7 @@
   function adjustCanvasWidth() {
     const boxWidth = 5;
     const spacingX = 2;
-    const newWidth = 33 + day * (boxWidth + spacingX) + 120;
+    const newWidth = 33 + day * (boxWidth + spacingX) + dynamicMargin2;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }

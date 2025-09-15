@@ -37,7 +37,7 @@
 
   // 캔버스 그리기 상수 (주로 픽셀 단위)
   const marginLeft = 28;
-  const marginRight = 120;
+  let dynamicMarginRight = 120; // 동적으로 계산될 값
   const spacingX = 2;
   const spacingY = 1;
   const boxWidth = 5;
@@ -111,9 +111,34 @@
             .map(drug => drug.toLowerCase());
           safeDrugs = Array.from(new Set(safeDrugs));
           safeDrugIds = Array.from(new Set(safeID.filter(id => id !== "0")));
+          
+          // 약물명 길이를 기준으로 동적 margin 계산
+          calculateDynamicMargin();
+          
           resolve();
       };
     });
+  }
+
+  // 약물명의 최대 길이를 기준으로 동적 margin 계산
+  function calculateDynamicMargin() {
+    const allDrugNames = [...toxic, ...safeDrugs, ...ICI_LIST];
+    
+    // 임시 캔버스를 생성하여 텍스트 폭 측정
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.font = '12px Arial';
+    
+    let maxWidth = 0;
+    allDrugNames.forEach(drugName => {
+      const textWidth = tempCtx.measureText(drugName).width;
+      if (textWidth > maxWidth) {
+        maxWidth = textWidth;
+      }
+    });
+    
+    // 최소 120px, 최대 300px로 제한하고 여유공간 20px 추가
+    dynamicMarginRight = Math.max(120, Math.min(300, maxWidth + 20));
   }
 
   // 캔버스 그리기 함수
@@ -144,15 +169,15 @@
     const writeDrugNames = () => {
       toxic.forEach((drug, i) => {
         const y = toxicStart + i * (boxHeight + spacingY) + 10;
-        writeText(drug, marginRight - 5, y, 12, 'right');
+        writeText(drug, dynamicMarginRight - 5, y, 12, 'right');
       });
       safeDrugs.forEach((drug, i) => {
         const y = safeStart + i * (boxHeight + spacingY) + 10;
-        writeText(drug, marginRight - 5, y, 12, 'right');
+        writeText(drug, dynamicMarginRight - 5, y, 12, 'right');
       });
       ICI_LIST.forEach((drug, i) => {
         const y = ICI_start + i * (boxHeight + spacingY) + 10;
-        writeText(drug, marginRight - 5, y, 12, 'right');
+        writeText(drug, dynamicMarginRight - 5, y, 12, 'right');
       });
     };
 
@@ -164,7 +189,7 @@
 
       for (let col = 1; col <= totalDays; col++) {
         if (col % 10 === 0) {
-          const x = marginRight + col * cellWidth;
+          const x = dynamicMarginRight + col * cellWidth;
           drawLine(x, toxicStart, x, safeEnd + 10, 1);
           ctx.fillText(col, x + 5, safeEnd + 25);
         }
@@ -176,7 +201,7 @@
       const drawRows = (startY, rowCount, width, height) => {
         for (let row = 0; row < rowCount; row++) {
           for (let col = 0; col < totalDays; col++) {
-            const x = marginRight + col * cellWidth;
+            const x = dynamicMarginRight + col * cellWidth;
             const y = startY + row * (height + spacingY);
             ctx.fillRect(x, y, width, height);
           }
@@ -195,7 +220,7 @@
         const dayIndex = days[i] - 1; // 0 기반 인덱스
         if (gradeColors.hasOwnProperty(gradeVal)) {
           ctx.fillStyle = gradeColors[gradeVal];
-          const x = marginRight + dayIndex * cellWidth;
+          const x = dynamicMarginRight + dayIndex * cellWidth;
           ctx.fillRect(x, gradeStart, boxWidth, gradeHeight);
         }
       });
@@ -207,7 +232,7 @@
         const dayIndex = days[i] - 1;
         if (toxicIds.includes(drugId) && toxicIndex !== undefined) {
           toxicNum[dayIndex]++;
-          const x = marginRight + dayIndex * cellWidth;
+          const x = dynamicMarginRight + dayIndex * cellWidth;
           const y = toxicStart + toxicIndex * (boxHeight + spacingY);
           ctx.fillStyle = "#1E88E5";
           ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -221,7 +246,7 @@
         const dayIndex = days[i] - 1;
         if (safeDrugs.includes(drug)) {
           safeNum[dayIndex]++;
-          const x = marginRight + dayIndex * cellWidth;
+          const x = dynamicMarginRight + dayIndex * cellWidth;
           const y = safeStart + safeDrugs.indexOf(drug) * (boxHeight + spacingY);
           ctx.fillStyle = "#4CAF50";
           ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -240,7 +265,7 @@
           if (index >= 0) {
             const drugDuration = Math.ceil((durationDate - exposure) / (1000 * 60 * 60 * 24)) + 1;
             const dayIndex = days[i] - 1;
-            const x = marginRight + dayIndex * cellWidth;
+            const x = dynamicMarginRight + dayIndex * cellWidth;
             const y = ICI_start + index * (boxHeight + spacingY);
             ctx.fillStyle = "#FFC107";
             ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -256,7 +281,7 @@
       for (let i = 0; i < totalDays; i++) {
         const total = toxicNum[i] + safeNum[i];
         const ratioSafe = total === 0 ? 0 : safeNum[i] / total;
-        const x = marginRight + i * cellWidth;
+        const x = dynamicMarginRight + i * cellWidth;
         const safeY = ratioStart + 50 - ratioSafe * 50;
         ctx.fillStyle = "#4CAF50";
         ctx.fillRect(x, safeY, boxWidth, ratioSafe * 50);
@@ -268,16 +293,16 @@
     };
 
     
-    writeText('Patient number: ' + selectedPatient, marginRight, 60, 12);
-    writeText('Type of cancer diagnosis: ' + diagnosisGroup, marginRight, 75, 12);
+    writeText('Patient number: ' + selectedPatient, dynamicMarginRight, 60, 12);
+    writeText('Type of cancer diagnosis: ' + diagnosisGroup, dynamicMarginRight, 75, 12);
   
-    drawLine(marginRight - 10, ratioStart, marginRight - 10, ratioStart + 50, 2.3);
-    drawLine(marginRight - 10, ratioStart + 1, marginRight - 22, ratioStart + 1, 2.3);
-    drawLine(marginRight - 10, ratioStart + 24, marginRight - 22, ratioStart + 24, 2.3);
-    drawLine(marginRight - 10, ratioStart + 49, marginRight - 22, ratioStart + 49, 2.3);
-    writeText('0', marginRight - 30, ratioStart + 4, 12, 'right');
-    writeText('0.5', marginRight - 30, ratioStart + 27, 12, 'right');
-    writeText('1', marginRight - 30, ratioStart + 52, 12, 'right');
+    drawLine(dynamicMarginRight - 10, ratioStart, dynamicMarginRight - 10, ratioStart + 50, 2.3);
+    drawLine(dynamicMarginRight - 10, ratioStart + 1, dynamicMarginRight - 22, ratioStart + 1, 2.3);
+    drawLine(dynamicMarginRight - 10, ratioStart + 24, dynamicMarginRight - 22, ratioStart + 24, 2.3);
+    drawLine(dynamicMarginRight - 10, ratioStart + 49, dynamicMarginRight - 22, ratioStart + 49, 2.3);
+    writeText('0', dynamicMarginRight - 30, ratioStart + 4, 12, 'right');
+    writeText('0.5', dynamicMarginRight - 30, ratioStart + 27, 12, 'right');
+    writeText('1', dynamicMarginRight - 30, ratioStart + 52, 12, 'right');
   
     // --- 순서대로 캔버스 그리기 ---
     drawGrid();
@@ -295,7 +320,7 @@
   // 캔버스 크기 조절 함수
   function adjustCanvasDimensions() {
     const cellWidth = boxWidth + spacingX;
-    const newWidth = 33 + totalDays * cellWidth + 120;
+    const newWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
