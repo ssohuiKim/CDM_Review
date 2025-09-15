@@ -1,0 +1,5 @@
+patient_id	drug_name	dosage	date
+1	Aspirin	100mg	2023-01-01
+2	Ibuprofen	200mg	2023-01-02
+3	Paracetamol	500mg	2023-01-03
+4	Naproxen	250mg	2023-01-04
