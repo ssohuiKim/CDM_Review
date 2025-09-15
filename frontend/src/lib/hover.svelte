@@ -293,7 +293,7 @@
   function adjustCanvasWidth() {
     const boxWidth = 5;
     const spacingX = 2;
-    const newWidth = 33 + day * (boxWidth + spacingX) + dynamicMargin2;
+    const newWidth = Math.max(550, 33 + day * (boxWidth + spacingX) + dynamicMargin2);
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }

@@ -186,8 +186,10 @@
     dynamicMarginRight = calculateDynamicMargin();
     
     const cellWidth = boxWidth + spacingX;
-    let newWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
-    if (type === "col") newWidth = dynamicMarginRight;
+    let calculatedWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
+    if (type === "col") calculatedWidth = dynamicMarginRight;
+    
+    const newWidth = Math.max(550, calculatedWidth); // 최소 가로 크기 550px 보장
 
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;
