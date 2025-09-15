@@ -320,7 +320,8 @@
   // 캔버스 크기 조절 함수
   function adjustCanvasDimensions() {
     const cellWidth = boxWidth + spacingX;
-    const newWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
+    const calculatedWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
+    const newWidth = Math.max(550, calculatedWidth); // 최소 가로 크기 550px 보장
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
