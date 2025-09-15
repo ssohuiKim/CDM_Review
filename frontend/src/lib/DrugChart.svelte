@@ -35,7 +35,7 @@
   const ICI_LIST = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
   // 캔버스 그리기 상수 (주로 픽셀 단위)
-  const marginLeft = 170;
+  let marginLeft = 180; // 동적으로 계산될 값
   const marginRight = 120;
   const spacingX = 2;
   const spacingY = 1;
@@ -107,9 +107,47 @@
             .map(drug => drug.toLowerCase());
           safeDrugs = Array.from(new Set(safeDrugs));
           safeDrugIds = Array.from(new Set(safeID.filter(id => id !== "0")));
+          
+          // 모든 약물 이름 중 가장 긴 것을 찾아 marginLeft 계산
+          calculateDynamicMargin();
+          
           resolve();
       };
     });
+  }
+
+  // 동적 margin 계산 함수
+  function calculateDynamicMargin() {
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext("2d");
+    ctx.font = "12px Arial"; // 실제 그리기에서 사용할 폰트와 동일하게 설정
+    
+    // 모든 약물 이름 수집
+    const allDrugNames = [
+      ...toxic,
+      ...safeDrugs,
+      ...ICI_LIST
+    ];
+    
+    let maxWidth = 0;
+    
+    // 가장 긴 약물 이름의 너비 측정
+    allDrugNames.forEach(drugName => {
+      const textWidth = ctx.measureText(drugName).width;
+      if (textWidth > maxWidth) {
+        maxWidth = textWidth;
+      }
+    });
+    
+    // 여백 추가 (약물 이름 + 패딩)
+    const padding = 20; // 텍스트와 차트 사이 여백
+    const minMargin = 100; // 최소 margin
+    const maxMargin = 300; // 최대 margin (너무 길면 제한)
+    
+    marginLeft = Math.max(minMargin, Math.min(maxMargin, maxWidth + padding));
+    
+    console.log(`Dynamic margin calculated: ${marginLeft}px (max text width: ${maxWidth}px)`);
   }
 
   // 캔버스 그리기 함수
@@ -131,7 +169,7 @@
     };
 
     const writeText = (text, x, y, size, align = 'left', color = 'black') => {
-      ctx.font = `${size}px Arial`;
+      ctx.font = `${size}px Arial`; // 측정과 동일한 폰트 설정
       ctx.fillStyle = color;
       ctx.textAlign = align;
       ctx.fillText(text, x, y);
