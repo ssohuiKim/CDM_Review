@@ -35,7 +35,7 @@
   const ICI_LIST = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
   // 캔버스 그리기 상수 (주로 픽셀 단위)
-  const marginLeft = 28;
+  const marginLeft = 170;
   const marginRight = 120;
   const spacingX = 2;
   const spacingY = 1;
@@ -60,7 +60,7 @@
       drugConceptIds = data.map(row => row.drug_concept_id || 0);
       uniqDrugIds = Array.from(new Set(drugConceptIds));  
       drugNames = data.map(row => row.drug_name || '');
-      ICI_lasting = data.map(row => row.ICI_lasting || 0);
+      ICI_lasting = data.map(row => row.ICI_lasting || null);  // null로 유지하여 빈 값과 실제 날짜 구분
       measurementDates = data.map(row => row.measurement_date || 0);
       grades = data.map(row => row.grade || "-1");
 
@@ -140,15 +140,15 @@
     const writeDrugNames = () => {
       toxic.forEach((drug, i) => {
         const y = toxicStart + i * (boxHeight + spacingY) + 10;
-        writeText(drug, marginRight - 5, y, 12, 'right');
+        writeText(drug, marginLeft - 5, y, 12, 'right');
       });
       safeDrugs.forEach((drug, i) => {
         const y = safeStart + i * (boxHeight + spacingY) + 10;
-        writeText(drug, marginRight - 5, y, 12, 'right');
+        writeText(drug, marginLeft - 5, y, 12, 'right');
       });
       ICI_LIST.forEach((drug, i) => {
         const y = ICI_start + i * (boxHeight + spacingY) + 10;
-        writeText(drug, marginRight - 5, y, 12, 'right');
+        writeText(drug, marginLeft - 5, y, 12, 'right');
       });
     };
 
@@ -160,7 +160,7 @@
 
       for (let col = 1; col <= totalDays; col++) {
         if (col % 10 === 0) {
-          const x = marginRight + col * cellWidth;
+          const x = marginLeft + col * cellWidth;
           drawLine(x, toxicStart, x, safeEnd + 10, 1);
           ctx.fillText(col, x + 5, safeEnd + 25);
         }
@@ -172,7 +172,7 @@
       const drawRows = (startY, rowCount, width, height) => {
         for (let row = 0; row < rowCount; row++) {
           for (let col = 0; col < totalDays; col++) {
-            const x = marginRight + col * cellWidth;
+            const x = marginLeft + col * cellWidth;
             const y = startY + row * (height + spacingY);
             ctx.fillRect(x, y, width, height);
           }
@@ -191,7 +191,7 @@
         const dayIndex = days[i] - 1; // 0 기반 인덱스
         if (gradeColors.hasOwnProperty(gradeVal)) {
           ctx.fillStyle = gradeColors[gradeVal];
-          const x = marginRight + dayIndex * cellWidth;
+          const x = marginLeft + dayIndex * cellWidth;
           ctx.fillRect(x, gradeStart, boxWidth, gradeHeight);
         }
       });
@@ -203,7 +203,7 @@
         const dayIndex = days[i] - 1;
         if (toxicIds.includes(drugId) && toxicIndex !== undefined) {
           toxicNum[dayIndex]++;
-          const x = marginRight + dayIndex * cellWidth;
+          const x = marginLeft + dayIndex * cellWidth;
           const y = toxicStart + toxicIndex * (boxHeight + spacingY);
           ctx.fillStyle = "#1E88E5";
           ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -217,7 +217,7 @@
         const dayIndex = days[i] - 1;
         if (safeDrugs.includes(drug)) {
           safeNum[dayIndex]++;
-          const x = marginRight + dayIndex * cellWidth;
+          const x = marginLeft + dayIndex * cellWidth;
           const y = safeStart + safeDrugs.indexOf(drug) * (boxHeight + spacingY);
           ctx.fillStyle = "#4CAF50";
           ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -229,15 +229,18 @@
       ICI_lasting.forEach((duration, i) => {
         const exposureDate = newDrugExposureDates[i];
         const ICI_drug = drugNames[i];
+        console.log(`Index ${i}: duration=${duration}, drug=${ICI_drug}, exposureDate=${exposureDate}`);
         if (duration != 0) {
           const durationDate = new Date(duration);
           const exposure = new Date(exposureDate);
           const index = ICI_LIST.findIndex(drug => drug.toLowerCase() === ICI_drug.toLowerCase());
+          console.log(`Found ICI drug: ${ICI_drug}, index: ${index}, durationDate: ${durationDate}, exposure: ${exposure}`);
           if (index >= 0) {
             const drugDuration = Math.ceil((durationDate - exposure) / (1000 * 60 * 60 * 24)) + 1;
             const dayIndex = days[i] - 1;
-            const x = marginRight + dayIndex * cellWidth;
+            const x = marginLeft + dayIndex * cellWidth;
             const y = ICI_start + index * (boxHeight + spacingY);
+            console.log(`Drawing ICI: drugDuration=${drugDuration}, dayIndex=${dayIndex}, x=${x}, y=${y}`);
             ctx.fillStyle = "#FFC107";
             ctx.fillRect(x, y, boxWidth, boxHeight);
             const shortHeight = boxHeight / 2;
@@ -252,7 +255,7 @@
       for (let i = 0; i < totalDays; i++) {
         const total = toxicNum[i] + safeNum[i];
         const ratioSafe = total === 0 ? 0 : safeNum[i] / total;
-        const x = marginRight + i * cellWidth;
+        const x = marginLeft + i * cellWidth;
         const safeY = ratioStart + 50 - ratioSafe * 50;
         ctx.fillStyle = "#4CAF50";
         ctx.fillRect(x, safeY, boxWidth, ratioSafe * 50);
@@ -264,16 +267,16 @@
     };
 
     
-    writeText('Patient number: ' + selectedPatient, marginRight, 60, 12);
-    writeText('Type of cancer diagnosis: liver cancer', marginRight, 75, 12);
+    writeText('Patient number: ' + selectedPatient, marginLeft, 60, 12);
+    writeText('Type of cancer diagnosis: liver cancer', marginLeft, 75, 12);
   
-    drawLine(marginRight - 10, ratioStart, marginRight - 10, ratioStart + 50, 2.3);
-    drawLine(marginRight - 10, ratioStart + 1, marginRight - 22, ratioStart + 1, 2.3);
-    drawLine(marginRight - 10, ratioStart + 24, marginRight - 22, ratioStart + 24, 2.3);
-    drawLine(marginRight - 10, ratioStart + 49, marginRight - 22, ratioStart + 49, 2.3);
-    writeText('0', marginRight - 30, ratioStart + 4, 12, 'right');
-    writeText('0.5', marginRight - 30, ratioStart + 27, 12, 'right');
-    writeText('1', marginRight - 30, ratioStart + 52, 12, 'right');
+    drawLine(marginLeft - 10, ratioStart, marginLeft - 10, ratioStart + 50, 2.3);
+    drawLine(marginLeft - 10, ratioStart + 1, marginLeft - 22, ratioStart + 1, 2.3);
+    drawLine(marginLeft - 10, ratioStart + 24, marginLeft - 22, ratioStart + 24, 2.3);
+    drawLine(marginLeft - 10, ratioStart + 49, marginLeft - 22, ratioStart + 49, 2.3);
+    writeText('0', marginLeft - 30, ratioStart + 4, 12, 'right');
+    writeText('0.5', marginLeft - 30, ratioStart + 27, 12, 'right');
+    writeText('1', marginLeft - 30, ratioStart + 52, 12, 'right');
   
     // --- 순서대로 캔버스 그리기 ---
     drawGrid();
@@ -291,8 +294,12 @@
   // 캔버스 크기 조절 함수
   function adjustCanvasDimensions() {
     const cellWidth = boxWidth + spacingX;
-    const newWidth = 33 + totalDays * cellWidth + 120;
-    const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
+    const calculatedWidth = marginLeft + marginRight + totalDays * cellWidth;
+    const minWidth = 400; // 최소 너비 800px 보장 (캔버스 크기만)
+    const newWidth = Math.max(calculatedWidth, minWidth);
+    
+    const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 100;
+    
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
     canvas.height = newHeight;

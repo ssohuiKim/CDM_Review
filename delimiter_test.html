@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TXT 파일 구분자 감지 테스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover, .upload-area.dragover {
+            border-color: #4299e1;
+            background: #ebf8ff;
+        }
+        .file-info {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .test-files {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        #result {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+        code {
+            background: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>TXT 파일 구분자 자동 감지 테스트</h1>
+    
+    <div class="test-files">
+        <h3>테스트 파일들</h3>
+        <p>다음과 같은 테스트 파일들이 생성되었습니다:</p>
+        <ul>
+            <li><strong>test_comma.txt</strong> - 콤마 구분 파일</li>
+            <li><strong>test_tab.txt</strong> - 탭 구분 파일</li>
+            <li><strong>test_space.txt</strong> - 공백 구분 파일</li>
+            <li><strong>test_multiple_spaces.txt</strong> - 여러 공백 구분 파일</li>
+        </ul>
+    </div>
+
+    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+        📁 파일을 선택하거나 드래그하여 놓으세요
+        <br><small>지원되는 형식: TXT (탭, 공백, 콤마 구분 자동 감지)</small>
+    </div>
+    
+    <input type="file" id="fileInput" style="display: none;" accept=".txt" onchange="handleFile(this.files[0])">
+    
+    <div id="result"></div>
+
+    <div class="file-info">
+        <h3>구분자 감지 로직</h3>
+        <p>업로드한 TXT 파일을 분석하여 다음과 같이 구분자를 자동 감지합니다:</p>
+        <ul>
+            <li><strong>콤마 (,)</strong>: CSV 형식의 파일</li>
+            <li><strong>탭 (\t)</strong>: TSV 형식의 파일</li>
+            <li><strong>공백 ( )</strong>: 공백으로 구분된 파일</li>
+        </ul>
+        <p>여러 줄을 분석하여 일관성 있게 사용된 구분자를 선택합니다.</p>
+        
+        <h4>예시 형식:</h4>
+        <div>
+            <p><strong>콤마 구분:</strong><br>
+            <code>patient_id,drug_name,dosage<br>1,Aspirin,100mg</code></p>
+            
+            <p><strong>탭 구분:</strong><br>
+            <code>patient_id&nbsp;&nbsp;&nbsp;&nbsp;drug_name&nbsp;&nbsp;&nbsp;&nbsp;dosage<br>1&nbsp;&nbsp;&nbsp;&nbsp;Aspirin&nbsp;&nbsp;&nbsp;&nbsp;100mg</code></p>
+            
+            <p><strong>공백 구분:</strong><br>
+            <code>patient_id drug_name dosage<br>1 Aspirin 100mg</code></p>
+        </div>
+    </div>
+
+    <script>
+        // 드래그 앤 드롭 이벤트 처리
+        const uploadArea = document.querySelector('.upload-area');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight(e) {
+            uploadArea.classList.add('dragover');
+        }
+        
+        function unhighlight(e) {
+            uploadArea.classList.remove('dragover');
+        }
+        
+        uploadArea.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file) return;
+            
+            if (!file.name.toLowerCase().endsWith('.txt')) {
+                alert('TXT 파일만 업로드 가능합니다.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const txtData = event.target.result;
+                analyzeDelimiter(txtData, file.name);
+            };
+            reader.readAsText(file);
+        }
+
+        function analyzeDelimiter(txtData, fileName) {
+            const lines = txtData.split('\n').filter(line => line.trim().length > 0).slice(0, 10);
+            
+            if (lines.length < 2) {
+                showResult('파일에 충분한 데이터가 없습니다.', fileName);
+                return;
+            }
+            
+            let bestDelimiter = '\t';
+            let bestScore = 0;
+            let bestDelimiterName = '탭';
+            
+            // 각 구분자의 일관성을 확인
+            const delimiters = [
+                { char: ',', name: '콤마' },
+                { char: '\t', name: '탭' },
+                { char: ' ', name: '공백' }
+            ];
+            
+            let analysisResult = '<h4>구분자 분석 결과:</h4><ul>';
+            
+            for (const delim of delimiters) {
+                const counts = [];
+                let validLines = 0;
+                
+                // 여러 줄에서 일관성 확인
+                for (let i = 1; i < Math.min(lines.length, 5); i++) {
+                    const line = lines[i].trim();
+                    if (line.length === 0) continue;
+                    
+                    let count;
+                    if (delim.char === ' ') {
+                        // 공백의 경우 연속된 공백을 하나로 처리
+                        count = line.split(/\s+/).length - 1;
+                    } else {
+                        count = (line.match(new RegExp(delim.char === '\t' ? '\t' : '\\' + delim.char, 'g')) || []).length;
+                    }
+                    
+                    if (count > 0) {
+                        counts.push(count);
+                        validLines++;
+                    }
+                }
+                
+                // 일관성 점수 계산
+                if (counts.length > 0) {
+                    const avgCount = counts.reduce((sum, c) => sum + c, 0) / counts.length;
+                    const consistency = counts.length > 1 ? 
+                        1 - (Math.max(...counts) - Math.min(...counts)) / (Math.max(...counts) || 1) : 1;
+                    const score = avgCount * consistency * validLines;
+                    
+                    analysisResult += `<li><strong>${delim.name}</strong>: 평균 ${avgCount.toFixed(1)}개, 일관성 ${(consistency * 100).toFixed(1)}%, 점수 ${score.toFixed(2)}</li>`;
+                    
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestDelimiter = delim.char;
+                        bestDelimiterName = delim.name;
+                    }
+                }
+            }
+            
+            analysisResult += '</ul>';
+            analysisResult += `<h4>최종 선택된 구분자: <strong>${bestDelimiterName}</strong></h4>`;
+            
+            // 파일 미리보기
+            analysisResult += '<h4>파일 미리보기 (첫 5줄):</h4><pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto;">';
+            for (let i = 0; i < Math.min(lines.length, 5); i++) {
+                const line = lines[i];
+                if (bestDelimiter === '\t') {
+                    analysisResult += line.replace(/\t/g, ' → ') + '\n';
+                } else if (bestDelimiter === ' ') {
+                    analysisResult += line.replace(/\s+/g, ' | ') + '\n';
+                } else {
+                    analysisResult += line.replace(/,/g, ' , ') + '\n';
+                }
+            }
+            analysisResult += '</pre>';
+            
+            showResult(analysisResult, fileName);
+        }
+
+        function showResult(content, fileName) {
+            const result = document.getElementById('result');
+            result.innerHTML = `
+                <h3>📄 ${fileName} 분석 완료</h3>
+                ${content}
+            `;
+            result.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

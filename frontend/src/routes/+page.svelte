@@ -89,7 +89,15 @@
             await db.registerFileText('data.csv', csvData);
             const connection = await db.connect();
             await connection.query(`
-              CREATE TABLE patients AS SELECT * FROM read_csv_auto('data.csv', delim=',');
+              CREATE TABLE patients AS SELECT * FROM read_csv_auto('data.csv', 
+                delim=',',
+                header=true,
+                ignore_errors=true,
+                normalize_names=true,
+                quote='"',
+                escape='"',
+                sample_size=20000
+              );
             `);
             await processData(connection);
           };
@@ -185,7 +193,10 @@
                     sep='\t',
                     header=true,
                     ignore_errors=true,
-                    normalize_names=true
+                    normalize_names=true,
+                    quote='"',
+                    escape='"',
+                    sample_size=20000
                   );
                 `);
               } else if (delimiter === '\t') {
@@ -195,7 +206,10 @@
                     sep='\t',
                     header=true,
                     ignore_errors=true,
-                    normalize_names=true
+                    normalize_names=true,
+                    quote='"',
+                    escape='"',
+                    sample_size=20000
                   );
                 `);
               } else if (delimiter === ',') {
@@ -206,7 +220,9 @@
                     header=true,
                     ignore_errors=true,
                     normalize_names=true,
-                    quote='"'
+                    quote='"',
+                    escape='"',
+                    sample_size=20000
                   );
                 `);
               }

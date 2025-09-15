@@ -26,6 +26,12 @@
 	let patientData = {};
 	let surveyRef;
 	
+	// 환자 목록 페이지네이션
+	let currentPage = 0;
+	const patientsPerPage = 10;
+	$: displayedPatients = patients.slice(currentPage * patientsPerPage, (currentPage + 1) * patientsPerPage);
+	$: totalPages = Math.ceil(patients.length / patientsPerPage);
+	
 	// 챗봇 상태 추가
 	let isChatOpen = false;
   
@@ -42,6 +48,25 @@
 			surveyRef.reset(); // 설문 상태 초기화
 		}
 		console.log("Selected Patient:", selectedPatient);
+	}
+
+	// 페이지네이션 함수들
+	function nextPage() {
+		if (currentPage < totalPages - 1) {
+			currentPage++;
+		}
+	}
+
+	function prevPage() {
+		if (currentPage > 0) {
+			currentPage--;
+		}
+	}
+
+	function goToPage(page) {
+		if (page >= 0 && page < totalPages) {
+			currentPage = page;
+		}
 	}
 
 	async function createHiddenContainer() {
@@ -392,23 +417,106 @@
 	}
 	.sidebar {
 		border-right: 1px solid #dcdcdc;
-		width: 150px;
+		width: 200px;  /* 150px에서 200px로 증가 */
 		overflow: auto;
 		padding-right: 12px;
 		flex-shrink: 0;
+		display: flex;
+		flex-direction: column;
 	}
-	.sidebar button {
+	
+	.patient-header {
+		padding-bottom: 12px;
+		border-bottom: 1px solid #e0e0e0;
+		margin-bottom: 12px;
+	}
+	
+	.patient-header h3 {
+		margin: 0 0 4px 0;
+		font-size: 14px;
+		font-weight: 600;
+		color: #333;
+	}
+	
+	.patient-count {
+		margin: 0;
+		font-size: 12px;
+		color: #666;
+	}
+	
+	.patient-list {
+		flex: 1;
+		overflow-y: auto;
+	}
+	
+	.patient-button {
 		display: block;
 		width: 100%;
-		margin-bottom: 8px;
-		padding: 8px;
+		margin-bottom: 6px;
+		padding: 10px 12px;
 		background-color: white;
-		border: 0;
+		border: 1px solid #e0e0e0;
+		border-radius: 4px;
 		text-align: left;
 		cursor: pointer;
+		font-size: 13px;
+		transition: all 0.2s ease;
 	}
-	.sidebar button:hover {
-		background-color: #e0e0e0;
+	
+	.patient-button:hover {
+		background-color: #f5f5f5;
+		border-color: #ccc;
+	}
+	
+	.patient-button.selected {
+		background-color: #4299e1;
+		color: white;
+		border-color: #4299e1;
+	}
+	
+	.pagination {
+		padding-top: 12px;
+		border-top: 1px solid #e0e0e0;
+		margin-top: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+	}
+	
+	.page-btn {
+		width: 28px;
+		height: 28px;
+		border: 1px solid #e0e0e0;
+		background: white;
+		border-radius: 4px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		transition: all 0.2s ease;
+	}
+	
+	.page-btn:hover:not(:disabled) {
+		background-color: #f5f5f5;
+		border-color: #ccc;
+	}
+	
+	.page-btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+	
+	.page-info {
+		font-size: 12px;
+		color: #666;
+		min-width: 50px;
+		text-align: center;
+	}
+	
+	.sidebar button {
+		/* 기존 스타일을 patient-button으로 이동했으므로 제거 */
 	}
 	.scroll-container {
 		position: relative;
@@ -547,11 +655,47 @@
 		<div class="card" style="height: 100%;">
 			<!-- 좌측 환자 목록 -->
 			<div class="sidebar">
-				{#each patients as patientNum}
-					<button on:click={() => selectPatient(patientNum)}>
-						Patient {patientNum}
-					</button>
-				{/each}
+				<div class="patient-header">
+					<h3>환자 목록</h3>
+					<p class="patient-count">총 {patients.length}명</p>
+				</div>
+				
+				<div class="patient-list">
+					{#each displayedPatients as patientNum}
+						<button 
+							class="patient-button"
+							class:selected={selectedPatient === patientNum}
+							on:click={() => selectPatient(patientNum)}
+						>
+							Patient {patientNum}
+						</button>
+					{/each}
+				</div>
+				
+				<!-- 페이지네이션 -->
+				{#if totalPages > 1}
+					<div class="pagination">
+						<button 
+							class="page-btn"
+							disabled={currentPage === 0}
+							on:click={prevPage}
+						>
+							‹
+						</button>
+						
+						<span class="page-info">
+							{currentPage + 1} / {totalPages}
+						</span>
+						
+						<button 
+							class="page-btn"
+							disabled={currentPage === totalPages - 1}
+							on:click={nextPage}
+						>
+							›
+						</button>
+					</div>
+				{/if}
 			</div>
 	
 			<!-- 중앙 영역: 스크롤 컨테이너 -->
