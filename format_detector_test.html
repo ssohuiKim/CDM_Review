@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파일 포맷 감지 테스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover, .upload-area.dragover {
+            border-color: #4299e1;
+            background: #ebf8ff;
+        }
+        .result-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .analysis-table th, .analysis-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .analysis-table th {
+            background: #e9ecef;
+        }
+        .preview-box {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 12px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .confidence-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+        .confidence-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        .high-confidence { background: #28a745; }
+        .medium-confidence { background: #ffc107; }
+        .low-confidence { background: #dc3545; }
+        .test-files {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 파일 포맷 자동 감지 테스트</h1>
+    
+    <div class="test-files">
+        <h3>테스트 파일들</h3>
+        <p>다음과 같은 테스트 파일들로 감지 기능을 테스트할 수 있습니다:</p>
+        <ul>
+            <li><strong>test_comma_with_spaces.csv</strong> - 약물명에 공백이 포함된 콤마 구분 파일</li>
+            <li><strong>test_tab_with_spaces.tsv</strong> - 약물명에 공백이 포함된 탭 구분 파일</li>
+            <li><strong>test_space_simple.txt</strong> - 단순 공백 구분 파일</li>
+            <li><strong>기존 테스트 파일들</strong> - test_comma.txt, test_tab.txt, test_space.txt, test_multiple_spaces.txt</li>
+        </ul>
+    </div>
+
+    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+        📁 파일을 선택하거나 드래그하여 놓으세요
+        <br><small>지원되는 형식: TXT, CSV, TSV (구분자 자동 감지)</small>
+    </div>
+    
+    <input type="file" id="fileInput" style="display: none;" accept=".txt,.csv,.tsv" onchange="handleFile(this.files[0])">
+    
+    <div id="result" class="result-container"></div>
+
+    <script type="module">
+        // FileFormatDetector 클래스를 인라인으로 포함
+        class FileFormatDetector {
+            constructor() {
+                this.delimiters = [
+                    { char: '\t', name: '탭(Tab)', weight: 1.2 },
+                    { char: ',', name: '콤마(Comma)', weight: 1.0 },
+                    { char: ' ', name: '공백(Space)', weight: 0.8 }
+                ];
+            }
+
+            detectFormat(content, filename = '') {
+                const lines = this.preprocessLines(content);
+                
+                if (lines.length < 2) {
+                    throw new Error('파일에 충분한 데이터가 없습니다. 최소 2줄 이상이 필요합니다.');
+                }
+
+                const extensionHint = this.getExtensionHint(filename);
+                
+                const scores = this.delimiters.map(delimiter => {
+                    const score = this.calculateDelimiterScore(lines, delimiter);
+                    if (extensionHint && extensionHint.preferred === delimiter.char) {
+                        score.totalScore *= 1.5;
+                    }
+                    return { ...delimiter, ...score };
+                });
+
+                const bestDelimiter = scores.reduce((best, current) => 
+                    current.totalScore > best.totalScore ? current : best
+                );
+
+                if (bestDelimiter.totalScore < 0.5) {
+                    throw new Error('적절한 구분자를 찾을 수 없습니다. 파일 포맷을 확인해주세요.');
+                }
+
+                return {
+                    delimiter: bestDelimiter.char,
+                    delimiterName: bestDelimiter.name,
+                    confidence: Math.min(bestDelimiter.totalScore, 1.0),
+                    analysis: scores,
+                    preview: this.generatePreview(lines, bestDelimiter.char),
+                    duckdbDelimiter: this.getDuckDBDelimiter(bestDelimiter.char)
+                };
+            }
+
+            preprocessLines(content) {
+                return content
+                    .split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line.length > 0)
+                    .slice(0, 10);
+            }
+
+            getExtensionHint(filename) {
+                const ext = filename.toLowerCase().split('.').pop();
+                const hints = {
+                    'csv': { preferred: ',', confidence: 0.8 },
+                    'tsv': { preferred: '\t', confidence: 0.9 },
+                    'txt': null
+                };
+                return hints[ext] || null;
+            }
+
+            calculateDelimiterScore(lines, delimiter) {
+                const { char, weight } = delimiter;
+                const counts = [];
+                let validLines = 0;
+
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    if (line.length === 0) continue;
+
+                    let count = this.countDelimiters(line, char);
+                    
+                    if (count > 0) {
+                        counts.push(count);
+                        validLines++;
+                    }
+                }
+
+                if (counts.length === 0) {
+                    return { totalScore: 0, consistency: 0, avgCount: 0, validLines: 0 };
+                }
+
+                const avgCount = counts.reduce((sum, c) => sum + c, 0) / counts.length;
+                const maxCount = Math.max(...counts);
+                const minCount = Math.min(...counts);
+                
+                const consistency = maxCount > 0 ? 1 - (maxCount - minCount) / maxCount : 0;
+                
+                let penalty = 0;
+                
+                if (char === ' ') {
+                    penalty = this.validateSpaceDelimiter(lines);
+                }
+                
+                if (char === '\t') {
+                    const spaceCount = this.countDelimiters(lines[0], ' ');
+                    if (spaceCount > avgCount) {
+                        penalty = 0.2;
+                    }
+                }
+
+                const baseScore = avgCount * consistency * (validLines / lines.length);
+                const totalScore = Math.max(0, (baseScore * weight) - penalty);
+
+                return {
+                    totalScore,
+                    consistency,
+                    avgCount,
+                    validLines,
+                    penalty
+                };
+            }
+
+            countDelimiters(line, delimiter) {
+                if (delimiter === ' ') {
+                    const parts = line.trim().split(/\s+/);
+                    return parts.length > 1 ? parts.length - 1 : 0;
+                } else if (delimiter === '\t') {
+                    return (line.match(/\t/g) || []).length;
+                } else {
+                    return (line.match(new RegExp('\\' + delimiter, 'g')) || []).length;
+                }
+            }
+
+            validateSpaceDelimiter(lines) {
+                let penalty = 0;
+                
+                for (const line of lines.slice(0, 3)) {
+                    if (/"[^"]*\s+[^"]*"/.test(line) || /'[^']*\s+[^']*'/.test(line)) {
+                        penalty += 0.3;
+                    }
+                }
+                
+                for (const line of lines.slice(0, 3)) {
+                    const multiSpaceMatches = line.match(/\s{2,}/g);
+                    if (multiSpaceMatches && multiSpaceMatches.length > 2) {
+                        penalty += 0.2;
+                    }
+                }
+                
+                return Math.min(penalty, 0.8);
+            }
+
+            generatePreview(lines, delimiter) {
+                const previewLines = lines.slice(0, 5);
+                return previewLines.map(line => {
+                    if (delimiter === '\t') {
+                        return line.replace(/\t/g, ' → ');
+                    } else if (delimiter === ' ') {
+                        return line.replace(/\s+/g, ' | ');
+                    } else {
+                        return line.replace(new RegExp('\\' + delimiter, 'g'), ` ${delimiter} `);
+                    }
+                });
+            }
+
+            getDuckDBDelimiter(delimiter) {
+                const delimiterMap = {
+                    '\t': '\t',
+                    ',': ',',
+                    ' ': ' '
+                };
+                return delimiterMap[delimiter] || delimiter;
+            }
+        }
+
+        // 전역 함수들
+        window.handleFile = function(file) {
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const content = event.target.result;
+                analyzeFile(content, file.name);
+            };
+            reader.readAsText(file);
+        };
+
+        function analyzeFile(content, fileName) {
+            try {
+                const detector = new FileFormatDetector();
+                const result = detector.detectFormat(content, fileName);
+                showResult(result, fileName);
+            } catch (error) {
+                showError(error.message, fileName);
+            }
+        }
+
+        function showResult(result, fileName) {
+            const confidencePercent = Math.round(result.confidence * 100);
+            let confidenceClass = 'low-confidence';
+            if (result.confidence > 0.8) confidenceClass = 'high-confidence';
+            else if (result.confidence > 0.6) confidenceClass = 'medium-confidence';
+
+            const resultHTML = `
+                <h3>📄 ${fileName} 분석 완료</h3>
+                
+                <div style="margin: 20px 0;">
+                    <h4>🎯 감지 결과</h4>
+                    <p><strong>선택된 구분자:</strong> ${result.delimiterName}</p>
+                    <p><strong>신뢰도:</strong> ${confidencePercent}%</p>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill ${confidenceClass}" style="width: ${confidencePercent}%"></div>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <h4>📊 상세 분석</h4>
+                    <table class="analysis-table">
+                        <thead>
+                            <tr>
+                                <th>구분자</th>
+                                <th>점수</th>
+                                <th>일관성</th>
+                                <th>평균 개수</th>
+                                <th>유효 라인</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${result.analysis.map(item => `
+                                <tr style="${item.char === result.delimiter ? 'background: #d4edda; font-weight: bold;' : ''}">
+                                    <td>${item.name}</td>
+                                    <td>${item.totalScore.toFixed(3)}</td>
+                                    <td>${(item.consistency * 100).toFixed(1)}%</td>
+                                    <td>${item.avgCount.toFixed(1)}</td>
+                                    <td>${item.validLines}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <h4>👁️ 파일 미리보기 (구분자 표시)</h4>
+                    <div class="preview-box">${result.preview.join('\n')}</div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <h4>⚙️ DuckDB 쿼리</h4>
+                    <div class="preview-box">CREATE TABLE patients AS SELECT * FROM read_csv_auto('data.txt', delim='${result.duckdbDelimiter === '\t' ? '\\t' : result.duckdbDelimiter}');</div>
+                </div>
+            `;
+
+            const resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = resultHTML;
+            resultContainer.style.display = 'block';
+        }
+
+        function showError(message, fileName) {
+            const resultHTML = `
+                <h3>❌ ${fileName} 분석 실패</h3>
+                <p style="color: #dc3545;">${message}</p>
+            `;
+
+            const resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = resultHTML;
+            resultContainer.style.display = 'block';
+        }
+
+        // 드래그 앤 드롭 이벤트 처리
+        const uploadArea = document.querySelector('.upload-area');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, () => uploadArea.classList.add('dragover'), false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('dragover'), false);
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+    </script>
+</body>
+</html>

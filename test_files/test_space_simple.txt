@@ -1,0 +1,5 @@
+patient_id drug_name dosage date_prescribed drug_concept_id
+001 Aspirin 100mg 2023-01-01 12345
+002 Ibuprofen 200mg 2023-01-02 67890
+003 Paracetamol 500mg 2023-01-03 11111
+004 Naproxen 250mg 2023-01-04 22222
