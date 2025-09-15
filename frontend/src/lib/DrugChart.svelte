@@ -14,7 +14,8 @@
       drugNames = [],
       ICI_lasting = [],
       measurementDates = [],
-      grades = [];
+      grades = [],
+      diagnosisGroup = '';
   
   let toxic = [],
       toxicIds = [],
@@ -63,6 +64,9 @@
       ICI_lasting = data.map(row => row.ICI_lasting || 0);
       measurementDates = data.map(row => row.measurement_date || 0);
       grades = data.map(row => row.grade || "-1");
+      
+      // diagnosis_group 값 설정 (첫 번째 row에서 가져오기)
+      diagnosisGroup = data[0]?.diagnosis_group || 'Unknown diagnosis';
 
       const ICI_values = data.map(row => row.ICI_lasting).filter(value => value != null);
       ICI_lasting_end = ICI_values.length ? ICI_values[ICI_values.length - 1] : null;
@@ -265,7 +269,7 @@
 
     
     writeText('Patient number: ' + selectedPatient, marginRight, 60, 12);
-    writeText('Type of cancer diagnosis: diagnosis', marginRight, 75, 12);
+    writeText('Type of cancer diagnosis: ' + diagnosisGroup, marginRight, 75, 12);
   
     drawLine(marginRight - 10, ratioStart, marginRight - 10, ratioStart + 50, 2.3);
     drawLine(marginRight - 10, ratioStart + 1, marginRight - 22, ratioStart + 1, 2.3);
