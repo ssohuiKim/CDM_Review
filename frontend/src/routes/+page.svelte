@@ -17,10 +17,10 @@
 
   $: if (files_1 && files_1[0]) {
     const fileExtension = files_1[0].name.split('.').pop().toLowerCase();
-    const allowedExtensions = ['csv', 'xlsx', 'sav', 'txt'];
+    const allowedExtensions = ['csv', 'xlsx', 'sav', 'txt', 'tsv'];
     
     if (!allowedExtensions.includes(fileExtension)) {
-      hint_1 = "지원되는 파일 형식: CSV, XLSX, SAV, TXT (구분자 자동 감지)";
+      hint_1 = "지원되는 파일 형식: CSV, XLSX, SAV, TXT, TSV (구분자 자동 감지)";
       state_1 = "invalid";
     } else {
       hint_1 = "";
@@ -103,31 +103,36 @@
           };
           reader.readAsText(file);
           
-        } else if (fileExtension === 'txt') {
-          // TXT 파일 처리 (자동 구분자 감지)
+        } else if (fileExtension === 'txt' || fileExtension === 'tsv') {
+          // TXT/TSV 파일 처리 (자동 구분자 감지)
           const reader = new FileReader();
           reader.onload = async (event) => {
             const txtData = event.target.result;
             
             // 첫 몇 줄을 분석하여 구분자 감지 - 개선된 로직
             const lines = txtData.split('\n').filter(line => line.trim().length > 0).slice(0, 10);
-            let delimiter = '\t'; // 기본값: 탭
-            
-            // 구분자 자동 감지 - 개선된 로직
+            let delimiter = '\t'; // 기본값: 탭 (TSV 파일의 경우 특히 중요)
             let detectedDelimiterName = '탭';
-            if (lines.length > 1) {
-              let bestDelimiter = '\t';
-              let bestScore = 0;
-              let bestDelimiterName = '탭';
-              
-              // 각 구분자의 일관성을 확인
-              const delimiters = [
-                { char: ',', name: '콤마' },
-                { char: '\t', name: '탭' },
-                { char: ' ', name: '공백' }
-              ];
-              
-              for (const delim of delimiters) {
+            
+            // TSV 파일의 경우 탭 구분자를 우선 적용
+            if (fileExtension === 'tsv') {
+              delimiter = '\t';
+              detectedDelimiterName = '탭 (TSV)';
+            } else {
+              // TXT 파일의 경우 구분자 자동 감지 - 개선된 로직
+              if (lines.length > 1) {
+                let bestDelimiter = '\t';
+                let bestScore = 0;
+                let bestDelimiterName = '탭';
+                
+                // 각 구분자의 일관성을 확인
+                const delimiters = [
+                  { char: ',', name: '콤마' },
+                  { char: '\t', name: '탭' },
+                  { char: ' ', name: '공백' }
+                ];
+                
+                for (const delim of delimiters) {
                 const counts = [];
                 let validLines = 0;
                 
@@ -173,6 +178,7 @@
               
               delimiter = bestDelimiter;
               detectedDelimiterName = bestDelimiterName;
+              }
             }
             
             await db.registerFileText('data.txt', txtData);
@@ -369,7 +375,7 @@
             <button class="select-button" type="button">Choose file</button>
           {/if}
           
-          <input type="file" bind:this={fileInput} on:change={handleFileSelect} accept=".csv,.xlsx,.sav,.txt" style="display: none;" />
+          <input type="file" bind:this={fileInput} on:change={handleFileSelect} accept=".csv,.xlsx,.sav,.txt,.tsv" style="display: none;" />
         </div>
         
         {#if hint_1}
@@ -387,6 +393,7 @@
             <li>• <strong>XLSX</strong>: Excel 2007 이상 스프레드시트 (.xlsx)</li>
             <li>• <strong>SAV</strong>: SPSS 통계 파일 (.sav)</li>
             <li>• <strong>TXT</strong>: 구분자로 분리된 텍스트 파일 (.txt) - 탭, 공백, 콤마 구분 자동 감지</li>
+            <li>• <strong>TSV</strong>: 탭으로 구분된 값 파일 (.tsv) - 탭 구분자 우선 처리</li>
           </ul>
           <div class="file-requirements">
             <h4>데이터 요구사항:</h4>
@@ -394,12 +401,12 @@
               <li>• 환자ID, 약물명, 용량, 복용기간 등 포함</li>
               <li>• 첫 번째 행은 컬럼 헤더로 구성</li>
               <li>• UTF-8 인코딩 권장</li>
-              <li>• TXT 파일: 탭, 공백, 콤마 구분자 모두 지원 (자동 감지)</li>
+              <li>• TXT/TSV 파일: 탭, 공백, 콤마 구분자 모두 지원 (자동 감지)</li>
             </ul>
             <div class="supported-formats">
-              <h5>지원되는 TXT 파일 형식 예시:</h5>
+              <h5>지원되는 TXT/TSV 파일 형식 예시:</h5>
               <div class="format-examples">
-                <code>patient_no	drug_name	dosage</code> (탭 구분)<br>
+                <code>patient_no	drug_name	dosage</code> (탭 구분 - TSV 포함)<br>
                 <code>patient_no drug_name dosage</code> (공백 구분)<br>
                 <code>patient_no,drug_name,dosage</code> (콤마 구분)
               </div>
