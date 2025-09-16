@@ -370,6 +370,13 @@
 		if (fixedCol) {
 			// 스크롤에 따라 좌측 축 X 이동 (예: scrollLeft 만큼 translateX)
 			fixedCol.style.transform = `translateX(${scrollContainer.scrollLeft}px)`;
+			
+			// 차트의 실제 높이에 맞춰 fixed-col 높이 조정
+			const canvasContainer = scrollContainer.querySelector('.canvas-container');
+			if (canvasContainer) {
+				const actualHeight = Math.max(canvasContainer.scrollHeight, scrollContainer.scrollHeight);
+				fixedCol.style.height = `${actualHeight}px`;
+			}
 		}
 	}
 </script>
@@ -437,10 +444,11 @@
 		top: 0;
 		left: 1px;
 		width: 120px; 
-		height: 100%;
+		height: auto; /* 컨테이너 높이에 맞춤 */
+		min-height: 100vh; /* 최소 높이 보장 */
 		pointer-events: none;
 		z-index: 2;
-		background-color: rgb(255, 255, 255, 0.5);
+		background-color: rgb(255, 255, 255, 0.9);
 	}
 	.fixed-row {
 		position: absolute;
