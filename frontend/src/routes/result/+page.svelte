@@ -347,6 +347,7 @@
 
 	let isRowScrolled = false;
 	let isColScrolled = false;
+	let dynamicMarginRight = 120; // DrugChart에서 받아올 값
   
 	function handleScroll(event) {
 		const scrollContainer = event.target;
@@ -443,12 +444,13 @@
 		position: absolute;
 		top: 0;
 		left: 1px;
-		width: 120px; 
+		/* width는 인라인 스타일로 동적 설정됨 */
+		min-width: 120px; /* 최소 너비 보장 */
 		height: auto; /* 컨테이너 높이에 맞춤 */
 		min-height: 100vh; /* 최소 높이 보장 */
 		pointer-events: none;
 		z-index: 2;
-		background-color: rgb(255, 255, 255, 0.9);
+		background-color: rgba(255, 255, 255, 0.8);
 	}
 	.fixed-row {
 		position: absolute;
@@ -570,7 +572,7 @@
 					{#if selectedPatient !== null}
 						<!-- DrugChart와 HoverBox를 각각 overlap 클래스를 가진 컨테이너로 감싸서 겹치게 함 -->
 						<div class="overlap">
-							<DrugChart {selectedPatient} {patientData} />
+							<DrugChart bind:dynamicMarginRight {selectedPatient} {patientData} />
 						</div>
 						<div class="overlap">
 							<HoverBox {selectedPatient} {patientData} />
@@ -581,7 +583,7 @@
 				</div>
 				<!-- 좌측 고정 축 (col) -->
 				{#if isColScrolled}
-					<div class="fixed-col">
+					<div class="fixed-col" style="width: {dynamicMarginRight}px;">
 						<AxisChart type="col" {selectedPatient} {patientData} />
 					</div>
 				{/if}

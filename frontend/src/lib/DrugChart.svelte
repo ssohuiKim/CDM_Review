@@ -4,6 +4,9 @@
   // 외부에서 전달받는 값
   export let selectedPatient;
   export let patientData;
+  
+  // 외부로 내보낼 값
+  export let dynamicMarginRight = 120; // 계산된 동적 margin 값을 외부로 노출
 
   // 데이터 관련 변수
   let isDataInitialized = false;
@@ -37,7 +40,6 @@
 
   // 캔버스 그리기 상수 (주로 픽셀 단위)
   const marginLeft = 28;
-  let dynamicMarginRight = 120; // 동적으로 계산될 값
   const spacingX = 2;
   const spacingY = 1;
   const boxWidth = 5;
