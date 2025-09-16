@@ -353,9 +353,12 @@
 		const fixedRow = scrollContainer.querySelector('.fixed-row');
 		const fixedCol = scrollContainer.querySelector('.fixed-col');
 
-		const maxScrollTop = scrollContainer.scrollHeight - scrollContainer.clientHeight; // 최대 스크롤 값
+		const EPS = 3; // 오차 범위 허용 (픽셀)
 		const scrolledX = scrollContainer.scrollLeft > 0;
-  		const scrolledY = scrollContainer.scrollTop < maxScrollTop;
+		
+		// 바닥 판정 개선: scrollTop + clientHeight >= scrollHeight - EPS
+		const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - EPS;
+		const scrolledY = !isAtBottom; // 바닥에 도달하지 않았을 때만 true
 
 		isRowScrolled = scrolledY;
 		isColScrolled = scrolledX;
