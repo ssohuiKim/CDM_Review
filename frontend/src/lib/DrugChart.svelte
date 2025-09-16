@@ -166,6 +166,12 @@
       ctx.fillText(text, x, y);
     };
 
+    // 날짜 포맷 함수
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      return date.toISOString().split('T')[0]; // YYYY-MM-DD 형식
+    };
+
     const writeDrugNames = () => {
       toxic.forEach((drug, i) => {
         const y = toxicStart + i * (boxHeight + spacingY) + 10;
@@ -293,9 +299,12 @@
     };
 
     
-    writeText('Patient number: ' + selectedPatient, dynamicMarginRight, 60, 12);
-    writeText('Type of cancer diagnosis: ' + diagnosisGroup, dynamicMarginRight, 75, 12);
-  
+    writeText('Patient number: ' + selectedPatient, dynamicMarginRight, 40, 12);
+    writeText('Type of cancer diagnosis: ' + diagnosisGroup, dynamicMarginRight, 55, 12);
+    if (firstDate && lastDate) {
+      writeText(`Period: ${formatDate(firstDate)} ~ ${formatDate(lastDate)}`, dynamicMarginRight, 70, 12);
+    }
+
     drawLine(dynamicMarginRight - 10, ratioStart, dynamicMarginRight - 10, ratioStart + 50, 2.3);
     drawLine(dynamicMarginRight - 10, ratioStart + 1, dynamicMarginRight - 22, ratioStart + 1, 2.3);
     drawLine(dynamicMarginRight - 10, ratioStart + 24, dynamicMarginRight - 22, ratioStart + 24, 2.3);
