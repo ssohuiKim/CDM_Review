@@ -144,9 +144,87 @@
       const toxic_start = ratio_start + 62;
       const safe_start = toxic.length * (boxHeight + spacingY) + toxic_start + 20;
 
+      // 일일 및 누적 비율 계산 함수들
+      function calculateDailyRatio(dayIndex) {
+        let toxicCount = 0;
+        let totalCount = 0;
+        
+        for (let i = 0; i < drug_concept_id.length; i++) {
+          if (days[i] === dayIndex) {
+            totalCount++;
+            if (toxic_id.includes(drug_concept_id[i])) {
+              toxicCount++;
+            }
+          }
+        }
+        
+        return { toxicCount, totalCount };
+      }
+
+      function calculateCumulative7DayRatio(dayIndex) {
+        let toxicCount = 0;
+        let totalCount = 0;
+        
+        // 현재 날짜를 포함한 최근 7일간의 데이터 계산
+        const startDay = Math.max(1, dayIndex - 6);
+        const endDay = dayIndex;
+        
+        for (let i = 0; i < drug_concept_id.length; i++) {
+          if (days[i] >= startDay && days[i] <= endDay) {
+            totalCount++;
+            if (toxic_id.includes(drug_concept_id[i])) {
+              toxicCount++;
+            }
+          }
+        }
+        
+        return { toxicCount, totalCount };
+      }
+
+      // 비율 차트 그리기 함수 (전역으로 이동)
+      function drawRatioChart() {
+        const toxicNum = Array(day).fill(0);
+        const safeNum = Array(day).fill(0);
+        
+        // 각 날짜별 독성/안전 약물 개수 계산
+        for (let i = 0; i < drug_concept_id.length; i++) {
+          const dayIndex = days[i] - 1; // 0 기반 인덱스
+          if (dayIndex >= 0 && dayIndex < day) {
+            if (toxic_id.includes(drug_concept_id[i])) {
+              toxicNum[dayIndex]++;
+            } else {
+              safeNum[dayIndex]++;
+            }
+          }
+        }
+        
+        // 비율 차트 그리기
+        for (let i = 0; i < day; i++) {
+          const total = toxicNum[i] + safeNum[i];
+          const x = dynamicMargin2 + i * (boxWidth + spacingX);
+          
+          if (total > 0) {
+            const ratioSafe = safeNum[i] / total;
+            const ratioToxic = toxicNum[i] / total;
+            
+            // 안전 약물 비율 (초록색, 위쪽)
+            const safeY = ratio_start + 50 - ratioSafe * 50;
+            ctx.fillStyle = "#4CAF50";
+            ctx.fillRect(x, safeY, boxWidth, ratioSafe * 50);
+            
+            // 독성 약물 비율 (파란색, 아래쪽)
+            ctx.fillStyle = "#1E88E5";
+            ctx.fillRect(x, ratio_start, boxWidth, ratioToxic * 50);
+          }
+        }
+      }
+
       function colorBoxes() {
         const toxicBoxes = [];
         const safeBoxesMap = new Map();
+
+        // 비율 차트 먼저 그리기
+        drawRatioChart();
 
         // 독성 박스
         for (let i = 0; i < drug_concept_id.length; i++) {
@@ -194,6 +272,30 @@
           // 툴팁 초기화
           tooltipVisible = false;
           tooltipContent = '';
+
+          // 비율 차트 영역 확인 (ratio_start부터 ratio_start + 50까지)
+          if (mouseY >= ratio_start && mouseY <= ratio_start + 50) {
+            const dayIndex = Math.floor((mouseX - dynamicMargin2) / (boxWidth + spacingX)) + 1;
+            if (dayIndex >= 1 && dayIndex <= day) {
+              const dailyRatio = calculateDailyRatio(dayIndex);
+              const cumulativeRatio = calculateCumulative7DayRatio(dayIndex);
+              
+              tooltipContent = `Daily: ${dailyRatio.toxicCount}/${dailyRatio.totalCount}, Cu_Daily: ${cumulativeRatio.toxicCount}/${cumulativeRatio.totalCount}`;
+              tooltipVisible = true;
+              virtualRef = {
+                getBoundingClientRect: () => ({
+                  width: 0,
+                  height: 0,
+                  top: e.clientY,
+                  right: e.clientX,
+                  bottom: e.clientY,
+                  left: e.clientX,
+                }),
+              };
+              popperRef(virtualRef);
+              return; // 비율 차트에서 호버되면 다른 체크는 하지 않음
+            }
+          }
 
           // 독성 박스 확인
           for (const box of toxicBoxes) {
@@ -251,6 +353,11 @@
 
           // 캔버스 다시 그리기 (툴팁을 제외한 부분)
           ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          // 비율 차트 다시 그리기
+          drawRatioChart();
+          
+          // 박스들 다시 그리기
           for (const box of toxicBoxes) {
             ctx.fillStyle = "#1E88E5";
             ctx.fillRect(box.x, box.y, box.width, box.height);
