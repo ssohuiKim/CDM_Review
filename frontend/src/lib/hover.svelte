@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { createPopperActions } from 'svelte-popperjs';
 
+
   export let selectedPatient;
   export let patientData;
   export let minWidth = 550; // DrugChart에서 계산된 최소 너비 값
@@ -144,106 +145,143 @@
       const ratio_start = ICI_start + ICI.length * (boxHeight + spacingY) + 12;
       const toxic_start = ratio_start + 62;
       const safe_start = toxic.length * (boxHeight + spacingY) + toxic_start + 20;
-      
 
-      // 일일 및 누적 비율 계산 함수들
-      // 하루 고유 약물 비율
       function calculateDailyRatio(dayIndex) {
         const normalize = s => String(s ?? '').toLowerCase().trim();
-        const toxIdSet   = new Set((toxic_id || []).map(String));
-        const toxNameSet = new Set((toxic   || []).map(n => normalize(n)));
+        const toxIdSet    = new Set((toxic_id || []).map(String));
+        const toxNameSet  = new Set((toxic    || []).map(n => normalize(n)));
+        const safeIdSet   = new Set((safe_id  || []).map(String));
+        const safeNameSet = new Set((safe     || []).map(n => normalize(n)));
+        const HAS_SAFE    = (safeIdSet.size > 0 || safeNameSet.size > 0);
 
-        const seenAll = new Set();
-        const seenTox = new Set();
+        const seenTox  = new Set();
+        const seenSafe = new Set();
 
         for (let i = 0; i < drug_concept_id.length; i++) {
           if (days[i] !== dayIndex) continue;
 
           const name = normalize(drug_name[i]);
-          if (!name || name === 'unknown') continue;
+          if (!name || name === 'unknown') continue; // unknown 제외
 
           const idStr = String(drug_concept_id[i] ?? '');
-          seenAll.add(name);
+          const isToxic = toxNameSet.has(name) || toxIdSet.has(idStr);
+          const isSafe  = safeNameSet.has(name) || safeIdSet.has(idStr);
 
-          if (toxNameSet.has(name) || toxIdSet.has(idStr)) {
-            seenTox.add(name);
-          }
+          if (isToxic) seenTox.add(name);
+          else if (HAS_SAFE ? isSafe : true) seenSafe.add(name);
+          // else unknown → 제외
         }
 
-        return { toxicCount: seenTox.size, totalCount: seenAll.size };
+        const toxicCount = seenTox.size;
+        const totalCount = toxicCount + seenSafe.size; // unknown 제외
+        return { toxicCount, totalCount };
       }
 
-      // 최근 7일 고유 약물 비율
+
       function calculateCumulative7DayRatio(dayIndex) {
         const normalize = s => String(s ?? '').toLowerCase().trim();
-        const toxIdSet   = new Set((toxic_id || []).map(String));
-        const toxNameSet = new Set((toxic   || []).map(n => normalize(n)));
+        const toxIdSet    = new Set((toxic_id || []).map(String));
+        const toxNameSet  = new Set((toxic    || []).map(n => normalize(n)));
+        const safeIdSet   = new Set((safe_id  || []).map(String));
+        const safeNameSet = new Set((safe     || []).map(n => normalize(n)));
+        const HAS_SAFE    = (safeIdSet.size > 0 || safeNameSet.size > 0);
 
         const startDay = Math.max(1, dayIndex - 6);
         let toxSum = 0, totalSum = 0;
 
         for (let d = startDay; d <= dayIndex; d++) {
-          const seenAll = new Set();
-          const seenTox = new Set();
+          const seenTox  = new Set();
+          const seenSafe = new Set();
 
           for (let i = 0; i < drug_concept_id.length; i++) {
             if (days[i] !== d) continue;
 
             const name = normalize(drug_name[i]);
-            if (!name || name === 'unknown') continue;
+            if (!name || name === 'unknown') continue; // unknown 제외
 
             const idStr = String(drug_concept_id[i] ?? '');
-            seenAll.add(name);
+            const isToxic = toxNameSet.has(name) || toxIdSet.has(idStr);
+            const isSafe  = safeNameSet.has(name) || safeIdSet.has(idStr);
 
-            if (toxNameSet.has(name) || toxIdSet.has(idStr)) {
-              seenTox.add(name);
-            }
+            if (isToxic) seenTox.add(name);
+            else if (HAS_SAFE ? isSafe : true) seenSafe.add(name);
           }
 
           toxSum   += seenTox.size;
-          totalSum += seenAll.size;
+          totalSum += seenTox.size + seenSafe.size; // unknown 제외
         }
 
         return { toxicCount: toxSum, totalCount: totalSum };
       }
 
+
       // 비율 차트 그리기 함수 (전역으로 이동)
       function drawRatioChart() {
-        const toxicNum = Array(day).fill(0);
-        const safeNum = Array(day).fill(0);
-        
-        // 각 날짜별 독성/안전 약물 개수 계산
+        const normalize = s => String(s ?? '').toLowerCase().trim();
+
+        // 기준 Set
+        const toxIdSet    = new Set((toxic_id || []).map(String));
+        const toxNameSet  = new Set((toxic    || []).map(n => normalize(n)));
+        const safeIdSet   = new Set((safe_id  || []).map(String));
+        const safeNameSet = new Set((safe     || []).map(n => normalize(n)));
+        const HAS_SAFE    = (safeIdSet.size > 0 || safeNameSet.size > 0);
+
+        // 날짜별 고유 이름 Set
+        const dailyTox = Array.from({ length: day }, () => new Set());
+        const dailySafe = Array.from({ length: day }, () => new Set());
+        const dailyUnknown = Array.from({ length: day }, () => new Set()); // 디버깅용
+
         for (let i = 0; i < drug_concept_id.length; i++) {
-          const dayIndex = days[i] - 1; // 0 기반 인덱스
-          if (dayIndex >= 0 && dayIndex < day) {
-            if (toxic_id.includes(drug_concept_id[i])) {
-              toxicNum[dayIndex]++;
-            } else {
-              safeNum[dayIndex]++;
-            }
+          const d0 = (days[i] ?? 0) - 1;
+          if (d0 < 0 || d0 >= day) continue;
+
+          const name = normalize(drug_name[i]);
+          if (!name || name === 'unknown') {
+            // unknown 이름은 분모 제외 (디버깅만 기록)
+            dailyUnknown[d0].add(name || 'unknown');
+            continue;
+          }
+
+          const idStr = String(drug_concept_id[i] ?? '');
+          const isToxic = toxNameSet.has(name) || toxIdSet.has(idStr);
+          const isSafe  = safeNameSet.has(name) || safeIdSet.has(idStr);
+
+          if (isToxic) {
+            dailyTox[d0].add(name);
+          } else if (HAS_SAFE ? isSafe : true) {
+            // 안전 리스트가 있으면 그 안에 있을 때만 safe,
+            // 없으면 "독성이 아닌 것"을 safe로 처리
+            dailySafe[d0].add(name);
+          } else {
+            dailyUnknown[d0].add(name); // 디버깅용, 계산엔 미포함
           }
         }
-        
-        // 비율 차트 그리기
+
+        // 비율 그리기 (분모 = 독성+안전, unknown 제외)
         for (let i = 0; i < day; i++) {
-          const total = toxicNum[i] + safeNum[i];
+          const toxCount  = dailyTox[i].size;
+          const safeCount = dailySafe[i].size;
+          const total     = toxCount + safeCount; // unknown 제외
+
+          // 콘솔 확인 (원하면 주석처리)
+          console.log(`[Day ${i+1}] tox=${toxCount}, safe=${safeCount}, unknown=${dailyUnknown[i].size}, total(used)=${total}`);
+
+          if (total === 0) continue;
+
+          const ratioSafe  = safeCount / total;
+          const ratioToxic = toxCount  / total;
+
           const x = dynamicMargin2 + i * (boxWidth + spacingX);
-          
-          if (total > 0) {
-            const ratioSafe = safeNum[i] / total;
-            const ratioToxic = toxicNum[i] / total;
-            
-            // 안전 약물 비율 (초록색, 위쪽)
-            const safeY = ratio_start + 50 - ratioSafe * 50;
-            ctx.fillStyle = "#4CAF50";
-            ctx.fillRect(x, safeY, boxWidth, ratioSafe * 50);
-            
-            // 독성 약물 비율 (파란색, 아래쪽)
-            ctx.fillStyle = "#1E88E5";
-            ctx.fillRect(x, ratio_start, boxWidth, ratioToxic * 50);
-          }
+          const safeY = ratio_start + 50 - ratioSafe * 50;
+
+          ctx.fillStyle = "#4CAF50";
+          ctx.fillRect(x, safeY, boxWidth, ratioSafe * 50);
+
+          ctx.fillStyle = "#1E88E5";
+          ctx.fillRect(x, ratio_start, boxWidth, ratioToxic * 50);
         }
       }
+
 
       function colorBoxes() {
         const toxicBoxes = [];
