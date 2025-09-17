@@ -287,20 +287,57 @@
       });
     };
 
+    // 이름 기준 고유 집계로 비율 그리기
     const colorRatio = () => {
+      // 0) 멤버십 체크는 Set로 (성능 + 정확)
+      const toxicIdSet   = new Set((toxicIds || toxic_id || []).map(String));
+      const toxicNameSet = new Set((toxic || []).map(n => String(n).toLowerCase().trim()));
+
+      // 1) 날짜별 고유 약물 이름 집합(전체/독성)
+      const dailyAllNames = Array.from({ length: totalDays }, () => new Set());
+      const dailyToxicNames = Array.from({ length: totalDays }, () => new Set());
+
+      const normalize = s => String(s ?? '').toLowerCase().trim();
+      const cw = typeof cellWidth !== 'undefined' ? cellWidth : (boxWidth + spacingX);
+
+      for (let i = 0; i < (drugNames || drug_name).length; i++) {
+        const d0 = ((days?.[i] ?? 0) - 1);      // days가 1부터 시작한다고 가정
+        if (d0 < 0 || d0 >= totalDays) continue;
+
+        const name = normalize((drugNames || drug_name)[i]);
+        if (!name) continue;
+
+        dailyAllNames[d0].add(name);
+
+        // 독성 판정: 이름이 독성 목록에 있거나, ID가 독성 ID에 있으면 독성으로 간주
+        const idStr = String((drugConceptIds || drug_concept_id)?.[i] ?? '');
+        if (toxicNameSet.has(name) || toxicIdSet.has(idStr)) {
+          dailyToxicNames[d0].add(name);
+        }
+      }
+
+      // 2) 그리기 (분모 = 그날의 고유 약물 수, 분자 = 그날의 고유 독성 약물 수)
       for (let i = 0; i < totalDays; i++) {
-        const total = toxicNum[i] + safeNum[i];
-        const ratioSafe = total === 0 ? 0 : safeNum[i] / total;
-        const x = dynamicMarginRight + i * cellWidth;
+        const total = dailyAllNames[i].size;
+        if (total === 0) continue;
+
+        const toxCount  = dailyToxicNames[i].size;
+        const safeCount = Math.max(0, total - toxCount);
+
+        const ratioSafe  = safeCount / total;
+        const ratioToxic = toxCount  / total;
+
+        const x = dynamicMarginRight + i * cw;
         const safeY = ratioStart + 50 - ratioSafe * 50;
+
         ctx.fillStyle = "#4CAF50";
         ctx.fillRect(x, safeY, boxWidth, ratioSafe * 50);
-  
-        const ratioToxic = total === 0 ? 0 : toxicNum[i] / total;
+
         ctx.fillStyle = "#1E88E5";
         ctx.fillRect(x, ratioStart, boxWidth, ratioToxic * 50);
       }
     };
+
 
     
     writeText('Patient number: ' + selectedPatient, dynamicMarginRight, 40, 12);

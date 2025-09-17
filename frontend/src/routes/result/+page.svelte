@@ -573,7 +573,7 @@
 					{#if selectedPatient !== null}
 						<!-- DrugChart와 HoverBox를 각각 overlap 클래스를 가진 컨테이너로 감싸서 겹치게 함 -->
 						<div class="overlap">
-							<DrugChart bind:dynamicMarginRight bind:minWidth {selectedPatient} {patientData} />
+							<!-- <DrugChart bind:dynamicMarginRight bind:minWidth {selectedPatient} {patientData} /> -->
 						</div>
 						<div class="overlap">
 							<HoverBox {selectedPatient} {patientData} {minWidth} />

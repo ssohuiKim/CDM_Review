@@ -144,42 +144,67 @@
       const ratio_start = ICI_start + ICI.length * (boxHeight + spacingY) + 12;
       const toxic_start = ratio_start + 62;
       const safe_start = toxic.length * (boxHeight + spacingY) + toxic_start + 20;
+      
 
       // 일일 및 누적 비율 계산 함수들
+      // 하루 고유 약물 비율
       function calculateDailyRatio(dayIndex) {
-        let toxicCount = 0;
-        let totalCount = 0;
-        
+        const normalize = s => String(s ?? '').toLowerCase().trim();
+        const toxIdSet   = new Set((toxic_id || []).map(String));
+        const toxNameSet = new Set((toxic   || []).map(n => normalize(n)));
+
+        const seenAll = new Set();
+        const seenTox = new Set();
+
         for (let i = 0; i < drug_concept_id.length; i++) {
-          if (days[i] === dayIndex) {
-            totalCount++;
-            if (toxic_id.includes(drug_concept_id[i])) {
-              toxicCount++;
-            }
+          if (days[i] !== dayIndex) continue;
+
+          const name = normalize(drug_name[i]);
+          if (!name || name === 'unknown') continue;
+
+          const idStr = String(drug_concept_id[i] ?? '');
+          seenAll.add(name);
+
+          if (toxNameSet.has(name) || toxIdSet.has(idStr)) {
+            seenTox.add(name);
           }
         }
-        
-        return { toxicCount, totalCount };
+
+        return { toxicCount: seenTox.size, totalCount: seenAll.size };
       }
 
+      // 최근 7일 고유 약물 비율
       function calculateCumulative7DayRatio(dayIndex) {
-        let toxicCount = 0;
-        let totalCount = 0;
-        
-        // 현재 날짜를 포함한 최근 7일간의 데이터 계산
+        const normalize = s => String(s ?? '').toLowerCase().trim();
+        const toxIdSet   = new Set((toxic_id || []).map(String));
+        const toxNameSet = new Set((toxic   || []).map(n => normalize(n)));
+
         const startDay = Math.max(1, dayIndex - 6);
-        const endDay = dayIndex;
-        
-        for (let i = 0; i < drug_concept_id.length; i++) {
-          if (days[i] >= startDay && days[i] <= endDay) {
-            totalCount++;
-            if (toxic_id.includes(drug_concept_id[i])) {
-              toxicCount++;
+        let toxSum = 0, totalSum = 0;
+
+        for (let d = startDay; d <= dayIndex; d++) {
+          const seenAll = new Set();
+          const seenTox = new Set();
+
+          for (let i = 0; i < drug_concept_id.length; i++) {
+            if (days[i] !== d) continue;
+
+            const name = normalize(drug_name[i]);
+            if (!name || name === 'unknown') continue;
+
+            const idStr = String(drug_concept_id[i] ?? '');
+            seenAll.add(name);
+
+            if (toxNameSet.has(name) || toxIdSet.has(idStr)) {
+              seenTox.add(name);
             }
           }
+
+          toxSum   += seenTox.size;
+          totalSum += seenAll.size;
         }
-        
-        return { toxicCount, totalCount };
+
+        return { toxicCount: toxSum, totalCount: totalSum };
       }
 
       // 비율 차트 그리기 함수 (전역으로 이동)
