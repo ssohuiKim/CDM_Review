@@ -7,6 +7,7 @@
   
   // 외부로 내보낼 값
   export let dynamicMarginRight = 120; // 계산된 동적 margin 값을 외부로 노출
+  export let minWidth = 550;
 
   // 데이터 관련 변수
   let isDataInitialized = false;
@@ -69,6 +70,7 @@
       
       // diagnosis_group 값 설정 (첫 번째 row에서 가져오기)
       diagnosisGroup = data[0]?.diagnosis_group || 'Unknown diagnosis';
+      minWidth = Math.max(0, 380 + ((diagnosisGroup || '').length * 5));
 
       const ICI_values = data.map(row => row.ICI_lasting).filter(value => value != null);
       ICI_lasting_end = ICI_values.length ? ICI_values[ICI_values.length - 1] : null;
@@ -332,7 +334,7 @@
   function adjustCanvasDimensions() {
     const cellWidth = boxWidth + spacingX;
     const calculatedWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
-    const newWidth = Math.max(550, calculatedWidth); // 최소 가로 크기 550px 보장
+    const newWidth = Math.max(minWidth, calculatedWidth);
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;

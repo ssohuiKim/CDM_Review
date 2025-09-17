@@ -5,6 +5,7 @@
   export let selectedPatient;
   export let patientData;
   export let type;  // "row" 또는 "col"
+  export let minWidth = 550; // DrugChart에서 계산된 최소 너비 값
 
   let isDataInitialized = false;
   let newDrugExposureDates = [],
@@ -189,7 +190,7 @@
     let calculatedWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
     if (type === "col") calculatedWidth = dynamicMarginRight;
     
-    const newWidth = Math.max(550, calculatedWidth); // 최소 가로 크기 550px 보장
+    const newWidth = Math.max(minWidth, calculatedWidth); // minWidth 사용
 
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
     canvas.width = newWidth;

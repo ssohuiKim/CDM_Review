@@ -348,6 +348,7 @@
 	let isRowScrolled = false;
 	let isColScrolled = false;
 	let dynamicMarginRight = 120; // DrugChart에서 받아올 값
+	let minWidth = 550; // DrugChart에서 받아올 최소 너비 값
   
 	function handleScroll(event) {
 		const scrollContainer = event.target;
@@ -568,14 +569,14 @@
 	
 			<!-- 중앙 영역: 스크롤 컨테이너 -->
 			<div class="scroll-container" on:scroll={handleScroll}>
-				<div class="canvas-container">
+				<div class="canvas-container" style="min-width: {minWidth}px;">
 					{#if selectedPatient !== null}
 						<!-- DrugChart와 HoverBox를 각각 overlap 클래스를 가진 컨테이너로 감싸서 겹치게 함 -->
 						<div class="overlap">
-							<DrugChart bind:dynamicMarginRight {selectedPatient} {patientData} />
+							<DrugChart bind:dynamicMarginRight bind:minWidth {selectedPatient} {patientData} />
 						</div>
 						<div class="overlap">
-							<HoverBox {selectedPatient} {patientData} />
+							<HoverBox {selectedPatient} {patientData} {minWidth} />
 						</div>
 					{:else}
 						<p>Please select a patient to view their data.</p>
@@ -584,13 +585,13 @@
 				<!-- 좌측 고정 축 (col) -->
 				{#if isColScrolled}
 					<div class="fixed-col" style="width: {dynamicMarginRight}px;">
-						<AxisChart type="col" {selectedPatient} {patientData} />
+						<AxisChart type="col" {selectedPatient} {patientData} {minWidth} />
 					</div>
 				{/if}
 				{#if isRowScrolled}
 					<!-- 하단 고정 축 (row) -->
 					<div class="fixed-row">
-						<AxisChart type="row" {selectedPatient} {patientData} />
+						<AxisChart type="row" {selectedPatient} {patientData} {minWidth} />
 					</div>
 				{/if}
 			</div>

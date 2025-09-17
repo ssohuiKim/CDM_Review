@@ -4,6 +4,7 @@
 
   export let selectedPatient;
   export let patientData;
+  export let minWidth = 550; // DrugChart에서 계산된 최소 너비 값
 
   let isDataInitialized = false;
   let new_drug_exposure_date = [],
@@ -400,7 +401,7 @@
   function adjustCanvasWidth() {
     const boxWidth = 5;
     const spacingX = 2;
-    const newWidth = Math.max(550, 33 + day * (boxWidth + spacingX) + dynamicMargin2);
+    const newWidth = Math.max(minWidth, 33 + day * (boxWidth + spacingX) + dynamicMargin2);
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }
