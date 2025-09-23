@@ -19,7 +19,9 @@
       ICI_lasting = [],
       measurementDates = [],
       grades = [],
-      diagnosisGroup = '';
+      diagnosisGroup = '',
+      gender = '',
+      age = null;
   
   let toxic = [],
       toxicIds = [],
@@ -70,6 +72,11 @@
       
       // diagnosis_group 값 설정 (첫 번째 row에서 가져오기)
       diagnosisGroup = data[0]?.diagnosis_group || 'Unknown diagnosis';
+      
+      // 성별과 나이 정보 추출 (첫 번째 row에서 가져오기)
+      gender = data[0]?.gender_source_value || '';
+      age = data[0]?.age || null;
+      
       minWidth = Math.max(0, 380 + ((diagnosisGroup || '').length * 5));
 
       const ICI_values = data.map(row => row.ICI_lasting).filter(value => value != null);
@@ -143,6 +150,24 @@
     
     // 최소 120px, 최대 300px로 제한하고 여유공간 20px 추가
     dynamicMarginRight = Math.max(120, Math.min(300, maxWidth + 20));
+  }
+
+  // 성별 기호 반환 함수
+  function getGenderSymbol(genderValue) {
+    if (!genderValue) return '';
+    const genderStr = String(genderValue).toLowerCase();
+    if (genderStr.includes('f') || genderStr.includes('여')) return '♀';
+    if (genderStr.includes('m') || genderStr.includes('남')) return '♂';
+    return '';
+  }
+
+  // 성별 텍스트 반환 함수
+  function getGenderText(genderValue) {
+    if (!genderValue) return '';
+    const genderStr = String(genderValue).toLowerCase();
+    if (genderStr.includes('f') || genderStr.includes('여')) return 'Female';
+    if (genderStr.includes('m') || genderStr.includes('남')) return 'Male';
+    return genderValue;
   }
 
   // 캔버스 그리기 함수
@@ -340,7 +365,21 @@
 
 
     
-    writeText('Patient number: ' + selectedPatient, dynamicMarginRight, 40, 12);
+    // 환자 정보 표시
+    const genderSymbol = getGenderSymbol(gender);
+    const genderText = getGenderText(gender);
+    const ageText = age ? `${age} years` : '';
+    
+    let patientInfoText = `Patient number: ${selectedPatient}`;
+    if (genderSymbol || genderText || ageText) {
+      const genderInfo = [];
+      if (genderSymbol) genderInfo.push(genderSymbol);
+      if (genderText) genderInfo.push(genderText);
+      if (ageText) genderInfo.push(ageText);
+      patientInfoText += ` ${genderInfo.join(' ')}`;
+    }
+    
+    writeText(patientInfoText, dynamicMarginRight, 40, 12);
     writeText('Type of cancer diagnosis: ' + diagnosisGroup, dynamicMarginRight, 55, 12);
     if (firstDate && lastDate) {
       writeText(`Period: ${formatDate(firstDate)} ~ ${formatDate(lastDate)}`, dynamicMarginRight, 70, 12);
