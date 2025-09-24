@@ -332,7 +332,7 @@
     border: 1px solid #e5e7eb;
     padding: 32px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 800px;
     width: 100%;
   }
 
@@ -365,7 +365,8 @@
   .file-drop-area {
     border: 2px dashed #d1d5db;
     border-radius: 8px;
-    padding: 48px 24px;
+    /* padding: 48px 24px; */
+    padding: 36px 120px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
