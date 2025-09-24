@@ -510,5 +510,6 @@
     max-height: 200px;
     overflow-y: auto;
     white-space: pre-wrap;
+    color: #353535;
   }
 </style>
