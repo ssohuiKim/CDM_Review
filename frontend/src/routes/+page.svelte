@@ -265,7 +265,7 @@
             on:click={handleClick} 
             disabled={!files_1 || !files_1[0] || state_1 === "invalid"}
           >
-            파일 선택
+            Upload
           </button>
         </div>
         
@@ -299,11 +299,15 @@
     margin: 0 auto;
     padding: 20px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: calc(100vh - 160px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .header-section {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
 
   .main-title {

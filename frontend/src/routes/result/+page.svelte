@@ -145,7 +145,7 @@
                     padding: 0; 
                     background-color: #f4f4f4;
                     display: flex; /* Flexbox를 사용하여 좌측 사이드바와 우측 콘텐츠 배열 */
-                    min-height: 100vh; /* 뷰포트 전체 높이 사용 */
+                    min-height: calc(100vh - 160px); /* 뷰포트 전체 높이 사용 */
                     flex-direction: column; /* 제목과 컨테이너 분리 */
                 }
                 h1 { 
@@ -522,7 +522,7 @@
 		/* width는 인라인 스타일로 동적 설정됨 */
 		min-width: 120px; /* 최소 너비 보장 */
 		height: auto; /* 컨테이너 높이에 맞춤 */
-		min-height: 100vh; /* 최소 높이 보장 */
+		min-height: calc(100vh - 160px); /* 최소 높이 보장 */
 		pointer-events: none;
 		z-index: 2;
 		background-color: rgba(255, 255, 255, 0.8);
@@ -610,7 +610,7 @@
 
 </style>
 
-<div style="height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: calc(100vh - 80px); overflow: hidden; display: flex; flex-direction: column;">
 	<div style="padding: 1rem; flex-shrink: 0;">
 		<div class="header">
 			<div class="header-title">

@@ -60,13 +60,15 @@
 		</El>
 	</El>
 
-	<El container style="min-height: 90%; width: 100%; display: flex; flex-direction: column;">
-		<El row p="5" m="0" style="flex: 1;">
-			<slot/>
-		</El>
-		<El row justifyContent="center" m="2" style="margin-top: auto; padding: 20px 0;">
-			<El col='auto' alignSelf="center"> This website is maintained by</El>
-			<El col='auto' p='0' alignSelf="center"> <a href="https://pnucolab.com/">Computational Omics Laboratory</a></El>
+	<El container style="min-height: calc(100vh - 80px); width: 100%; display: flex; flex-direction: column;">
+		<div style="flex: 1; display: flex; flex-direction: column;">
+			<El row p="2" m="0" style="flex: 1;">
+				<slot/>
+			</El>
+		</div>
+		<El row justifyContent="center" m="0" style="padding: 8px 0; background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
+			<El col='auto' alignSelf="center" style="font-size: 0.9rem;"> This website is maintained by</El>
+			<El col='auto' p='0' alignSelf="center" style="font-size: 0.9rem;"> <a href="https://pnucolab.com/">Computational Omics Laboratory</a></El>
 		</El>
 	</El>
 </El>
