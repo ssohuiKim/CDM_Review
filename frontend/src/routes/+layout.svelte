@@ -33,9 +33,9 @@
 	}
 
 	.logo-image {
-		height: 40px;
+		height: 60px;
 		width: auto;
-		max-width: 200px;
+		max-width: 250px;
 	}
 </style>
 
