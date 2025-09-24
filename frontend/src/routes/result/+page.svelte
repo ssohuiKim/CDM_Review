@@ -400,31 +400,105 @@
 		padding: 16px;
 		display: flex;
 		flex-direction: row;
-		height: 100%;
+		height: calc(100vh - 200px);
+		max-height: calc(100vh - 200px);
+		overflow: hidden;
 	}
 	.sidebar {
-		border-right: 1px solid #dcdcdc;
-		width: 150px;
-		overflow: auto;
-		padding-right: 12px;
+		border-right: 1px solid #e5e7eb;
+		width: 200px;
+		height: 100%;
+		overflow-y: auto;
+		padding: 12px;
+		flex-shrink: 0;
+		background-color: #f8fafc;
+	}
+
+	.patients-header {
+		margin-bottom: 16px;
+		padding-bottom: 12px;
+		border-bottom: 1px solid #e5e7eb;
+	}
+
+	.patients-header h3 {
+		margin: 0 0 4px 0;
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: #1f2937;
+	}
+
+	.patients-count {
+		font-size: 0.8rem;
+		color: #6b7280;
+		background: #e0e7ff;
+		padding: 2px 8px;
+		border-radius: 12px;
+	}
+
+	.patient-card {
+		background: white;
+		border: 1px solid #e5e7eb;
+		border-radius: 6px;
+		padding: 8px;
+		margin-bottom: 6px;
+		cursor: pointer;
+		transition: all 0.15s ease;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	}
+
+	.patient-card:hover {
+		border-color: #3b82f6;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	}
+
+	.patient-card.selected {
+		border-color: #3b82f6;
+		background: #f0f9ff;
+		box-shadow: 0 1px 3px rgba(59, 130, 246, 0.1);
+	}
+
+	.patient-header {
+		display: flex;
+		align-items: center;
+	}
+
+	.patient-avatar {
+		width: 24px;
+		height: 24px;
+		background: #3b82f6;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		margin-right: 8px;
 		flex-shrink: 0;
 	}
-	.sidebar button {
-		display: block;
-		width: 100%;
-		margin-bottom: 8px;
-		padding: 8px;
-		background-color: white;
-		border: 0;
-		text-align: left;
-		cursor: pointer;
+
+	.patient-info {
+		flex: 1;
+		min-width: 0;
 	}
-	.sidebar button:hover {
-		background-color: #e0e0e0;
+
+	.patient-name {
+		font-weight: 600;
+		color: #1f2937;
+		font-size: 0.85rem;
+		margin-bottom: 2px;
+	}
+
+	.age-badge {
+		background: #f3e8ff;
+		color: #7c3aed;
+		font-size: 0.7rem;
+		padding: 1px 4px;
+		border-radius: 8px;
+		font-weight: 500;
 	}
 	.scroll-container {
 		position: relative;
 		flex: 1;
+		height: 100%;
 		overflow: auto;
 	}
 	/* 기존 canvas-container 스타일 대신 오버랩 컨테이너 사용 */
@@ -470,7 +544,7 @@
 		border-radius: 8px;
 		padding: 16px;
 		margin-left: 15px;
-		height: calc(100vh - 300px);
+		height: 100%;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		overflow-y: auto;
 		flex-shrink: 0;
@@ -536,34 +610,56 @@
 
 </style>
 
-<El container m="0" p="4" style="height: 100%;">
-	<div class="header">
-		<div class="header-title">
-			<h1>Results</h1>
-			<button class="img-button" on:click={() => (show = !show)}>
-				<img src="/tooltip.svg" alt="Tooltip Icon">
-			</button>
-		</div>
-		<!-- 버튼을 감싸는 div 추가 -->
-		<div class="button-group">
-			<button class="download-button" on:click={downloadOneChart}>
-				Export This Data
-			</button>
-			<button class="text-button" on:click={downloadAllCharts}>
-				Export All Data
-			</button>
+<div style="height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
+	<div style="padding: 1rem; flex-shrink: 0;">
+		<div class="header">
+			<div class="header-title">
+				<h1>Results</h1>
+				<button class="img-button" on:click={() => (show = !show)}>
+					<img src="/tooltip.svg" alt="Tooltip Icon">
+				</button>
+			</div>
+			<!-- 버튼을 감싸는 div 추가 -->
+			<div class="button-group">
+				<button class="download-button" on:click={downloadOneChart}>
+					Export This Data
+				</button>
+				<button class="text-button" on:click={downloadAllCharts}>
+					Export All Data
+				</button>
+			</div>
 		</div>
 	</div>
 	
-  
-	<El row style="margin-top: 24px; height: 100%;">
+	<div style="flex: 1; padding: 0 1rem 1rem; overflow: hidden;">
 		<div class="card">
 			<!-- 좌측 환자 목록 -->
 			<div class="sidebar">
+				<div class="patients-header">
+					<h3>Patients</h3>
+					<span class="patients-count">{patients.length} total</span>
+				</div>
 				{#each patients as patientNum}
-					<button on:click={() => selectPatient(patientNum)}>
-						Patient {patientNum}
-					</button>
+					<div class="patient-card {selectedPatient === patientNum ? 'selected' : ''}" 
+						 on:click={() => selectPatient(patientNum)}
+						 role="button"
+						 tabindex="0"
+						 on:keydown={(e) => e.key === 'Enter' && selectPatient(patientNum)}>
+						<div class="patient-header">
+							<div class="patient-avatar">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+									<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+									<circle cx="12" cy="7" r="4"/>
+								</svg>
+							</div>
+							<div class="patient-info">
+								<div class="patient-name">Patient {patientNum}</div>
+								{#if patientData[patientNum] && patientData[patientNum][0] && patientData[patientNum][0].age}
+									<div class="age-badge">{patientData[patientNum][0].age}세</div>
+								{/if}
+							</div>
+						</div>
+					</div>
 				{/each}
 			</div>
 	
@@ -601,9 +697,10 @@
 				<Survey bind:this={surveyRef} {selectedPatient} {patientData} />
 			</div>
 		</div>
-	</El>
+	</div>
+</div>
   
-	{#if showLoading}
+{#if showLoading}
 		<div class="loading-modal">
 			<div class="loading-content">
 				<p>Downloading charts, please wait...</p>
@@ -611,7 +708,6 @@
 			</div>
 		</div>
 	{/if}
-</El>
 
 <Modal title="Hepatotoxic Drug" bind:show>
 	<ModalBody>
