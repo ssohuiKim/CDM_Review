@@ -24,7 +24,7 @@
 	.logo-button {
 		background: none;
 		border: none;
-		padding: 0.5rem 1rem;
+		padding: 0.7rem 1rem 0.5rem 2rem;   /* 위 아래 오른쪽 왼쪽 */
 		cursor: pointer;
 		font-size: 2rem;
 		text-align: center;
@@ -42,7 +42,7 @@
 <El container style="height: 100%; width: 100%">
 	<El container bgColor="light" borderBottom style="position: sticky; top: 0; width: 100%;">
 		<El row alignItems="center" p='1' m="0">
-			<El col="auto" m="3" me="auto" tag="h1">
+			<El col="auto" m="2" me="auto" tag="h1">
 				<button class = "logo-button" on:click={()=> location.href="/"}>
 					<img src="/logo_1.png" alt="Logo" class="logo-image" />
 				</button>
