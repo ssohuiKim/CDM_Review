@@ -33,7 +33,7 @@
 	}
 
 	.logo-image {
-		height: 60px;
+		height: 50px;
 		width: auto;
 		max-width: 250px;
 	}
