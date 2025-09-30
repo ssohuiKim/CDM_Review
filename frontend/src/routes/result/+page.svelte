@@ -554,28 +554,52 @@
 		align-items: center;
 	}
 	.text-button {
-		background: #216BC4;
+		background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
 		border: none;
 		font-size: 14px;
-		padding: 8px 16px;
+		padding: 10px 16px;
 		color: white;
-		width: 135px;
-		height: 36px;
-		font-weight: bold;
-		border-radius: 6px;
+		width: auto;
+		height: 40px;
+		font-weight: 500;
+		border-radius: 20px;
 		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+	}
+	
+	.text-button:hover {
+		background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 	}
 	.download-button {
-		background: #a3a3a3;
+		background: #6b7280;
 		border: none;
 		font-size: 14px;
-		padding: 8px 10px;
+		padding: 10px 16px;
 		color: white;
-		width: 140px;
-		height: 36px;
-		font-weight: bold;
-		border-radius: 6px;
+		width: auto;
+		height: 40px;
+		font-weight: 500;
+		border-radius: 20px;
 		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+	
+	.download-button:hover {
+		background: #4b5563;
+		transform: translateY(-1px);
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 	}
 	.loading-modal {
 		display: flex;
@@ -622,9 +646,19 @@
 			<!-- 버튼을 감싸는 div 추가 -->
 			<div class="button-group">
 				<button class="download-button" on:click={downloadOneChart}>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+						<polyline points="7,10 12,15 17,10"/>
+						<line x1="12" y1="15" x2="12" y2="3"/>
+					</svg>
 					Export This Data
 				</button>
 				<button class="text-button" on:click={downloadAllCharts}>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+						<polyline points="7,10 12,15 17,10"/>
+						<line x1="12" y1="15" x2="12" y2="3"/>
+					</svg>
 					Export All Data
 				</button>
 			</div>
