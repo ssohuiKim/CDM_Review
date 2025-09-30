@@ -38,6 +38,16 @@
   let toxicNum = [],
       safeNum = [];
   
+  // 날짜 포맷팅 함수
+  function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   // ICI 약물 목록 (대소문자 무시)
   const ICI_LIST = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
@@ -74,8 +84,15 @@
       diagnosisGroup = data[0]?.diagnosis_group || 'Unknown diagnosis';
       
       // 성별과 나이 정보 추출 (첫 번째 row에서 가져오기)
-      gender = data[0]?.gender_source_value || '';
-      age = data[0]?.age || null;
+      gender = data[0]?.gender_source_value || data[0]?.gender || '';
+      age = data[0]?.age || data[0]?.age_at_index || null;
+      
+      // 디버깅을 위한 로그
+      console.log('Patient data:', data[0]);
+      console.log('Gender:', gender);
+      console.log('Age:', age);
+      console.log('Gender text:', getGenderText(gender));
+      console.log('Gender symbol:', getGenderSymbol(gender));
       
       minWidth = Math.max(0, 380 + ((diagnosisGroup || '').length * 5));
 
@@ -370,21 +387,8 @@
     const genderText = getGenderText(gender);
     const ageText = age ? `${age} years` : '';
     
-    let patientInfoText = `Patient number: ${selectedPatient}`;
-    if (genderSymbol || genderText || ageText) {
-      const genderInfo = [];
-      if (genderSymbol) genderInfo.push(genderSymbol);
-      if (genderText) genderInfo.push(genderText);
-      if (ageText) genderInfo.push(ageText);
-      patientInfoText += ` ${genderInfo.join(' ')}`;
-    }
+    // Patient info는 HTML 오버레이로 표시하므로 여기서는 제거
     
-    writeText(patientInfoText, dynamicMarginRight, 40, 12);
-    writeText('Type of cancer diagnosis: ' + diagnosisGroup, dynamicMarginRight, 55, 12);
-    if (firstDate && lastDate) {
-      writeText(`Period: ${formatDate(firstDate)} ~ ${formatDate(lastDate)}`, dynamicMarginRight, 70, 12);
-    }
-
     drawLine(dynamicMarginRight - 10, ratioStart, dynamicMarginRight - 10, ratioStart + 50, 2.3);
     drawLine(dynamicMarginRight - 10, ratioStart + 1, dynamicMarginRight - 22, ratioStart + 1, 2.3);
     drawLine(dynamicMarginRight - 10, ratioStart + 24, dynamicMarginRight - 22, ratioStart + 24, 2.3);
@@ -436,4 +440,110 @@
   }
 </script>
 
-<canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height:100%;"></canvas>
+<div class="chart-container">
+  <canvas bind:this={canvas} style="border:1px solid #000000; width: 100%; height:100%;"></canvas>
+  
+  <!-- Patient Info Card Overlay -->
+  {#if selectedPatient && isDataInitialized}
+    <div class="patient-info-overlay">
+      <div class="patient-header">
+        <img src="/user.png" alt="Patient" class="patient-avatar-img" />
+        <div class="patient-title-section">
+          <h3>Patient {selectedPatient}</h3>
+          {#if gender || age}
+            <span class="gender-age-info">
+              {getGenderSymbol(gender)} {getGenderText(gender)}, {age} years old
+            </span>
+          {/if}
+        </div>
+      </div>
+      
+      <div class="info-items">
+        {#if diagnosisGroup}
+          <div class="info-item">
+            <img src="/pulse.png" alt="Diagnosis" class="info-icon" />
+            <span>{diagnosisGroup}</span>
+          </div>
+        {/if}
+        
+        {#if firstDate && lastDate}
+          <div class="info-item">
+            <img src="/period.png" alt="Period" class="info-icon" />
+            <span>Treatment Period: {formatDate(firstDate)} ~ {formatDate(lastDate)}</span>
+          </div>
+        {/if}
+      </div>
+    </div>
+  {/if}
+</div>
+
+<style>
+  .chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .patient-info-overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .patient-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .patient-avatar-img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .patient-title-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .patient-title-section h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  .gender-age-info {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 3px 7px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-left: 34px; /* Image width + gap */
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+
+  .info-icon {
+    width: 12px;
+    height: 12px;
+    opacity: 0.7;
+  }
+</style>
