@@ -459,19 +459,21 @@
       </div>
       
       <div class="info-items">
-        {#if diagnosisGroup}
-          <div class="info-item">
-            <img src="/pulse.png" alt="Diagnosis" class="info-icon" />
-            <span>{diagnosisGroup}</span>
-          </div>
-        {/if}
-        
-        {#if firstDate && lastDate}
-          <div class="info-item">
-            <img src="/period.png" alt="Period" class="info-icon" />
-            <span>Treatment Period: {formatDate(firstDate)} ~ {formatDate(lastDate)}</span>
-          </div>
-        {/if}
+        <div class="info-row">
+          {#if diagnosisGroup}
+            <div class="info-item">
+              <img src="/pulse.png" alt="Diagnosis" class="info-icon" />
+              <span>{diagnosisGroup}</span>
+            </div>
+          {/if}
+          
+          {#if firstDate && lastDate}
+            <div class="info-item">
+              <img src="/period.png" alt="Period" class="info-icon" />
+              <span>Treatment Period: {formatDate(firstDate)} ~ {formatDate(lastDate)}</span>
+            </div>
+          {/if}
+        </div>
       </div>
     </div>
   {/if}
@@ -486,8 +488,8 @@
 
   .patient-info-overlay {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 12px;
+    left: 12px;
     z-index: 10;
     pointer-events: none;
   }
@@ -496,25 +498,26 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 6px;
+    margin-bottom: -10px;    /* patient number 밑에 글자 붙이기 */
   }
 
   .patient-avatar-img {
-    width: 38px;
-    height: 38px;
-    transform: translate(1px, 3px); /* 오른쪽으로 1, 밑으로 3 내림 */
+    width: 50px;
+    height: 50px;
+    transform: translate(1px, 7px); /* 오른쪽으로 1, 밑으로 3 내림 */
   }
 
   .patient-title-section {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-top: -5px;
   }
 
   .patient-title-section h3 {
     margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 650;
     color: #1f2937;
   }
 
@@ -530,21 +533,28 @@
   .info-items {
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    margin-left: 34px; /* Image width + gap */
+    gap: -10px;
+    margin-left: 60px; /* 왼쪽 여백 */
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
   }
 
   .info-item {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #6b7280;
   }
 
   .info-icon {
-    width: 12px;
-    height: 12px;
-    opacity: 0.7;
+    width: 15px;
+    height: 15px;
+    opacity: 0.8;
   }
 </style>
