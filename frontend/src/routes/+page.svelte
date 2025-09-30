@@ -213,7 +213,7 @@
         <div class="upload-header">
           <h3 class="upload-title">Choose a file (TXT, CSV, TSV)</h3>
           <p class="upload-subtitle">
-            지원 형식: 탭 구분(TSV), 콤마 구분(CSV), 공백 구분(TXT) - 최대 10MB
+            지원 형식: 탭 구분(TSV), 콤마 구분(CSV), 공백 구분(TXT)
           </p>
         </div>
         
