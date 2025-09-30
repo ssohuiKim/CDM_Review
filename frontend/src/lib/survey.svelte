@@ -26,6 +26,7 @@
 
     let answers = createInitialAnswers();
     let noteValue = ""; // 메모 저장 변수
+    let showSaveMessage = false; // 저장 메시지 표시 상태
 
     function createInitialAnswers() {
         return {
@@ -101,6 +102,12 @@
         localStorage.setItem('naranjoAlgorithmData', JSON.stringify(storedData));
 
         console.log("Updated Local Storage:", storedData);
+        
+        // 저장 성공 메시지 표시
+        showSaveMessage = true;
+        setTimeout(() => {
+            showSaveMessage = false;
+        }, 1000); // 1초 후 메시지 숨김
     }
 
     $: totalScore = calculateScore();
@@ -148,3 +155,53 @@
     </CardBody>
     
 </Card>
+
+<!-- 저장 성공 토스트 메시지 -->
+{#if showSaveMessage}
+    <div class="toast-message">
+        <div class="toast-content">
+            <span class="checkmark">✓</span>
+            <span>Successfully Saved!</span>
+        </div>
+    </div>
+{/if}
+
+<style>
+    .toast-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    .toast-content {
+        background: #10b981;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    
+    .checkmark {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -60%);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+</style>
