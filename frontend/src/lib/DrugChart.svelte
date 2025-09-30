@@ -500,8 +500,9 @@
   }
 
   .patient-avatar-img {
-    width: 24px;
-    height: 24px;
+    width: 38px;
+    height: 38px;
+    transform: translate(1px, 3px); /* 오른쪽으로 1, 밑으로 3 내림 */
   }
 
   .patient-title-section {
