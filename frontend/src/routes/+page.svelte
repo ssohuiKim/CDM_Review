@@ -22,8 +22,8 @@
     const supportedFormats = ['txt', 'csv', 'tsv', 'xlsx'];
     
     if (!supportedFormats.includes(fileExtension)) {
-      hint_1 = "지원되는 파일 형식: TXT, CSV, TSV, XLSX";
-      state_1 = "invalid";
+      hint_1 = "Supported file formats: TXT, CSV, TSV, XLSX";
+      state_1 = "Invalid";
       formatDetectionResult = null;
     } else {
       hint_1 = "";
@@ -78,22 +78,22 @@
           
           // 신뢰도가 낮으면 경고 표시
           if (result.confidence < 0.6) {
-            hint_1 = `⚠️ 파일 포맷 감지 신뢰도가 낮습니다 (${Math.round(result.confidence * 100)}%). 업로드 전 파일을 확인해주세요.`;
-            state_1 = "warning";
+            hint_1 = `⚠️ File format detection confidence is low (${Math.round(result.confidence * 100)}%). Please check the file before uploading.`;
+            state_1 = "Warning";
           } else {
-            hint_1 = `✅ ${result.delimiterName} 포맷으로 감지됨 (신뢰도: ${Math.round(result.confidence * 100)}%)`;
-            state_1 = "valid";
+            hint_1 = `✅ Detected as ${result.delimiterName} format (Confidence: ${Math.round(result.confidence * 100)}%)`;
+            state_1 = "Valid";
           }
         } catch (error) {
-          console.error('파일 포맷 감지 실패:', error);
-          hint_1 = `❌ 파일 포맷 감지 실패: ${error.message}`;
-          state_1 = "invalid";
+          console.error('Failed to detect file format:', error);
+          hint_1 = `❌ Failed to detect file format: ${error.message}`;
+          state_1 = "Invalid";
           formatDetectionResult = null;
         }
       };
       reader.readAsText(files_1[0]);
     } catch (error) {
-      console.error('파일 읽기 실패:', error);
+      console.error('Failed to read file:', error);
     }
   }
 
@@ -130,7 +130,7 @@
               detectionResult = detectFileFormat(fileContent, files_1[0].name);
             }
             
-            console.log('감지된 파일 포맷:', detectionResult);
+            console.log('Detected file format:', detectionResult);
             
             // DuckDB에 파일 등록
             await db.registerFileText('data.txt', fileContent);
@@ -213,7 +213,7 @@
         <div class="upload-header">
           <h3 class="upload-title">Choose a file (TXT, CSV, TSV)</h3>
           <p class="upload-subtitle">
-            지원 형식: 탭 구분(TSV), 콤마 구분(CSV), 공백 구분(TXT)
+            Supported formats: Tab-separated (TSV), Comma-separated (CSV), Whitespace-separated (TXT)
           </p>
         </div>
         
@@ -251,8 +251,8 @@
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
                 <div class="drop-text">
-                  <p class="drop-main">파일을 드래그하여 놓거나 클릭하여 선택하세요</p>
-                  <p class="drop-sub">TXT, CSV, TSV 파일만 지원됩니다</p>
+                  <p class="drop-main">Drag and drop a file here or click to select one</p>
+                  <p class="drop-sub">Only TXT, CSV, TSV files are supported</p>
                 </div>
               </div>
             {/if}
@@ -279,11 +279,11 @@
         <!-- 파일 포맷 분석 결과 -->
         {#if formatDetectionResult}
           <div class="format-result">
-            <strong>파일 포맷 분석 결과:</strong><br/>
-            구분자: {formatDetectionResult.delimiterName}<br/>
-            신뢰도: {Math.round(formatDetectionResult.confidence * 100)}%<br/>
+            <strong>File format analysis result:</strong><br/>
+            delimiter: {formatDetectionResult.delimiterName}<br/>
+            reliability: {Math.round(formatDetectionResult.confidence * 100)}%<br/>
             <details class="preview-details">
-              <summary>미리보기 (클릭하여 보기)</summary>
+              <summary>Preview (click to view)</summary>
               <pre class="preview-content">{formatDetectionResult.preview.join('\n')}</pre>
             </details>
           </div>

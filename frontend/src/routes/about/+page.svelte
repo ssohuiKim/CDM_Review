@@ -34,7 +34,7 @@
 				<TabPanel>
 
           <El container m="0" p="4">
-            <El row tag="h1">*️⃣ Web Tool 이용법</El>
+            <El row tag="h1">*️⃣ How to use DILI-Assist </El>
             <img src="/about/1.png" alt="input page" style="width: 85%; height: auto; margin-top: 45px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 5px;">
               1️⃣ Click the 'Choose File' button to select CDM data in a .txt file with TSV format. If an error message appears, please check whether the selected file matches the required format.

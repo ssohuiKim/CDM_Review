@@ -6,9 +6,9 @@
 export class FileFormatDetector {
   constructor() {
     this.delimiters = [
-      { char: '\t', name: '탭(Tab)', weight: 1.2 },  // TSV 우선순위 높임
-      { char: ',', name: '콤마(Comma)', weight: 1.0 },
-      { char: ' ', name: '공백(Space)', weight: 0.8 } // Space는 우선순위 낮춤
+      { char: '\t', name: 'Tab (TSV)', weight: 1.2 },  // TSV 우선순위 높임
+      { char: ',', name: 'Comma (CSV)', weight: 1.0 },
+      { char: ' ', name: 'Space (TXT)', weight: 0.8 } // Space는 우선순위 낮춤
     ];
   }
 
@@ -234,7 +234,22 @@ export class FileFormatDetector {
 // 편의 함수들
 export function detectFileFormat(content, filename) {
   const detector = new FileFormatDetector();
-  return detector.detectFormat(content, filename);
+  const result = detector.detectFormat(content, filename);
+  
+  // 영어 이름으로 매핑
+  const englishNames = {
+    'Tab (TSV)': 'Tab (TSV)',
+    'Comma (CSV)': 'Comma (CSV)', 
+    'Space (TXT)': 'Space (TXT)',
+    '탭(Tab)': 'Tab (TSV)',
+    '콤마(Comma)': 'Comma (CSV)',
+    '공백(Space)': 'Space (TXT)'
+  };
+  
+  // delimiterName을 영어로 변환
+  result.delimiterName = englishNames[result.delimiterName] || result.delimiterName;
+  
+  return result;
 }
 
 export function createDuckDBQuery(tableName, fileName, delimiter) {
