@@ -111,6 +111,14 @@
     }
 
     $: totalScore = calculateScore();
+    
+    // 점수에 따른 ADR 분류
+    $: adrCategory = (() => {
+        if (totalScore >= 9) return "Definite";
+        if (totalScore >= 5) return "Probable";
+        if (totalScore >= 1) return "Possible";
+        return "Doubtful";
+    })();
 </script>
 
 <Card>
@@ -149,7 +157,7 @@
     </Fieldset>
 
     <CardBody style="display: flex; align-items: center; justify-content: space-between; gap: 15px;">
-        <p style="font-weight: bold; text-align: left; margin: 0; font-size: 16px;">({totalScore}) possible ADR</p>
+        <p style="font-weight: bold; text-align: left; margin: 0; font-size: 16px;">({totalScore}) {adrCategory} ADR</p>
         <!-- possible/probable 점수 옆에 두가지 바뀌도록 -->
         <Button color="secondary" style="padding: 8px 14px; font-size: 16px;" on:click={saveToLocalStorage}>Submit</Button>
     </CardBody>
