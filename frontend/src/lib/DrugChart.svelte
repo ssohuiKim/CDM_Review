@@ -219,6 +219,7 @@
     };
 
     const writeDrugNames = () => {
+      writeText("Hepatotoxicity", dynamicMarginRight - 5, gradeStart+16, 12, 'right');
       toxic.forEach((drug, i) => {
         const y = toxicStart + i * (boxHeight + spacingY) + 10;
         writeText(drug, dynamicMarginRight - 5, y, 12, 'right');

@@ -1,5 +1,3 @@
-# build 디렉토리만 복사해서 실행
-
 # Use the official Node.js 22 image as the base image
 FROM node:22
 
@@ -14,16 +12,12 @@ RUN npm install
 
 # Copy the entire project to the working directory except node_modules
 COPY . .
-# COPY build /app/build
 
-
-# Build the SvelteKit project
+# Build the SvelteKit project (adapter-static)
 RUN npm run build
 
+# Expose port 3000
+EXPOSE 3000
 
-# EXPOSE 3000
-
-# CMD ["npx", "serve", "-s", "build"]
-
-RUN mkdir -p /mnt/volume && cp -r build/* /mnt/volume/
-CMD ["echo", "frontend build complete"]
+# Serve the static build output using sirv-cli
+CMD ["npx", "sirv-cli", "build", "--port", "3000", "--host", "0.0.0.0", "--single"]

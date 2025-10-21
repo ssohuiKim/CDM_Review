@@ -2,20 +2,6 @@ services:
   frontend:
     build:
       context: ./frontend
-    volumes:
-      - app:/app
-    restart: always   # 🔹서버 재부팅 or Docker 재시작 시 자동 실행
-
-  nginx:
-    image: nginx:latest
     ports:
-      - 15465:80 # host:container
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - app:/app
-    depends_on:
-      - frontend
-    restart: always   # 🔹이 서비스도 항상 재시작되도록 설정
-
-volumes:
-  app:
+      - 15465:3000 # host:container
+    restart: always   # 🔹서버 재부팅 or Docker 재시작 시 자동 실행
