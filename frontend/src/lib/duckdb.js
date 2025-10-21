@@ -5,8 +5,57 @@ import duckdb_wasm_eh from '@duckdb/duckdb-wasm/dist/duckdb-eh.wasm?url';
 import mvp_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url';
 import eh_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url';
 
-export const parsedData = writable([]);
-export const groupedPatientData = writable({});
+// SessionStorage keys
+const STORAGE_KEY_PARSED = 'cdm_review_parsed_data';
+const STORAGE_KEY_GROUPED = 'cdm_review_grouped_data';
+
+// Create stores with sessionStorage synchronization
+function createSyncedStore(key, initialValue) {
+  // Try to load from sessionStorage on initialization
+  let storedValue = initialValue;
+  if (typeof window !== 'undefined') {
+    try {
+      const item = sessionStorage.getItem(key);
+      if (item) {
+        storedValue = JSON.parse(item);
+        console.log(`Loaded ${key} from sessionStorage`);
+      }
+    } catch (error) {
+      console.error(`Error loading ${key} from sessionStorage:`, error);
+    }
+  }
+
+  const store = writable(storedValue);
+
+  // Subscribe to store changes and sync to sessionStorage
+  if (typeof window !== 'undefined') {
+    store.subscribe(value => {
+      try {
+        sessionStorage.setItem(key, JSON.stringify(value));
+      } catch (error) {
+        console.error(`Error saving ${key} to sessionStorage:`, error);
+      }
+    });
+  }
+
+  return store;
+}
+
+export const parsedData = createSyncedStore(STORAGE_KEY_PARSED, []);
+export const groupedPatientData = createSyncedStore(STORAGE_KEY_GROUPED, {});
+
+// Clear data from sessionStorage
+export function clearDataFromSessionStorage() {
+  try {
+    sessionStorage.removeItem(STORAGE_KEY_PARSED);
+    sessionStorage.removeItem(STORAGE_KEY_GROUPED);
+    parsedData.set([]);
+    groupedPatientData.set({});
+    console.log('Data cleared from sessionStorage');
+  } catch (error) {
+    console.error('Error clearing data from sessionStorage:', error);
+  }
+}
 
 // Function to initialize DuckDB-WASM
 export async function initializeDuckDB() {

@@ -10,23 +10,23 @@
     let isLoading = false;
     let chatContainer;
     
-    // 드래그 관련 변수
+    // Drag-related variables
     let chatbotContainer;
     let isDragging = false;
     let dragOffset = { x: 0, y: 0 };
     let containerPosition = { x: 0, y: 0 };
-    
-    // PubMed 클라이언트 초기화
+
+    // Initialize PubMed client
     const pubmedClient = new PubMedClient({
         maxRps: 3 // 3 requests per second rate limit
     });
-    
-    // 챗봇이 열릴 때 위치 초기화
+
+    // Reset position when chatbot opens
     $: if (isOpen) {
         setTimeout(resetPosition, 0);
     }
-    
-    // 샘플 논문 데이터 (fallback용 최소한만 유지)
+
+    // Sample paper data (minimal fallback only)
     const samplePapers = {
         'megestrol': [
             {
@@ -42,42 +42,42 @@
     
     async function searchLiterature() {
         if (!userQuery.trim()) return;
-        
-        // 입력 검증
+
+        // Validate input
         const validation = validateQuery(userQuery);
         if (!validation.isValid) {
             addBotMessage(`❌ ${validation.error}`);
             return;
         }
-        
+
         if (validation.warning) {
             addBotMessage(`⚠️ ${validation.warning}`);
         }
-        
-        // 민감한 정보 포함 여부 확인
+
+        // Check for sensitive information
         if (containsSensitiveInfo(userQuery)) {
-            addBotMessage('🚫 입력에 민감한 정보가 포함되어 있습니다. 일반적인 의학 용어만 사용해주세요.');
+            addBotMessage('🚫 Your input contains sensitive information. Please use general medical terms only.');
             userQuery = '';
             return;
         }
-        
-        // 사용자 메시지 추가
+
+        // Add user message
         addUserMessage(userQuery);
-        
+
         isLoading = true;
-        
+
         try {
-            // 쿼리 정화
+            // Sanitize query
             const sanitizedQuery = sanitizeQuery(userQuery);
             console.log('Original query:', userQuery);
             console.log('Sanitized query:', sanitizedQuery);
-            
-            // PubMed로 직접 검색 (사용자 쿼리 그대로 사용)
+
+            // Search PubMed directly (using sanitized query)
             await searchPubMed(sanitizedQuery);
-            
+
         } catch (error) {
-            console.error('검색 실패:', error);
-            addBotMessage('❌ 검색 중 오류가 발생했습니다. 다시 시도해주세요.');
+            console.error('Search failed:', error);
+            addBotMessage('❌ An error occurred during search. Please try again.');
         } finally {
             isLoading = false;
             userQuery = '';
@@ -86,51 +86,51 @@
     
     async function searchPubMed(query) {
         try {
-            // 사용자 쿼리를 그대로 사용 (강제로 키워드 추가하지 않음)
-            console.log('PubMed 검색 쿼리:', query);
-            
+            // Use query as-is (do not force additional keywords)
+            console.log('PubMed search query:', query);
+
             const result = await pubmedClient.searchWithDetails(query, 5);
-            
+
             if (!result.papers || result.papers.length === 0) {
-                addBotMessage('🔍 해당 키워드와 관련된 논문을 찾지 못했습니다. 다른 검색어를 시도해보세요.');
+                addBotMessage('🔍 No papers found for this keyword. Please try different search terms.');
                 return;
             }
-            
-            const summary = `📚 PubMed에서 ${result.papers.length}개의 관련 논문을 찾았습니다 (총 ${result.total}개 중):`;
+
+            const summary = `📚 Found ${result.papers.length} related papers on PubMed (out of ${result.total} total):`;
             addBotMessage(summary, result.papers);
-            
-            // 데이터 소스 정보
-            addBotMessage(`📍 데이터 소스: PubMed (NCBI E-utilities)`);
-            
+
+            // Data source information
+            addBotMessage(`📍 Data source: PubMed (NCBI E-utilities)`);
+
         } catch (error) {
-            console.error('PubMed 검색 실패:', error);
-            addBotMessage('❌ PubMed 검색 중 오류가 발생했습니다. 샘플 데이터를 사용합니다.');
+            console.error('PubMed search failed:', error);
+            addBotMessage('❌ An error occurred while searching PubMed. Using sample data.');
             // Fallback to sample data
             await simulateSearch(query);
         }
     }
     
     async function simulateSearch(query) {
-        // API 호출 시뮬레이션
+        // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         const lowerQuery = query.toLowerCase();
         let foundPapers = [];
-        
-        // megestrol 특별 처리 (샘플 데이터)
+
+        // Special handling for megestrol (sample data)
         if (lowerQuery.includes('megestrol')) {
             foundPapers = samplePapers.megestrol;
         }
-        
+
         if (foundPapers.length === 0) {
-            addBotMessage('🔍 PubMed 검색에 실패했습니다. 네트워크 연결을 확인하고 다시 시도해주세요.');
-            addBotMessage('💡 추천 검색어: "pembrolizumab hepatotoxicity", "amiodarone DILI", "drug-induced liver injury"');
+            addBotMessage('🔍 PubMed search failed. Please check your network connection and try again.');
+            addBotMessage('💡 Suggested searches: "pembrolizumab hepatotoxicity", "amiodarone DILI", "drug-induced liver injury"');
             return;
         }
-        
-        const summary = `📚 샘플 데이터에서 ${foundPapers.length}개의 관련 논문을 찾았습니다:`;
+
+        const summary = `📚 Found ${foundPapers.length} related papers in sample data:`;
         addBotMessage(summary, foundPapers);
-        addBotMessage('📍 데이터 소스: 로컬 샘플 데이터 (PubMed 연결 실패)');
+        addBotMessage('📍 Data source: Local sample data (PubMed connection failed)');
     }
     
     function addUserMessage(content) {
@@ -168,26 +168,26 @@
     }
     
     function handleOverlayClick(event) {
-        // 챗봇 컨테이너 외부를 클릭했을 때만 닫기
+        // Close only when clicking outside the chatbot container
         if (event.target === event.currentTarget) {
             isOpen = false;
         }
     }
-    
-    // 드래그 기능 함수들
+
+    // Drag functionality functions
     function handleMouseDown(event) {
         if (event.target.closest('.header-buttons')) {
-            // 헤더 버튼을 클릭한 경우 드래그하지 않음
+            // Don't drag when clicking header buttons
             return;
         }
-        
+
         isDragging = true;
-        
-        // 현재 컨테이너의 위치를 고려한 오프셋 계산
+
+        // Calculate offset considering current container position
         const rect = chatbotContainer.getBoundingClientRect();
         const overlayRect = chatbotContainer.parentElement.getBoundingClientRect();
-        
-        // 마우스 위치에서 컨테이너의 실제 위치까지의 오프셋
+
+        // Offset from mouse position to actual container position
         dragOffset.x = event.clientX - rect.left;
         dragOffset.y = event.clientY - rect.top;
         
@@ -198,39 +198,39 @@
     
     function handleMouseMove(event) {
         if (!isDragging) return;
-        
-        // 오버레이 기준으로 새 위치 계산
+
+        // Calculate new position relative to overlay
         const overlayRect = chatbotContainer.parentElement.getBoundingClientRect();
         const newX = event.clientX - overlayRect.left - dragOffset.x;
         const newY = event.clientY - overlayRect.top - dragOffset.y;
-        
-        // 화면 경계 체크 (오버레이 내부로 제한)
+
+        // Check screen boundaries (restrict to overlay)
         const containerWidth = chatbotContainer.offsetWidth;
         const containerHeight = chatbotContainer.offsetHeight;
         const overlayWidth = overlayRect.width;
         const overlayHeight = overlayRect.height;
-        
+
         const maxX = overlayWidth - containerWidth;
         const maxY = overlayHeight - containerHeight;
-        
+
         containerPosition.x = Math.max(0, Math.min(newX, maxX));
         containerPosition.y = Math.max(0, Math.min(newY, maxY));
-        
-        // 컨테이너 위치 업데이트 (오버레이 기준 상대 위치)
+
+        // Update container position (relative to overlay)
         chatbotContainer.style.position = 'absolute';
         chatbotContainer.style.left = containerPosition.x + 'px';
         chatbotContainer.style.top = containerPosition.y + 'px';
         chatbotContainer.style.transform = 'none';
         chatbotContainer.style.margin = '0';
     }
-    
+
     function handleMouseUp() {
         isDragging = false;
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
     }
-    
-    // 챗봇이 열릴 때 위치 초기화
+
+    // Reset position when chatbot opens
     function resetPosition() {
         if (chatbotContainer) {
             containerPosition = { x: 0, y: 0 };
@@ -252,35 +252,35 @@
             tabindex="-1"
             bind:this={chatbotContainer}
         >
-            <div 
-                class="chat-header" 
+            <div
+                class="chat-header"
                 on:mousedown={handleMouseDown}
             >
-                <h4>📚 문헌 검색 챗봇 <span class="drag-hint">📌</span></h4>
+                <h4>📚 Literature Search Assistant <span class="drag-hint">📌</span></h4>
                 <div class="header-buttons">
-                    <button class="clear-btn" on:click={clearChat} title="대화 지우기">🗑️</button>
+                    <button class="clear-btn" on:click={clearChat} title="Clear chat">🗑️</button>
                     <button class="close-btn" on:click={() => isOpen = false}>✕</button>
                 </div>
             </div>
-            
+
             <div class="security-notice">
-                🔒 보안 적용: 환자 정보는 외부 전송되지 않음 | 🌐 PubMed API 직접 연결
+                🔒 Security: Patient information is not transmitted externally | 🌐 Direct PubMed API connection
             </div>
             
             <div class="chat-messages" bind:this={chatContainer}>
                 {#if messages.length === 0}
                     <div class="welcome-message">
-                        <p>👋 안녕하세요! 의료 문헌 검색 챗봇입니다.</p>
-                        <p>약물명이나 관련 키워드를 입력하면 PubMed에서 직접 논문을 검색해드립니다.</p>
+                        <p>👋 Hello! I'm the medical literature search assistant.</p>
+                        <p>Enter a drug name or related keywords to search for papers directly on PubMed.</p>
                         <div class="example-queries">
-                            <p><strong>예시:</strong></p>
+                            <p><strong>Examples:</strong></p>
                             <button on:click={() => userQuery = 'megestrol'}>megestrol</button>
                             <button on:click={() => userQuery = 'pembrolizumab hepatotoxicity'}>pembrolizumab hepatotoxicity</button>
                             <button on:click={() => userQuery = 'amiodarone DILI'}>amiodarone DILI</button>
                             <button on:click={() => userQuery = 'drug-induced liver injury'}>drug-induced liver injury</button>
                         </div>
                         <div class="api-info">
-                            <small>🌐 실시간 PubMed API 사용 | 📚 NCBI E-utilities 검색</small>
+                            <small>🌐 Real-time PubMed API | 📚 NCBI E-utilities search</small>
                         </div>
                     </div>
                 {/if}
@@ -310,16 +310,16 @@
                 {#if isLoading}
                     <div class="message bot">
                         <div class="loading-indicator">
-                            <span>🔍</span> 논문을 검색하고 있습니다...
+                            <span>🔍</span> Searching for papers...
                         </div>
                     </div>
                 {/if}
             </div>
-            
+
             <div class="chat-input">
-                <textarea 
+                <textarea
                     bind:value={userQuery}
-                    placeholder="약물명이나 관련 키워드를 입력하세요... (예: pembrolizumab, megestrol)"
+                    placeholder="Enter drug name or related keywords... (e.g., pembrolizumab, megestrol)"
                     on:keydown={handleKeydown}
                     disabled={isLoading}
                     rows="2"

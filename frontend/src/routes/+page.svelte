@@ -1,11 +1,12 @@
 <script>
   import { Card, CardBody, CardFooter, El, Button, CardActions, FileUpload, Icon } from "yesvelte";
   import { goto } from '$app/navigation';
-  import { parsedData, groupedPatientData } from '$lib/duckdb';
+  import { parsedData, groupedPatientData, clearDataFromSessionStorage } from '$lib/duckdb';
   import { initializeDuckDB } from '$lib/duckdb';
   import Spinner from '$lib/components/Spinner.svelte';
   import { writable } from 'svelte/store';
   import { detectFileFormat, createDuckDBQuery } from '$lib/fileFormatDetector';
+  import { onMount } from 'svelte';
 
   let files_1;
   let hint_1 = "";
@@ -47,6 +48,8 @@
   function handleDrop(event) {
     event.preventDefault();
     isDragOver = false;
+    // Clear previous data when user drops a new file
+    clearDataFromSessionStorage();
     const droppedFiles = Array.from(event.dataTransfer.files);
     if (droppedFiles.length > 0) {
       files_1 = droppedFiles;
@@ -54,6 +57,8 @@
   }
 
   function openFileDialog() {
+    // Clear previous data when user selects a new file
+    clearDataFromSessionStorage();
     fileInputElement?.click();
   }
 

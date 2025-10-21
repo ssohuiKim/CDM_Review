@@ -28,13 +28,40 @@
 	
 	// 챗봇 상태 추가
 	let isChatOpen = false;
-  
+
+	// DEBUG: sessionStorage 테스트
 	onMount(() => {
-	  groupedPatientData.subscribe(data => {
-		patients = Object.keys(data);
-		patientData = data;
-	  });
+		// 저장 테스트
+		sessionStorage.setItem("test_data", JSON.stringify({ hello: "world", timestamp: Date.now() }));
+		console.log("✅ 테스트 데이터 저장됨");
+
+		// 즉시 복원 테스트
+		const saved = sessionStorage.getItem("test_data");
+		console.log("📦 테스트 데이터 복원:", saved);
+
+		// 실제 데이터 확인
+		const parsedDataRaw = sessionStorage.getItem("cdm_review_parsed_data");
+		const groupedDataRaw = sessionStorage.getItem("cdm_review_grouped_data");
+		console.log("📊 parsedData 존재:", !!parsedDataRaw, parsedDataRaw?.length, "bytes");
+		console.log("📊 groupedPatientData 존재:", !!groupedDataRaw, groupedDataRaw?.length, "bytes");
+
+		if (groupedDataRaw) {
+			try {
+				const parsed = JSON.parse(groupedDataRaw);
+				console.log("👥 환자 수:", Object.keys(parsed).length);
+			} catch (e) {
+				console.error("❌ JSON 파싱 오류:", e);
+			}
+		}
 	});
+
+	// Automatically sync with store (including sessionStorage)
+	$: {
+	  patients = Object.keys($groupedPatientData);
+	  patientData = $groupedPatientData;
+	  console.log("🔄 Store 업데이트 - 환자 수:", patients.length);
+	  console.log("🔄 patientData keys:", Object.keys(patientData).length);
+	}
   
 	function selectPatient(patientNum) {
 		selectedPatient = patientNum;

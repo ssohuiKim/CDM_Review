@@ -263,8 +263,8 @@
           const safeCount = dailySafe[i].size;
           const total     = toxCount + safeCount; // unknown 제외
 
-          // 콘솔 확인 (원하면 주석처리)
-          console.log(`[Day ${i+1}] tox=${toxCount}, safe=${safeCount}, unknown=${dailyUnknown[i].size}, total(used)=${total}`);
+          
+          // console.log(`[Day ${i+1}] tox=${toxCount}, safe=${safeCount}, unknown=${dailyUnknown[i].size}, total(used)=${total}`);
 
           if (total === 0) continue;
 
