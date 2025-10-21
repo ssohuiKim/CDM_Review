@@ -238,7 +238,7 @@
                     margin-bottom: 20px;
                 }
                 img { 
-                    max-width: 100%; 
+                    max-width: none; 
                     height: auto; 
                     display: block; 
                     margin: 0 auto; 
