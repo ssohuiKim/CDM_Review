@@ -29,51 +29,35 @@
 	// 챗봇 상태 추가
 	let isChatOpen = false;
 
-	// DEBUG: sessionStorage 테스트 및 selectedPatient 복원
-	onMount(() => {
-		// 저장 테스트
-		sessionStorage.setItem("test_data", JSON.stringify({ hello: "world", timestamp: Date.now() }));
-		console.log("✅ 테스트 데이터 저장됨");
-
-		// 즉시 복원 테스트
-		const saved = sessionStorage.getItem("test_data");
-		console.log("📦 테스트 데이터 복원:", saved);
-
-		// 실제 데이터 확인
-		const parsedDataRaw = sessionStorage.getItem("cdm_review_parsed_data");
-		const groupedDataRaw = sessionStorage.getItem("cdm_review_grouped_data");
-		console.log("📊 parsedData 존재:", !!parsedDataRaw, parsedDataRaw?.length, "bytes");
-		console.log("📊 groupedPatientData 존재:", !!groupedDataRaw, groupedDataRaw?.length, "bytes");
-
-		if (groupedDataRaw) {
-			try {
-				const parsed = JSON.parse(groupedDataRaw);
-				console.log("👥 환자 수:", Object.keys(parsed).length);
-			} catch (e) {
-				console.error("❌ JSON 파싱 오류:", e);
-			}
-		}
-
-		// selectedPatient 복원
+	// selectedPatient 복원 및 데이터 동기화
+	onMount(async () => {
+		// 1. selectedPatient 먼저 복원 (sessionStorage - 빠름)
 		const savedSelectedPatient = sessionStorage.getItem("cdm_review_selected_patient");
 		if (savedSelectedPatient) {
 			selectedPatient = savedSelectedPatient;
 			console.log("✅ selectedPatient 복원됨:", selectedPatient);
 		}
+
+		// 2. IndexedDB에서 환자 데이터 로드 대기
+		// groupedPatientData store가 IndexedDB에서 자동으로 로드됨
+		console.log("⏳ IndexedDB에서 데이터 로딩 중...");
 	});
 
-	// Automatically sync with store (including sessionStorage)
+	// Automatically sync with store (including IndexedDB)
 	$: {
 	  patients = Object.keys($groupedPatientData);
 	  patientData = $groupedPatientData;
-	  console.log("🔄 Store 업데이트 - 환자 수:", patients.length);
-	  console.log("🔄 patientData keys:", Object.keys(patientData).length);
+	  
+	  if (patients.length > 0) {
+		console.log("🔄 Store 업데이트 - 환자 수:", patients.length);
+		console.log("🔄 patientData keys:", Object.keys(patientData).length);
+	  }
 	}
 
-	// selectedPatient 변경 시 sessionStorage에 저장
+	// selectedPatient 변경 시 sessionStorage에 저장 (빠른 복원을 위해)
 	$: if (selectedPatient) {
 		sessionStorage.setItem("cdm_review_selected_patient", selectedPatient);
-		console.log("💾 selectedPatient 저장됨:", selectedPatient);
+		console.log("💾 selectedPatient 저장됨 (sessionStorage):", selectedPatient);
 	}
   
 	function selectPatient(patientNum) {

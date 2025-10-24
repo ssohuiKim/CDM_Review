@@ -4,56 +4,63 @@ import duckdb_wasm from '@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url';
 import duckdb_wasm_eh from '@duckdb/duckdb-wasm/dist/duckdb-eh.wasm?url';
 import mvp_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url';
 import eh_worker from '@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url';
+import { saveToIndexedDB, loadFromIndexedDB, clearIndexedDB } from './indexedDB';
 
-// SessionStorage keys
-const STORAGE_KEY_PARSED = 'cdm_review_parsed_data';
-const STORAGE_KEY_GROUPED = 'cdm_review_grouped_data';
+// IndexedDB keys
+const INDEXEDDB_KEY_PARSED = 'parsed_data';
+const INDEXEDDB_KEY_GROUPED = 'grouped_patient_data';
 
-// Create stores with sessionStorage synchronization
-function createSyncedStore(key, initialValue) {
-  // Try to load from sessionStorage on initialization
-  let storedValue = initialValue;
+// Create stores with IndexedDB synchronization
+function createIndexedDBStore(key, initialValue) {
+  const store = writable(initialValue);
+  let isInitialized = false;
+
+  // Load from IndexedDB on initialization
   if (typeof window !== 'undefined') {
-    try {
-      const item = sessionStorage.getItem(key);
-      if (item) {
-        storedValue = JSON.parse(item);
-        console.log(`Loaded ${key} from sessionStorage`);
+    loadFromIndexedDB(key).then(storedValue => {
+      if (storedValue !== null) {
+        store.set(storedValue);
+        console.log(`✅ Loaded ${key} from IndexedDB`);
       }
-    } catch (error) {
-      console.error(`Error loading ${key} from sessionStorage:`, error);
-    }
+      isInitialized = true;
+    }).catch(error => {
+      console.error(`❌ Error loading ${key} from IndexedDB:`, error);
+      isInitialized = true;
+    });
   }
 
-  const store = writable(storedValue);
-
-  // Subscribe to store changes and sync to sessionStorage
+  // Subscribe to store changes and sync to IndexedDB
   if (typeof window !== 'undefined') {
+    let saveTimeout;
     store.subscribe(value => {
-      try {
-        sessionStorage.setItem(key, JSON.stringify(value));
-      } catch (error) {
-        console.error(`Error saving ${key} to sessionStorage:`, error);
-      }
+      // 초기화 완료 후에만 저장 (무한 루프 방지)
+      if (!isInitialized) return;
+      
+      // Debounce: 너무 자주 저장하지 않도록 500ms 대기
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        saveToIndexedDB(key, value).catch(error => {
+          console.error(`❌ Error saving ${key} to IndexedDB:`, error);
+        });
+      }, 500);
     });
   }
 
   return store;
 }
 
-export const parsedData = createSyncedStore(STORAGE_KEY_PARSED, []);
-export const groupedPatientData = createSyncedStore(STORAGE_KEY_GROUPED, {});
+export const parsedData = createIndexedDBStore(INDEXEDDB_KEY_PARSED, []);
+export const groupedPatientData = createIndexedDBStore(INDEXEDDB_KEY_GROUPED, {});
 
-// Clear data from sessionStorage
-export function clearDataFromSessionStorage() {
+// Clear data from IndexedDB
+export async function clearDataFromIndexedDB() {
   try {
-    sessionStorage.removeItem(STORAGE_KEY_PARSED);
-    sessionStorage.removeItem(STORAGE_KEY_GROUPED);
+    await clearIndexedDB();
     parsedData.set([]);
     groupedPatientData.set({});
-    console.log('Data cleared from sessionStorage');
+    console.log('✅ Data cleared from IndexedDB');
   } catch (error) {
-    console.error('Error clearing data from sessionStorage:', error);
+    console.error('❌ Error clearing data from IndexedDB:', error);
   }
 }
 
