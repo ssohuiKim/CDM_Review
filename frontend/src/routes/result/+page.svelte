@@ -29,7 +29,7 @@
 	// 챗봇 상태 추가
 	let isChatOpen = false;
 
-	// DEBUG: sessionStorage 테스트
+	// DEBUG: sessionStorage 테스트 및 selectedPatient 복원
 	onMount(() => {
 		// 저장 테스트
 		sessionStorage.setItem("test_data", JSON.stringify({ hello: "world", timestamp: Date.now() }));
@@ -53,6 +53,13 @@
 				console.error("❌ JSON 파싱 오류:", e);
 			}
 		}
+
+		// selectedPatient 복원
+		const savedSelectedPatient = sessionStorage.getItem("cdm_review_selected_patient");
+		if (savedSelectedPatient) {
+			selectedPatient = savedSelectedPatient;
+			console.log("✅ selectedPatient 복원됨:", selectedPatient);
+		}
 	});
 
 	// Automatically sync with store (including sessionStorage)
@@ -61,6 +68,12 @@
 	  patientData = $groupedPatientData;
 	  console.log("🔄 Store 업데이트 - 환자 수:", patients.length);
 	  console.log("🔄 patientData keys:", Object.keys(patientData).length);
+	}
+
+	// selectedPatient 변경 시 sessionStorage에 저장
+	$: if (selectedPatient) {
+		sessionStorage.setItem("cdm_review_selected_patient", selectedPatient);
+		console.log("💾 selectedPatient 저장됨:", selectedPatient);
 	}
   
 	function selectPatient(patientNum) {
