@@ -122,6 +122,19 @@
 	// 	}
 	// }
 
+	// Naranjo Algorithm 점수 분류 함수
+	function getNaranjoCategory(score) {
+		if (score >= 9) {
+			return "Definite";
+		} else if (score >= 5 && score <= 8) {
+			return "Probable";
+		} else if (score >= 1 && score <= 4) {
+			return "Possible";
+		} else {
+			return "Doubtful";
+		}
+	}
+
 	function generateSurveyHTML(patientNum) {
 		const storedData = JSON.parse(localStorage.getItem('naranjoAlgorithmData') || "{}");
 		const data = storedData[patientNum];
@@ -154,7 +167,9 @@
 			`;
 		});
 
-		result += `<div class="score">Total Score: ${data.totalScore}</div>`;
+		// 점수와 분류 함께 표시
+		const category = getNaranjoCategory(data.totalScore);
+		result += `<div class="score">Total Score: ${data.totalScore} (${category})</div>`;
 		result += `<div class="note">Note: ${data.note ?? ""}</div>`;
 		result += `</div>`;
 
