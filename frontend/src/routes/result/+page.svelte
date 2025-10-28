@@ -14,6 +14,7 @@
 	import CircularChatButton from '../../lib/chatbot/CircularChatButton.svelte';
 	import ChatBot from '../../lib/chatbot/ChatBot.svelte';
 	import { groupedPatientData } from '$lib/duckdb';
+	import { initializeDuckDB, refreshStoresFromDB } from '$lib/duckdb';
 	import html2canvas from 'html2canvas';
 	import JSZip from 'jszip';
 	import pkg from 'file-saver';
@@ -38,9 +39,18 @@
 			console.log("✅ selectedPatient 복원됨:", selectedPatient);
 		}
 
-		// 2. IndexedDB에서 환자 데이터 로드 대기
-		// groupedPatientData store가 IndexedDB에서 자동으로 로드됨
-		console.log("⏳ IndexedDB에서 데이터 로딩 중...");
+		// 2. Initialize DuckDB and restore from IndexedDB backup
+		try {
+			console.log("⏳ Restoring DuckDB from IndexedDB...");
+			await initializeDuckDB();
+
+			// 3. Refresh Svelte stores from DuckDB
+			await refreshStoresFromDB();
+
+			console.log("✅ Data restored successfully");
+		} catch (error) {
+			console.error("❌ Error restoring data:", error);
+		}
 	});
 
 	// Automatically sync with store (including IndexedDB)

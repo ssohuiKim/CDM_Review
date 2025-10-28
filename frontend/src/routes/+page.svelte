@@ -1,8 +1,7 @@
 <script>
   import { Card, CardBody, CardFooter, El, Button, CardActions, FileUpload, Icon } from "yesvelte";
   import { goto } from '$app/navigation';
-  import { parsedData, groupedPatientData, clearDataFromIndexedDB } from '$lib/duckdb';
-  import { initializeDuckDB } from '$lib/duckdb';
+  import { clearDataFromIndexedDB, initializeDuckDB, exportDuckDBToIndexedDB, refreshStoresFromDB } from '$lib/duckdb';
   import Spinner from '$lib/components/Spinner.svelte';
   import { writable } from 'svelte/store';
   import { detectFileFormat, createDuckDBQuery } from '$lib/fileFormatDetector';
@@ -102,85 +101,67 @@
     }
   }
 
-  // 프록시 객체를 일반 객체로 변환하는 함수
-  function convertRowToObject(row) {
-    const result = {};
-    for (const key of Object.keys(row)) {
-      if (row[key] instanceof Date) {
-        result[key] = row[key].toISOString(); // 날짜를 ISO 문자열로 변환
-      } else if (typeof row[key] === 'bigint') {
-        result[key] = row[key].toString(); // BigInt를 문자열로 변환
-      } else {
-        result[key] = row[key];
-      }
-    }
-    return result;
-  }
-
   async function handleClick() {
     if (files_1 && files_1[0]) {
       loading.set(true); // 로딩 시작
-      
+
       try {
-        const db = await initializeDuckDB();
+        // Initialize DuckDB (will restore from backup if exists)
+        const { db, connection } = await initializeDuckDB();
         const reader = new FileReader();
-        
+
         reader.onload = async (event) => {
           try {
             const fileContent = event.target.result;
-            
+
             // 파일 포맷 감지 (이미 감지된 결과가 있으면 재사용)
             let detectionResult = formatDetectionResult;
             if (!detectionResult) {
               detectionResult = detectFileFormat(fileContent, files_1[0].name);
             }
-            
+
             console.log('Detected file format:', detectionResult);
-            
+
             // DuckDB에 파일 등록
             await db.registerFileText('data.txt', fileContent);
-            const connection = await db.connect();
-            
-            // 감지된 구분자로 DuckDB 쿼리 생성
+
+            // Drop existing patients table if exists
+            try {
+              await connection.query("DROP TABLE IF EXISTS patients");
+              console.log('🗑️ Dropped existing patients table');
+            } catch (error) {
+              console.log('ℹ️ No existing table to drop');
+            }
+
+            // 감지된 구분자로 DuckDB 쿼리 생성 및 테이블 생성
             const createTableQuery = createDuckDBQuery('patients', 'data.txt', detectionResult.delimiter);
             console.log('DuckDB 쿼리:', createTableQuery);
-            
+
             await connection.query(createTableQuery);
 
-            // 파싱된 데이터 가져오기
-            const result = await connection.query(`SELECT * FROM patients`);
-            const parsedResult = result.toArray().map(convertRowToObject);
-            parsedData.set(parsedResult);
+            // Export DuckDB to IndexedDB
+            await exportDuckDBToIndexedDB();
 
-            // Patient_no 기준으로 데이터 그룹화
-            const groupedData = parsedResult.reduce((acc, row) => {
-              const patientNo = row.patient_no;
-              if (!acc[patientNo]) {
-                acc[patientNo] = [];
-              }
-              acc[patientNo].push(row);
-              return acc;
-            }, {});
+            // Refresh Svelte stores from DuckDB
+            await refreshStoresFromDB();
 
-            // 그룹화된 데이터 스토어에 업데이트
-            groupedPatientData.set(groupedData);
             loading.set(false); // 로딩 종료
             goto('/result');
-            
+
           } catch (error) {
             console.error('데이터 처리 오류:', error);
             loading.set(false);
             alert(`데이터 처리 중 오류가 발생했습니다: ${error.message}`);
           }
         };
-        
+
         reader.onerror = () => {
           loading.set(false);
           alert('파일을 읽는 중 오류가 발생했습니다.');
         };
-        
+
         reader.readAsText(files_1[0]);
-        
+
       } catch (error) {
         console.error('파일 업로드 오류:', error);
         loading.set(false);

@@ -87,13 +87,6 @@
       gender = data[0]?.gender_source_value || data[0]?.gender || '';
       age = data[0]?.age || data[0]?.age_at_index || null;
       
-      // 디버깅을 위한 로그
-      console.log('Patient data:', data[0]);
-      console.log('Gender:', gender);
-      console.log('Age:', age);
-      console.log('Gender text:', getGenderText(gender));
-      console.log('Gender symbol:', getGenderSymbol(gender));
-      
       minWidth = Math.max(0, 380 + ((diagnosisGroup || '').length * 5));
 
       const ICI_values = data.map(row => row.ICI_lasting).filter(value => value != null);
