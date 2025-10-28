@@ -146,6 +146,10 @@
             await refreshStoresFromDB();
 
             loading.set(false); // 로딩 종료
+
+            // Mark that this is initial data load (for result page)
+            sessionStorage.setItem('cdm_review_initial_load', 'true');
+
             goto('/result');
 
           } catch (error) {

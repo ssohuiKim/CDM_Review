@@ -22,16 +22,30 @@
   
 	let show = false;
 	let showLoading = false; // 로딩 모달 상태
+	let isDataLoading = false; // 데이터 로딩 상태 (기본값 false)
 	let patients = [];
 	let selectedPatient = null;
 	let patientData = {};
 	let surveyRef;
-	
+
 	// 챗봇 상태 추가
 	let isChatOpen = false;
 
 	// selectedPatient 복원 및 데이터 동기화
 	onMount(async () => {
+		// Check if this is initial load after file upload
+		const isInitialLoad = sessionStorage.getItem('cdm_review_initial_load') === 'true';
+
+		if (isInitialLoad) {
+			// 초기 로드: Spinner 표시
+			isDataLoading = true;
+			sessionStorage.removeItem('cdm_review_initial_load'); // 플래그 제거
+			console.log("🆕 Initial load - showing spinner");
+		} else {
+			// 새로고침: 즉시 표시
+			console.log("🔄 Refresh - loading in background");
+		}
+
 		// 1. selectedPatient 먼저 복원 (sessionStorage - 빠름)
 		const savedSelectedPatient = sessionStorage.getItem("cdm_review_selected_patient");
 		if (savedSelectedPatient) {
@@ -50,6 +64,10 @@
 			console.log("✅ Data restored successfully");
 		} catch (error) {
 			console.error("❌ Error restoring data:", error);
+		} finally {
+			if (isInitialLoad) {
+				isDataLoading = false; // 초기 로드 완료
+			}
 		}
 	});
 
@@ -666,6 +684,17 @@
 		gap: 8px; /* 버튼 간격 설정 */
 	}
 
+	.loading-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		background: white;
+		border-radius: 4px;
+		border: 1px solid #DCE0E5;
+	}
+
 </style>
 
 <div style="height: calc(100vh - 80px); overflow: hidden; display: flex; flex-direction: column;">
@@ -700,71 +729,79 @@
 	</div>
 	
 	<div style="flex: 1; padding: 0 1rem 1rem; overflow: hidden;">
-		<div class="card">
-			<!-- 좌측 환자 목록 -->
-			<div class="sidebar">
-				<div class="patients-header">
-					<h3>Patients</h3>
-					<span class="patients-count">{patients.length} total</span>
-				</div>
-				{#each patients as patientNum}
-					<div class="patient-card {selectedPatient === patientNum ? 'selected' : ''}" 
-						 on:click={() => selectPatient(patientNum)}
-						 role="button"
-						 tabindex="0"
-						 on:keydown={(e) => e.key === 'Enter' && selectPatient(patientNum)}>
-						<div class="patient-header">
-							<div class="patient-avatar">
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-									<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-									<circle cx="12" cy="7" r="4"/>
-								</svg>
-							</div>
-							<div class="patient-info">
-								<div class="patient-name">Patient {patientNum}</div>
-								{#if patientData[patientNum] && patientData[patientNum][0] && patientData[patientNum][0].age}
-									<div class="age-badge">{patientData[patientNum][0].age}세</div>
-								{/if}
-							</div>
-						</div>
-					</div>
-				{/each}
+		{#if isDataLoading}
+			<!-- 데이터 로딩 중 Spinner 표시 -->
+			<div class="loading-container">
+				<Spinner />
+				<p style="margin-top: 1rem; color: #6b7280;">Loading patient data...</p>
 			</div>
-	
-			<!-- 중앙 영역: 스크롤 컨테이너 -->
-			<div class="scroll-container" on:scroll={handleScroll}>
-				<div class="canvas-container" style="min-width: {minWidth}px;">
-					{#if selectedPatient !== null}
-						<!-- DrugChart와 HoverBox를 각각 overlap 클래스를 가진 컨테이너로 감싸서 겹치게 함 -->
-						<div class="overlap">
-							<DrugChart bind:dynamicMarginRight bind:minWidth {selectedPatient} {patientData} />
+		{:else}
+			<div class="card">
+				<!-- 좌측 환자 목록 -->
+				<div class="sidebar">
+					<div class="patients-header">
+						<h3>Patients</h3>
+						<span class="patients-count">{patients.length} total</span>
+					</div>
+					{#each patients as patientNum}
+						<div class="patient-card {selectedPatient === patientNum ? 'selected' : ''}"
+							 on:click={() => selectPatient(patientNum)}
+							 role="button"
+							 tabindex="0"
+							 on:keydown={(e) => e.key === 'Enter' && selectPatient(patientNum)}>
+							<div class="patient-header">
+								<div class="patient-avatar">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+										<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+										<circle cx="12" cy="7" r="4"/>
+									</svg>
+								</div>
+								<div class="patient-info">
+									<div class="patient-name">Patient {patientNum}</div>
+									{#if patientData[patientNum] && patientData[patientNum][0] && patientData[patientNum][0].age}
+										<div class="age-badge">{patientData[patientNum][0].age}세</div>
+									{/if}
+								</div>
+							</div>
 						</div>
-						<div class="overlap">
-							<HoverBox {selectedPatient} {patientData} {minWidth} />
+					{/each}
+				</div>
+
+				<!-- 중앙 영역: 스크롤 컨테이너 -->
+				<div class="scroll-container" on:scroll={handleScroll}>
+					<div class="canvas-container" style="min-width: {minWidth}px;">
+						{#if selectedPatient !== null}
+							<!-- DrugChart와 HoverBox를 각각 overlap 클래스를 가진 컨테이너로 감싸서 겹치게 함 -->
+							<div class="overlap">
+								<DrugChart bind:dynamicMarginRight bind:minWidth {selectedPatient} {patientData} />
+							</div>
+							<div class="overlap">
+								<HoverBox {selectedPatient} {patientData} {minWidth} />
+							</div>
+						{:else}
+							<p>Please select a patient to view their data.</p>
+						{/if}
+					</div>
+					<!-- 좌측 고정 축 (col) -->
+					{#if isColScrolled}
+						<div class="fixed-col" style="width: {dynamicMarginRight}px;">
+							<AxisChart type="col" {selectedPatient} {patientData} {minWidth} />
 						</div>
-					{:else}
-						<p>Please select a patient to view their data.</p>
+					{/if}
+					{#if isRowScrolled}
+						<!-- 하단 고정 축 (row) -->
+						<div class="fixed-row">
+							<AxisChart type="row" {selectedPatient} {patientData} {minWidth} />
+						</div>
 					{/if}
 				</div>
-				<!-- 좌측 고정 축 (col) -->
-				{#if isColScrolled}
-					<div class="fixed-col" style="width: {dynamicMarginRight}px;">
-						<AxisChart type="col" {selectedPatient} {patientData} {minWidth} />
-					</div>
-				{/if}
-				{#if isRowScrolled}
-					<!-- 하단 고정 축 (row) -->
-					<div class="fixed-row">
-						<AxisChart type="row" {selectedPatient} {patientData} {minWidth} />
-					</div>
-				{/if}
+
+				<!-- 오른쪽 Survey 영역 -->
+				<div class="survey">
+					<Survey bind:this={surveyRef} {selectedPatient} {patientData} />
+				</div>
 			</div>
-	
-			<!-- 오른쪽 Survey 영역 -->
-			<div class="survey">
-				<Survey bind:this={surveyRef} {selectedPatient} {patientData} />
-			</div>
-		</div>
+		{/if}
 	</div>
 </div>
   
