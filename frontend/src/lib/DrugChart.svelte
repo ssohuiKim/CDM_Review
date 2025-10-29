@@ -404,16 +404,27 @@
 
   let canvas;
   
-  // 캔버스 크기 조절 함수
+  // 캔버스 크기 조절 함수 (High-DPI 지원)
   function adjustCanvasDimensions() {
     const cellWidth = boxWidth + spacingX;
     const calculatedWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
     const newWidth = Math.max(minWidth, calculatedWidth);
     const newHeight = 250 + (toxic.length + safeDrugs.length + ICI_LIST.length) * (boxHeight + spacingY) + 50;
-    canvas.width = newWidth;
+
+    // High-DPI (Retina) 디스플레이 지원
+    const dpr = window.devicePixelRatio || 1;
+
+    // Canvas 내부 해상도 (물리적 픽셀)
+    canvas.width = newWidth * dpr;
+    canvas.height = newHeight * dpr;
+
+    // Canvas 표시 크기 (CSS 픽셀)
     canvas.style.width = `${newWidth}px`;
-    canvas.height = newHeight;
     canvas.style.height = `${newHeight}px`;
+
+    // Canvas context를 DPR에 맞게 스케일
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
   }
 
   // 데이터 초기화 후 캔버스 크기 조절 및 재그리기

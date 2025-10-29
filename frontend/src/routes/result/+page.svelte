@@ -100,16 +100,34 @@
 		const container = document.createElement('div');
 		container.style.position = 'absolute';
 		container.style.left = '-9999px'; // 화면에서 숨김
+		container.style.top = '0';
+		container.style.width = '1200px'; // 충분한 너비 설정
+		container.style.minHeight = '800px'; // 충분한 높이 설정
+		container.style.backgroundColor = 'white';
 		document.body.appendChild(container);
 		return container;
 	}
 
 	async function captureChart(chartContainer) {
-		const canvas = chartContainer.querySelector('canvas');
-		if (canvas) {
-			return `<img src="${canvas.toDataURL('image/png')}" alt="Drug Chart">`;
+		try {
+			// html2canvas를 사용하여 전체 차트 컨테이너 캡처 (Canvas + 오버레이 포함)
+			const chartCanvas = await html2canvas(chartContainer, {
+				backgroundColor: '#ffffff',
+				scale: 2, // 고해상도 유지
+				logging: false,
+				useCORS: true,
+				allowTaint: true
+			});
+			return `<img src="${chartCanvas.toDataURL('image/png')}" alt="Drug Chart" style="max-width: 70%; height: auto; display: block; margin: 20px auto;">`;
+		} catch (error) {
+			console.error("차트 캡처 오류:", error);
+			// 폴백: Canvas만 캡처
+			const canvas = chartContainer.querySelector('canvas');
+			if (canvas) {
+				return `<img src="${canvas.toDataURL('image/png')}" alt="Drug Chart" style="max-width: 70%; height: auto;">`;
+			}
+			return "<p>Chart capture failed</p>";
 		}
-		return "";
 	}
 
 	// async function captureSurvey(surveyContainer) {
@@ -184,13 +202,11 @@
     const chart = new DrugChart({ target: chartContainer, props: { selectedPatient: patientNum, patientData } });
     const survey = new Survey({ target: surveyContainer, props: { selectedPatient: patientNum, patientData } });
 
+	// 충분한 렌더링 시간 대기 (오버레이 포함)
 	await tick();
-	await new Promise(resolve => setTimeout(resolve, 300)); 
-
-
+	await new Promise(resolve => setTimeout(resolve, 800)); // 800ms로 증가
 
     const chartContent = await captureChart(chartContainer);
-    // const surveyContent = await captureSurvey(surveyContainer);
 	const surveyContent = generateSurveyHTML(patientNum);
 
     chart.$destroy();
