@@ -1,5 +1,9 @@
 <script>
     import { Checkbox, Card, CardBody, Fieldset, FormTextarea, Button } from "yesvelte";
+    import { onMount, onDestroy } from "svelte";
+    import { naranjoWorkerManager, workerStatus, reasoningStatus, reasoningResults } from "./localai/NaranjoWorkerManager.js";
+    import AIReasoningModal from "./AIReasoningModal.svelte";
+    import QuestionReasoningModal from "./QuestionReasoningModal.svelte";
 
     export let selectedPatient;
     export let patientData;
@@ -27,6 +31,58 @@
     let answers = createInitialAnswers();
     let noteValue = ""; // 메모 저장 변수
     let showSaveMessage = false; // 저장 메시지 표시 상태
+
+    // AI Reasoning related state
+    let aiReasoning = null;
+    let showReasoningModal = false;
+    let showQuestionModal = false;
+    let selectedQuestionIndex = 0;
+    let isWorkerReady = false;
+    let currentReasoningStatus = 'idle'; // idle, processing, completed, failed
+
+    // Subscribe to worker status
+    $: isWorkerReady = $workerStatus === 'ready';
+    $: currentReasoningStatus = $reasoningStatus[selectedPatient] || 'idle';
+    $: aiReasoning = $reasoningResults[selectedPatient] || naranjoWorkerManager.loadFromLocalStorage(selectedPatient);
+
+    // Get reasoning for selected question
+    $: selectedQuestionReasoning = aiReasoning?.answers?.[selectedQuestionIndex] || null;
+
+    // Auto-apply AI answers when reasoning is available
+    $: if (aiReasoning && aiReasoning.answers) {
+        applyAIAnswersToCheckboxes();
+    }
+
+    /**
+     * Apply AI answers to checkboxes
+     */
+    function applyAIAnswersToCheckboxes() {
+        if (!aiReasoning || !aiReasoning.answers) return;
+
+        // Convert AI answers to checkbox format
+        aiReasoning.answers.forEach((item) => {
+            const questionKey = `q${item.question}`;
+            const answerCode = convertAnswerToCode(item.answer);
+
+            if (answers[questionKey] !== undefined) {
+                answers[questionKey] = [answerCode];
+            }
+        });
+
+        // Trigger reactivity and recalculate score
+        answers = { ...answers };
+        totalScore = calculateScore();
+    }
+
+    /**
+     * Convert AI answer to code format used in the app
+     */
+    function convertAnswerToCode(answer) {
+        const normalized = answer.toLowerCase().trim();
+        if (normalized === 'yes') return 'yes';
+        if (normalized === 'no') return 'no';
+        return "don't know";
+    }
 
     function createInitialAnswers() {
         return {
@@ -111,7 +167,7 @@
     }
 
     $: totalScore = calculateScore();
-    
+
     // 점수에 따른 ADR 분류
     $: adrCategory = (() => {
         if (totalScore >= 9) return "Definite";
@@ -119,29 +175,174 @@
         if (totalScore >= 1) return "Possible";
         return "Doubtful";
     })();
+
+    // Initialize worker on mount
+    onMount(async () => {
+        try {
+            await naranjoWorkerManager.initialize();
+        } catch (error) {
+            console.error('Failed to initialize AI worker:', error);
+        }
+    });
+
+    // Cleanup on destroy
+    onDestroy(() => {
+        // Worker persists across component lifecycle for efficiency
+        // Only terminate if absolutely necessary
+    });
+
+    /**
+     * Request AI reasoning for current patient
+     */
+    async function requestAIReasoning() {
+        if (!isWorkerReady) {
+            alert('AI service is not ready. Please check LocalAI connection.');
+            return;
+        }
+
+        if (!selectedPatient || !patientData) {
+            alert('No patient selected');
+            return;
+        }
+
+        try {
+            // Prepare patient data for AI
+            const aiPatientData = {
+                age: patientData.age || 'unknown',
+                gender: patientData.gender || 'unknown',
+                drugs: patientData.drugs || [],
+                ichiDrugs: patientData.ici_drugs || [],
+                grades: patientData.grades || [],
+                totalDays: patientData.totalDays || 0
+            };
+
+            // Request reasoning from worker
+            await naranjoWorkerManager.requestReasoning(selectedPatient, aiPatientData);
+
+        } catch (error) {
+            console.error('Failed to request AI reasoning:', error);
+            alert('Failed to get AI reasoning. Please try again.');
+        }
+    }
+
+    /**
+     * Toggle reasoning modal
+     */
+    function toggleReasoningModal() {
+        showReasoningModal = !showReasoningModal;
+    }
+
+    /**
+     * Show question reasoning modal
+     */
+    function showQuestionReasoning(questionIndex) {
+        console.log('showQuestionReasoning called with index:', questionIndex);
+        console.log('aiReasoning:', aiReasoning);
+        console.log('aiReasoning.answers:', aiReasoning?.answers);
+
+        if (!aiReasoning || !aiReasoning.answers) {
+            alert('No AI reasoning available. Please click "Analyze with AI" first.');
+            return;
+        }
+
+        selectedQuestionIndex = questionIndex;
+        console.log('Selected question reasoning:', aiReasoning.answers[questionIndex]);
+        showQuestionModal = true;
+        console.log('showQuestionModal set to:', showQuestionModal);
+    }
+
+    /**
+     * Get status badge info
+     */
+    function getStatusBadge(status) {
+        switch (status) {
+            case 'queued':
+                return { text: 'Queued', color: 'info' };
+            case 'processing':
+                return { text: 'Processing...', color: 'warning' };
+            case 'completed':
+                return { text: 'Completed', color: 'success' };
+            case 'failed':
+                return { text: 'Failed', color: 'danger' };
+            default:
+                return null;
+        }
+    }
 </script>
 
 <Card>
     <CardBody>
-        <div style="font-size: 18px; font-weight: bold;">Naranjo Algorithm</div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 18px; font-weight: bold;">Naranjo Algorithm</div>
+
+            <!-- AI Reasoning Controls -->
+            <div style="display: flex; gap: 8px; align-items: center;">
+                {#if !isWorkerReady}
+                    <span style="font-size: 12px; color: #dc3545;">AI Offline</span>
+                {:else if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
+                    <span style="font-size: 12px; color: #ffc107;">AI Processing...</span>
+                {:else if currentReasoningStatus === 'completed' && aiReasoning}
+                    <button
+                        class="icon-button"
+                        on:click={toggleReasoningModal}
+                        title="View AI Reasoning Details"
+                    >
+                        <span style="font-size: 18px;">💡</span>
+                    </button>
+                {/if}
+
+                <Button
+                    size="sm"
+                    color="info"
+                    on:click={requestAIReasoning}
+                    disabled={!isWorkerReady || currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
+                    title="Request AI to analyze this case"
+                >
+                    {#if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
+                        Processing...
+                    {:else}
+                        Analyze with AI
+                    {/if}
+                </Button>
+            </div>
+        </div>
     </CardBody>
 
     <CardBody>
         {#each questions as questionText, index}
             <div style="margin-bottom: 16px;">
-                <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {questionText}</p>
+                <div class="question-header">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {questionText}</p>
+                        {#if aiReasoning && aiReasoning.answers}
+                            <span class="ai-badge">AI</span>
+                        {/if}
+                    </div>
+                    {#if aiReasoning && aiReasoning.answers}
+                        <button
+                            type="button"
+                            class="tooltip-button"
+                            on:click|stopPropagation={() => showQuestionReasoning(index)}
+                            title="View AI reasoning for this question"
+                        >
+                            <img src="/tooltip.svg" alt="AI Reasoning" class="tooltip-icon" />
+                        </button>
+                    {/if}
+                </div>
                 {#each items as item}
-                <Checkbox
-                    label={item.text}
-                    checked={answers[`q${index + 1}`][0] === item.code}
-                    on:change={() => {
-                        answers = { 
-                            ...answers, 
-                            [`q${index + 1}`]: [item.code] 
-                        };
-                        totalScore = calculateScore();
-                    }}
-                />
+                <div class="checkbox-wrapper" class:ai-selected={aiReasoning && answers[`q${index + 1}`][0] === item.code}>
+                    <Checkbox
+                        label={item.text}
+                        checked={answers[`q${index + 1}`][0] === item.code}
+                        on:change={() => {
+                            answers = {
+                                ...answers,
+                                [`q${index + 1}`]: [item.code]
+                            };
+                            totalScore = calculateScore();
+                        }}
+                    />
+                </div>
             {/each}
             </div>
         {/each}
@@ -173,6 +374,21 @@
         </div>
     </div>
 {/if}
+
+<!-- AI Reasoning Modal (All Questions) -->
+<AIReasoningModal
+    bind:isOpen={showReasoningModal}
+    reasoning={aiReasoning}
+    patientNo={selectedPatient}
+/>
+
+<!-- Question Reasoning Modal (Single Question) -->
+<QuestionReasoningModal
+    bind:isOpen={showQuestionModal}
+    questionNumber={selectedQuestionIndex + 1}
+    questionText={questions[selectedQuestionIndex]}
+    reasoning={selectedQuestionReasoning}
+/>
 
 <style>
     .toast-message {
@@ -211,5 +427,97 @@
             opacity: 1;
             transform: translate(-50%, -50%);
         }
+    }
+
+    .icon-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-button:hover {
+        background-color: #f8f9fa;
+    }
+
+    .icon-button:active {
+        background-color: #e9ecef;
+    }
+
+    .question-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: space-between;
+    }
+
+    .question-header p {
+        flex: 1;
+        margin: 0 0 8px 0;
+    }
+
+    .tooltip-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: all 0.2s;
+        opacity: 0.6;
+    }
+
+    .tooltip-button:hover {
+        opacity: 1;
+        background-color: #f8f9fa;
+        transform: scale(1.1);
+    }
+
+    .tooltip-button:active {
+        background-color: #e9ecef;
+        transform: scale(0.95);
+    }
+
+    .tooltip-icon {
+        width: 20px;
+        height: 20px;
+        filter: grayscale(20%);
+    }
+
+    .tooltip-emoji {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    .ai-badge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+    }
+
+    .checkbox-wrapper {
+        transition: all 0.2s ease;
+        border-radius: 4px;
+        padding: 2px 0;
+    }
+
+    .checkbox-wrapper.ai-selected {
+        background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%);
+        border-left: 3px solid #667eea;
+        padding-left: 8px;
+        margin-left: -8px;
     }
 </style>
