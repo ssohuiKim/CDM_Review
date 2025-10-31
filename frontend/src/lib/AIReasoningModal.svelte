@@ -27,7 +27,8 @@
     }
 </script>
 
-<Modal {isOpen} {toggle} size="lg">
+{#if isOpen}
+<Modal open={true} isOpen={true} {toggle} size="lg">
     <ModalHeader {toggle}>
         AI Reasoning for Patient {patientNo}
     </ModalHeader>
@@ -82,6 +83,7 @@
         {/if}
     </ModalBody>
 </Modal>
+{/if}
 
 <style>
     .reasoning-container {

@@ -106,8 +106,10 @@
 
     // 환자가 변경되면 로컬스토리지에서 데이터 로드
     $: if (selectedPatient) {
+        console.log('Patient changed to:', selectedPatient);
         reset();
 
+        // Load survey data
         let storedData = JSON.parse(localStorage.getItem('naranjoAlgorithmData')) || {};
         if (storedData[selectedPatient]) {
             totalScore = storedData[selectedPatient].totalScore || 0;
@@ -116,6 +118,14 @@
                 answers = storedData[selectedPatient].answers;
             }
         }
+
+        // Load AI reasoning for this specific patient
+        const patientReasoning = naranjoWorkerManager.loadFromLocalStorage(selectedPatient);
+        console.log('Loaded AI reasoning for patient', selectedPatient, ':', patientReasoning);
+
+        // Reset modal state when patient changes
+        showQuestionModal = false;
+        showReasoningModal = false;
     }
 
     let scoringRules = {
@@ -247,8 +257,13 @@
 
         selectedQuestionIndex = questionIndex;
         console.log('Selected question reasoning:', aiReasoning.answers[questionIndex]);
-        showQuestionModal = true;
-        console.log('showQuestionModal set to:', showQuestionModal);
+
+        // Force a tick to ensure state update
+        showQuestionModal = false;
+        setTimeout(() => {
+            showQuestionModal = true;
+            console.log('showQuestionModal set to:', showQuestionModal);
+        }, 0);
     }
 
     /**
@@ -330,7 +345,7 @@
                     {/if}
                 </div>
                 {#each items as item}
-                <div class="checkbox-wrapper" class:ai-selected={aiReasoning && answers[`q${index + 1}`][0] === item.code}>
+                <div class="checkbox-wrapper" class:selected={answers[`q${index + 1}`][0] === item.code}>
                     <Checkbox
                         label={item.text}
                         checked={answers[`q${index + 1}`][0] === item.code}
@@ -514,7 +529,7 @@
         padding: 2px 0;
     }
 
-    .checkbox-wrapper.ai-selected {
+    .checkbox-wrapper.selected {
         background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%);
         border-left: 3px solid #667eea;
         padding-left: 8px;
