@@ -1,1 +1,4 @@
-Y/localai/models/*.gguf
+# LocalAI models (large files, download separately)
+localai/models/*.gguf
+localai/models/*.bin
+localai/models/*.safetensors
