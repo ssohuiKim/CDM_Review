@@ -168,3 +168,15 @@ For issues and questions:
 ---
 
 **Note**: This application is for research purposes. AI-generated assessments should be reviewed by qualified medical professionals.
+
+=========================================================
+git clone
+cd CDM_Review
+모델 다운로드 (README.md 참조)
+mkdir -p localai/models
+cd localai/models
+wget https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q4_K_M.gguf
+개발 시작
+cd frontend
+npm install
+npm run dev
