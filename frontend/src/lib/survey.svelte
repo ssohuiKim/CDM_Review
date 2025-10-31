@@ -295,7 +295,7 @@
                 {#if !isWorkerReady}
                     <span style="font-size: 12px; color: #dc3545;">AI Offline</span>
                 {:else if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
-                    <span style="font-size: 12px; color: #ffc107;">AI Processing...</span>
+                    <div class="spinner"></div>
                 {:else if currentReasoningStatus === 'completed' && aiReasoning}
                     <button
                         class="icon-button"
@@ -528,5 +528,19 @@
         border-left: 3px solid #667eea;
         padding-left: 8px;
         margin-left: -8px;
+    }
+
+    .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 </style>
