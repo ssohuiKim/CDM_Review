@@ -288,7 +288,7 @@
 <Card>
     <CardBody>
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-size: 18px; font-weight: bold;">Naranjo Algorithm</div>
+            <div style="font-size: 18px; font-weight: bold;">Naranjo Scale</div>
 
             <!-- AI Reasoning Controls -->
             <div style="display: flex; gap: 8px; align-items: center;">
@@ -301,9 +301,7 @@
                         class="icon-button"
                         on:click={toggleReasoningModal}
                         title="View AI Reasoning Details"
-                    >
-                        <span style="font-size: 18px;">💡</span>
-                    </button>
+                    >                    </button>
                 {/if}
 
                 <Button
@@ -312,6 +310,7 @@
                     on:click={requestAIReasoning}
                     disabled={!isWorkerReady || currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
                     title="Request AI to analyze this case"
+                    style="border-radius: 20px;"
                 >
                     {#if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
                         Processing...
@@ -327,12 +326,7 @@
         {#each questions as questionText, index}
             <div style="margin-bottom: 16px;">
                 <div class="question-header">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {questionText}</p>
-                        {#if aiReasoning && aiReasoning.answers}
-                            <span class="ai-badge">AI</span>
-                        {/if}
-                    </div>
+                    <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {questionText}</p>
                     {#if aiReasoning && aiReasoning.answers}
                         <button
                             type="button"
@@ -501,8 +495,8 @@
     }
 
     .tooltip-icon {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         filter: grayscale(20%);
     }
 
