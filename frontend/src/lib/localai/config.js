@@ -17,7 +17,8 @@ export const LOCALAI_CONFIG = {
     endpoint: 'http://localhost:8080',
 
     // Model name (should match the model loaded in LocalAI)
-    model: 'Hermes-3-Llama-3.2-3B-Q4_K_M.gguf',
+    // AIO image uses 'gpt-4' as an alias for the bundled model
+    model: 'gpt-4',
 
     // API settings
     apiPath: '/v1/chat/completions',

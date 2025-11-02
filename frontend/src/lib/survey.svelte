@@ -223,15 +223,46 @@
         }
 
         try {
-            // Prepare patient data for AI
+            // Get patient records array
+            const records = patientData[selectedPatient];
+
+            if (!records || records.length === 0) {
+                alert('No data available for this patient');
+                return;
+            }
+
+            console.log('Patient records:', records);
+
+            // Extract unique drugs from all records
+            const allDrugs = [...new Set(records.map(r => r.drug_name).filter(Boolean))];
+
+            // Extract ICI drugs (drugs with ICI_lasting flag)
+            const iciDrugs = [...new Set(
+                records
+                    .filter(r => r.ICI_lasting)
+                    .map(r => r.drug_name)
+                    .filter(Boolean)
+            )];
+
+            // Extract all grades
+            const grades = [...new Set(
+                records
+                    .map(r => r.grade)
+                    .filter(g => g !== null && g !== undefined)
+            )];
+
+            // Calculate total days (max day_num)
+            const totalDays = Math.max(...records.map(r => r.day_num || 0));
+
+            // Prepare patient data for AI (exclude PHI like age/gender)
             const aiPatientData = {
-                age: patientData.age || 'unknown',
-                gender: patientData.gender || 'unknown',
-                drugs: patientData.drugs || [],
-                ichiDrugs: patientData.ici_drugs || [],
-                grades: patientData.grades || [],
-                totalDays: patientData.totalDays || 0
+                drugs: allDrugs,
+                ichiDrugs: iciDrugs,
+                grades: grades,
+                totalDays: totalDays
             };
+
+            console.log('Prepared AI patient data:', aiPatientData);
 
             // Request reasoning from worker
             await naranjoWorkerManager.requestReasoning(selectedPatient, aiPatientData);

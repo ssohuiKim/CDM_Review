@@ -42,41 +42,41 @@ export const SCORING_RULES = {
  */
 function createNaranjoPrompt(patientData) {
     // Sanitize patient data to remove PHI (Protected Health Information)
+    // Only include drug-related information, exclude age/gender
     const sanitizedData = {
-        age: patientData.age || 'unknown',
-        gender: patientData.gender || 'unknown',
         drugs: patientData.drugs || [],
         ichiDrugs: patientData.ichiDrugs || [],
         grades: patientData.grades || [],
         totalDays: patientData.totalDays || 0
     };
 
-    const prompt = `You are a medical expert. Answer ONLY with valid JSON. Do not include any text before or after the JSON.
+    const prompt = `Analyze this drug-induced liver injury case using the Naranjo Algorithm.
 
-Patient Data:
-- Age: ${sanitizedData.age}, Gender: ${sanitizedData.gender}
-- Treatment: ${sanitizedData.totalDays} days, ${sanitizedData.drugs.length} drugs
-- ICI: ${sanitizedData.ichiDrugs.join(', ') || 'None'}
-- Grades: ${sanitizedData.grades.join(', ') || 'None'}
+Treatment Information:
+- Duration: ${sanitizedData.totalDays} days
+- Total medications: ${sanitizedData.drugs.length}
+- Immune checkpoint inhibitors: ${sanitizedData.ichiDrugs.join(', ') || 'None'}
+- Hepatotoxicity grades observed: ${sanitizedData.grades.join(', ') || 'None'}
+- All drugs: ${sanitizedData.drugs.slice(0, 10).join(', ')}${sanitizedData.drugs.length > 10 ? '...' : ''}
 
-Answer these 10 questions with Yes/No/Unknown:
+Answer each Naranjo question:
 ${NARANJO_QUESTIONS.map((q, i) => `${i + 1}. ${q}`).join('\n')}
 
-Respond ONLY with this JSON (no other text):
+Provide your assessment as JSON:
 {
   "answers": [
-    {"question": 1, "answer": "Yes", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 2, "answer": "No", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 3, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 4, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 5, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 6, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 7, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 8, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 9, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
-    {"question": 10, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"}
+    {"question": 1, "answer": "Unknown", "reasoning": "Insufficient data", "confidence": "Low"},
+    {"question": 2, "answer": "Yes", "reasoning": "Timing suggests causality", "confidence": "Medium"},
+    {"question": 3, "answer": "Unknown", "reasoning": "No discontinuation data", "confidence": "Low"},
+    {"question": 4, "answer": "Unknown", "reasoning": "No rechallenge data", "confidence": "Low"},
+    {"question": 5, "answer": "Unknown", "reasoning": "Alternative causes unclear", "confidence": "Low"},
+    {"question": 6, "answer": "Unknown", "reasoning": "No placebo data", "confidence": "Low"},
+    {"question": 7, "answer": "Unknown", "reasoning": "No drug level data", "confidence": "Low"},
+    {"question": 8, "answer": "Unknown", "reasoning": "No dose-response data", "confidence": "Low"},
+    {"question": 9, "answer": "Unknown", "reasoning": "No prior exposure data", "confidence": "Low"},
+    {"question": 10, "answer": "Unknown", "reasoning": "Objective evidence unclear", "confidence": "Low"}
   ],
-  "overallAssessment": "Brief summary"
+  "overallAssessment": "Limited data available for definitive causality assessment"
 }`;
 
     return prompt;
@@ -94,23 +94,25 @@ export async function getNaranjoReasoning(patientData) {
         return getMockNaranjoReasoning(patientData);
     }
 
+    console.log('Patient data sent to AI:', patientData);
     const prompt = createNaranjoPrompt(patientData);
+    console.log('Generated prompt:', prompt.substring(0, 500) + '...');
 
     const requestBody = {
         model: LOCALAI_CONFIG.model,
         messages: [
             {
                 role: 'system',
-                content: 'You are a medical AI assistant. You MUST respond ONLY with valid JSON. Do not add any explanatory text before or after the JSON object.'
+                content: 'You are a clinical pharmacology expert analyzing adverse drug reactions. Respond with valid JSON only. No explanations, no markdown, just raw JSON.'
             },
             {
                 role: 'user',
                 content: prompt
             }
         ],
-        temperature: 0.3,
+        temperature: 0.1,
         max_tokens: LOCALAI_CONFIG.maxTokens,
-        top_p: LOCALAI_CONFIG.topP
+        top_p: 0.9
     };
 
     try {
@@ -133,13 +135,17 @@ export async function getNaranjoReasoning(patientData) {
         }
 
         const result = await response.json();
+        console.log('LocalAI raw result:', result);
 
         // Extract the AI's response
         const aiResponse = result.choices?.[0]?.message?.content;
 
         if (!aiResponse) {
+            console.error('Invalid LocalAI response structure:', JSON.stringify(result, null, 2));
             throw new Error('Invalid response format from LocalAI');
         }
+
+        console.log('AI response content:', aiResponse);
 
         // Parse the JSON response from AI
         const parsedResponse = parseAIResponse(aiResponse);
