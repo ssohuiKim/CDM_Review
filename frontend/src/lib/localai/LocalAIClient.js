@@ -22,6 +22,37 @@ export const NARANJO_QUESTIONS = [
     "Was the adverse event confirmed by any objective evidence?"
 ];
 
+/**
+ * Fixed answers for specific questions
+ */
+export const FIXED_ANSWERS = {
+    1: {
+        answer: "Yes",
+        reasoning: "Immune checkpoint inhibitor-induced hepatotoxicity is well-documented in the literature.",
+        confidence: "High"
+    },
+    6: {
+        answer: "Unknown",
+        reasoning: "No information available regarding placebo rechallenge.",
+        confidence: "Low"
+    },
+    7: {
+        answer: "Unknown",
+        reasoning: "Drug levels in body fluids were not measured.",
+        confidence: "Low"
+    },
+    9: {
+        answer: "Unknown",
+        reasoning: "No information available about previous exposure to similar drugs.",
+        confidence: "Low"
+    },
+    10: {
+        answer: "Yes",
+        reasoning: "Hepatotoxicity confirmed by objective laboratory evidence (liver function tests).",
+        confidence: "High"
+    }
+};
+
 export const SCORING_RULES = {
     1: { yes: 1, no: 0, unknown: 0 },
     2: { yes: 2, no: -1, unknown: 0 },
@@ -50,6 +81,15 @@ function createNaranjoPrompt(patientData) {
         totalDays: patientData.totalDays || 0
     };
 
+    // Questions to ask AI (excluding fixed answers: 1, 6, 7, 9, 10)
+    const aiQuestions = [
+        { num: 2, text: NARANJO_QUESTIONS[1] },
+        { num: 3, text: NARANJO_QUESTIONS[2] },
+        { num: 4, text: NARANJO_QUESTIONS[3] },
+        { num: 5, text: NARANJO_QUESTIONS[4] },
+        { num: 8, text: NARANJO_QUESTIONS[7] }
+    ];
+
     const prompt = `Analyze this drug-induced liver injury case using the Naranjo Algorithm.
 
 Treatment Information:
@@ -59,24 +99,19 @@ Treatment Information:
 - Hepatotoxicity grades observed: ${sanitizedData.grades.join(', ') || 'None'}
 - All drugs: ${sanitizedData.drugs.slice(0, 10).join(', ')}${sanitizedData.drugs.length > 10 ? '...' : ''}
 
-Answer each Naranjo question:
-${NARANJO_QUESTIONS.map((q, i) => `${i + 1}. ${q}`).join('\n')}
+Answer these 5 Naranjo questions:
+${aiQuestions.map(q => `${q.num}. ${q.text}`).join('\n')}
 
-Provide your assessment as JSON:
+Provide your assessment as JSON with ONLY these 5 questions:
 {
   "answers": [
-    {"question": 1, "answer": "Unknown", "reasoning": "Insufficient data", "confidence": "Low"},
-    {"question": 2, "answer": "Yes", "reasoning": "Timing suggests causality", "confidence": "Medium"},
-    {"question": 3, "answer": "Unknown", "reasoning": "No discontinuation data", "confidence": "Low"},
-    {"question": 4, "answer": "Unknown", "reasoning": "No rechallenge data", "confidence": "Low"},
-    {"question": 5, "answer": "Unknown", "reasoning": "Alternative causes unclear", "confidence": "Low"},
-    {"question": 6, "answer": "Unknown", "reasoning": "No placebo data", "confidence": "Low"},
-    {"question": 7, "answer": "Unknown", "reasoning": "No drug level data", "confidence": "Low"},
-    {"question": 8, "answer": "Unknown", "reasoning": "No dose-response data", "confidence": "Low"},
-    {"question": 9, "answer": "Unknown", "reasoning": "No prior exposure data", "confidence": "Low"},
-    {"question": 10, "answer": "Unknown", "reasoning": "Objective evidence unclear", "confidence": "Low"}
+    {"question": 2, "answer": "Yes", "reasoning": "Brief clinical reasoning", "confidence": "Medium"},
+    {"question": 3, "answer": "Unknown", "reasoning": "Brief clinical reasoning", "confidence": "Low"},
+    {"question": 4, "answer": "Unknown", "reasoning": "Brief clinical reasoning", "confidence": "Low"},
+    {"question": 5, "answer": "Unknown", "reasoning": "Brief clinical reasoning", "confidence": "Low"},
+    {"question": 8, "answer": "Unknown", "reasoning": "Brief clinical reasoning", "confidence": "Low"}
   ],
-  "overallAssessment": "Limited data available for definitive causality assessment"
+  "overallAssessment": "Brief summary"
 }`;
 
     return prompt;
@@ -103,7 +138,7 @@ export async function getNaranjoReasoning(patientData) {
         messages: [
             {
                 role: 'system',
-                content: 'You are a clinical pharmacology expert analyzing adverse drug reactions. Respond with valid JSON only. No explanations, no markdown, just raw JSON.'
+                content: 'You are a clinical pharmacology expert analyzing adverse drug reactions. Answer ONLY the 5 questions provided. Respond with valid JSON only containing those 5 questions. No explanations, no markdown, just raw JSON.'
             },
             {
                 role: 'user',
@@ -150,9 +185,12 @@ export async function getNaranjoReasoning(patientData) {
         // Parse the JSON response from AI
         const parsedResponse = parseAIResponse(aiResponse);
 
+        // Merge AI answers with fixed answers
+        const mergedResponse = mergeWithFixedAnswers(parsedResponse);
+
         return {
             success: true,
-            data: parsedResponse,
+            data: mergedResponse,
             rawResponse: aiResponse,
             timestamp: new Date().toISOString()
         };
@@ -169,9 +207,49 @@ export async function getNaranjoReasoning(patientData) {
 }
 
 /**
+ * Merge AI answers with fixed answers
+ * @param {Object} aiResponse - Parsed AI response (questions 2, 3, 4, 5, 8)
+ * @returns {Object} Complete response with all 10 questions
+ */
+function mergeWithFixedAnswers(aiResponse) {
+    // Create array for all 10 answers
+    const allAnswers = [];
+
+    for (let i = 1; i <= 10; i++) {
+        if (FIXED_ANSWERS[i]) {
+            // Use fixed answer
+            allAnswers.push({
+                question: i,
+                ...FIXED_ANSWERS[i]
+            });
+        } else {
+            // Find AI answer for this question
+            const aiAnswer = aiResponse.answers?.find(a => a.question === i);
+            if (aiAnswer) {
+                allAnswers.push(aiAnswer);
+            } else {
+                // Fallback if AI didn't provide answer
+                allAnswers.push({
+                    question: i,
+                    answer: 'Unknown',
+                    reasoning: 'No AI response available',
+                    confidence: 'Low'
+                });
+            }
+        }
+    }
+
+    return {
+        answers: allAnswers,
+        overallAssessment: aiResponse.overallAssessment || 'Assessment based on available data',
+        parseError: aiResponse.parseError
+    };
+}
+
+/**
  * Parse AI response and extract structured data
  * @param {string} response - Raw AI response
- * @returns {Object} Parsed response
+ * @returns {Object} Parsed response (5 AI answers)
  */
 function parseAIResponse(response) {
     try {
@@ -193,12 +271,14 @@ function parseAIResponse(response) {
             throw new Error('Invalid response structure: missing answers array');
         }
 
-        if (parsed.answers.length !== 10) {
-            console.warn(`Expected 10 answers, got ${parsed.answers.length}`);
-            // Filter to only first 10 valid answers
-            parsed.answers = parsed.answers
-                .filter(item => item && item.question >= 1 && item.question <= 10)
-                .slice(0, 10);
+        // Validate we have the expected AI questions (2, 3, 4, 5, 8)
+        const expectedQuestions = [2, 3, 4, 5, 8];
+        parsed.answers = parsed.answers.filter(item =>
+            item && expectedQuestions.includes(item.question)
+        );
+
+        if (parsed.answers.length === 0) {
+            console.warn('No valid AI answers found');
         }
 
         return parsed;
@@ -206,10 +286,10 @@ function parseAIResponse(response) {
     } catch (error) {
         console.error('Failed to parse AI response:', error);
 
-        // Return a fallback structure
+        // Return fallback structure for AI questions only
         return {
-            answers: NARANJO_QUESTIONS.map((q, i) => ({
-                question: i + 1,
+            answers: [2, 3, 4, 5, 8].map(qNum => ({
+                question: qNum,
                 answer: 'Unknown',
                 reasoning: 'Failed to parse AI response',
                 confidence: 'Low'
