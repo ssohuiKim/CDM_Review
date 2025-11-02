@@ -5,7 +5,7 @@
 
 export const LOCALAI_CONFIG = {
     // Mock mode for testing without LocalAI (set to false to use real LocalAI)
-    useMockAI: true,
+    useMockAI: false,
 
     // Use SvelteKit API proxy to avoid CORS issues
     useProxy: true,
@@ -17,7 +17,7 @@ export const LOCALAI_CONFIG = {
     endpoint: 'http://localhost:8080',
 
     // Model name (should match the model loaded in LocalAI)
-    model: 'mistral-7b-instruct-v0.2.Q4_K_M.gguf',
+    model: 'gpt-4',
 
     // API settings
     apiPath: '/v1/chat/completions',

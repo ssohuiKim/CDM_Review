@@ -60,14 +60,17 @@
         if (!aiReasoning || !aiReasoning.answers) return;
 
         // Convert AI answers to checkbox format
-        aiReasoning.answers.forEach((item) => {
-            const questionKey = `q${item.question}`;
-            const answerCode = convertAnswerToCode(item.answer);
+        // Filter to only valid questions (1-10) and skip invalid answers
+        aiReasoning.answers
+            .filter(item => item && item.question >= 1 && item.question <= 10 && item.answer)
+            .forEach((item) => {
+                const questionKey = `q${item.question}`;
+                const answerCode = convertAnswerToCode(item.answer);
 
-            if (answers[questionKey] !== undefined) {
-                answers[questionKey] = [answerCode];
-            }
-        });
+                if (answers[questionKey] !== undefined) {
+                    answers[questionKey] = [answerCode];
+                }
+            });
 
         // Trigger reactivity and recalculate score
         answers = { ...answers };
@@ -78,9 +81,13 @@
      * Convert AI answer to code format used in the app
      */
     function convertAnswerToCode(answer) {
+        // Handle undefined or null answers
+        if (!answer) return "don't know";
+
         const normalized = answer.toLowerCase().trim();
         if (normalized === 'yes') return 'yes';
         if (normalized === 'no') return 'no';
+        if (normalized === 'unknown') return "don't know";
         return "don't know";
     }
 

@@ -197,6 +197,10 @@ function parseAIResponse(response) {
 
         if (parsed.answers.length !== 10) {
             console.warn(`Expected 10 answers, got ${parsed.answers.length}`);
+            // Filter to only first 10 valid answers
+            parsed.answers = parsed.answers
+                .filter(item => item && item.question >= 1 && item.question <= 10)
+                .slice(0, 10);
         }
 
         return parsed;
