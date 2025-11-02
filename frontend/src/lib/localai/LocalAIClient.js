@@ -51,45 +51,33 @@ function createNaranjoPrompt(patientData) {
         totalDays: patientData.totalDays || 0
     };
 
-    const prompt = `You are a medical expert analyzing Drug-Induced Liver Injury (DILI) cases for the Naranjo Algorithm assessment.
+    const prompt = `You are a medical expert. Answer ONLY with valid JSON. Do not include any text before or after the JSON.
 
-Patient Information (anonymized):
-- Age: ${sanitizedData.age}
-- Gender: ${sanitizedData.gender}
-- Treatment Duration: ${sanitizedData.totalDays} days
-- Number of Drugs: ${sanitizedData.drugs.length}
-- Immune Checkpoint Inhibitors: ${sanitizedData.ichiDrugs.join(', ') || 'None'}
-- Hepatotoxicity Grades Observed: ${sanitizedData.grades.join(', ') || 'None'}
+Patient Data:
+- Age: ${sanitizedData.age}, Gender: ${sanitizedData.gender}
+- Treatment: ${sanitizedData.totalDays} days, ${sanitizedData.drugs.length} drugs
+- ICI: ${sanitizedData.ichiDrugs.join(', ') || 'None'}
+- Grades: ${sanitizedData.grades.join(', ') || 'None'}
 
-Naranjo Algorithm Questions:
+Answer these 10 questions with Yes/No/Unknown:
 ${NARANJO_QUESTIONS.map((q, i) => `${i + 1}. ${q}`).join('\n')}
 
-Based on the patient data above, please answer each of the 10 Naranjo Algorithm questions with "Yes", "No", or "Unknown".
-
-IMPORTANT INSTRUCTIONS:
-1. For each question, provide:
-   - Your answer (Yes/No/Unknown)
-   - A brief clinical reasoning (2-3 sentences maximum)
-
-2. Format your response EXACTLY as JSON:
+Respond ONLY with this JSON (no other text):
 {
   "answers": [
-    {
-      "question": 1,
-      "answer": "Yes|No|Unknown",
-      "reasoning": "Brief explanation here",
-      "confidence": "High|Medium|Low"
-    },
-    ...repeat for all 10 questions
+    {"question": 1, "answer": "Yes", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 2, "answer": "No", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 3, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 4, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 5, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 6, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 7, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 8, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 9, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"},
+    {"question": 10, "answer": "Unknown", "reasoning": "Short reason", "confidence": "Low"}
   ],
-  "overallAssessment": "Brief overall assessment of the case (2-3 sentences)"
-}
-
-3. Be conservative in your assessment. If data is insufficient, answer "Unknown".
-4. Focus on clinical evidence and avoid speculation.
-5. Do not include any patient-identifying information in your response.
-
-Provide your analysis now:`;
+  "overallAssessment": "Brief summary"
+}`;
 
     return prompt;
 }
@@ -113,14 +101,14 @@ export async function getNaranjoReasoning(patientData) {
         messages: [
             {
                 role: 'system',
-                content: 'You are a clinical expert in pharmacovigilance and drug-induced liver injury assessment. Provide evidence-based, conservative clinical assessments.'
+                content: 'You are a medical AI assistant. You MUST respond ONLY with valid JSON. Do not add any explanatory text before or after the JSON object.'
             },
             {
                 role: 'user',
                 content: prompt
             }
         ],
-        temperature: LOCALAI_CONFIG.temperature,
+        temperature: 0.3,
         max_tokens: LOCALAI_CONFIG.maxTokens,
         top_p: LOCALAI_CONFIG.topP
     };
@@ -181,10 +169,14 @@ export async function getNaranjoReasoning(patientData) {
  */
 function parseAIResponse(response) {
     try {
+        // Remove markdown code blocks if present
+        let cleanedResponse = response.replace(/```json\s*/g, '').replace(/```\s*/g, '');
+
         // Try to extract JSON from the response
-        const jsonMatch = response.match(/\{[\s\S]*\}/);
+        const jsonMatch = cleanedResponse.match(/\{[\s\S]*\}/);
 
         if (!jsonMatch) {
+            console.error('Raw AI response:', response);
             throw new Error('No JSON found in response');
         }
 
