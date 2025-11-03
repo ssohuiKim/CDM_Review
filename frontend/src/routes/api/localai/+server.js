@@ -5,9 +5,10 @@
 
 import { json, error } from '@sveltejs/kit';
 
-// LocalAI configuration
-const LOCALAI_ENDPOINT = process.env.LOCALAI_ENDPOINT || 'http://localhost:8080';
-const LOCALAI_MODEL = process.env.LOCALAI_MODEL || 'mistral-7b-instruct-v0.2.Q4_K_M.gguf';
+// LocalAI configuration (llama.cpp server)
+// In Docker: use service name 'llamacpp', in local dev: use 'localhost'
+const LOCALAI_ENDPOINT = process.env.LOCALAI_ENDPOINT || 'http://llamacpp:7800';
+const LOCALAI_MODEL = process.env.LOCALAI_MODEL || '/models/mistral-7b-instruct-v0.2.Q4_K_M.gguf';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
@@ -28,6 +29,12 @@ export async function POST({ request }) {
             max_tokens: body.max_tokens || 2000,
             top_p: body.top_p || 0.95
         };
+
+        // Log the prompt for debugging
+        console.log('=== AI Request ===');
+        console.log('System:', body.messages[0]?.content?.substring(0, 200));
+        console.log('User Prompt:', body.messages[1]?.content);
+        console.log('==================');
 
         // Forward request to LocalAI
         const localAIResponse = await fetch(`${LOCALAI_ENDPOINT}/v1/chat/completions`, {

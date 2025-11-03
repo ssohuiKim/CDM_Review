@@ -13,11 +13,15 @@ RUN npm install
 # Copy the entire project to the working directory except node_modules
 COPY . .
 
-# Build the SvelteKit project (adapter-static)
+# Build the SvelteKit project (adapter-node)
 RUN npm run build
 
 # Expose port 3000
 EXPOSE 3000
 
-# Serve the static build output using sirv-cli
-CMD ["npx", "sirv-cli", "build", "--port", "3000", "--host", "0.0.0.0", "--single"]
+# Set environment variables
+ENV HOST=0.0.0.0
+ENV PORT=3000
+
+# Run the Node.js server
+CMD ["node", "build"]

@@ -131,7 +131,9 @@ export async function getNaranjoReasoning(patientData) {
 
     console.log('Patient data sent to AI:', patientData);
     const prompt = createNaranjoPrompt(patientData);
-    console.log('Generated prompt:', prompt.substring(0, 500) + '...');
+    console.log('=== Full Generated Prompt ===');
+    console.log(prompt);
+    console.log('=============================');
 
     const requestBody = {
         model: LOCALAI_CONFIG.model,

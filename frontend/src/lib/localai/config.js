@@ -14,11 +14,11 @@ export const LOCALAI_CONFIG = {
     proxyEndpoint: '/api/localai',
 
     // Direct LocalAI endpoint (used only if useProxy is false)
-    endpoint: 'http://localhost:8080',
+    endpoint: 'http://localhost:7800',
 
     // Model name (should match the model loaded in LocalAI)
     // AIO image uses 'gpt-4' as an alias for the bundled model
-    model: 'gpt-4',
+    model: '/models/mistral-7b-instruct-v0.2.Q4_K_M.gguf',
 
     // API settings
     apiPath: '/v1/chat/completions',
