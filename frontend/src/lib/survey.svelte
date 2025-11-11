@@ -40,6 +40,9 @@
     let isWorkerReady = false;
     let currentReasoningStatus = 'idle'; // idle, processing, completed, failed
 
+    // Track AI-selected answers (question -> answer code mapping)
+    let aiSelectedAnswers = {};
+
     // Subscribe to worker status
     $: isWorkerReady = $workerStatus === 'ready';
     $: currentReasoningStatus = $reasoningStatus[selectedPatient] || 'idle';
@@ -59,6 +62,9 @@
     function applyAIAnswersToCheckboxes() {
         if (!aiReasoning || !aiReasoning.answers) return;
 
+        // Reset AI selected answers tracking
+        aiSelectedAnswers = {};
+
         // Convert AI answers to checkbox format
         // Filter to only valid questions (1-10) and skip invalid answers
         aiReasoning.answers
@@ -69,11 +75,14 @@
 
                 if (answers[questionKey] !== undefined) {
                     answers[questionKey] = [answerCode];
+                    // Track which answer AI selected for this question
+                    aiSelectedAnswers[item.question] = answerCode;
                 }
             });
 
         // Trigger reactivity and recalculate score
         answers = { ...answers };
+        aiSelectedAnswers = { ...aiSelectedAnswers };
         totalScore = calculateScore();
     }
 
@@ -378,17 +387,22 @@
                 </div>
                 {#each items as item}
                 <div class="checkbox-wrapper" class:selected={answers[`q${index + 1}`][0] === item.code}>
-                    <Checkbox
-                        label={item.text}
-                        checked={answers[`q${index + 1}`][0] === item.code}
-                        on:change={() => {
-                            answers = {
-                                ...answers,
-                                [`q${index + 1}`]: [item.code]
-                            };
-                            totalScore = calculateScore();
-                        }}
-                    />
+                    <div class="checkbox-content">
+                        <Checkbox
+                            label={item.text}
+                            checked={answers[`q${index + 1}`][0] === item.code}
+                            on:change={() => {
+                                answers = {
+                                    ...answers,
+                                    [`q${index + 1}`]: [item.code]
+                                };
+                                totalScore = calculateScore();
+                            }}
+                        />
+                    </div>
+                    {#if aiSelectedAnswers[index + 1] === item.code}
+                        <span class="ai-badge" title="AI selected this answer">AI</span>
+                    {/if}
                 </div>
             {/each}
             </div>
@@ -553,12 +567,29 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
         box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        margin-left: auto;
+        flex-shrink: 0;
     }
 
     .checkbox-wrapper {
         transition: all 0.2s ease;
         border-radius: 4px;
-        padding: 2px 0;
+        padding: 4px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        position: relative;
+    }
+
+    .checkbox-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
     }
 
     .checkbox-wrapper.selected {
