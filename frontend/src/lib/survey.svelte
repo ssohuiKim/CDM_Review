@@ -84,6 +84,8 @@
         answers = { ...answers };
         aiSelectedAnswers = { ...aiSelectedAnswers };
         totalScore = calculateScore();
+
+        console.log('AI Selected Answers:', aiSelectedAnswers);
     }
 
     /**
@@ -118,6 +120,7 @@
     function reset() {
         answers = createInitialAnswers();
         noteValue = ""; // 메모 필드 초기화
+        aiSelectedAnswers = {}; // AI 선택 답변 초기화
     }
 
     // 환자가 변경되면 로컬스토리지에서 데이터 로드
