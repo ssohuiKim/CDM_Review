@@ -266,12 +266,53 @@
             // Calculate total days (max day_num)
             const totalDays = Math.max(...records.map(r => r.day_num || 0));
 
+            // Extract timeline data: when each drug was given and grade changes
+            // Group by day_num to show drug exposure periods and grade changes
+            const drugTimeline = {};
+            const gradeTimeline = [];
+
+            records.forEach(r => {
+                const dayNum = r.day_num || 0;
+                const drugName = r.drug_name;
+                const grade = r.grade;
+
+                // Track drug exposure periods
+                if (drugName) {
+                    if (!drugTimeline[drugName]) {
+                        drugTimeline[drugName] = { startDay: dayNum, endDay: dayNum, isICI: !!r.ICI_lasting };
+                    } else {
+                        drugTimeline[drugName].endDay = Math.max(drugTimeline[drugName].endDay, dayNum);
+                        drugTimeline[drugName].startDay = Math.min(drugTimeline[drugName].startDay, dayNum);
+                    }
+                }
+
+                // Track grade changes over time
+                if (grade !== null && grade !== undefined) {
+                    gradeTimeline.push({ day: dayNum, grade: grade });
+                }
+            });
+
+            // Sort grade timeline by day
+            gradeTimeline.sort((a, b) => a.day - b.day);
+
+            // Deduplicate consecutive same grades
+            const gradeChanges = [];
+            let lastGrade = null;
+            gradeTimeline.forEach(g => {
+                if (g.grade !== lastGrade) {
+                    gradeChanges.push(g);
+                    lastGrade = g.grade;
+                }
+            });
+
             // Prepare patient data for AI (exclude PHI like age/gender)
             const aiPatientData = {
                 drugs: allDrugs,
                 ichiDrugs: iciDrugs,
                 grades: grades,
-                totalDays: totalDays
+                totalDays: totalDays,
+                drugTimeline: drugTimeline,
+                gradeChanges: gradeChanges
             };
 
             console.log('Prepared AI patient data:', aiPatientData);

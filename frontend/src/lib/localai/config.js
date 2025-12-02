@@ -17,8 +17,8 @@ export const LOCALAI_CONFIG = {
     endpoint: 'http://localhost:7800',
 
     // Model name (should match the model loaded in LocalAI)
-    // AIO image uses 'gpt-4' as an alias for the bundled model
-    model: '/models/mistral-7b-instruct-v0.2.Q4_K_M.gguf',
+    // Using Google Gemma 2 2B IT (lighter and faster than Mistral 7B)
+    model: '/models/gemma-2-2b-it-Q4_K_M.gguf',
 
     // API settings
     apiPath: '/v1/chat/completions',

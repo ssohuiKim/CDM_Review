@@ -10,7 +10,7 @@ import { json, error } from '@sveltejs/kit';
 // Check if running in production (Docker) or development (local)
 const isDocker = process.env.NODE_ENV === 'production' || process.env.DOCKER === 'true';
 const LOCALAI_ENDPOINT = process.env.LOCALAI_ENDPOINT || (isDocker ? 'http://llamacpp:7800' : 'http://localhost:7800');
-const LOCALAI_MODEL = process.env.LOCALAI_MODEL || '/models/mistral-7b-instruct-v0.2.Q4_K_M.gguf';
+const LOCALAI_MODEL = process.env.LOCALAI_MODEL || '/models/gemma-2-2b-it-Q4_K_M.gguf';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {

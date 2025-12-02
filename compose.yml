@@ -10,7 +10,7 @@ services:
     image: ghcr.io/ggml-org/llama.cpp:server
     ports:
       - 7800:7800 # host:container
-    command: -m /models/mistral-7b-instruct-v0.2.Q4_K_M.gguf --port 7800 --host 0.0.0.0 -n 512
+    command: -m /models/gemma-2-2b-it-Q4_K_M.gguf --port 7800 --host 0.0.0.0 -n 512
     restart: always
     volumes:
       - ./localai/models:/models
