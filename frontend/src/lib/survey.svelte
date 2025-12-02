@@ -305,10 +305,28 @@
                 }
             });
 
+            // Extract toxic drugs (diagnosis_group === 'toxic', excluding ICI drugs)
+            const toxicDrugs = [...new Set(
+                records
+                    .filter(r => r.diagnosis_group === 'toxic' && !iciDrugs.includes(r.drug_name))
+                    .map(r => r.drug_name)
+                    .filter(Boolean)
+            )];
+
+            // Extract safe drugs (diagnosis_group === 'safe')
+            const safeDrugs = [...new Set(
+                records
+                    .filter(r => r.diagnosis_group === 'safe')
+                    .map(r => r.drug_name)
+                    .filter(Boolean)
+            )];
+
             // Prepare patient data for AI (exclude PHI like age/gender)
             const aiPatientData = {
                 drugs: allDrugs,
                 ichiDrugs: iciDrugs,
+                toxicDrugs: toxicDrugs,
+                safeDrugs: safeDrugs,
                 grades: grades,
                 totalDays: totalDays,
                 drugTimeline: drugTimeline,

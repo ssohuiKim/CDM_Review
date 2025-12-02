@@ -89,22 +89,31 @@ export const SCORING_RULES = {
  */
 const SYSTEM_PROMPT = `You are a clinical pharmacology expert analyzing drug-induced liver injury (DILI).
 
-Your task is to analyze medication and liver toxicity data step by step.
+Analyze the provided data step by step. Base your answers ONLY on the data given.
 
-STEP 1: Identify ICI drugs from this list:
+=== ICI DRUG LIST (for identification) ===
 ${ICI_DRUG_LIST.join(', ')}
 
-STEP 2: Construct timeline:
-- ICI start day (earliest day_num for ICI drug)
-- ICI end day (latest day_num for ICI drug)
-- Grade changes over time
+=== DECISION RULES FOR EACH QUESTION ===
 
-STEP 3: Determine:
-- Q3: Did liver injury improve AFTER ICI was stopped?
-- Q4: Was ICI re-administered after stopping?
-- Q5: Are there other hepatotoxic drugs that could cause this?
+Q3: "Did the adverse reaction improve when the drug was discontinued?"
+- YES: Grade decreased AFTER ICI end day (e.g., Grade 3 on Day 100, ICI stopped Day 150, Grade 1 on Day 200)
+- NO: Grade stayed same or worsened after ICI was stopped
+- UNKNOWN: No grade data after ICI discontinuation, or ICI was not stopped
 
-STEP 4: Output ONLY valid JSON (no markdown, no explanation):
+Q4: "Did the adverse reaction appear when the drug was re-administered?"
+- YES: ICI was given, stopped, then given again AND grade increased after re-administration
+- NO: ICI was re-administered but no grade increase observed
+- UNKNOWN: No evidence of ICI re-administration in the data
+
+Q5: "Are there alternative causes that could have caused the reaction?"
+- YES: TOXIC MEDICATIONS list contains drugs that are well-known causes of DILI (e.g., anti-TB agents, azoles, high-dose acetaminophen, certain chemotherapies)
+- NO: TOXIC MEDICATIONS list is empty ("None") OR contains only drugs with minimal hepatotoxicity
+- UNKNOWN: Cannot determine hepatotoxicity of listed drugs, or timing data is insufficient
+NOTE: The TOXIC MEDICATIONS list has already been pre-filtered. If it shows "None", answer NO.
+
+=== OUTPUT FORMAT ===
+Output ONLY valid JSON (no markdown, no extra text):
 {
   "answers": [
     {"question": 3, "answer": "Yes/No/Unknown", "reasoning": "...", "confidence": "High/Medium/Low"},
@@ -123,6 +132,8 @@ function createNaranjoPrompt(patientData) {
     const sanitizedData = {
         drugs: patientData.drugs || [],
         ichiDrugs: patientData.ichiDrugs || [],
+        toxicDrugs: patientData.toxicDrugs || [],
+        safeDrugs: patientData.safeDrugs || [],
         grades: patientData.grades || [],
         totalDays: patientData.totalDays || 0,
         drugTimeline: patientData.drugTimeline || {},
@@ -143,18 +154,20 @@ function createNaranjoPrompt(patientData) {
         ? sanitizedData.gradeChanges.map(g => `- Day ${g.day}: Grade ${g.grade}`).join('\n')
         : '- No grade data available';
 
-    // Format other drugs (potential alternative causes)
-    const otherDrugs = sanitizedData.drugs
-        .filter(d => !sanitizedData.ichiDrugs.includes(d))
-        .slice(0, 10);
-    const otherDrugsStr = otherDrugs.length > 0
-        ? otherDrugs.join(', ')
+    // Format toxic drugs (potential hepatotoxic medications - alternative causes for Q5)
+    const toxicDrugs = sanitizedData.toxicDrugs || [];
+    const toxicDrugsStr = toxicDrugs.length > 0
+        ? toxicDrugs.join(', ')
+        : 'None';
+
+    // Format safe drugs (non-hepatotoxic medications)
+    const safeDrugs = sanitizedData.safeDrugs || [];
+    const safeDrugsStr = safeDrugs.length > 0
+        ? safeDrugs.join(', ')
         : 'None';
 
     // Build the user prompt with structured data
-    const prompt = `Analyze this DILI case and answer Naranjo questions 3, 4, 5.
-
-=== PATIENT DATA ===
+    const prompt = `=== PATIENT DATA ===
 
 ICI DRUG EXPOSURE:
 ${iciEvents}
@@ -162,26 +175,17 @@ ${iciEvents}
 HEPATOTOXICITY GRADE CHANGES:
 ${gradeEvents}
 
-OTHER MEDICATIONS (potential alternative causes):
-${otherDrugsStr}
+TOXIC MEDICATIONS (potential hepatotoxic - consider for Q5 alternative causes):
+${toxicDrugsStr}
 
-TOTAL TREATMENT DURATION: ${sanitizedData.totalDays} days
+SAFE MEDICATIONS (non-hepatotoxic):
+${safeDrugsStr}
 
-=== NARANJO QUESTIONS ===
+TOTAL DURATION: ${sanitizedData.totalDays} days
 
-3. Did the adverse reaction improve when the drug was discontinued?
-4. Did the adverse reaction appear when the drug was re-administered?
-5. Are there alternative causes that could have caused the reaction?
-
-=== INSTRUCTIONS ===
-
-Think step by step:
-1. When was ICI started and stopped?
-2. Did grade decrease AFTER ICI stop day?
-3. Was ICI given again after stopping?
-4. Could other drugs cause hepatotoxicity?
-
-Then output ONLY JSON with your answers.`;
+=== TASK ===
+Based ONLY on the data above, answer Q3, Q4, Q5 using the decision rules.
+Output JSON only.`;
 
     return prompt;
 }
