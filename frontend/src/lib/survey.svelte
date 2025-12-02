@@ -4,6 +4,7 @@
     import { naranjoWorkerManager, workerStatus, reasoningStatus, reasoningResults } from "./localai/NaranjoWorkerManager.js";
     import AIReasoningModal from "./AIReasoningModal.svelte";
     import QuestionReasoningModal from "./QuestionReasoningModal.svelte";
+    import { drugClassification } from "./duckdb.js";
 
     export let selectedPatient;
     export let patientData;
@@ -111,7 +112,7 @@
             q5: [],
             q6: [items[2].code],
             q7: [items[2].code],
-            q8: [],
+            q8: [items[2].code],
             q9: [items[2].code],
             q10: [items[0].code]
         };
@@ -305,21 +306,10 @@
                 }
             });
 
-            // Extract toxic drugs (diagnosis_group === 'toxic', excluding ICI drugs)
-            const toxicDrugs = [...new Set(
-                records
-                    .filter(r => r.diagnosis_group === 'toxic' && !iciDrugs.includes(r.drug_name))
-                    .map(r => r.drug_name)
-                    .filter(Boolean)
-            )];
-
-            // Extract safe drugs (diagnosis_group === 'safe')
-            const safeDrugs = [...new Set(
-                records
-                    .filter(r => r.diagnosis_group === 'safe')
-                    .map(r => r.drug_name)
-                    .filter(Boolean)
-            )];
+            // Get toxic/safe drugs from shared store (set by DrugChart.svelte)
+            const classification = $drugClassification;
+            const toxicDrugs = classification.toxic || [];
+            const safeDrugs = classification.safe || [];
 
             // Prepare patient data for AI (exclude PHI like age/gender)
             const aiPatientData = {
@@ -334,6 +324,10 @@
             };
 
             console.log('Prepared AI patient data:', aiPatientData);
+            console.log('=== TOXIC/SAFE DRUGS FOR GEMMA ===');
+            console.log('Toxic drugs:', toxicDrugs);
+            console.log('Safe drugs:', safeDrugs);
+            console.log('==================================');
 
             // Request reasoning from worker
             await naranjoWorkerManager.requestReasoning(selectedPatient, aiPatientData);

@@ -89,7 +89,12 @@ export const SCORING_RULES = {
  */
 const SYSTEM_PROMPT = `You are a clinical pharmacology expert analyzing drug-induced liver injury (DILI).
 
-Analyze the provided data step by step. Base your answers ONLY on the data given.
+=== CRITICAL RULES ===
+- DO NOT invent or fabricate any data
+- DO NOT assume or guess information not explicitly provided
+- Use ONLY the exact days, grades, and drug names given in the patient data
+- If data is missing or unclear, answer "Unknown"
+- Your reasoning must reference ONLY the actual data provided
 
 === ICI DRUG LIST (for identification) ===
 ${ICI_DRUG_LIST.join(', ')}
@@ -97,7 +102,7 @@ ${ICI_DRUG_LIST.join(', ')}
 === DECISION RULES FOR EACH QUESTION ===
 
 Q3: "Did the adverse reaction improve when the drug was discontinued?"
-- YES: Grade decreased AFTER ICI end day (e.g., Grade 3 on Day 100, ICI stopped Day 150, Grade 1 on Day 200)
+- YES: Grade decreased AFTER ICI end day (based on actual grade data provided)
 - NO: Grade stayed same or worsened after ICI was stopped
 - UNKNOWN: No grade data after ICI discontinuation, or ICI was not stopped
 
@@ -107,10 +112,10 @@ Q4: "Did the adverse reaction appear when the drug was re-administered?"
 - UNKNOWN: No evidence of ICI re-administration in the data
 
 Q5: "Are there alternative causes that could have caused the reaction?"
-- YES: TOXIC MEDICATIONS list contains drugs that are well-known causes of DILI (e.g., anti-TB agents, azoles, high-dose acetaminophen, certain chemotherapies)
-- NO: TOXIC MEDICATIONS list is empty ("None") OR contains only drugs with minimal hepatotoxicity
-- UNKNOWN: Cannot determine hepatotoxicity of listed drugs, or timing data is insufficient
-NOTE: The TOXIC MEDICATIONS list has already been pre-filtered. If it shows "None", answer NO.
+- YES: Significant TOXIC MEDICATIONS were given BEFORE hepatotoxicity grade worsened, AND the proportion of toxic drugs relative to total medications is substantial enough to plausibly explain liver injury independent of ICI
+- NO: TOXIC MEDICATIONS list is empty ("None"), OR toxic drugs were given AFTER grade already worsened, OR only a small proportion of drugs with minimal hepatotoxicity
+- UNKNOWN: Cannot determine timing relationship between toxic drugs and grade changes
+KEY: Compare TOXIC MEDICATIONS timing with HEPATOTOXICITY GRADE CHANGES. Consider both the proportion and timing of toxic drugs.
 
 === OUTPUT FORMAT ===
 Output ONLY valid JSON (no markdown, no extra text):
@@ -154,13 +159,20 @@ function createNaranjoPrompt(patientData) {
         ? sanitizedData.gradeChanges.map(g => `- Day ${g.day}: Grade ${g.grade}`).join('\n')
         : '- No grade data available';
 
-    // Format toxic drugs (potential hepatotoxic medications - alternative causes for Q5)
+    // Format toxic drugs with timeline (potential hepatotoxic medications - alternative causes for Q5)
     const toxicDrugs = sanitizedData.toxicDrugs || [];
+    const toxicDrugsWithTimeline = toxicDrugs.map(drug => {
+        const timeline = sanitizedData.drugTimeline[drug];
+        if (timeline) {
+            return `- ${drug}: Day ${timeline.startDay} to Day ${timeline.endDay}`;
+        }
+        return `- ${drug}: timing unknown`;
+    }).join('\n');
     const toxicDrugsStr = toxicDrugs.length > 0
-        ? toxicDrugs.join(', ')
+        ? toxicDrugsWithTimeline
         : 'None';
 
-    // Format safe drugs (non-hepatotoxic medications)
+    // Format safe drugs (non-hepatotoxic medications) - just list, no timeline needed
     const safeDrugs = sanitizedData.safeDrugs || [];
     const safeDrugsStr = safeDrugs.length > 0
         ? safeDrugs.join(', ')
@@ -177,6 +189,7 @@ ${gradeEvents}
 
 TOXIC MEDICATIONS (potential hepatotoxic - consider for Q5 alternative causes):
 ${toxicDrugsStr}
+(Total: ${toxicDrugs.length} toxic drugs)
 
 SAFE MEDICATIONS (non-hepatotoxic):
 ${safeDrugsStr}

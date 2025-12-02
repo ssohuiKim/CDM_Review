@@ -13,6 +13,14 @@ const INDEXEDDB_KEY_DUCKDB = 'duckdb_backup';
 export const parsedData = writable([]);
 export const groupedPatientData = writable({});
 
+// Store for toxic/safe drug classification (shared between DrugChart and Survey)
+export const drugClassification = writable({
+    toxic: [],      // toxic drug ingredient names
+    toxicIds: [],   // toxic drug concept IDs
+    safe: [],       // safe drug names
+    safeIds: []     // safe drug concept IDs
+});
+
 // Global DuckDB instance and connection
 let globalDB = null;
 let globalConnection = null;

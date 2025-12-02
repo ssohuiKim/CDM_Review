@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { drugClassification } from './duckdb.js';
 
   // 외부에서 전달받는 값
   export let selectedPatient;
@@ -132,10 +133,21 @@
             .map(drug => drug.toLowerCase());
           safeDrugs = Array.from(new Set(safeDrugs));
           safeDrugIds = Array.from(new Set(safeID.filter(id => id !== "0")));
-          
+
+          // Update shared store for survey.svelte to use
+          drugClassification.set({
+              toxic: toxic,
+              toxicIds: toxicIds,
+              safe: safeDrugs,
+              safeIds: safeDrugIds
+          });
+          console.log('=== DrugChart: Updated drugClassification store ===');
+          console.log('Toxic drugs:', toxic);
+          console.log('Safe drugs:', safeDrugs);
+
           // 약물명 길이를 기준으로 동적 margin 계산
           calculateDynamicMargin();
-          
+
           resolve();
       };
     });
