@@ -102,7 +102,7 @@ export async function getMockNaranjoReasoning(patientData) {
         success: true,
         data: {
             answers: mockAnswers,
-            overallAssessment: `This case shows ${patientData.ichiDrugs?.length || 0} immune checkpoint inhibitor(s) with documented hepatotoxicity (Grade ${Math.max(...(patientData.grades || [0]))}). The temporal relationship between drug exposure and adverse event is established. Based on the Naranjo Algorithm assessment, this appears to be a probable adverse drug reaction requiring clinical attention and possible treatment modification.`
+            overallAssessment: `This case shows ${patientData.iciDrugs?.length || 0} immune checkpoint inhibitor(s) with documented hepatotoxicity (Grade ${Math.max(...(patientData.grades || [0]))}). The temporal relationship between drug exposure and adverse event is established. Based on the Naranjo Algorithm assessment, this appears to be a probable adverse drug reaction requiring clinical attention and possible treatment modification.`
         },
         rawResponse: 'Mock AI Response',
         timestamp: new Date().toISOString()

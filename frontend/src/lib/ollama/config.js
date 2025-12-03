@@ -17,8 +17,8 @@ export const OLLAMA_CONFIG = {
     endpoint: 'http://localhost:11434',
 
     // Model name (Ollama model - will be pulled automatically)
-    // Using Google Gemma 3 4B IT (original HuggingFace model via Ollama)
-    model: 'gemma3:4b',
+    // Using Google Gemma 3 12B IT (original HuggingFace model via Ollama)
+    model: 'gemma3:12b',
 
     // API settings (Ollama uses OpenAI-compatible API)
     apiPath: '/v1/chat/completions',

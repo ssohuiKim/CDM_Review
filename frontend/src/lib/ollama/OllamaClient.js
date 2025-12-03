@@ -107,9 +107,9 @@ Q3: "Did the adverse reaction improve when the drug was discontinued?"
 - UNKNOWN: No grade data after ICI discontinuation, or ICI was not stopped
 
 Q4: "Did the adverse reaction appear when the drug was re-administered?"
-- YES: ICI was given, stopped, then given again AND grade increased after re-administration
-- NO: ICI was re-administered but no grade increase observed
-- UNKNOWN: No evidence of ICI re-administration in the data
+- YES: The ICI drug was stopped AND later given again AND the grade increased after re-administration.
+- NO: The ICI drug was stopped AND later given again BUT the grade did not increase after re-administration.
+- UNKNOWN: The drug was never given again after being stopped. (If there is no re-administration, always answer UNKNOWN.)
 
 Q5: "Are there alternative causes that could have caused the reaction?"
 - YES: Significant TOXIC MEDICATIONS were given BEFORE hepatotoxicity grade worsened, AND the proportion of toxic drugs relative to total medications is substantial enough to plausibly explain liver injury independent of ICI
@@ -136,23 +136,51 @@ Output ONLY valid JSON (no markdown, no extra text):
 function createNaranjoPrompt(patientData) {
     const sanitizedData = {
         drugs: patientData.drugs || [],
-        ichiDrugs: patientData.ichiDrugs || [],
+        iciDrugs: patientData.iciDrugs || [],
         toxicDrugs: patientData.toxicDrugs || [],
         safeDrugs: patientData.safeDrugs || [],
         grades: patientData.grades || [],
         totalDays: patientData.totalDays || 0,
         drugTimeline: patientData.drugTimeline || {},
+        iciExposurePeriods: patientData.iciExposurePeriods || {},
         gradeChanges: patientData.gradeChanges || []
     };
 
-    // Format ICI drug exposure as structured events
-    const iciEvents = sanitizedData.ichiDrugs.map(drug => {
+    // Format ICI drug exposure with multiple periods (for rechallenge detection)
+    // Data now comes from DrugChart which calculates accurate effect duration
+    let hasRechallenge = false;
+    const iciEvents = sanitizedData.iciDrugs.map(drug => {
+        const periods = sanitizedData.iciExposurePeriods[drug];
+        if (periods && periods.length > 0) {
+            if (periods.length > 1) {
+                hasRechallenge = true;
+            }
+            const periodsStr = periods.map((p, i) => {
+                // Use dates if available (from DrugChart), otherwise just days
+                const dateInfo = p.startDate && p.endDate
+                    ? ` (${p.startDate} ~ ${p.endDate})`
+                    : '';
+                return `  Period ${i + 1}: Day ${p.start} to Day ${p.end}${dateInfo}`;
+            }).join('\n');
+            const rechallengeNote = periods.length > 1
+                ? ` *** RECHALLENGE: Drug was STOPPED after Period 1, then RE-ADMINISTERED in Period 2 ***`
+                : '';
+            return `- ${drug}:${rechallengeNote}\n${periodsStr}`;
+        }
+        // Fallback to simple timeline
         const timeline = sanitizedData.drugTimeline[drug];
         if (timeline) {
             return `- ${drug}: Day ${timeline.startDay} to Day ${timeline.endDay}`;
         }
         return `- ${drug}: exposure period unknown`;
     }).join('\n') || '- No ICI drugs found';
+
+    // Add explicit rechallenge summary for Q4
+    const rechallengeSummary = hasRechallenge
+        ? `\n\n*** IMPORTANT FOR Q4: RECHALLENGE OCCURRED ***
+The ICI drug was stopped and then re-administered. Check if hepatotoxicity grade increased after re-administration.`
+        : `\n\n*** FOR Q4: NO RECHALLENGE ***
+The ICI drug was given continuously without being stopped and restarted. Answer "Unknown" for Q4.`;
 
     // Format grade timeline as events
     const gradeEvents = sanitizedData.gradeChanges.length > 0
@@ -183,6 +211,7 @@ function createNaranjoPrompt(patientData) {
 
 ICI DRUG EXPOSURE:
 ${iciEvents}
+${rechallengeSummary}
 
 HEPATOTOXICITY GRADE CHANGES:
 ${gradeEvents}

@@ -4,7 +4,7 @@
     import { naranjoWorkerManager, workerStatus, reasoningStatus, reasoningResults } from "./ollama/NaranjoWorkerManager.js";
     import AIReasoningModal from "./AIReasoningModal.svelte";
     import QuestionReasoningModal from "./QuestionReasoningModal.svelte";
-    import { drugClassification } from "./duckdb.js";
+    import { drugClassification, chartComputedData } from "./duckdb.js";
 
     export let selectedPatient;
     export let patientData;
@@ -249,85 +249,77 @@
             // Extract unique drugs from all records
             const allDrugs = [...new Set(records.map(r => r.drug_name).filter(Boolean))];
 
-            // Extract ICI drugs (drugs with ICI_lasting flag)
-            const iciDrugs = [...new Set(
-                records
-                    .filter(r => r.ICI_lasting)
-                    .map(r => r.drug_name)
-                    .filter(Boolean)
-            )];
+            // Get pre-computed data from DrugChart via shared store
+            const chartData = $chartComputedData;
+            const classification = $drugClassification;
 
-            // Extract all grades
+            // Use pre-computed ICI data from DrugChart (more accurate with ICI_lasting effect duration)
+            const iciDrugs = chartData.iciDrugs && chartData.iciDrugs.length > 0
+                ? chartData.iciDrugs
+                : [...new Set(records.filter(r => r.ICI_lasting).map(r => r.drug_name).filter(Boolean))];
+
+            // Use pre-computed grade changes from DrugChart
+            const gradeChanges = chartData.gradeChanges && chartData.gradeChanges.length > 0
+                ? chartData.gradeChanges
+                : extractGradeChanges(records);
+
+            // Use pre-computed ICI exposure periods from DrugChart (includes effect duration!)
+            const iciExposurePeriods = chartData.iciExposurePeriods && Object.keys(chartData.iciExposurePeriods).length > 0
+                ? chartData.iciExposurePeriods
+                : computeICIExposurePeriods(records);
+
+            // Use pre-computed totalDays from DrugChart
+            const totalDays = chartData.totalDays || Math.max(...records.map(r => r.day_num || 0));
+
+            // Extract all unique grades
             const grades = [...new Set(
                 records
                     .map(r => r.grade)
-                    .filter(g => g !== null && g !== undefined)
+                    .filter(g => g !== null && g !== undefined && g !== "-1")
             )];
 
-            // Calculate total days (max day_num)
-            const totalDays = Math.max(...records.map(r => r.day_num || 0));
-
-            // Extract timeline data: when each drug was given and grade changes
-            // Group by day_num to show drug exposure periods and grade changes
+            // Build drug timeline
             const drugTimeline = {};
-            const gradeTimeline = [];
-
             records.forEach(r => {
                 const dayNum = r.day_num || 0;
                 const drugName = r.drug_name;
-                const grade = r.grade;
+                const isICI = !!r.ICI_lasting;
 
-                // Track drug exposure periods
                 if (drugName) {
                     if (!drugTimeline[drugName]) {
-                        drugTimeline[drugName] = { startDay: dayNum, endDay: dayNum, isICI: !!r.ICI_lasting };
+                        drugTimeline[drugName] = { startDay: dayNum, endDay: dayNum, isICI: isICI };
                     } else {
                         drugTimeline[drugName].endDay = Math.max(drugTimeline[drugName].endDay, dayNum);
                         drugTimeline[drugName].startDay = Math.min(drugTimeline[drugName].startDay, dayNum);
                     }
                 }
-
-                // Track grade changes over time
-                if (grade !== null && grade !== undefined) {
-                    gradeTimeline.push({ day: dayNum, grade: grade });
-                }
-            });
-
-            // Sort grade timeline by day
-            gradeTimeline.sort((a, b) => a.day - b.day);
-
-            // Deduplicate consecutive same grades
-            const gradeChanges = [];
-            let lastGrade = null;
-            gradeTimeline.forEach(g => {
-                if (g.grade !== lastGrade) {
-                    gradeChanges.push(g);
-                    lastGrade = g.grade;
-                }
             });
 
             // Get toxic/safe drugs from shared store (set by DrugChart.svelte)
-            const classification = $drugClassification;
             const toxicDrugs = classification.toxic || [];
             const safeDrugs = classification.safe || [];
 
             // Prepare patient data for AI (exclude PHI like age/gender)
             const aiPatientData = {
                 drugs: allDrugs,
-                ichiDrugs: iciDrugs,
+                iciDrugs: iciDrugs,
                 toxicDrugs: toxicDrugs,
                 safeDrugs: safeDrugs,
                 grades: grades,
                 totalDays: totalDays,
                 drugTimeline: drugTimeline,
+                iciExposurePeriods: iciExposurePeriods,
                 gradeChanges: gradeChanges
             };
 
             console.log('Prepared AI patient data:', aiPatientData);
-            console.log('=== TOXIC/SAFE DRUGS FOR GEMMA ===');
+            console.log('=== Using pre-computed data from DrugChart ===');
+            console.log('ICI Exposure Periods (with effect duration):', iciExposurePeriods);
+            console.log('Grade Changes:', gradeChanges);
+            console.log('Total Days:', totalDays);
             console.log('Toxic drugs:', toxicDrugs);
             console.log('Safe drugs:', safeDrugs);
-            console.log('==================================');
+            console.log('==============================================');
 
             // Request reasoning from worker
             await naranjoWorkerManager.requestReasoning(selectedPatient, aiPatientData);
@@ -336,6 +328,74 @@
             console.error('Failed to request AI reasoning:', error);
             alert('Failed to get AI reasoning. Please try again.');
         }
+    }
+
+    /**
+     * Fallback: Extract grade changes from records if not available from chart
+     */
+    function extractGradeChanges(records) {
+        const gradeTimeline = [];
+        records.forEach(r => {
+            const grade = r.grade;
+            if (grade !== null && grade !== undefined && grade !== "-1") {
+                gradeTimeline.push({ day: r.day_num || 0, grade: grade });
+            }
+        });
+
+        gradeTimeline.sort((a, b) => a.day - b.day);
+
+        const gradeChanges = [];
+        let lastGrade = null;
+        gradeTimeline.forEach(g => {
+            if (g.grade !== lastGrade) {
+                gradeChanges.push(g);
+                lastGrade = g.grade;
+            }
+        });
+
+        return gradeChanges;
+    }
+
+    /**
+     * Fallback: Compute ICI exposure periods if not available from chart
+     */
+    function computeICIExposurePeriods(records) {
+        const iciExposureDays = {};
+
+        records.forEach(r => {
+            const dayNum = r.day_num || 0;
+            const drugName = r.drug_name;
+            const isICI = !!r.ICI_lasting;
+
+            if (isICI && drugName) {
+                if (!iciExposureDays[drugName]) {
+                    iciExposureDays[drugName] = [];
+                }
+                if (!iciExposureDays[drugName].includes(dayNum)) {
+                    iciExposureDays[drugName].push(dayNum);
+                }
+            }
+        });
+
+        const iciExposurePeriods = {};
+        Object.entries(iciExposureDays).forEach(([drugName, days]) => {
+            days.sort((a, b) => a - b);
+            const periods = [];
+            let periodStart = days[0];
+            let periodEnd = days[0];
+
+            for (let i = 1; i < days.length; i++) {
+                if (days[i] - periodEnd > 14) {
+                    periods.push({ start: periodStart, end: periodEnd });
+                    periodStart = days[i];
+                }
+                periodEnd = days[i];
+            }
+            periods.push({ start: periodStart, end: periodEnd });
+            iciExposurePeriods[drugName] = periods;
+        });
+
+        return iciExposurePeriods;
     }
 
     /**

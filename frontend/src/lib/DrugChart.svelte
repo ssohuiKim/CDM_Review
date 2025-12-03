@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { drugClassification } from './duckdb.js';
+  import { drugClassification, chartComputedData } from './duckdb.js';
 
   // 외부에서 전달받는 값
   export let selectedPatient;
@@ -313,6 +313,10 @@
     };
 
     const colorICI = () => {
+      // Track ICI exposure periods for sharing with survey
+      const iciExposureData = {};  // { drugName: [{ startDay, endDay, startDate, endDate }] }
+      const iciDrugsList = [];
+
       ICI_lasting.forEach((duration, i) => {
         const exposureDate = newDrugExposureDates[i];
         const ICI_drug = drugNames[i];
@@ -330,9 +334,89 @@
             const shortHeight = boxHeight / 2;
             const shortY = y + (boxHeight - shortHeight) / 2;
             ctx.fillRect(x + boxWidth, shortY, (drugDuration - 1) * cellWidth, shortHeight);
+
+            // Track ICI exposure period data
+            const drugNameNormalized = ICI_LIST[index];
+            if (!iciDrugsList.includes(drugNameNormalized)) {
+              iciDrugsList.push(drugNameNormalized);
+            }
+
+            if (!iciExposureData[drugNameNormalized]) {
+              iciExposureData[drugNameNormalized] = [];
+            }
+
+            const startDay = dayIndex + 1;  // Convert back to 1-based day
+            const endDay = startDay + drugDuration - 1;
+
+            // Check if this overlaps or extends an existing period, or is a new period (rechallenge)
+            const existingPeriods = iciExposureData[drugNameNormalized];
+            let merged = false;
+
+            for (let p = 0; p < existingPeriods.length; p++) {
+              const period = existingPeriods[p];
+              // If within 14 days of existing period, merge them
+              if (startDay <= period.end + 14 && endDay >= period.start - 14) {
+                period.start = Math.min(period.start, startDay);
+                period.end = Math.max(period.end, endDay);
+                period.startDate = startDay < period.start ? exposureDate : period.startDate;
+                period.endDate = endDay > period.end ? durationDate.toISOString().split('T')[0] : period.endDate;
+                merged = true;
+                break;
+              }
+            }
+
+            if (!merged) {
+              existingPeriods.push({
+                start: startDay,
+                end: endDay,
+                startDate: exposureDate,
+                endDate: durationDate.toISOString().split('T')[0]
+              });
+            }
           }
         }
       });
+
+      // Sort periods by start day for each drug
+      Object.keys(iciExposureData).forEach(drug => {
+        iciExposureData[drug].sort((a, b) => a.start - b.start);
+      });
+
+      // Compute grade changes
+      const gradeMap = new Map();
+      grades.forEach((gradeVal, i) => {
+        const dayIndex = days[i];
+        if (gradeVal !== "-1" && gradeVal !== null && gradeVal !== undefined) {
+          gradeMap.set(dayIndex, gradeVal);
+        }
+      });
+
+      // Convert to sorted array and deduplicate consecutive same grades
+      const gradeChanges = [];
+      let lastGrade = null;
+      Array.from(gradeMap.entries())
+        .sort((a, b) => a[0] - b[0])
+        .forEach(([day, grade]) => {
+          if (grade !== lastGrade) {
+            gradeChanges.push({ day, grade });
+            lastGrade = grade;
+          }
+        });
+
+      // Update shared store with computed data
+      chartComputedData.set({
+        totalDays: totalDays,
+        firstDate: firstDate ? firstDate.toISOString().split('T')[0] : null,
+        lastDate: lastDate ? lastDate.toISOString().split('T')[0] : null,
+        iciExposurePeriods: iciExposureData,
+        gradeChanges: gradeChanges,
+        iciDrugs: iciDrugsList,
+        diagnosisGroup: diagnosisGroup
+      });
+
+      console.log('=== DrugChart: Updated chartComputedData store ===');
+      console.log('ICI Exposure Periods:', iciExposureData);
+      console.log('Grade Changes:', gradeChanges);
     };
 
     // 이름 기준 고유 집계로 비율 그리기

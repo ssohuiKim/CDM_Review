@@ -21,6 +21,18 @@ export const drugClassification = writable({
     safeIds: []     // safe drug concept IDs
 });
 
+// Store for chart-computed data (shared between DrugChart and Survey)
+// This avoids duplicate calculations and speeds up AI analysis
+export const chartComputedData = writable({
+    totalDays: 0,
+    firstDate: null,
+    lastDate: null,
+    iciExposurePeriods: {},  // { drugName: [{ start, end, startDate, endDate }] }
+    gradeChanges: [],        // [{ day, grade }]
+    iciDrugs: [],            // List of ICI drugs for this patient
+    diagnosisGroup: ''
+});
+
 // Global DuckDB instance and connection
 let globalDB = null;
 let globalConnection = null;

@@ -10,9 +10,9 @@
 	import AxisChart from '../../lib/axisChart.svelte';
 	import HoverBox from '../../lib/hover.svelte';
 	import Survey from '../../lib/survey.svelte';
-	// 챗봇 컴포넌트 추가
-	import CircularChatButton from '../../lib/chatbot/CircularChatButton.svelte';
-	import ChatBot from '../../lib/chatbot/ChatBot.svelte';
+	// Literature Assistant 컴포넌트
+	import CircularAssistantButton from '../../lib/literatureAssistant/CircularAssistantButton.svelte';
+	import LiteratureAssistant from '../../lib/literatureAssistant/LiteratureAssistant.svelte';
 	import { groupedPatientData } from '$lib/duckdb';
 	import { initializeDuckDB, refreshStoresFromDB } from '$lib/duckdb';
 	import html2canvas from 'html2canvas';
@@ -858,6 +858,6 @@
 	</ModalFooter>
 </Modal>
 
-<!-- 챗봇 UI 추가 -->
-<CircularChatButton bind:isOpen={isChatOpen} on:toggle={(event) => isChatOpen = event.detail.isOpen} />
-<ChatBot bind:isOpen={isChatOpen} />
+<!-- Literature Assistant UI -->
+<CircularAssistantButton bind:isOpen={isChatOpen} on:toggle={(event) => isChatOpen = event.detail.isOpen} />
+<LiteratureAssistant bind:isOpen={isChatOpen} />
