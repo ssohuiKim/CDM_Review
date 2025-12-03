@@ -1,9 +1,9 @@
 /**
- * LocalAI Client
- * Handles communication with LocalAI API for Naranjo Algorithm reasoning
+ * Ollama Client
+ * Handles communication with Ollama API for Naranjo Algorithm reasoning
  */
 
-import { LOCALAI_CONFIG, getApiUrl, getHealthCheckUrl } from './config.js';
+import { OLLAMA_CONFIG, getApiUrl, getHealthCheckUrl } from './config.js';
 import { getMockNaranjoReasoning, mockHealthCheck } from './MockAIClient.js';
 
 /**
@@ -214,7 +214,7 @@ export async function getNaranjoReasoning(patientData) {
     console.log('=== AI Reasoning Timing Start ===');
 
     // Use mock AI if enabled
-    if (LOCALAI_CONFIG.useMockAI) {
+    if (OLLAMA_CONFIG.useMockAI) {
         console.log('Using Mock AI (LocalAI is disabled)');
         return getMockNaranjoReasoning(patientData);
     }
@@ -231,7 +231,7 @@ export async function getNaranjoReasoning(patientData) {
     console.log('=============================');
 
     const requestBody = {
-        model: LOCALAI_CONFIG.model,
+        model: OLLAMA_CONFIG.model,
         messages: [
             {
                 role: 'system',
@@ -243,13 +243,13 @@ export async function getNaranjoReasoning(patientData) {
             }
         ],
         temperature: 0.1,
-        max_tokens: LOCALAI_CONFIG.maxTokens,
+        max_tokens: OLLAMA_CONFIG.maxTokens,
         top_p: 0.9
     };
 
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), LOCALAI_CONFIG.timeout);
+        const timeoutId = setTimeout(() => controller.abort(), OLLAMA_CONFIG.timeout);
 
         // Step 2: API Request (LLM Inference)
         const apiStartTime = performance.now();
@@ -452,12 +452,12 @@ export function convertAnswerToCode(answer) {
 }
 
 /**
- * Health check for LocalAI service
+ * Health check for Ollama service
  * @returns {Promise<boolean>} True if service is available
  */
-export async function checkLocalAIHealth() {
+export async function checkOllamaHealth() {
     // Always return true if using mock AI
-    if (LOCALAI_CONFIG.useMockAI) {
+    if (OLLAMA_CONFIG.useMockAI) {
         console.log('Using Mock AI - health check passed');
         return mockHealthCheck();
     }
@@ -476,7 +476,7 @@ export async function checkLocalAIHealth() {
         return response.ok;
 
     } catch (error) {
-        console.error('LocalAI health check failed:', error);
+        console.error('Ollama health check failed:', error);
         return false;
     }
 }

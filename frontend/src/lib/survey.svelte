@@ -1,7 +1,7 @@
 <script>
     import { Checkbox, Card, CardBody, Fieldset, FormTextarea, Button } from "yesvelte";
     import { onMount, onDestroy } from "svelte";
-    import { naranjoWorkerManager, workerStatus, reasoningStatus, reasoningResults } from "./localai/NaranjoWorkerManager.js";
+    import { naranjoWorkerManager, workerStatus, reasoningStatus, reasoningResults } from "./ollama/NaranjoWorkerManager.js";
     import AIReasoningModal from "./AIReasoningModal.svelte";
     import QuestionReasoningModal from "./QuestionReasoningModal.svelte";
     import { drugClassification } from "./duckdb.js";

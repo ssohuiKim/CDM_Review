@@ -3,7 +3,7 @@
  * Simulates AI responses without requiring LocalAI
  */
 
-import { NARANJO_QUESTIONS } from './LocalAIClient.js';
+import { NARANJO_QUESTIONS } from './OllamaClient.js';
 
 /**
  * Generate a mock AI response for testing

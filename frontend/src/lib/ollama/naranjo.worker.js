@@ -3,7 +3,7 @@
  * This worker processes AI reasoning requests in the background to avoid blocking the UI
  */
 
-import { getNaranjoReasoning, checkLocalAIHealth } from './LocalAIClient.js';
+import { getNaranjoReasoning, checkOllamaHealth } from './OllamaClient.js';
 
 // Worker state
 let isProcessing = false;
@@ -51,7 +51,7 @@ self.addEventListener('message', async (event) => {
  */
 async function handleHealthCheck(requestId) {
     try {
-        const isHealthy = await checkLocalAIHealth();
+        const isHealthy = await checkOllamaHealth();
 
         postMessage({
             type: 'HEALTH_CHECK_RESULT',

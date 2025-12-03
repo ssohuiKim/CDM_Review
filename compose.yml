@@ -6,11 +6,15 @@ services:
       - 15465:3000 # host:container
     restart: always   # 🔹서버 재부팅 or Docker 재시작 시 자동 실행
 
-  llamacpp:
-    image: ghcr.io/ggml-org/llama.cpp:server
+  ollama:
+    image: ollama/ollama:latest
     ports:
-      - 7800:7800 # host:container
-    command: -m /models/gemma-2-2b-it-Q4_K_M.gguf --port 7800 --host 0.0.0.0 -n 512
+      - 11434:11434 # host:container
     restart: always
     volumes:
-      - ./localai/models:/models
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+
+volumes:
+  ollama_data:

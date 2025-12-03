@@ -1,16 +1,16 @@
 /**
- * SvelteKit API Proxy for LocalAI
- * This endpoint proxies requests to LocalAI to avoid CORS issues
+ * SvelteKit API Proxy for Ollama
+ * This endpoint proxies requests to Ollama to avoid CORS issues
  */
 
 import { json, error } from '@sveltejs/kit';
 
-// LocalAI configuration (llama.cpp server)
-// In Docker: use service name 'llamacpp', in local dev: use 'localhost'
+// Ollama configuration
+// In Docker: use service name 'ollama', in local dev: use 'localhost'
 // Check if running in production (Docker) or development (local)
 const isDocker = process.env.NODE_ENV === 'production' || process.env.DOCKER === 'true';
-const LOCALAI_ENDPOINT = process.env.LOCALAI_ENDPOINT || (isDocker ? 'http://llamacpp:7800' : 'http://localhost:7800');
-const LOCALAI_MODEL = process.env.LOCALAI_MODEL || '/models/gemma-2-2b-it-Q4_K_M.gguf';
+const OLLAMA_ENDPOINT = process.env.OLLAMA_ENDPOINT || (isDocker ? 'http://ollama:11434' : 'http://localhost:11434');
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'gemma3:4b';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
@@ -23,9 +23,9 @@ export async function POST({ request }) {
             throw error(400, 'Invalid request: messages array is required');
         }
 
-        // Prepare request to LocalAI
-        const localAIRequest = {
-            model: body.model || LOCALAI_MODEL,
+        // Prepare request to Ollama
+        const ollamaRequest = {
+            model: body.model || OLLAMA_MODEL,
             messages: body.messages,
             temperature: body.temperature || 0.7,
             max_tokens: body.max_tokens || 2000,
@@ -38,35 +38,35 @@ export async function POST({ request }) {
         console.log('User Prompt:', body.messages[1]?.content);
         console.log('==================');
 
-        // Forward request to LocalAI
-        const localAIResponse = await fetch(`${LOCALAI_ENDPOINT}/v1/chat/completions`, {
+        // Forward request to Ollama (OpenAI-compatible API)
+        const ollamaResponse = await fetch(`${OLLAMA_ENDPOINT}/v1/chat/completions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(localAIRequest),
+            body: JSON.stringify(ollamaRequest),
             signal: AbortSignal.timeout(120000) // 2 minute timeout
         });
 
-        if (!localAIResponse.ok) {
-            const errorText = await localAIResponse.text();
-            console.error('LocalAI error:', errorText);
-            throw error(localAIResponse.status, `LocalAI error: ${errorText}`);
+        if (!ollamaResponse.ok) {
+            const errorText = await ollamaResponse.text();
+            console.error('Ollama error:', errorText);
+            throw error(ollamaResponse.status, `Ollama error: ${errorText}`);
         }
 
-        // Return LocalAI response
-        const result = await localAIResponse.json();
+        // Return Ollama response
+        const result = await ollamaResponse.json();
         return json(result);
 
     } catch (err) {
         console.error('Proxy error:', err);
 
         if (err.name === 'AbortError' || err.name === 'TimeoutError') {
-            throw error(504, 'LocalAI request timeout');
+            throw error(504, 'Ollama request timeout');
         }
 
         if (err.cause?.code === 'ECONNREFUSED') {
-            throw error(503, 'LocalAI service is not available. Please ensure LocalAI is running.');
+            throw error(503, 'Ollama service is not available. Please ensure Ollama is running.');
         }
 
         // Re-throw SvelteKit errors
@@ -81,20 +81,20 @@ export async function POST({ request }) {
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
     try {
-        // Health check endpoint
-        const response = await fetch(`${LOCALAI_ENDPOINT}/v1/models`, {
+        // Health check endpoint - Ollama uses /api/tags for listing models
+        const response = await fetch(`${OLLAMA_ENDPOINT}/api/tags`, {
             signal: AbortSignal.timeout(5000)
         });
 
         if (!response.ok) {
-            throw error(503, 'LocalAI service is not responding');
+            throw error(503, 'Ollama service is not responding');
         }
 
         const models = await response.json();
 
         return json({
             status: 'ok',
-            endpoint: LOCALAI_ENDPOINT,
+            endpoint: OLLAMA_ENDPOINT,
             models: models
         });
 
@@ -104,11 +104,11 @@ export async function GET() {
         if (err.cause?.code === 'ECONNREFUSED') {
             return json({
                 status: 'error',
-                message: 'LocalAI service is not available',
-                endpoint: LOCALAI_ENDPOINT
+                message: 'Ollama service is not available',
+                endpoint: OLLAMA_ENDPOINT
             }, { status: 503 });
         }
 
-        throw error(503, 'LocalAI health check failed');
+        throw error(503, 'Ollama health check failed');
     }
 }
