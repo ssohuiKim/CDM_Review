@@ -91,41 +91,29 @@ const SYSTEM_PROMPT = `You are a clinical pharmacology expert analyzing drug-ind
 
 === CRITICAL RULES ===
 - DO NOT invent or fabricate any data
-- DO NOT assume or guess information not explicitly provided
 - Use ONLY the exact days, grades, and drug names given in the patient data
 - If data is missing or unclear, answer "Unknown"
-- Your reasoning must reference ONLY the actual data provided
 
-=== ICI DRUG LIST (for identification) ===
-${ICI_DRUG_LIST.join(', ')}
+=== INPUT DATA DESCRIPTION ===
+- ICI DRUG EXPOSURE: Immune checkpoint inhibitor drugs with exposure periods. Multiple periods = rechallenge (drug was stopped then restarted).
+- HEPATOTOXICITY GRADE CHANGES: Timeline of liver injury severity (Grade 0=none, 1=mild, 2=moderate, 3=severe, 4=life-threatening).
+- TOXIC MEDICATIONS: Other drugs known to cause hepatotoxicity (potential alternative causes).
+- SAFE MEDICATIONS: Drugs not associated with hepatotoxicity.
 
-=== DECISION RULES FOR EACH QUESTION ===
+=== DECISION RULES ===
+Q3: Grade decreased AFTER ICI stopped = YES. Grade same/worsened = NO. No data after stop = UNKNOWN.
+Q4: Rechallenge occurred AND grade increased after = YES. Rechallenge but no increase = NO. No rechallenge = UNKNOWN.
+Q5: Toxic drugs given BEFORE grade worsened = YES. No toxic drugs or given AFTER = NO.
 
-Q3: "Did the adverse reaction improve when the drug was discontinued?"
-- YES: Grade decreased AFTER ICI end day (based on actual grade data provided)
-- NO: Grade stayed same or worsened after ICI was stopped
-- UNKNOWN: No grade data after ICI discontinuation, or ICI was not stopped
-
-Q4: "Did the adverse reaction appear when the drug was re-administered?"
-- YES: The ICI drug was stopped AND later given again AND the grade increased after re-administration.
-- NO: The ICI drug was stopped AND later given again BUT the grade did not increase after re-administration.
-- UNKNOWN: The drug was never given again after being stopped. (If there is no re-administration, always answer UNKNOWN.)
-
-Q5: "Are there alternative causes that could have caused the reaction?"
-- YES: Significant TOXIC MEDICATIONS were given BEFORE hepatotoxicity grade worsened, AND the proportion of toxic drugs relative to total medications is substantial enough to plausibly explain liver injury independent of ICI
-- NO: TOXIC MEDICATIONS list is empty ("None"), OR toxic drugs were given AFTER grade already worsened, OR only a small proportion of drugs with minimal hepatotoxicity
-- UNKNOWN: Cannot determine timing relationship between toxic drugs and grade changes
-KEY: Compare TOXIC MEDICATIONS timing with HEPATOTOXICITY GRADE CHANGES. Consider both the proportion and timing of toxic drugs.
-
-=== OUTPUT FORMAT ===
-Output ONLY valid JSON (no markdown, no extra text):
+=== OUTPUT FORMAT (Chain-of-Thought) ===
+IMPORTANT: Write reasoning FIRST, then derive the answer from your reasoning.
+Output ONLY valid JSON:
 {
   "answers": [
-    {"question": 3, "answer": "Yes/No/Unknown", "reasoning": "...", "confidence": "High/Medium/Low"},
-    {"question": 4, "answer": "Yes/No/Unknown", "reasoning": "...", "confidence": "High/Medium/Low"},
-    {"question": 5, "answer": "Yes/No/Unknown", "reasoning": "...", "confidence": "High/Medium/Low"}
-  ],
-  "overallAssessment": "..."
+    {"question": 3, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No/Unknown", "confidence": "High/Medium/Low"},
+    {"question": 4, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No/Unknown", "confidence": "High/Medium/Low"},
+    {"question": 5, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No/Unknown", "confidence": "High/Medium/Low"}
+  ]
 }`;
 
 /**
@@ -402,7 +390,6 @@ function mergeWithFixedAnswers(aiResponse) {
 
     return {
         answers: allAnswers,
-        overallAssessment: aiResponse.overallAssessment || 'Assessment based on available data',
         parseError: aiResponse.parseError
     };
 }
@@ -461,7 +448,6 @@ function parseAIResponse(response) {
                 reasoning: 'Failed to parse AI response',
                 confidence: 'Low'
             })),
-            overallAssessment: 'Error processing AI response',
             parseError: error.message
         };
     }

@@ -36,14 +36,6 @@
     <ModalBody>
         {#if reasoning && reasoning.answers}
             <div class="reasoning-container">
-                <!-- Overall Assessment -->
-                {#if reasoning.overallAssessment}
-                    <div class="overall-assessment">
-                        <h5>Overall Assessment</h5>
-                        <p>{reasoning.overallAssessment}</p>
-                    </div>
-                {/if}
-
                 <!-- Individual Question Reasoning -->
                 <div class="questions-reasoning">
                     <h5>Question-by-Question Analysis</h5>
@@ -88,27 +80,6 @@
 <style>
     .reasoning-container {
         padding: 8px;
-    }
-
-    .overall-assessment {
-        background: #f8f9fa;
-        padding: 16px;
-        border-radius: 8px;
-        margin-bottom: 24px;
-        border-left: 4px solid #0d6efd;
-    }
-
-    .overall-assessment h5 {
-        margin: 0 0 12px 0;
-        font-size: 16px;
-        font-weight: 600;
-        color: #0d6efd;
-    }
-
-    .overall-assessment p {
-        margin: 0;
-        line-height: 1.6;
-        color: #495057;
     }
 
     .questions-reasoning h5 {
