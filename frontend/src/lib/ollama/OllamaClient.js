@@ -298,20 +298,20 @@ export async function getNaranjoReasoning(patientData) {
         console.log(`[TIMING] Step 2 - LLM Inference Time: ${(apiEndTime - apiStartTime).toFixed(2)}ms (${((apiEndTime - apiStartTime) / 1000).toFixed(2)}s)`);
 
         if (!response.ok) {
-            throw new Error(`LocalAI API error: ${response.status} ${response.statusText}`);
+            throw new Error(`Ollama API error: ${response.status} ${response.statusText}`);
         }
 
         // Step 3: Response Parsing
         const parseStartTime = performance.now();
         const result = await response.json();
-        console.log('LocalAI raw result:', result);
+        console.log('Ollama raw result:', result);
 
         // Extract the AI's response
         const aiResponse = result.choices?.[0]?.message?.content;
 
         if (!aiResponse) {
-            console.error('Invalid LocalAI response structure:', JSON.stringify(result, null, 2));
-            throw new Error('Invalid response format from LocalAI');
+            console.error('Invalid Ollama response structure:', JSON.stringify(result, null, 2));
+            throw new Error('Invalid response format from Ollama');
         }
 
         console.log('AI response content:', aiResponse);

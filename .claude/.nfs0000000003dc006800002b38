@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat:*)",
+      "Bash(curl:*)",
+      "Bash(docker logs:*)",
+      "Bash(python3:*)",
+      "Bash(npm install:*)",
+      "Bash(source:*)",
+      "Bash(conda activate:*)",
+      "Bash(micromamba activate:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

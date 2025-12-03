@@ -29,7 +29,7 @@ export const OLLAMA_CONFIG = {
     topP: 0.95,
 
     // Timeout in milliseconds
-    timeout: 120000, // 120 seconds (2 minutes)
+    timeout: 300000, // 300 seconds (5 minutes) - increased for larger models
 };
 
 /**
