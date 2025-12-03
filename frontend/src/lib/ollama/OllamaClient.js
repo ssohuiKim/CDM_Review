@@ -101,7 +101,7 @@ const SYSTEM_PROMPT = `You are a clinical pharmacology expert analyzing drug-ind
 - SAFE MEDICATIONS: Drugs not associated with hepatotoxicity.
 
 === DECISION RULES ===
-Q3: Grade decreased AFTER ICI stopped = YES. Grade same/worsened = NO. No data after stop = UNKNOWN.
+Q3: ICI drugs have long half-life. Grade worsening immediately after ICI stop is delayed drug effect, not "failure to improve". Look at the FINAL grade trend, not just the first grade after stop. YES if grade eventually decreased after peak.
 Q4: Rechallenge occurred AND grade increased after = YES. Rechallenge but no increase = NO. No rechallenge = UNKNOWN.
 Q5: Toxic drugs given BEFORE grade worsened = YES. No toxic drugs or given AFTER = NO.
 
