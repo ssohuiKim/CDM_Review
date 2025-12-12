@@ -2,3 +2,6 @@
 localai/models/*.gguf
 localai/models/*.bin
 localai/models/*.safetensors
+
+# Figures (paper figures, not needed in repo)
+figures/

@@ -8,7 +8,8 @@
       "Bash(npm install:*)",
       "Bash(source:*)",
       "Bash(conda activate:*)",
-      "Bash(micromamba activate:*)"
+      "Bash(micromamba activate:*)",
+      "Bash(docker compose up:*)"
     ],
     "deny": [],
     "ask": []
