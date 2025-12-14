@@ -1,0 +1,864 @@
+/*========================================================================*/
+/* ICI Hepatotoxicity Web Tool - Production Version                      */
+/* Date: 2025-09-23                                                      */
+/* Purpose: ICI-related hepatotoxicity monitoring web tool data pipeline */
+/*========================================================================*/
+
+/* Check and create necessary directories */
+%macro create_dir_if_missing(dir);
+    %if not %sysfunc(fileexist(&dir)) %then %do;
+        %let rc = %sysfunc(dcreate(%scan(&dir, -1, /), %substr(&dir, 1, %length(&dir) - %length(%scan(&dir, -1, /)) - 1)));
+        %put NOTE: Created directory: &dir;
+    %end;
+%mend;
+
+%create_dir_if_missing(./temp);
+%create_dir_if_missing(./output);
+%create_dir_if_missing(./results);
+
+/* ====== Define network shared folder ROOT (Specify your own directory here) ====== */
+/* Replace the path below with the location where your dataset is stored */
+%let ROOT = <Insert your directory path here>;
+
+/* ====== Assign libraries (UNC absolute path) ====== */
+libname input  "&ROOT.\ICI_CDM_dataset";
+libname output "&ROOT.\ICI";
+libname cohort "&ROOT.\ICI_cohort";
+
+/* If you want to use a temp folder inside the shared folder, uncomment below: */
+%let TEMP = &ROOT.\temp;
+options noxwait;
+x "mkdir ""&TEMP.""";
+libname temp "&TEMP.";
+
+/*========================================================================*/
+/* 1. CALCULATE INDEX DATES                                              */
+/*========================================================================*/
+
+/* Get first and last ICI exposure dates */
+proc sql;
+    create table temp.index_dates as
+    select person_id, 
+           min(drug_exposure_start_date) as index_date format yymmdd10.,
+           max(drug_exposure_start_date) as index_lastdate format yymmdd10.
+    from output.any_drugexposure
+    where drug_concept_id in (46275962,42920744,42922127,42921578,42920398,1594046,1594038)
+    group by person_id;
+quit;
+
+proc sql;
+    create table temp.visit_last as
+    select person_id, max(visit_end_date) as visit_last_day format yymmdd10.
+    from temp.visits
+    group by person_id;
+quit;
+
+/* Combine dates with cutoff */
+proc sql;
+    create table temp.final_dates as
+    select a.*, b.visit_last_day, mdy(06,30,2022) as cutoff format yymmdd10.
+    from temp.index_dates as a 
+    left join temp.visit_last as b on a.person_id = b.person_id;
+quit; 
+
+
+/*========================================================================*/
+/* 2. COHORT DEFINITION AND EXCLUSIONS                                   */
+/*========================================================================*/
+
+/* Exclusion 1: Liver cancer patients within 1 year before index */
+proc sql;
+    create table temp.liver_cancer as
+    select a.person_id,
+           case when a.index_date - 365 <= b.condition_start_date <= a.index_date 
+                then 1 else 0 end as has_liver_cancer
+    from temp.final_dates as a
+    left join temp.all_conditions as b on a.person_id = b.person_id
+    where b.condition_concept_id in (42484793,42484794,42484795,42484796,42484797,42484798,42484799,42484800) ;
+quit; 
+
+data temp.liver_cancer2;
+set temp.liver_cancer;
+if has_liver_cancer=1;
+run;
+
+proc sort data=temp.liver_cancer2 nodupkey;
+by person_id;
+run; 
+
+
+/* Exclusion 2: No baseline liver labs */
+proc sql;
+    create table temp.baseline_labs as
+    select distinct a.person_id, 1 as has_baseline_lab
+    from temp.final_dates as a
+    inner join temp.all_measurements as b on a.person_id = b.person_id
+    where b.measurement_source_value in ("LM130050A0","LM130060A0","LM000050A0")
+      and a.index_date - 90 <= b.measurement_date <= a.index_date;
+quit; 
+
+/* Exclusion 3: Abnormal baseline labs */
+proc sql;
+    create table temp.abnormal_baseline as
+    select a.person_id, a.index_date,
+           b.measurement_source_value,
+           b.measurement_date,
+           b.value_as_number as baseline_value,
+           b.range_high,
+           1 as has_abnormal_baseline
+    from temp.final_dates as a
+    inner join temp.all_measurements as b
+           on a.person_id = b.person_id
+    where b.measurement_source_value in ("LM130050A0","LM130060A0","LM000050A0")
+      and a.index_date - 90 <= b.measurement_date <= a.index_date
+      and b.value_as_number > b.range_high;
+quit;
+
+proc sql;
+    create table temp.first_abnormal_baseline as
+    select distinct person_id, has_abnormal_baseline, index_date,
+           /* ALT */
+           coalesce(min(case when measurement_source_value = "LM130050A0" then baseline_value end), 0) as ALT_baseline,
+           min(case when measurement_source_value = "LM130050A0" then measurement_date end) as ALT_date format yymmdd10.,
+           /* AST */
+           coalesce(min(case when measurement_source_value = "LM130060A0" then baseline_value end), 0) as AST_baseline,
+           min(case when measurement_source_value = "LM130060A0" then measurement_date end) as AST_date format yymmdd10.,
+           /* Bilirubin */
+           coalesce(min(case when measurement_source_value = "LM000050A0" then baseline_value end), 0) as BIL_baseline,
+           min(case when measurement_source_value = "LM000050A0" then measurement_date end) as BIL_date format yymmdd10.
+    from temp.abnormal_baseline
+    group by person_id;
+quit;
+
+
+/* Create final cohort */
+proc sql;
+    create table temp.cohort_flags as
+    select a.*,
+           coalesce(b.has_liver_cancer, 0) as liver_cancer,
+           coalesce(c.has_baseline_lab, 0) as baseline_lab,
+           coalesce(d.has_abnormal_baseline, 0) as abnormal_baseline
+    from temp.final_dates as a
+    left join temp.liver_cancer2 as b on a.person_id = b.person_id
+    left join temp.baseline_labs as c on a.person_id = c.person_id  
+    left join temp.first_abnormal_baseline as d on a.person_id = d.person_id;
+quit;
+
+
+data output.final_cohort;
+    set temp.cohort_flags;
+    
+    /* Define exclusions */
+    exclude = 0;
+    if baseline_lab = 0 then exclude = 1; /* No baseline labs */
+    if liver_cancer = 1 and abnormal_baseline = 0 then exclude = 1; /* Liver cancer with normal labs */
+    
+    /* Define study groups */
+    if exclude = 0 then do;
+        if abnormal_baseline = 0  then study_group = "Normal";
+        else study_group = "Abnormal";
+    end;
+    else study_group = "Excluded";
+    
+    keep person_id index_date index_lastdate visit_last_day cutoff study_group exclude;
+run;
+
+/*========================================================================*/
+/* 3. OUTCOME DETECTION                                     */
+/*========================================================================*/
+
+proc sql;
+    create table temp.outcomes_all as
+    select a.person_id,
+           a.study_group,
+           a.index_date, a.index_lastdate, a.visit_last_day, a.cutoff,
+           b.measurement_date, b.value_as_number, b.range_high, b.measurement_source_value, base.ALT_baseline, base.AST_baseline, base.BIL_baseline,
+           case 
+               /* ================= Normal group ================= */
+               when a.study_group = "Normal"
+                    and b.measurement_source_value = "LM130050A0"
+                    and b.value_as_number > 5*b.range_high then 1
+               when a.study_group = "Normal"
+                    and b.measurement_source_value = "LM130060A0"
+                    and b.value_as_number > 5*b.range_high then 1
+               when a.study_group = "Normal"
+                    and b.measurement_source_value = "LM000050A0"
+                    and b.value_as_number > 3*b.range_high then 1
+
+               /* ================= Abnormal group ================= */
+               when a.study_group = "Abnorm"
+                    and b.measurement_source_value = "LM130050A0"
+                    and base.ALT_baseline > 0
+                    and b.value_as_number > 5*base.ALT_baseline then 1
+               when a.study_group = "Abnorm"
+                    and b.measurement_source_value = "LM130060A0"
+                    and base.AST_baseline > 0
+                    and b.value_as_number > 5*base.AST_baseline then 1
+               when a.study_group = "Abnorm"
+                    and b.measurement_source_value = "LM000050A0"
+                    and base.BIL_baseline > 0
+                    and b.value_as_number > 3*base.BIL_baseline then 1
+               else 0
+           end as hepatotoxicity
+    from output.final_cohort as a
+    left join temp.all_measurements as b
+           on a.person_id = b.person_id
+    left join temp.first_abnormal_baseline as base
+           on a.person_id = base.person_id
+    where a.exclude = 0
+      and a.index_date < b.measurement_date
+      and b.measurement_date <= a.index_lastdate + 30
+      and b.measurement_source_value in ("LM130050A0","LM130060A0","LM000050A0");
+quit;
+
+
+proc sql;
+    create table temp.first_hepatotox_full as
+    select a.person_id,
+	 		c.gender_source_value,
+			c.year_of_birth,
+			(year(a.index_date) - c.year_of_birth) as age, 
+           a.study_group,
+           case when a.study_group = "Normal" then 1
+                when a.study_group = "Abnorm" then 2 else 0 end as group_order,  
+           a.index_date, a.index_lastdate, a.visit_last_day, a.cutoff,
+           min(base.ALT_baseline) as ALT_baseline,
+           min(base.AST_baseline) as AST_baseline,
+           min(base.BIL_baseline) as BIL_baseline,
+           min(a.measurement_date) as hepatotox_date format=yymmdd10.
+		  
+    from temp.outcomes_all as a
+	left join temp.personid as c on a.person_id=c.person_id
+    left join temp.first_abnormal_baseline as base on a.person_id = base.person_id
+
+    where a.hepatotoxicity = 1
+    group by a.person_id, a.study_group,
+             a.index_date, a.index_lastdate, a.visit_last_day, a.cutoff,c.gender_source_value, c.year_of_birth
+	order by a.study_group desc, person_id;
+quit; 
+
+
+/*========================================================================*/
+/* 4. CREATE DATASET FOR WEB TOOL                            */
+/*========================================================================*/
+
+/* Create de-identified dataset with patient numbers */
+proc sort data=temp.first_hepatotox_full;
+    by group_order person_id;
+run;
+data output.webtool_final;
+    set temp.first_hepatotox_full;
+    by group_order person_id;
+    retain patient_no 0;
+
+    if first.person_id then patient_no + 1;
+
+    keep person_id patient_no gender_source_value age study_group index_date index_lastdate 
+         visit_last_day cutoff ALT_baseline AST_baseline BIL_baseline
+         hepatotox_date; 
+run;
+/*==================================================================================================*/
+/* Extract liver lab information and create grade variables according to CTCAE thresholds           */
+/* Observation period: ICI first dose (index_date) ~ ICI last dose (index_lastdate) + 60 days*/
+
+/* For Normal group:                                                                                */
+/*    - Compare lab values against upper limit of normal (range_high).                              */
+/*    - Generate grade flags (g1_g4).                                                               */
+/* For Abnormal group:                                                                              */
+/*    - Compare lab values against individual baseline values (ALT_baseline, AST_baseline, Bil_baseline). */
+/*    - Generate grade flags (g1_g4) based on multiples of baseline.                                */
+/*==================================================================================================*/
+
+
+/* Extract liver lab information */
+proc sql;
+    create table temp.webtool_60_liverlab as
+    select a.*, 
+           b.measurement_date format yymmdd10., 
+           b.measurement_source_value, 
+           b.value_as_number, 
+           b.range_high, 
+           b.range_low,
+           case 
+               when b.measurement_source_value = "LM130050A0" then "ALT"
+               when b.measurement_source_value = "LM130060A0" then "AST"
+               when b.measurement_source_value = "LM000050A0" then "Bilirubin"
+               else "Other"
+           end as measurement_name
+    from output.webtool_final as a
+    left join temp.all_measurements as b
+        on a.person_id = b.person_id
+    where b.measurement_source_value in ("LM130050A0","LM130060A0","LM000050A0") AND b.measurement_date between a.index_date and a.index_lastdate + 60 
+	order by a.person_id, b.measurement_date;
+quit;
+
+
+proc sql;
+create table temp.webtool_60_liverlab_g1 as 
+select *
+/* ========================================== Normal group =============================================== */
+    ,case when
+			study_group = "Normal" and
+			measurement_source_value in ('LM130050A0', 'LM130060A0') and
+             (value_as_number > range_high and value_as_number <= 3 * range_high) then 1 else 0 end as g1_ALT_AST
+    ,case when 
+			study_group = "Normal" and
+			measurement_source_value in ('LM130050A0', 'LM130060A0') and
+             (value_as_number > 3 * range_high and value_as_number <= 5 * range_high) then 1 else 0 end as g2_ALT_AST
+    ,case when
+			study_group = "Normal" and
+			measurement_source_value in ('LM130050A0', 'LM130060A0') and
+             (value_as_number > 5 * range_high and value_as_number <= 20 * range_high) then 1 else 0 end as g3_ALT_AST
+    ,case when
+			study_group = "Normal" and
+			measurement_source_value in ('LM130050A0', 'LM130060A0') and
+             (value_as_number > 20 * range_high) then 1 else 0 end as g4_ALT_AST
+ 
+    ,case when
+			study_group = "Normal" and 
+       		measurement_source_value = 'LM000050A0' and
+             (value_as_number > range_high and value_as_number <= 1.5 * range_high) then 1 else 0 end as g1_bil
+    ,case when
+			study_group = "Normal" and 
+			measurement_source_value = 'LM000050A0' and
+            (value_as_number > 1.5 * range_high and value_as_number <= 3 * range_high) then 1 else 0 end as g2_bil
+	,case when
+			study_group = "Normal" and 
+  			measurement_source_value = 'LM000050A0' and
+            (value_as_number > 3 * range_high and value_as_number <= 10 * range_high) then 1 else 0 end as g3_bil
+    ,case when
+			study_group = "Normal" and 
+        	measurement_source_value = 'LM000050A0' and
+            (value_as_number > 10 * range_high) then 1 else 0 end as g4_bil
+
+/* ========================================== Abnormal group =============================================== */
+
+        /* ALT (LM130050A0) */
+   , case when study_group = "Abnorm"
+              and measurement_source_value = 'LM130050A0' 
+              and ALT_baseline^=0
+              and value_as_number > 1.5 * ALT_baseline 
+              and value_as_number <= 3 * ALT_baseline
+         then 1 else 0 end as g1_ALT_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM130050A0' 
+              and ALT_baseline^=0
+              and value_as_number > 3 * ALT_baseline 
+              and value_as_number <= 5 * ALT_baseline
+         then 1 else 0 end as g2_ALT_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM130050A0' 
+              and ALT_baseline^=0
+              and value_as_number > 5 * ALT_baseline 
+              and value_as_number <= 20 * ALT_baseline
+         then 1 else 0 end as g3_ALT_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM130050A0' 
+              and ALT_baseline^=0
+              and value_as_number > 20 * ALT_baseline
+         then 1 else 0 end as g4_ALT_ab
+
+    /* AST (LM130060A0) */
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM130060A0' 
+              and AST_baseline^=0
+              and value_as_number > 1.5 * AST_baseline 
+              and value_as_number <= 3 * AST_baseline
+         then 1 else 0 end as g1_AST_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM130060A0' 
+              and AST_baseline^=0
+              and value_as_number > 3 * AST_baseline 
+              and value_as_number <= 5 * AST_baseline
+         then 1 else 0 end as g2_AST_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM130060A0' 
+              and AST_baseline^=0
+              and value_as_number > 5 * AST_baseline 
+              and value_as_number <= 20 * AST_baseline
+         then 1 else 0 end as g3_AST_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM130060A0' 
+              and AST_baseline^=0
+              and value_as_number > 20 * AST_baseline
+         then 1 else 0 end as g4_AST_ab
+
+    /* Bilirubin (LM000050A0) */
+   ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM000050A0' 
+              and Bil_baseline^=0
+              and value_as_number > 1.0 * Bil_baseline 
+              and value_as_number <= 1.5 * Bil_baseline
+         then 1 else 0 end as g1_Bil_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM000050A0' 
+              and Bil_baseline^=0
+              and value_as_number > 1.5 * Bil_baseline 
+              and value_as_number <= 3.0 * Bil_baseline
+         then 1 else 0 end as g2_Bil_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM000050A0' 
+              and Bil_baseline^=0
+              and value_as_number > 3.0 * Bil_baseline 
+              and value_as_number <= 10.0 * Bil_baseline
+         then 1 else 0 end as g3_Bil_ab
+
+    ,case when study_group = "Abnorm"
+              and measurement_source_value = 'LM000050A0' 
+              and Bil_baseline^=0
+              and value_as_number > 10.0 * Bil_baseline
+         then 1 else 0 end as g4_Bil_ab
+
+from temp.webtool_60_liverlab;
+quit;
+
+data temp.webtool_60_liverlab_g2;
+    set temp.webtool_60_liverlab_g1;
+
+    /* Reset */
+    grade1 = 0;
+    grade2 = 0;
+    grade3 = 0;
+    grade4 = 0;
+
+    /* Normal group */
+    if study_group = "Normal" then do;
+        if g1_ALT_AST = 1 or g1_bil = 1 then grade1 = 1;
+        if g2_ALT_AST = 1 or g2_bil = 1 then grade2 = 1;
+        if g3_ALT_AST = 1 or g3_bil = 1 then grade3 = 1;
+        if g4_ALT_AST = 1 or g4_bil = 1 then grade4 = 1;
+    end;
+
+    /* Abnormal group */
+    else if study_group = "Abnorm" then do;
+        if g1_ALT_ab = 1 or g1_AST_ab = 1 or g1_bil_ab = 1 then grade1 = 1;
+        if g2_ALT_ab = 1 or g2_AST_ab = 1 or g2_bil_ab = 1 then grade2 = 1;
+        if g3_ALT_ab = 1 or g3_AST_ab = 1 or g3_bil_ab = 1 then grade3 = 1;
+        if g4_ALT_ab = 1 or g4_AST_ab = 1 or g4_bil_ab = 1 then grade4 = 1;
+    end;
+run;
+
+proc sql;
+    create table temp.webtool_60_liverlab_g3 as
+    select person_id,
+           measurement_date,
+           max(
+               case 
+                   when grade4 = 1 then 4
+                   when grade3 = 1 then 3
+                   when grade2 = 1 then 2
+                   when grade1 = 1 then 1
+                   else 0
+               end
+           ) as grade
+    from temp.webtool_60_liverlab_g2
+    group by person_id, measurement_date
+    order by person_id, measurement_date;
+quit;
+
+proc sql;
+    create table temp.webtool_60_liverlab_final as
+    select a.*, 
+           b.grade
+    from temp.webtool_60_liverlab as a
+    left join temp.webtool_60_liverlab_g3 as b
+      on a.person_id = b.person_id
+     and a.measurement_date = b.measurement_date
+    order by a.person_id, a.measurement_date;
+quit;
+
+/*==================================================================================================*/
+/* Create drug exposure variables for ICI and Non-ICI agents                                        */
+/* For ICI drugs:                                                                                   */
+/*    - Same drug may have multiple drug_concept_id values.                                         */
+/*    - Grouped by drug_name to consolidate exposures.                                               */
+/*    - sum_quantity: total quantity administered per patient/date/drug_name.                       */
+/*    - final_drug_exposure_end_date: take the latest end_date when multiple exist.                  */
+/* For Non-ICI drugs:                                                                               */
+/*    - Duplicate days_supply can occur due to repeated prescriptions (e.g., admission/discharge).  */
+/*    - Grouped by drug_concept_id to consolidate exposures.                                        */
+/*    - sum_days_supply: use days_supply if single end_date, otherwise sum across multiple.          */
+/*    - new_drug_exposure_end_date: start_date + sum_days_supply - 1.                               */
+/*==================================================================================================*/
+
+/* Import PNUH drug_concept_id mapping file (Drug_exposure.csv) containing drug_name and drug_dose */
+proc import datafile="&ROOT.\ICI_CDM_dataset\Drug_exposure.csv"
+    out=temp.pnu_drug_name
+    dbms=csv replace;
+    getnames=yes;
+run;  
+
+proc sql;
+    create table temp.webtool_60_drug as
+    select a.*,
+			c.drug_exposure_start_date, 
+			c.drug_exposure_end_date,
+            c.drug_concept_id, 
+			c.quantity, 
+			c.days_supply,
+			d.drug_name, 
+			d.drug_name_dose 
+    from output.webtool_final  as a
+    left join output.any_drugexposure as c on a.person_id = c.person_id
+	left join temp.pnu_drug_name as d on c.drug_concept_id = d.drug_concept_id
+	where c.drug_exposure_start_date between a.index_date and a.index_lastdate + 60; 
+quit; /*Rows 82839*/
+
+/* Define ICI drug concept id                                         */
+%let ici_list = 42920398,1594046,1594038,46275962,42920744,42922127,42921578;
+
+/* For ICI drugs                                                 */
+proc sort data=temp.webtool_60_drug out=temp.drug_ici_1 nodupkey;
+by person_id drug_exposure_start_date drug_name quantity;
+where drug_concept_id in (&ici_list);
+run;
+
+proc sql; 
+    create table temp.drug_ici_2 as
+    select person_id,
+			patient_no,
+			gender_source_value,
+			age,
+			study_group,
+			index_date,
+			index_lastdate,
+			visit_last_day,
+			cutoff,
+			ALT_baseline,
+			AST_baseline,
+			Bil_baseline,
+			hepatotox_date,
+           drug_exposure_start_date,
+           max(drug_exposure_end_date) as new_drug_exposure_end_date format=yymmdd10.,
+		   drug_concept_id,
+           drug_name,
+           drug_name_dose,
+           sum(quantity) as sum_quantity,
+           . as sum_days_supply,             
+           1 as is_ici
+    from temp.drug_ici_1
+    where drug_concept_id in (&ici_list)
+    group by person_id, drug_exposure_start_date, drug_exposure_end_date, drug_name 
+	order by patient_no, drug_exposure_start_date;
+quit; 
+
+
+proc sort data=temp.drug_ici_2 out=temp.drug_ici_3 nodupkey;
+by person_id drug_exposure_start_date drug_name sum_quantity;
+run;
+
+/* For Non-ICI drugs                                           */
+proc sort data=temp.webtool_60_drug out=temp.drug_noici_1 nodupkey;
+by person_id drug_exposure_start_date drug_exposure_end_date drug_concept_id days_supply;
+where drug_concept_id not in (&ici_list);
+run; 
+
+proc sql;
+    create table temp.drug_noici_2  as 
+    select person_id,
+			patient_no,
+			gender_source_value,
+			age,
+			study_group,
+			index_date,
+			index_lastdate,
+			visit_last_day,
+			cutoff,
+			ALT_baseline,
+			AST_baseline,
+			Bil_baseline,
+			hepatotox_date,
+           drug_exposure_start_date,
+		    drug_concept_id,
+           drug_name,
+           drug_name_dose,
+		   case when count(distinct drug_exposure_end_date)=1 then max(days_supply) else sum(days_supply) end as sum_days_supply,
+           (drug_exposure_start_date + calculated sum_days_supply - 1) as new_drug_exposure_end_date format=yymmdd10.,
+           . as sum_quantity,         
+           0 as is_ici
+    from temp.drug_noici_1
+    where drug_concept_id not in (&ici_list)
+    group by person_id, drug_exposure_start_date, drug_concept_id;
+quit; 
+
+proc sort data=temp.drug_noici_2  out=temp.drug_noici_3 nodupkey;
+by person_id drug_exposure_start_date new_drug_exposure_end_date drug_concept_id sum_days_supply;
+run; 
+
+/*==========================================================================*/
+/* Merge ICI + Non-ICI                                              */
+/*==========================================================================*/
+data temp.webtool_60_drug_final;
+	set temp.drug_ici_3 temp.drug_noici_3;
+run; 
+
+/*==============================================================================================*/
+/* Expand drug exposure periods into daily records                                               */
+/* - If start_date = end_date → output single record                                             */
+/* - If start_date < end_date → loop through each date and output one row per day                */
+/* - Creates variable new_end_date = actual exposure day                                         */
+/*==============================================================================================*/
+
+data temp.webtool_60_drug_final_1;
+    set temp.webtool_60_drug_final;
+    format new_end_date yymmdd10.;
+    retain new_end_date;
+
+    if drug_exposure_start_date = new_drug_exposure_end_date then do;
+        new_end_date = new_drug_exposure_end_date;
+        output;
+    end;
+    else do;
+        do date = drug_exposure_start_date to new_drug_exposure_end_date;
+            new_end_date = date;
+            output;
+        end;
+    end;
+    drop date;
+run;
+
+data temp.webtool_60_drug_final_2;
+    set temp.webtool_60_drug_final_1;
+    format new_drug_exposure_date ICI_lasting yymmdd10. day $8.;
+    new_drug_exposure_date = new_end_date;
+
+	  /* Calculate ICI lasting period depending on drug_concept_id */
+    if not missing(sum_quantity) then do;
+        select (drug_concept_id);
+            when (46275962)  ICI_lasting = new_end_date + 21 - 1; /* ipilimumab   */
+            when (42921578)  ICI_lasting = new_end_date + 42 - 1; /* pembrolizumab*/
+            when (42920398)  ICI_lasting = new_end_date + 21 - 1; /* atezolizumab */
+            when (42920744, 42922127) ICI_lasting = new_end_date + 21 - 1; /* nivolumab */
+            when (1594046, 1594038)  ICI_lasting = new_end_date + 28 - 1; /*durvalumab*/
+            otherwise;
+        end;
+    end;
+        /* Assign day number based on index_date */
+    day_num = intck('day', index_date, new_drug_exposure_date) + 1;
+    day = cats('D', day_num);
+run;
+
+proc sort data=temp.webtool_60_drug_final_2;
+    by patient_no new_drug_exposure_date;
+run;
+
+
+/* ========================================================= */
+/* Create diagnosis variable            
+/* 1. Join patients with conditions within 1 year before index */
+/* 2. Create cancer/hepatitis flags directly                  */
+/* 3. Aggregate (MAX) flags per patient                       */
+/* 4. Create diagnosis_group variable (comma-separated)       */
+/* ========================================================= */
+
+proc sql;
+    create table temp.webtool_60_diag as
+    select a.person_id, a.patient_no, a.gender_source_value, a.age, a.study_group, a.index_date, a.index_lastdate, a.visit_last_day, a.cutoff, a.hepatotox_date, 
+
+
+           /* ===== Flags (Cancer / Liver disease) ===== */
+           max(case when b.condition_concept_id in (42484838,42484839,42484840,42484841,42484842,42484843,
+                                                   42484844,42484845,42484846,42484847,42484848,42484849,
+                                                   42484850,42484851,42484852,42484853,42484854,42484855,
+                                                   42484856,42484857,42484858,42484859,42484860)
+                    then 1 else 0 end) as M_LUNG,
+
+           max(case when b.condition_concept_id in (42484793,42484794,42484795,42484796,42484797,
+                                                   42484798,42484799,42484800)
+                    then 1 else 0 end) as M_LIVER,
+
+           max(case when b.condition_concept_id in (42484775,42484776,42484777,42484778,42484779,
+                                                   42484780,42484781,42484782,42484783,42484784,42484785,
+                                                   42484786,42484787,42484788,42484789,42484790,42484791,
+                                                   42484792)
+                    then 1 else 0 end) as M_COLON,
+
+           max(case when b.condition_concept_id in (42484807,42484808,42484809,42484810,42484811,
+                                                   42484812,42484813,42484814,42484815)
+                    then 1 else 0 end) as M_PANCREAS,
+
+           max(case when b.condition_concept_id in (42484731,42484732,42484733,42484734,42484735,
+                                                   42484736,42484737,42484738,42484739,42484740,42484741,
+                                                   42484742,42484743,42484744,42484745,42484746,42484747,
+                                                   42484748,42484749,42484750,42484751,42484752,42484753,
+                                                   42484754,42484755,42484756,42484757,42484758,42484759,
+                                                   42484760,42484761,42484762,42484763,42484764,42484765,
+                                                   42484766,42484767)
+                    then 1 else 0 end) as M_STOMACH,
+
+           max(case when b.condition_concept_id in (42484801,42484802,42484803,42484804,42484805,42484806)
+                    then 1 else 0 end) as M_BILE,
+
+           max(case when b.condition_concept_id in (42484954,42484955,42484956,42484957,42484958,42484959,
+                                                   42484960,42484961,42484962,42484963,42484964,42484965,
+                                                   42484966,42484967,42484968,42484969,42484970,42484971,
+                                                   42484972,42484973,42484974,42484975,42484976,42484977,
+                                                   42484978,42484979,42484980,42484981,42484982,42484983,
+                                                   42484984,42484985,42484986,42484987,42484988,42484989,
+                                                   42484990)
+                    then 1 else 0 end) as M_BREAST,
+
+           max(case when b.condition_concept_id in (42485031)
+                    then 1 else 0 end) as M_PROSTATE,
+
+           max(case when b.condition_concept_id in (42485186,42485187,42485188,42485189,42485190,42485191,
+                                                   42485192,42485193,42485194,42485195,42485196,42485197,
+                                                   42485198,42485199,42485200,42485203,42485204,42485205,
+                                                   42485206,42485207,42485208,42485209,42485210,42485211,
+                                                   42485212,42485213,42485214,42485215,42485216,42485217,
+                                                   42485218,42485219,42485220,42485221,42485222,42485223,
+                                                   42485224,42485225,42485226,42485227,42485228,42485201,
+                                                   42485202)
+                    then 1 else 0 end) as M_LYMPHOMA,
+
+           max(case when b.condition_concept_id in (42485241,42485242,42485243,42485244,42485245,42485246,
+                                                   42485247,42485248,42485249,42485250,42485251,42485252,
+                                                   42485253,42485254,42485255,42485256,42485257,42485258,
+                                                   42485259,42485260,42485261,42485262,42485263,42485264,
+                                                   42485265,42485266,42485267,42485268,42485269,42485270,
+                                                   42485271,42485272,42485273,42485274,42485275,42485276,
+                                                   42485277,42485278,42485279,42485280,42485281,42485282,
+                                                   42485283,42485284,42485285,42485286)
+                    then 1 else 0 end) as M_LEUKEMIA,
+
+           max(case when b.condition_concept_id in (42484226,42484227,42484228,42484229,42484230,42484231,
+                                                   42484232,42484233,42484234,42484235,42484236,42484237,
+                                                   42484238,42484239,42484240,42484241,42484242,42484243,
+                                                   42484244,42484245,42484246,42484247,42484248,42484249,
+                                                   42484250,42489843,42489844,42489845,42489846,42489847,
+                                                   42489848,42489849,42489850,42489851,42489852,42489853,
+                                                   42489854,42489855,42489856,42489857,42489858,42489859,
+                                                   42489860,42489861,42489862,42489863,42489864,42489865,
+                                                   42489866,42489867,42489868,42489869,42489870,42489871,
+                                                   42489872,42489873,42489874,42489875,42489876,42489877,
+                                                   42489878,42489879,42489880,42489881,42489882,42489883,
+                                                   42489884,42489885,42489886,42489887,42489888,42489889,
+                                                   42489890,42489891,42489892,42489893,42489894,42489895,
+                                                   42489896,42489897,42489898,42489899,42489900,42489901,
+                                                   42489902,42489903,42489904,42489905,42489906,42489907,
+                                                   42489908,42489909,42489910,42489911,42489912,42489913,
+                                                   42489914,42489915,42489916,42489917,42489918,42489919,
+                                                   42489920,42489921,42489922,42489923,42489924,42489925,
+                                                   42489926,42489927,42489928,42489929,42489930,42489931,
+                                                   42489932,42489933,42489934,42489935,42489936,42489937,
+                                                   42489938,42489939,42489940,42489941,42489942,42489943,
+                                                   42489944)
+                    then 1 else 0 end) as M_HEPATITIS,
+
+           /* ===== Diagnosis group ===== */
+           trim(catx(',',
+               case when calculated M_LIVER=1 then "Liver cancer" else "" end,
+               case when calculated M_HEPATITIS=1 then "Hepatitis or other liver disease" else "" end,
+               case when (calculated M_LUNG=1 or calculated M_COLON=1 or calculated M_PANCREAS=1 or 
+                          calculated M_STOMACH=1 or calculated M_BILE=1 or calculated M_BREAST=1 or 
+                          calculated M_PROSTATE=1 or calculated M_LYMPHOMA=1 or calculated M_LEUKEMIA=1)
+                    then "Other major cancer types" else "" end,
+               case when (calculated M_LUNG^=1 and calculated M_LIVER^=1 and calculated M_COLON^=1 and 
+                          calculated M_PANCREAS^=1 and calculated M_STOMACH^=1 and calculated M_BILE^=1 and 
+                          calculated M_BREAST^=1 and calculated M_PROSTATE^=1 and calculated M_LYMPHOMA^=1 and 
+                          calculated M_LEUKEMIA^=1)
+                    then "Others" else "" end
+           )) as diagnosis_group
+
+    from output.webtool_final as a
+         left join temp.all_conditions as b
+         on a.person_id=b.person_id
+    where a.index_date-365 <= b.condition_start_date <= a.index_date
+    group by a.person_id;
+quit;
+
+proc sort data=temp.webtool_60_diag out=temp.webtool_60_diag_final nodupkey;
+  by person_id diagnosis_group;
+  run;
+
+
+/*========================================================================*/
+/* DATA full join (Join drug and liver lab data on patients_no and date) */
+/* Final drug dataset: temp.webtool_60_drug_final_2                     */
+/* Final lab dataset: temp.webtool_60_liverlab_final                       */
+/* Final diagnosis dataset: temp.webtool_60_diag_final               */
+/*========================================================================*/
+
+/* Join drug and liver lab data */
+proc sql;
+create table temp.webtool_60_druglab as 
+select distinct 
+    coalesce(a.person_id, d.person_id) as person_id,
+    coalesce(a.patient_no, d.patient_no) as patient_no,
+    coalesce(a.gender_source_value, d.gender_source_value) as gender_source_value,
+    coalesce(a.age, d.age) as age,
+    coalesce(a.index_date, d.index_date) as index_date format=yymmdd10.,
+    coalesce(a.index_lastdate, d.index_lastdate) as index_lastdate format=yymmdd10.,
+    coalesce(a.visit_last_day, d.visit_last_day) as visit_last_day format=yymmdd10.,
+    coalesce(a.ALT_baseline, d.ALT_baseline) as ALT_baseline,
+    coalesce(a.AST_baseline, d.AST_baseline) as AST_baseline,
+    coalesce(a.BIL_baseline, d.BIL_baseline) as BIL_baseline,
+    coalesce(a.hepatotox_date, d.hepatotox_date) as hepatotox_date format=yymmdd10.,
+
+    /* Drug info */
+    a.new_drug_exposure_date,
+    a.day,
+    a.day_num,
+    a.drug_concept_id,
+    a.drug_name,
+    a.drug_name_dose,
+    a.ICI_lasting,
+    a.sum_quantity,
+    a.sum_days_supply,
+
+    /* Lab info */
+    d.measurement_date,
+    d.grade
+
+from temp.webtool_60_drug_final_2 as a
+full join temp.webtool_60_liverlab_final as d
+ on a.person_id = d.person_id and a.new_drug_exposure_date = d.measurement_date;
+quit;
+
+/* Join diagnosis data */
+proc sql;
+create table temp.webtool_60_druglab_diagnosis as 
+select a.patient_no,
+       a.gender_source_value,
+       a.age,
+       a.new_drug_exposure_date,
+       a.day_num,
+       a.drug_concept_id,
+       a.drug_name,
+       a.drug_name_dose,
+       a.ICI_lasting,
+       a.measurement_date,
+       a.grade,
+       b.diagnosis_group
+from temp.webtool_60_druglab as a
+left join temp.webtool_60_diag_final as b
+  on a.patient_no = b.patient_no
+order by a.patient_no,
+         coalesce(a.new_drug_exposure_date, a.measurement_date),
+         a.measurement_date;
+quit;
+
+/* ====== Export dataset ====== */
+/* Replace the OUTFILE path below with your own export directory */
+proc export data= temp.webtool_60_druglab_diagnosis
+    outfile="<Insert your export path here>\druglab_diagnosis_YYYYMMDD.tsv"
+    dbms=TAB;
+    putnames=yes;
+run;
+
+
+
+
+
+
+
+
+
