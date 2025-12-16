@@ -27,13 +27,13 @@
 			<TabContent>
 				<TabPanel>
           <El container m="0" p="4">
-            <El row tag="h1">*️⃣ CDM 데이터 뽑는 법</El>
+            <El row tag="h1">*️⃣ How to Extract CDM Data</El>
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 20px;">
-              아래 쿼리 파일을 다운로드하여 CDM 데이터베이스에서 ICI 간독성 환자 데이터를 추출할 수 있습니다.
+              Download the query file below to extract ICI hepatotoxicity patient data from your CDM database.
             </El>
             <El row style="margin-top: 15px;">
               <a href="/Query_ICI_Hepatotoxicity_Webtool_250923.txt" download style="display: inline-flex; align-items: center; padding: 10px 20px; background-color: #3b82f6; color: white; text-decoration: none; border-radius: 6px; font-weight: 500;">
-                📥 Query 파일 다운로드
+                📥 Download Query File
               </a>
             </El>
           </El>
@@ -76,11 +76,11 @@
 
         </TabPanel>
 				<TabPanel>
-          
+
           <El container m="0" p="4">
-            <El row tag="h1">*️⃣ Download 가이드</El>
+            <El row tag="h1">*️⃣ Download Guide</El>
           </El>
-        
+
         </TabPanel>
 			</TabContent>
 		</CardBody>
