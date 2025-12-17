@@ -12,15 +12,5 @@ export function validateQuery(query) {
         return { isValid: false, error: 'Search term is too long. Please enter 500 characters or less.' };
     }
 
-    // Medical term check (simple whitelist)
-    const medicalTerms = /drug|medication|hepatotoxicity|liver|pembrolizumab|amiodarone|paracetamol|naranjo|dili|alt|ast/gi;
-
-    if (!medicalTerms.test(query)) {
-        return {
-            isValid: true,
-            warning: 'No medical terms detected. For more accurate results, please include drug names or medical terms.'
-        };
-    }
-
     return { isValid: true };
 }
