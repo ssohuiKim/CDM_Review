@@ -1,14 +1,14 @@
-# CDM-Review
+# DILI-Assist (CDM-Review)
 
 Medical data visualization and analysis system for Drug-Induced Liver Injury (DILI) research with AI-powered Naranjo Algorithm assessment.
 
 ## Features
 
-- 📊 **Patient Data Visualization**: Interactive drug charts with timeline visualization
-- 🤖 **AI-Powered Analysis**: LocalAI integration for Naranjo Algorithm assessment
-- 📝 **Naranjo Algorithm Survey**: Standard causality assessment with AI reasoning support
-- 💬 **Literature Search Chatbot**: PubMed integration for DILI research
-- 📄 **Report Generation**: Export patient reports with charts and survey results
+- **Patient Data Visualization**: Interactive drug charts with timeline visualization
+- **AI-Powered Analysis**: Ollama integration with Gemma 3 12B for Naranjo Algorithm assessment
+- **Naranjo Algorithm Survey**: Standard causality assessment with AI reasoning support
+- **Literature Search Assistant**: PubMed integration for DILI research
+- **Report Generation**: Export patient reports with charts and survey results
 
 ## Quick Start
 
@@ -30,56 +30,30 @@ docker compose up --build
 
 Access the application at `http://localhost:15465`
 
-## AI Features Setup (Optional)
+## AI Features Setup
 
-The AI reasoning feature requires LocalAI with a language model. This is **optional** and the application works without it.
+The AI reasoning feature uses Ollama with Gemma 3 12B model for on-premise inference.
 
-### Download AI Model
+### Ollama Setup
 
-**⚠️ Model files are NOT included in the repository due to size (~4GB)**
-
-Download the recommended model:
+Ollama is configured in `docker-compose.yml` and starts automatically with the application.
 
 ```bash
-# Create models directory
-mkdir -p localai/models
-cd localai/models
-
-# Download Mistral 7B Instruct (Q4 quantization, ~4GB)
-wget https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q4_K_M.gguf
+# Pull the Gemma 3 12B model
+docker exec -it cdm_review-ollama-1 ollama pull gemma3:12b
 ```
 
-**Alternative models:**
+### AI Configuration
 
-- **Smaller** (2-3GB): [Llama 2 7B Chat Q3](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF)
-- **Larger** (7-8GB): [Mistral 7B Q5](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF)
-
-### Start LocalAI
-
-```bash
-docker run -d \
-  --name localai-naranjo \
-  -p 8080:8080 \
-  -v $(pwd)/localai/models:/models \
-  quay.io/go-skynet/local-ai:latest \
-  --models-path /models \
-  --model mistral-7b-instruct-v0.2.Q4_K_M.gguf \
-  --threads 4 \
-  --context-size 4096
-```
-
-### Enable AI Features
-
-Edit `frontend/src/lib/localai/config.js`:
+Edit `frontend/src/lib/ollama/config.js`:
 
 ```javascript
-export const LOCALAI_CONFIG = {
-    useMockAI: false,  // Change to false to use real LocalAI
+export const OLLAMA_CONFIG = {
+    useMockAI: false,  // Set to false to use real Ollama
+    model: 'gemma3:12b',
     // ...
 };
 ```
-
-For detailed setup instructions, see [LOCALAI_SETUP.md](LOCALAI_SETUP.md) or [QUICKSTART_AI.md](QUICKSTART_AI.md).
 
 ## Project Structure
 
@@ -88,13 +62,11 @@ CDM_Review/
 ├── frontend/               # SvelteKit application
 │   ├── src/
 │   │   ├── lib/
-│   │   │   ├── localai/   # LocalAI integration
-│   │   │   ├── chatbot/   # Literature search chatbot
-│   │   │   └── *.svelte   # UI components
+│   │   │   ├── ollama/            # Ollama AI integration
+│   │   │   ├── literatureAssistant/  # Literature search assistant
+│   │   │   └── *.svelte           # UI components
 │   │   └── routes/        # Pages
 │   └── static/            # Static assets
-├── localai/
-│   └── models/            # AI models (download separately)
 ├── nginx/                 # Nginx configuration
 └── docker-compose.yml     # Docker setup
 ```
@@ -102,16 +74,14 @@ CDM_Review/
 ## Documentation
 
 - **[CLAUDE.md](CLAUDE.md)**: Detailed project overview and architecture
-- **[LOCALAI_SETUP.md](LOCALAI_SETUP.md)**: Complete LocalAI setup guide
-- **[QUICKSTART_AI.md](QUICKSTART_AI.md)**: Quick start guide for AI features
 - **[copilot-instructions.md](copilot-instructions.md)**: Chatbot implementation guidelines
 
 ## Technology Stack
 
-- **Frontend**: SvelteKit with static adapter
+- **Frontend**: SvelteKit with adapter-node
 - **UI Library**: yesvelte
 - **Data Processing**: DuckDB-wasm (in-browser SQL)
-- **AI**: LocalAI with GGUF models
+- **AI**: Ollama with Gemma 3 12B (quantized)
 - **Deployment**: Docker + nginx
 - **Charts**: Custom canvas-based visualizations
 
@@ -134,21 +104,28 @@ npm run preview
 
 ## Data Requirements
 
-Upload CSV/TSV files with the following columns:
+Upload TSV files with the following columns:
 - `patient_no`: Patient identifier
-- `new_drug_exposure_date` or `measurement_date`: Timeline dates
-- `day_num`: Day number in treatment
+- `gender_source_value`: Patient gender
+- `age`: Patient age
+- `new_drug_exposure_date`: Date of drug exposure
+- `day_num`: Day number in treatment timeline
+- `drug_concept_id`: OMOP drug concept identifier
 - `drug_name`: Drug name
-- `grade`: Hepatotoxicity severity grade
-- Plus other clinical data fields
+- `drug_name_dose`: Drug name with dosage information
+- `ICI_lasting`: ICI drug effect duration indicator
+- `measurement_date`: Date of laboratory measurement
+- `grade`: Hepatotoxicity severity grade (0-4)
+- `diagnosis_group`: Drug hepatotoxicity classification (toxic/safe)
 
-See [CLAUDE.md](CLAUDE.md) for complete schema details.
+See the About page in the application for detailed data extraction instructions.
 
-## Security Notes
+## Security & Privacy
 
-- **PHI Protection**: The application sanitizes protected health information before any external API calls
-- **Local Processing**: All data processing happens client-side using DuckDB-wasm
-- **Optional AI**: AI features are optional and use local models (no external API calls when using LocalAI)
+- **Client-side Processing**: All patient data processing happens in-browser using DuckDB-wasm
+- **On-premise AI**: AI inference runs locally via Ollama (no external API calls)
+- **PHI Sanitization**: Protected health information is sanitized before any external API calls
+- **No Server Storage**: Patient data is never stored on the server
 
 ## License
 
@@ -168,15 +145,3 @@ For issues and questions:
 ---
 
 **Note**: This application is for research purposes. AI-generated assessments should be reviewed by qualified medical professionals.
-
-=========================================================
-git clone
-cd CDM_Review
-모델 다운로드 (README.md 참조)
-mkdir -p localai/models
-cd localai/models
-wget https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q4_K_M.gguf
-개발 시작
-cd frontend
-npm install
-npm run dev
