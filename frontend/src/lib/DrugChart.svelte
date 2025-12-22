@@ -98,7 +98,7 @@
       // Calculate minWidth: ensure patient info header fits (min 550px) + chart width based on totalDays
       const cellWidth = boxWidth + spacingX;
       const chartWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
-      const headerMinWidth = 550; // Minimum width for patient info header
+      const headerMinWidth = 700; // Minimum width for patient info header
       minWidth = Math.max(headerMinWidth, chartWidth);
 
       toxicNum = Array(totalDays).fill(0);

@@ -5,7 +5,7 @@
 
   export let selectedPatient;
   export let patientData;
-  export let minWidth = 550; // DrugChart에서 계산된 최소 너비 값
+  export let minWidth = 700; // DrugChart에서 계산된 최소 너비 값
 
   let isDataInitialized = false;
   let new_drug_exposure_date = [],
