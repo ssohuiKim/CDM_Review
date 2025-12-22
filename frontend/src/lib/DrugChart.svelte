@@ -88,14 +88,18 @@
       gender = data[0]?.gender_source_value || data[0]?.gender || '';
       age = data[0]?.age || data[0]?.age_at_index || null;
       
-      minWidth = Math.max(0, 380 + ((diagnosisGroup || '').length * 5));
-
       const ICI_values = data.map(row => row.ICI_lasting).filter(value => value != null);
       ICI_lasting_end = ICI_values.length ? ICI_values[ICI_values.length - 1] : null;
       drugExposureDateEnd = newDrugExposureDates[newDrugExposureDates.length - 1];
       firstDate = new Date(newDrugExposureDates[0]);
       lastDate = new Date(Math.max(new Date(ICI_lasting_end), new Date(drugExposureDateEnd)));
       totalDays = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24)) + 1;
+
+      // Calculate minWidth: ensure patient info header fits (min 550px) + chart width based on totalDays
+      const cellWidth = boxWidth + spacingX;
+      const chartWidth = 33 + totalDays * cellWidth + dynamicMarginRight;
+      const headerMinWidth = 550; // Minimum width for patient info header
+      minWidth = Math.max(headerMinWidth, chartWidth);
 
       toxicNum = Array(totalDays).fill(0);
       safeNum = Array(totalDays).fill(0);

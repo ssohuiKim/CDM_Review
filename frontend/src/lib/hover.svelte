@@ -449,6 +449,11 @@
     draw();
   }
 
+  // Re-adjust canvas width when minWidth changes from DrugChart
+  $: if (isDataInitialized && minWidth) {
+    adjustCanvasWidth();
+  }
+
   $: {
     if (selectedPatient && patientData) {
       isDataInitialized = false;
