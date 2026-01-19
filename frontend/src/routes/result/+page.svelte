@@ -621,7 +621,7 @@
 		background-color: rgb(255, 255, 255, 0.5);
 	}
 	.survey {
-		width: 335px;
+		width: 355px;
 		background-color: white;
 		border: 1px solid #dcdcdc;
 		border-radius: 8px;

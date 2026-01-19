@@ -178,32 +178,34 @@
             <El row tag="h1">*️⃣ How to use DILI-Assist </El>
             <img src="/about/1.png" alt="input page" style="width: 85%; height: auto; margin-top: 45px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 5px;">
-              1️⃣ Click the 'Choose File' button to select CDM data in a .txt file with TSV format. If an error message appears, please check whether the selected file matches the required format.
+              ① Click the file upload area or drag and drop to select CDM data in TXT, CSV, or TSV format. The system will automatically detect the file format.
             </El>
-            
+
             <img src="/about/2.png" alt="input page" style="width: 85%; height: auto; margin-top: 45px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 5px;">
-              2️⃣ When you select a file, the name of the chosen file will appear in the input field. <br />
-              3️⃣ If the file has been correctly selected, press the Upload button. Please wait, as you will be automatically redirected to the results page after clicking the button.
+              ② When you select a file, the detected format and file name will be displayed with a confidence score. <br />
+              ③ If the correct format has been detected, click the Upload button to navigate to the result page.
             </El>
-            
-            <img src="/about/3.png" alt="input page" style="width: 85%; height: auto; margin-top: 5px;" />
+
+            <img src="/about/3.png" alt="result page" style="width: 85%; height: auto; margin-top: 5px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px;">
-              4️⃣ When the results page appears, select the patient whose chart you want to view from the list on the left.
+              ④ When the result page appears, select the patient you want to view from the patient list on the left.<br />
+              ⑤ The Naranjo Algorithm is a survey tool that verifies whether ICI medications cause hepatotoxicity. It confirms causality through 10 questions. Select the answer that matches your assessment for each question.<br />
+              ⑥ Click the 'Analyze with AI' button to see AI-generated Naranjo survey responses based on patient data.
             </El>
-            
-            <img src="/about/4.png" alt="input page" style="width: 85%; height: auto; margin-top: 5px;" />
-            <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px;">
-              5️⃣ The Naranjo Algorithm is a survey tool that can verify whether ICI medications affect hepatotoxicity. It is a tool that confirms causality through 10 questions. Check the boxes that correspond to your answers to the questions.<br />
-              6️⃣ Click the 'Export This Data' button to download the currently selected patient's chart and Naranjo Algorithm survey results as an .html file. If an error message appears, please check whether a patient has been selected.<br />
-              7️⃣ Click the 'Export All Data' button to download charts and Naranjo Algorithm survey results for all patients as a zip file.
+
+            <img src="/about/4.png" alt="survey page" style="width: 85%; height: auto; margin-top: 45px;" />
+            <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 5px;">
+              ⑦ AI-selected answers are marked with an 'AI' badge on the right side of the answer.<br />
+              ⑧ Click the '?' icon next to each question to view the AI's reasoning and confidence level.<br />
+              ⑨ The Naranjo score is automatically calculated based on your selections.<br />
+              ⑩ Click the Submit button to save your responses and notes, which will be included in downloaded reports.
             </El>
-            
-            <img src="/about/5.png" alt="input page" style="width: 85%; height: auto; margin-top: 5px;"/>
+
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px;">
-              8️⃣ The score below the Naranjo survey changes according to your responses among 'Yes,' 'No,' or 'Do not know or not done.<br />
-              9️⃣ When you click the Submit button, your responses will be saved in local storage and will be included in the results when downloaded.<br />
-              🔟 The chart has horizontal and vertical axes, and semi-transparent axes are generated when you scroll down or move sideways on the screen.
+              ⑪ Click 'Export This Data' to download the currently selected patient's chart and Naranjo survey results as an HTML file.<br />
+              ⑫ Click 'Export All Data' to download HTML files for all patients as a ZIP file.<br />
+              ⑬ Click the icon at the bottom left to open the PubMed literature search assistant.
             </El>
           </El>
 
