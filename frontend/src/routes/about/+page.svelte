@@ -178,35 +178,36 @@
             <El row tag="h1">*️⃣ How to use DILI-Assist </El>
             <img src="/about/1.png" alt="input page" style="width: 85%; height: auto; margin-top: 45px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 5px;">
-              ① Click the file upload area or drag and drop to select CDM data in TXT, CSV, or TSV format. The system will automatically detect the file format.
+              1️⃣ Click the file upload area or drag and drop to select CDM data in TXT, CSV, or TSV format. The system will automatically detect the file format.
             </El>
 
             <img src="/about/2.png" alt="input page" style="width: 85%; height: auto; margin-top: 45px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 5px;">
-              ② When you select a file, the detected format and file name will be displayed with a confidence score. <br />
-              ③ If the correct format has been detected, click the Upload button to navigate to the result page.
+              2️⃣ When you select a file, the detected format and file name will be displayed with a confidence score. <br />
+              3️⃣ If the correct format has been detected, click the Upload button to navigate to the result page.
             </El>
 
             <img src="/about/3.png" alt="result page" style="width: 85%; height: auto; margin-top: 5px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px;">
-              ④ When the result page appears, select the patient you want to view from the patient list on the left.<br />
-              ⑤ The Naranjo Algorithm is a survey tool that verifies whether ICI medications cause hepatotoxicity. It confirms causality through 10 questions. Select the answer that matches your assessment for each question.<br />
-              ⑥ Click the 'Analyze with AI' button to see AI-generated Naranjo survey responses based on patient data.
+              4️⃣ When the result page appears, select the patient you want to view from the patient list on the left.<br />
+              5️⃣ The Naranjo Algorithm is a survey tool that verifies whether ICI medications cause hepatotoxicity. It confirms causality through 10 questions. Select the answer that matches your assessment for each question.<br />
+              6️⃣ Click the 'Analyze with AI' button to see AI-generated Naranjo survey responses based on patient data.
             </El>
 
             <img src="/about/4.png" alt="survey page" style="width: 85%; height: auto; margin-top: 45px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 5px;">
-              ⑦ AI-selected answers are marked with an 'AI' badge on the right side of the answer.<br />
-              ⑧ Click the '?' icon next to each question to view the AI's reasoning and confidence level.<br />
-              ⑨ The Naranjo score is automatically calculated based on your selections.<br />
-              ⑩ Click the Submit button to save your responses and notes, which will be included in downloaded reports.
+              7️⃣ AI-selected answers are marked with an 'AI' badge on the right side of the answer.<br />
+              8️⃣ Click the '?' icon next to each question to view the AI's reasoning and confidence level.<br />
+              9️⃣ The Naranjo score is automatically calculated based on your selections.<br />
+              🔟 Click the Submit button to save your responses and notes, which will be included in downloaded reports.
             </El>
 
-            <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px;">
-              ⑪ Click 'Export This Data' to download the currently selected patient's chart and Naranjo survey results as an HTML file.<br />
-              ⑫ Click 'Export All Data' to download HTML files for all patients as a ZIP file.<br />
-              ⑬ Click the icon at the bottom left to open the PubMed literature search assistant.
-            </El>
+            <p style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px; padding: 0;">
+              <img src="/about/number11.png" alt="11" style="width: 18.5px; height: 19.5px; display: inline-block; margin-right: 8px; vertical-align: middle;"/>Click 'Export This Data' to download the currently selected patient's chart and Naranjo survey results as an HTML file.<br />
+              <img src="/about/number12.png" alt="12" style="width: 18.5px; height: 19.5px; display: inline-block; margin-right: 8px; vertical-align: middle;"/>Click 'Export All Data' to download HTML files for all patients as a ZIP file.<br />
+              <img src="/about/number13.png" alt="13" style="width: 18.5px; height: 19.5px; display: inline-block; margin-right: 8px; vertical-align: middle;"/>Click the icon at the bottom left to open the PubMed literature search assistant.
+
+            </p>
           </El>
 
         </TabPanel>
