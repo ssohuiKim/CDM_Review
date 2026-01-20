@@ -53,7 +53,7 @@
 						<button class="nav-button" on:click={() => location.href="/about"}>About</button>
 					</El>
 					<El col='auto'>
-						<button class="nav-button" on:click={() => location.href="/"}>Tool</button>
+						<button class="nav-button" on:click={() => location.href="/tool"}>Tool</button>
 					</El>
 				</El>
 			</El>
