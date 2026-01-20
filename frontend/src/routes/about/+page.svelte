@@ -190,6 +190,7 @@
             <img src="/about/3.png" alt="result page" style="width: 85%; height: auto; margin-top: 5px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px;">
               4️⃣ When the result page appears, select the patient you want to view from the patient list on the left.<br />
+              *️⃣ Using NIH reference data, drugs are color-coded: drugs that can cause hepatotoxicity are shown in blue, while drugs that do not cause hepatotoxicity are shown in green.<br />
               5️⃣ The Naranjo Algorithm is a survey tool that verifies whether ICI medications cause hepatotoxicity. It confirms causality through 10 questions. Select the answer that matches your assessment for each question.<br />
               6️⃣ Click the 'Analyze with AI' button to see AI-generated Naranjo survey responses based on patient data.
             </El>
