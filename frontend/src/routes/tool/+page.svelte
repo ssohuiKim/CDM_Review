@@ -11,13 +11,13 @@
 
 <Card>
   <CardHeader>
-    <El row tag="h1" style="font-size: 28px; font-weight: 600;">🔧 Troubleshooting & Customization Guide</El>
+    <El row tag="h1" style="margin-top: 13px; margin-left: 5px;">🔧 Troubleshooting & Customization Guide</El>
   </CardHeader>
   <CardBody>
     <El container m="0" p="4">
 
       <!-- GitHub Issues Section -->
-      <El row tag="h2" style="margin-top: 20px; color: #1e40af; font-size: 24px;">💬 Questions or Issues?</El>
+      <El row tag="h2" style="margin-top: -5px; color: #1e40af; font-size: 24px;">💬 Questions or Issues?</El>
 
       <El row tag="p" style="font-size: 15px; color: #333; margin-top: 15px; line-height: 1.8;">
         If you encounter any issues, have questions, or want to suggest improvements, please visit our GitHub repository and create an issue. We're here to help!
@@ -183,7 +183,7 @@ docker compose up --build
       <Divider style="margin-top: 40px; margin-bottom: 40px;" />
 
       <!-- FAQ Section -->
-      <El row tag="h2" style="margin-top: 40px; color: #1e40af; font-size: 24px;">❓ Frequently Asked Questions</El>
+      <El row tag="h2" style="margin-top: 50px; color: #1e40af; font-size: 24px;">❓ Frequently Asked Questions</El>
 
       <El row tag="h3" style="margin-top: 25px; color: #2563eb; font-size: 18px;">Q1. The file upload is not working. What should I do?</El>
       <El row tag="p" style="font-size: 15px; color: #333; margin-top: 10px; line-height: 1.8;">
