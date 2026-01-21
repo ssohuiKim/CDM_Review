@@ -790,7 +790,7 @@
 								<div class="patient-info">
 									<div class="patient-name">Patient {patientNum}</div>
 									{#if patientData[patientNum] && patientData[patientNum][0] && patientData[patientNum][0].age}
-										<div class="age-badge">{patientData[patientNum][0].age}세</div>
+										<div class="age-badge">{patientData[patientNum][0].age} years old</div>
 									{/if}
 								</div>
 							</div>

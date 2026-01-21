@@ -4,6 +4,9 @@
     export let questionText = "";
     export let reasoning = null;
 
+    // Check if this is an AI-answered question (3, 4, 5)
+    $: isAIQuestion = questionNumber >= 3 && questionNumber <= 5;
+
     function close() {
         isOpen = false;
     }
@@ -37,7 +40,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Question {questionNumber} - AI Reasoning</h5>
+                    <h5 class="modal-title">Question {questionNumber} - {isAIQuestion ? 'AI Reasoning' : 'Reasoning'}</h5>
                     <button type="button" class="close-button" on:click={close}>×</button>
                 </div>
 
@@ -50,14 +53,14 @@
                                 <p class="question-text">{questionText}</p>
                             </div>
 
-                            <!-- AI Answer -->
+                            <!-- Answer -->
                             <div class="answer-section">
-                                <h6>AI Answer:</h6>
+                                <h6>{isAIQuestion ? 'AI Answer' : 'Answer'}:</h6>
                                 <div class="badges">
                                     <span class="badge {getAnswerBadgeClass(reasoning.answer)}">
                                         {reasoning.answer}
                                     </span>
-                                    {#if reasoning.confidence}
+                                    {#if isAIQuestion && reasoning.confidence}
                                         <span class="badge {getConfidenceBadgeClass(reasoning.confidence)}">
                                             {reasoning.confidence} confidence
                                         </span>

@@ -29,6 +29,45 @@
         "Was the adverse event confirmed by any objective evidence?"
     ];
 
+    // Pre-defined explanations for non-AI questions (1, 2, 6, 7, 8, 9, 10)
+    const predefinedExplanations = {
+        0: { // Question 1
+            answer: "Yes",
+            reasoning: "According to the National Library of Medicine's LiverTox database, immune checkpoint inhibitors (ICIs) including Atezolizumab, Nivolumab, Pembrolizumab, and Ipilimumab are well-documented causes of hepatotoxicity. Previous conclusive reports exist in medical literature confirming this adverse drug reaction.",
+            confidence: "High"
+        },
+        1: { // Question 2
+            answer: "Yes",
+            reasoning: "The CDM data shows that hepatotoxicity (elevated liver enzymes and increased grade levels) appeared after the administration of ICI drugs. The temporal relationship between drug exposure and adverse event onset is clearly established in the patient timeline.",
+            confidence: "High"
+        },
+        5: { // Question 6
+            answer: "Do not know",
+            reasoning: "There is no information available in the CDM data regarding placebo administration or placebo-controlled rechallenge. This information is typically not recorded in routine clinical data models.",
+            confidence: "High"
+        },
+        6: { // Question 7
+            answer: "Do not know",
+            reasoning: "The CDM data does not include specific drug concentration measurements in body fluids (blood, urine, etc.). Therapeutic drug monitoring for ICIs is not routinely performed in clinical practice, and toxic concentration thresholds are not established for these biologics.",
+            confidence: "High"
+        },
+        7: { // Question 8
+            answer: "Do not know",
+            reasoning: "The available CDM data does not provide sufficient information about dose adjustments and their correlation with reaction severity. ICI dosing is typically fixed based on weight or given as a flat dose, with limited dose-response data for hepatotoxicity.",
+            confidence: "Medium"
+        },
+        8: { // Question 9
+            answer: "Do not know",
+            reasoning: "There is no historical data available in the current CDM dataset regarding previous exposures to the same or similar drugs (cross-reactivity between different ICIs). Prior medication history outside the current treatment episode is not captured.",
+            confidence: "Medium"
+        },
+        9: { // Question 10
+            answer: "Yes",
+            reasoning: "The adverse event (hepatotoxicity) is confirmed by objective evidence in the form of laboratory measurements: elevated AST, ALT, ALP, and total bilirubin levels, as well as graded hepatotoxicity severity scores recorded in the CDM data. These are standard objective biomarkers for liver injury.",
+            confidence: "High"
+        }
+    };
+
     let answers = createInitialAnswers();
     let noteValue = ""; // 메모 저장 변수
     let showSaveMessage = false; // 저장 메시지 표시 상태
@@ -49,8 +88,8 @@
     $: currentReasoningStatus = $reasoningStatus[selectedPatient] || 'idle';
     $: aiReasoning = $reasoningResults[selectedPatient] || naranjoWorkerManager.loadFromLocalStorage(selectedPatient);
 
-    // Get reasoning for selected question
-    $: selectedQuestionReasoning = aiReasoning?.answers?.[selectedQuestionIndex] || null;
+    // Get reasoning for selected question (AI or predefined)
+    $: selectedQuestionReasoning = aiReasoning?.answers?.[selectedQuestionIndex] || predefinedExplanations[selectedQuestionIndex] || null;
 
     // Auto-apply AI answers when reasoning is available
     $: if (aiReasoning && aiReasoning.answers) {
@@ -58,7 +97,7 @@
     }
 
     /**
-     * Apply AI answers to checkboxes
+     * Apply AI answers to checkboxes (only for questions 3, 4, 5)
      */
     function applyAIAnswersToCheckboxes() {
         if (!aiReasoning || !aiReasoning.answers) return;
@@ -67,9 +106,9 @@
         aiSelectedAnswers = {};
 
         // Convert AI answers to checkbox format
-        // Filter to only valid questions (1-10) and skip invalid answers
+        // Only apply AI answers to questions 3, 4, 5
         aiReasoning.answers
-            .filter(item => item && item.question >= 1 && item.question <= 10 && item.answer)
+            .filter(item => item && item.question >= 3 && item.question <= 5 && item.answer)
             .forEach((item) => {
                 const questionKey = `q${item.question}`;
                 const answerCode = convertAnswerToCode(item.answer);
@@ -86,7 +125,7 @@
         aiSelectedAnswers = { ...aiSelectedAnswers };
         totalScore = calculateScore();
 
-        console.log('AI Selected Answers:', aiSelectedAnswers);
+        console.log('AI Selected Answers (Q3-5 only):', aiSelectedAnswers);
     }
 
     /**
@@ -413,13 +452,18 @@
         console.log('aiReasoning:', aiReasoning);
         console.log('aiReasoning.answers:', aiReasoning?.answers);
 
-        if (!aiReasoning || !aiReasoning.answers) {
-            alert('No AI reasoning available. Please click "Analyze with AI" first.');
-            return;
+        // For questions 3, 4, 5: require AI reasoning
+        if (questionIndex >= 2 && questionIndex <= 4) {
+            if (!aiReasoning || !aiReasoning.answers) {
+                alert('No AI reasoning available. Please click "Analyze with AI" first.');
+                return;
+            }
         }
+        // For other questions (1, 2, 6, 7, 8, 9, 10): use predefined explanations
+        // No check needed - they always have predefined explanations
 
         selectedQuestionIndex = questionIndex;
-        console.log('Selected question reasoning:', aiReasoning.answers[questionIndex]);
+        console.log('Selected question reasoning:', aiReasoning?.answers?.[questionIndex] || predefinedExplanations[questionIndex]);
 
         // Force a tick to ensure state update
         showQuestionModal = false;
@@ -490,14 +534,25 @@
             <div style="margin-bottom: 16px;">
                 <div class="question-header">
                     <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {questionText}</p>
-                    {#if aiReasoning && aiReasoning.answers}
+                    {#if index >= 2 && index <= 4}
+                        {#if aiReasoning && aiReasoning.answers}
+                            <button
+                                type="button"
+                                class="tooltip-button"
+                                on:click|stopPropagation={() => showQuestionReasoning(index)}
+                                title="View reasoning for this question"
+                            >
+                                <img src="/tooltip.svg" alt="Reasoning" class="tooltip-icon" />
+                            </button>
+                        {/if}
+                    {:else if predefinedExplanations[index]}
                         <button
                             type="button"
                             class="tooltip-button"
                             on:click|stopPropagation={() => showQuestionReasoning(index)}
-                            title="View AI reasoning for this question"
+                            title="View reasoning for this question"
                         >
-                            <img src="/tooltip.svg" alt="AI Reasoning" class="tooltip-icon" />
+                            <img src="/tooltip.svg" alt="Reasoning" class="tooltip-icon" />
                         </button>
                     {/if}
                 </div>

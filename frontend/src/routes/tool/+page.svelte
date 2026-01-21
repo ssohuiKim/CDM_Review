@@ -174,8 +174,8 @@ npm run dev`}</code>
         <code style="font-family: monospace; font-size: 14px; color: #1e293b;">{`# Build the application
 npm run build
 
-# Using Docker
-docker compose up --build
+# Using Docker Compose
+docker compose up --build -d
 
 # The app will be available on port 15465`}</code>
       </El>

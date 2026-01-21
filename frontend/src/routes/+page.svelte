@@ -68,6 +68,16 @@
     }
   }
 
+  // Download sample file
+  function downloadSampleFile() {
+    const link = document.createElement('a');
+    link.href = '/sample.tsv';
+    link.download = 'sample.tsv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   // 파일 포맷 미리보기
   async function previewFileFormat() {
     if (!files_1 || !files_1[0]) return;
@@ -180,12 +190,9 @@
 {:else}
   <div class="main-container">
     <div class="header-section">
-      <h1 class="main-title">CDM-Review</h1>
+      <h1 class="main-title">DILI-Assist</h1>
       <p class="main-description">
-        CDM-Review is a web tool that visualizes data obtained from CDM on patients taking immune checkpoint inhibitors who showed Hepatotoxicity.
-      </p>
-      <p class="main-description">
-        It would help medical professionals identify patients and make medication-related decisions.
+        DILI-Assist is a web-based tool designed to visualize Common Data Model (CDM) data derived from patients exhibiting immune checkpoint inhibitor-induced hepatotoxicity.
       </p>
     </div>
     
@@ -205,6 +212,12 @@
           <p class="upload-subtitle">
             Supported formats: Tab-separated (TSV), Comma-separated (CSV), Whitespace-separated (TXT)
           </p>
+          <div class="sample-file-section">
+            <button on:click={downloadSampleFile} class="sample-file-button">
+              📥 Download Sample File
+            </button>
+            <span class="sample-file-hint">Download sample data to test the tool</span>
+          </div>
         </div>
         
         <!-- 드래그 앤 드롭 영역 -->
@@ -354,6 +367,39 @@
     font-size: 0.875rem;
     color: #6b7280;
     margin: 0;
+  }
+
+  .sample-file-section {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sample-file-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #f3f4f6;
+    color: #2563eb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .sample-file-button:hover {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+  }
+
+  .sample-file-hint {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    font-style: italic;
   }
 
   .file-drop-area {

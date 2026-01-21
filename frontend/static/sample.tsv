@@ -1,0 +1,310 @@
+patient_no	gender_source_value	age	new_drug_exposure_date	day_num	drug_concept_id	drug_name	drug_name_dose	ICI_lasting	measurement_date	grade	diagnosis_group
+1	F	62	2020-03-15	1	42920398	atezolizumab	10 ML nivolumab 10 MG/ML Injectable Solution [Opdivo]	2020-04-05			liver cancer
+1	F	62	2020-03-15	1	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-03-16	2	42918862	sodium chloride	250 ML Sodium Chloride 9 MG/ML Injectable Solution [ISOTONIC SODIUM CHLORIDE DAEHAN]				liver cancer
+1	F	62	2020-03-16	2	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-17	3	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-03-17	3	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-17	3	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-17	3	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-18	4	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-18	4	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-03-18	4	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-18	4	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-19	5	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]		2020-03-19	0	liver cancer
+1	F	62	2020-03-19	5	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-19	5	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-19	5	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-20	6	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-20	6	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-20	6	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-20	6	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-03-21	7	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-21	7							liver cancer
+1	F	62	2020-03-21	7	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-21	7	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-21	7	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-03-22	8	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-22	8	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-22	8	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-22	8	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-03-23	9	42971998	thiamine	Ascorbic Acid 100 MG / Biotin 0.06 MG / dexpanthenol 16.2 MG / Ergocalciferol 200 UNT / Folic Acid 0.4 MG / Niacinamide 42.5 MG / pyridoxine 5 MG / ... Injection [TAMIPOOL]				liver cancer
+1	F	62	2020-03-23	9	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-03-23	9	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-23	9	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-23	9	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-03-23	9	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-03-24	10	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-03-24	10	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-24	10	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-24	10	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-03-24	10	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-03-25	11	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-03-25	11	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-25	11	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-25	11	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-03-25	11	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-03-26	12	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-26	12							liver cancer
+1	F	62	2020-03-26	12	42918862	sodium chloride	250 ML Sodium Chloride 9 MG/ML Injectable Solution [ISOTONIC SODIUM CHLORIDE DAEHAN]		2020-03-28	2	liver cancer
+1	F	62	2020-03-26	12	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-26	12	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-26	12	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-03-26	12	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-03-27	13	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-27	13	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-03-27	13	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-27	13	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-27	13	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-03-27	13	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-03-28	14	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-28	14	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-28	14	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-28	14	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-03-28	14	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-03-28	14	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-03-29	15							liver cancer
+1	F	62	2020-03-29	15	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-03-29	15	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-29	15	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-29	15	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-03-29	15	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-03-29	15	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-03-30	16	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-30	16	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-30	16	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-03-30	16	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-03-30	16	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-03-31	17	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-03-31	17	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-03-31	17	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-03-31	17	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-03-31	17	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-01	18	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-04-01	18	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-04-01	18	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-04-01	18	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-04-01	18	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-01	18	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-02	19	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-04-02	19	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-04-02	19	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-04-02	19	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-04-02	19	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-04-02	19	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-02	19	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-03	20	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-04-03	20	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-04-03	20	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-04-03	20	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-04-03	20	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-04-03	20	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-03	20	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-04	21	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-04-04	21	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-04-04	21	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-04-04	21	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-04-04	21	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-04-04	21	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-04	21	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-05	22	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-05	22	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-04-05	22	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-04-05	22	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-04-05	22	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-04-05	22	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-04-05	22	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-05	22	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-05	22	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-06	23	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-06	23	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-04-06	23	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-04-06	23	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-04-06	23	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-04-06	23	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-06	23	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-07	24	42918862	sodium chloride	250 ML Sodium Chloride 9 MG/ML Injectable Solution [ISOTONIC SODIUM CHLORIDE DAEHAN]				liver cancer
+1	F	62	2020-04-07	24	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-04-07	24	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-04-07	24	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-04-07	24	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-04-07	24	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-04-07	24	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-07	24	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-08	25	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-08	25	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-04-08	25	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-04-08	25	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-04-08	25	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-04-08	25	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-04-08	25	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-08	25	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-08	25	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-08	25	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-04-09	26	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-09	26	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-09	26	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-09	26	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-09	26	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-04-10	27	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-10	27	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-10	27	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-10	27	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-04-11	28	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-11	28	42971373	magnesium oxide	Magnesium Oxide 250 MG Oral Tablet [SCD MAGNESIUM OXIDE]				liver cancer
+1	F	62	2020-04-11	28	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-11	28	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-11	28	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-04-11	28	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-04-12	29	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-12	29	42971998	thiamine	Ascorbic Acid 100 MG / Biotin 0.06 MG / dexpanthenol 16.2 MG / Ergocalciferol 200 UNT / Folic Acid 0.4 MG / Niacinamide 42.5 MG / pyridoxine 5 MG / ... Injection [TAMIPOOL]				liver cancer
+1	F	62	2020-04-12	29	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-12	29	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-04-12	29	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-04-13	30	42971998	thiamine	Ascorbic Acid 100 MG / Biotin 0.06 MG / dexpanthenol 16.2 MG / Ergocalciferol 200 UNT / Folic Acid 0.4 MG / Niacinamide 42.5 MG / pyridoxine 5 MG / ... Injection [TAMIPOOL]				liver cancer
+1	F	62	2020-04-13	30	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-13	30	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-13	30	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-04-13	30	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-04-14	31	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-14	31	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-14	31	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-04-14	31	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-04-15	32	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-15	32	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-16	33	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-04-17	34	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-17	34	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-04-17	34	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-17	34	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-04-18	35	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-18	35	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-04-18	35	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-18	35	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-04-19	36	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-04-19	36	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-19	36	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-19	36	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-04-20	37	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-20	37	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-04-21	38	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-21	38	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-04-22	39	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-04-22	39	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-04-24	41	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-25	42	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-26	43	42971998	thiamine	Ascorbic Acid 100 MG / Biotin 0.06 MG / dexpanthenol 16.2 MG / Ergocalciferol 200 UNT / Folic Acid 0.4 MG / Niacinamide 42.5 MG / pyridoxine 5 MG / ... Injection [TAMIPOOL]				liver cancer
+1	F	62	2020-04-26	43	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-04-27	44	42971998	thiamine	Ascorbic Acid 100 MG / Biotin 0.06 MG / dexpanthenol 16.2 MG / Ergocalciferol 200 UNT / Folic Acid 0.4 MG / Niacinamide 42.5 MG / pyridoxine 5 MG / ... Injection [TAMIPOOL]				liver cancer
+1	F	62	2020-04-27	44	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-28	45	42971998	thiamine	Ascorbic Acid 100 MG / Biotin 0.06 MG / dexpanthenol 16.2 MG / Ergocalciferol 200 UNT / Folic Acid 0.4 MG / Niacinamide 42.5 MG / pyridoxine 5 MG / ... Injection [TAMIPOOL]				liver cancer
+1	F	62	2020-04-28	45	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-29	46	42971998	thiamine	Ascorbic Acid 100 MG / Biotin 0.06 MG / dexpanthenol 16.2 MG / Ergocalciferol 200 UNT / Folic Acid 0.4 MG / Niacinamide 42.5 MG / pyridoxine 5 MG / ... Injection [TAMIPOOL]				liver cancer
+1	F	62	2020-04-29	46	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-30	47	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-04-30	47	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-04-30	47	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-05-01	48	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-05-01	48	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-05-01	48	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-05-02	49	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-05-02	49	42941267	hydroxyzine	Hydroxyzine 10 MG Oral Tablet [ADIPAM]				liver cancer
+1	F	62	2020-05-02	49	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-05-03	50	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-03	50	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-03	50	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-03	50	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-03	50	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-03	50	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-05-04	51	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-05-04	51	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-04	51	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-04	51	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-04	51	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-04	51	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-04	51	42945568	oxycodone	Oxycodone 5 MG Oral Tablet [IRCODON]				liver cancer
+1	F	62	2020-05-05	52	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-05-05	52	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-05-05	52	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-05	52	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-05	52	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-05	52	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-05	52	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-06	53	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-05-06	53	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-05-06	53	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-06	53	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-06	53	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-06	53	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-07	54	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-05-07	54	42947161	cefazolin	Cefazolin 1000 MG Injection [CKD CEFAZOLINE]				liver cancer
+1	F	62	2020-05-07	54	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-07	54	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-07	54	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-07	54	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-08	55	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-05-08	55	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-08	55	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-08	55	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-08	55	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-08	55	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-05-09	56	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-05-09	56	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-09	56	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-09	56	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-09	56	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-09	56	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-05-10	57	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-05-10	57	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-10	57	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-10	57	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-10	57	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-10	57	42922260	filgrastim	1.2 ML Filgrastim 0.25 MG/ML Injectable Solution [LEUCOSTIM]				liver cancer
+1	F	62	2020-05-10	57	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-05-11	58	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-05-11	58	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-11	58	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-05-11	58	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-11	58	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-11	58	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-11	58	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-11	58	42922260	filgrastim	1.2 ML Filgrastim 0.25 MG/ML Injectable Solution [LEUCOSTIM]				liver cancer
+1	F	62	2020-05-11	58	42917923	mupirocin	10000 MG Mupirocin 0.02 MG/MG Topical Ointment [ESROBAN OINT]				liver cancer
+1	F	62	2020-05-12	59	42939994	acetaminophen	Acetaminophen 650 MG / Tramadol 75 MG Extended Release Oral Tablet [Ultracet]				liver cancer
+1	F	62	2020-05-12	59	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-05-12	59	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-12	59	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-12	59	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-12	59	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-12	59	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-12	59	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-05-12	59	42922260	filgrastim	1.2 ML Filgrastim 0.25 MG/ML Injectable Solution [LEUCOSTIM]				liver cancer
+1	F	62	2020-05-13	60	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-13	60	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-13	60	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-13	60	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-13	60	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-13	60	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-13	60	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-05-13	60	42922260	filgrastim	1.2 ML Filgrastim 0.25 MG/ML Injectable Solution [LEUCOSTIM]				liver cancer
+1	F	62	2020-05-14	61	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-14	61	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-14	61	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-14	61	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-14	61	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-14	61	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-05-14	61	42922260	filgrastim	1.2 ML Filgrastim 0.25 MG/ML Injectable Solution [LEUCOSTIM]				liver cancer
+1	F	62	2020-05-15	62	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-05-15	62	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-15	62	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-15	62	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-15	62	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-15	62	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-05-16	63	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
+1	F	62	2020-05-16	63	2026200	sodium chloride	50 ML sodium chloride 9 MG/ML Injectable Solution [JW NORMAL SALINE] by JW				liver cancer
+1	F	62	2020-05-16	63	43861148	furosemide	2 ML Furosemide 10 MG/ML Injectable Solution [Lasix]				liver cancer
+1	F	62	2020-05-16	63	42918294	lactulose	500 ML Lactulose 670 MG/ML Oral Suspension [DUPHALAC-EASY]				liver cancer
+1	F	62	2020-05-16	63	19123173	pregabalin	pregabalin 75 MG Oral Capsule [Lyrica]				liver cancer
+1	F	62	2020-05-16	63	42970932	pyridoxine	pyridoxine 50 MG Oral Tablet [PYRIDOXINE SINIL]				liver cancer
+1	F	62	2020-05-16	63	590342	heparin	10 ML heparin 100 UNT/ML Injection				liver cancer
+1	F	62	2020-05-18	65	19134839	quetiapine	quetiapine 200 MG Extended Release Oral Tablet [Seroquel]				liver cancer
