@@ -728,7 +728,7 @@
 
 </style>
 
-<div style="height: calc(100vh - 80px); overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: calc(100vh - 100px); overflow: hidden; display: flex; flex-direction: column;">
 	<div style="padding: 1rem; flex-shrink: 0;">
 		<div class="header">
 			<div class="header-title">

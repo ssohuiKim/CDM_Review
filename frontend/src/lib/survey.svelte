@@ -5,9 +5,14 @@
     import AIReasoningModal from "./AIReasoningModal.svelte";
     import QuestionReasoningModal from "./QuestionReasoningModal.svelte";
     import { drugClassification, chartComputedData } from "./duckdb.js";
+    import WhoUmcSurvey from "./WhoUmcSurvey.svelte";
 
     export let selectedPatient;
     export let patientData;
+
+    // Toggle state
+    let activeSurvey = 'naranjo';
+    let whoUmcRef;
 
 
     let items = [
@@ -157,10 +162,11 @@
         };
     }
 
-    function reset() {
+    export function reset() {
         answers = createInitialAnswers();
         noteValue = ""; // 메모 필드 초기화
         aiSelectedAnswers = {}; // AI 선택 답변 초기화
+        if (whoUmcRef) whoUmcRef.reset();
     }
 
     // 환자가 변경되면 로컬스토리지에서 데이터 로드
@@ -216,6 +222,11 @@
     }
 
     export function saveToLocalStorage() {
+        if (activeSurvey === 'who-umc' && whoUmcRef) {
+            whoUmcRef.saveToLocalStorage();
+            return;
+        }
+
         let storedData = JSON.parse(localStorage.getItem('naranjoAlgorithmData')) || {};
 
         storedData[selectedPatient] = {
@@ -227,7 +238,7 @@
         localStorage.setItem('naranjoAlgorithmData', JSON.stringify(storedData));
 
         console.log("Updated Local Storage:", storedData);
-        
+
         // 저장 성공 메시지 표시
         showSaveMessage = true;
         setTimeout(() => {
@@ -492,24 +503,45 @@
     }
 </script>
 
+<!-- Toggle Tab Bar -->
+<div class="survey-tabs">
+    <button
+        class="survey-tab"
+        class:active={activeSurvey === 'naranjo'}
+        on:click={() => activeSurvey = 'naranjo'}
+    >
+        Naranjo
+    </button>
+    <button
+        class="survey-tab"
+        class:active={activeSurvey === 'who-umc'}
+        on:click={() => activeSurvey = 'who-umc'}
+    >
+        WHO-UMC
+    </button>
+</div>
+
+{#if activeSurvey === 'naranjo'}
 <Card>
     <CardBody>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-size: 18px; font-weight: bold;">Naranjo Scale</div>
+        <div>
+            <div style="font-size: 18px; font-weight: bold;">Naranjo Causality</div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+                <div style="font-size: 18px; font-weight: bold;">Assessment</div>
 
-            <!-- AI Reasoning Controls -->
-            <div style="display: flex; gap: 8px; align-items: center;">
-                {#if !isWorkerReady}
-                    <span style="font-size: 12px; color: #dc3545;">AI Offline</span>
-                {:else if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
-                    <div class="spinner"></div>
-                {:else if currentReasoningStatus === 'completed' && aiReasoning}
-                    <button
-                        class="icon-button"
-                        on:click={toggleReasoningModal}
-                        title="View AI Reasoning Details"
-                    >                    </button>
-                {/if}
+                <!-- AI Reasoning Controls -->
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    {#if !isWorkerReady}
+                        <span style="font-size: 12px; color: #dc3545;">AI Offline</span>
+                    {:else if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
+                        <div class="spinner"></div>
+                    {:else if currentReasoningStatus === 'completed' && aiReasoning}
+                        <button
+                            class="icon-button"
+                            on:click={toggleReasoningModal}
+                            title="View AI Reasoning Details"
+                        >                    </button>
+                    {/if}
 
                 <Button
                     size="sm"
@@ -517,7 +549,7 @@
                     on:click={requestAIReasoning}
                     disabled={!isWorkerReady || currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
                     title="Request AI to analyze this case"
-                    style="border-radius: 20px;"
+                    style="border-radius: 20px; margin-bottom: -3px;"
                 >
                     {#if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
                         Processing...
@@ -525,6 +557,7 @@
                         Analyze with AI
                     {/if}
                 </Button>
+                </div>
             </div>
         </div>
     </CardBody>
@@ -622,7 +655,48 @@
     reasoning={selectedQuestionReasoning}
 />
 
+{:else}
+
+<WhoUmcSurvey
+    bind:this={whoUmcRef}
+    {selectedPatient}
+    {patientData}
+/>
+
+{/if}
+
 <style>
+    .survey-tabs {
+        display: flex;
+        margin-bottom: 12px;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .survey-tab {
+        flex: 1;
+        padding: 10px 16px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: #6b7280;
+        transition: all 0.2s ease;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+    }
+
+    .survey-tab:hover {
+        color: #374151;
+        background-color: #f9fafb;
+    }
+
+    .survey-tab.active {
+        color: #3b82f6;
+        font-weight: 700;
+        border-bottom-color: #3b82f6;
+    }
+
     .toast-message {
         position: fixed;
         top: 50%;
