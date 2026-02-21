@@ -113,6 +113,7 @@ function createWhoUmcPrompt(patientData) {
         totalDays: patientData.totalDays || 0,
         drugTimeline: patientData.drugTimeline || {},
         iciExposurePeriods: patientData.iciExposurePeriods || {},
+        toxicExposurePeriods: patientData.toxicExposurePeriods || {},
         gradeChanges: patientData.gradeChanges || []
     };
 
@@ -145,9 +146,19 @@ function createWhoUmcPrompt(patientData) {
         ? sanitizedData.gradeChanges.map(g => `- Day ${g.day}: Grade ${g.grade}`).join('\n')
         : '- No grade data available';
 
-    // Format toxic drugs
+    // Format toxic drugs with individual exposure periods
     const toxicDrugs = sanitizedData.toxicDrugs || [];
     const toxicDrugsWithTimeline = toxicDrugs.map(drug => {
+        const periods = sanitizedData.toxicExposurePeriods[drug];
+        if (periods && periods.length > 0) {
+            if (periods.length === 1) {
+                return `- ${drug}: Day ${periods[0].start} to Day ${periods[0].end}`;
+            }
+            const periodsStr = periods.map((p, i) =>
+                `  Period ${i + 1}: Day ${p.start} to Day ${p.end}`
+            ).join('\n');
+            return `- ${drug} (${periods.length} separate periods):\n${periodsStr}`;
+        }
         const timeline = sanitizedData.drugTimeline[drug];
         if (timeline) return `- ${drug}: Day ${timeline.startDay} to Day ${timeline.endDay}`;
         return `- ${drug}: timing unknown`;
@@ -187,6 +198,30 @@ function createWhoUmcPrompt(patientData) {
         }
     });
 
+    // Helper: find the most recent dose day of a toxic drug BEFORE or AT the event
+    function getToxicLastDoseBeforeEvent(drug, evDay) {
+        const periods = sanitizedData.toxicExposurePeriods[drug];
+        if (periods && periods.length > 0) {
+            // Find the latest period end that is <= event day
+            let lastDose = null;
+            for (const p of periods) {
+                if (p.end <= evDay) {
+                    lastDose = p.end;
+                } else if (p.start <= evDay) {
+                    // Event occurred during this period — drug still active
+                    lastDose = evDay;
+                }
+            }
+            return lastDose;
+        }
+        // Fallback to drugTimeline
+        const timeline = sanitizedData.drugTimeline[drug];
+        if (timeline) {
+            return timeline.endDay <= evDay ? timeline.endDay : (timeline.startDay <= evDay ? evDay : null);
+        }
+        return null;
+    }
+
     // Build Q2 helper string
     let q2Helper = '';
     if (eventDay !== null && mostRecentIciDay !== null) {
@@ -195,17 +230,18 @@ function createWhoUmcPrompt(patientData) {
 - Event day (first grade >= 3): Day ${eventDay}
 - ICI last dose: Day ${mostRecentIciDay} (${mostRecentIciDrug}) → distance to event = ${eventDay} - ${mostRecentIciDay} = ${iciToEvent} days`;
 
-        // Add toxic drug distances with explicit calculation
+        // Add toxic drug distances using individual exposure periods
         toxicDrugs.forEach(drug => {
-            const timeline = sanitizedData.drugTimeline[drug];
-            if (timeline) {
-                const lastDoseDay = timeline.endDay;
-                if (lastDoseDay <= eventDay) {
-                    const toxicToEvent = eventDay - lastDoseDay;
-                    q2Helper += `\n- ${drug} last dose: Day ${lastDoseDay} → distance to event = ${eventDay} - ${lastDoseDay} = ${toxicToEvent} days`;
-                } else {
-                    q2Helper += `\n- ${drug} last dose: Day ${lastDoseDay} (after event, still active at event)  → distance = 0 days`;
-                }
+            const lastDose = getToxicLastDoseBeforeEvent(drug, eventDay);
+            const periods = sanitizedData.toxicExposurePeriods[drug];
+            if (lastDose !== null) {
+                const toxicToEvent = eventDay - lastDose;
+                const periodsInfo = periods && periods.length > 1
+                    ? ` (${periods.length} periods: ${periods.map(p => `Day ${p.start}-${p.end}`).join(', ')})`
+                    : '';
+                q2Helper += `\n- ${drug} last dose before event: Day ${lastDose}${periodsInfo} → distance to event = ${eventDay} - ${lastDose} = ${toxicToEvent} days`;
+            } else {
+                q2Helper += `\n- ${drug}: no administration before event`;
             }
         });
 
@@ -213,10 +249,9 @@ function createWhoUmcPrompt(patientData) {
         q2Helper += `\n- SUMMARY: ICI distance = ${iciToEvent} days`;
         const toxicDistances = [];
         toxicDrugs.forEach(drug => {
-            const timeline = sanitizedData.drugTimeline[drug];
-            if (timeline) {
-                const d = Math.max(0, eventDay - timeline.endDay);
-                toxicDistances.push(`${drug} = ${d} days`);
+            const lastDose = getToxicLastDoseBeforeEvent(drug, eventDay);
+            if (lastDose !== null) {
+                toxicDistances.push(`${drug} = ${eventDay - lastDose} days`);
             }
         });
         if (toxicDistances.length > 0) {

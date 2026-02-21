@@ -257,6 +257,33 @@
             const toxicDrugs = classification.toxic || [];
             const safeDrugs = classification.safe || [];
 
+            // Build individual exposure periods for toxic drugs (not just start-end range)
+            const toxicExposurePeriods = {};
+            toxicDrugs.forEach(drugName => {
+                const days = records
+                    .filter(r => r.drug_name === drugName && r.day_num != null)
+                    .map(r => r.day_num)
+                    .sort((a, b) => a - b);
+                if (days.length === 0) return;
+                const uniqueDays = [...new Set(days)];
+                const periods = [];
+                let periodStart = uniqueDays[0];
+                let periodEnd = uniqueDays[0];
+                for (let i = 1; i < uniqueDays.length; i++) {
+                    if (uniqueDays[i] - periodEnd <= 1) {
+                        // Consecutive day (gap <= 1), extend current period
+                        periodEnd = uniqueDays[i];
+                    } else {
+                        // Gap found, save current period and start new one
+                        periods.push({ start: periodStart, end: periodEnd });
+                        periodStart = uniqueDays[i];
+                        periodEnd = uniqueDays[i];
+                    }
+                }
+                periods.push({ start: periodStart, end: periodEnd });
+                toxicExposurePeriods[drugName] = periods;
+            });
+
             const aiPatientData = {
                 drugs: allDrugs,
                 iciDrugs,
@@ -266,6 +293,7 @@
                 totalDays,
                 drugTimeline,
                 iciExposurePeriods,
+                toxicExposurePeriods,
                 gradeChanges
             };
 
