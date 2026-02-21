@@ -56,20 +56,35 @@ Q2 (Alternative causes): Can underlying disease or concomitant medications suffi
 - WARNING (Q2-specific): This question is about temporal proximity ONLY. The Q3 rule about "ignoring grades near discontinuation" does NOT apply here. For Q2, use the actual last dose days as-is.
 
 Q3 (Dechallenge - improvement on discontinuation): Was there improvement when ICI was discontinued?
-- Assess EACH ICI discontinuation independently using these steps:
-  Step 1: Identify the ICI stop date (end of exposure period).
-  Step 2: IGNORE grades on the exact stop day or within 1-2 days after — these still reflect ongoing drug effect and are NOT evidence of dechallenge.
-  Step 3: Evaluate the grade TREND during a follow-up window (typically 7-30+ days after stop).
-  Step 4: If rechallenge occurred, evaluate ONLY the window between discontinuation and rechallenge start. Do NOT include post-rechallenge grades.
-  Step 5: If a second discontinuation occurred after rechallenge, assess it separately using the same steps.
-- Decision:
-  If grade DECREASED during the post-discontinuation follow-up window for ANY discontinuation = YES.
-  If grade stayed the same or INCREASED during that window for ALL discontinuations = NO.
-  If no sufficient follow-up data exists after discontinuation = Unknown.
-- WARNING: Do NOT use the grade recorded on the stop day as evidence of improvement or worsening. Only use grades from the follow-up period well after discontinuation.
+- Use the Q3 HELPER data which defines the exact evaluation windows and pre-computed results.
+- For EACH ICI exposure period, there is a specific "dechallenge evaluation window":
+  Window = (period END + 3 days) to (next period START - 1 day), or to end of data if no next period.
+  Grades BEFORE this window (on stop day or within 2 days after) are EXCLUDED — drug still active.
+  Grades AFTER this window (during or after next period) are EXCLUDED — belong to next period's evaluation.
+- Steps for each window:
+  Step 1: Check Q3 HELPER. If it says "No grade data in this window" → this window is UNEVALUABLE.
+  Step 2: If grades exist in window, compare with grade at period end (provided in Q3 HELPER).
+  Step 3: If grade in window is LOWER than grade at period end = IMPROVED.
+  Step 4: If grade in window is HIGHER than or EQUAL to grade at period end = NOT IMPROVED.
+- Decision (FOLLOW STRICTLY):
+  If ANY window shows IMPROVED = YES.
+  If ALL windows with data show NOT IMPROVED (grade same or higher) = NO.
+  If ALL windows have NO grade data (all unevaluable) = Unknown.
+  If SOME windows have data (not improved) and SOME have no data = NO (based on available evidence).
+- CRITICAL: "No grade data in window" means UNKNOWN for that window, NOT "no improvement". You CANNOT conclude NO from absence of data. Only conclude NO when grades exist and show no decrease.
 
 Q4 (Rechallenge): Did the adverse event recur upon re-administration?
-- If ICI was re-administered (multiple exposure periods) AND grade increased after re-administration = YES. If re-administered but no increase = NO. If not re-administered (single exposure period) = Unknown.
+- NOTE: Q4 has its OWN rules independent from Q2 and Q3. Do NOT apply Q2's temporal proximity logic or Q3's dechallenge window logic here.
+- If NOT re-administered (single exposure period only) = Unknown.
+- If re-administered (multiple exposure periods), use the Q4 HELPER data and follow these steps:
+  Step 1: Identify each rechallenge period's END date (the last day of drug administration). Use the "Rechallenge period end day" from Q4 HELPER.
+  Step 2: Find grade increases that occurred AFTER the rechallenge period END date.
+  Step 3: Calculate "days after rechallenge END" = grade increase day - rechallenge period END day. Use the pre-computed value from Q4 HELPER.
+  Step 4: Determine reliability based on gap from rechallenge END date (NOT start date):
+    - If days after rechallenge END <= 2 = UNRELIABLE (drug still active, grade may reflect ongoing exposure) = Unknown.
+    - If days after rechallenge END >= 3 (clear gap after drug was stopped) = RELIABLE = YES.
+    - If re-administered but no grade increase occurred after rechallenge end = NO.
+- CRITICAL: Always measure the gap from the rechallenge period END date, NOT the start date. The end date is when the drug was last administered in that period.
 
 Q5 (Known specific reaction): Is ICI-induced hepatotoxicity a well-known pharmacological reaction?
 - ICI-induced hepatotoxicity is a well-documented immune-mediated adverse reaction listed in LiverTox database = YES.
@@ -194,6 +209,85 @@ function createWhoUmcPrompt(patientData) {
         });
     }
 
+    // Q3 HELPER: Pre-compute dechallenge evaluation windows for each period gap
+    let q3Helper = '';
+    sanitizedData.iciDrugs.forEach(drug => {
+        const periods = sanitizedData.iciExposurePeriods[drug];
+        if (periods && periods.length > 0) {
+            q3Helper += `\nQ3 HELPER (pre-computed — use these windows for Q3):`;
+            for (let i = 0; i < periods.length; i++) {
+                const period = periods[i];
+                const windowStart = period.end + 3; // skip 2 days after end
+                const windowEnd = (i + 1 < periods.length) ? periods[i + 1].start - 1 : sanitizedData.totalDays;
+                const windowLabel = `Period ${i + 1} dechallenge window`;
+
+                if (windowStart > windowEnd) {
+                    q3Helper += `\n- ${drug} ${windowLabel}: NO WINDOW — UNEVALUABLE (Period ${i + 1} end Day ${period.end} → Period ${i + 2} start Day ${periods[i + 1]?.start || 'N/A'}, gap too small)`;
+                    continue;
+                }
+
+                q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (after Period ${i + 1} end Day ${period.end}, excluding 2 days)`;
+
+                // Find grades within this window
+                const gradesInWindow = sortedGrades.filter(g => g.day >= windowStart && g.day <= windowEnd);
+                if (gradesInWindow.length > 0) {
+                    const gradeList = gradesInWindow.map(g => `Day ${g.day}: Grade ${g.grade}`).join(', ');
+                    q3Helper += `\n  Grades in window: ${gradeList}`;
+                    // Find the grade just before window (closest to period end)
+                    const gradeBeforeWindow = sortedGrades.filter(g => g.day <= period.end).sort((a, b) => b.day - a.day)[0];
+                    const lastInWindow = gradesInWindow[gradesInWindow.length - 1];
+                    if (gradeBeforeWindow) {
+                        q3Helper += `\n  Grade at period end: Day ${gradeBeforeWindow.day} Grade ${gradeBeforeWindow.grade}`;
+                        if (lastInWindow.grade < gradeBeforeWindow.grade) {
+                            q3Helper += `\n  *** IMPROVED: Grade decreased from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} ***`;
+                        } else if (lastInWindow.grade > gradeBeforeWindow.grade) {
+                            q3Helper += `\n  Grade WORSENED: ${gradeBeforeWindow.grade} → ${lastInWindow.grade}`;
+                        } else {
+                            q3Helper += `\n  Grade UNCHANGED: ${gradeBeforeWindow.grade} → ${lastInWindow.grade}`;
+                        }
+                    }
+                } else {
+                    q3Helper += `\n  *** NO GRADE DATA in this window — UNEVALUABLE (cannot determine improvement or worsening) ***`;
+                }
+            }
+        }
+    });
+
+    // Q4 HELPER: Pre-compute rechallenge end dates and grade increases after rechallenge
+    let q4Helper = '';
+    if (hasRechallenge && eventDay !== null) {
+        q4Helper = `\nQ4 HELPER (pre-computed — use these values for Q4):`;
+        sanitizedData.iciDrugs.forEach(drug => {
+            const periods = sanitizedData.iciExposurePeriods[drug];
+            if (periods && periods.length > 1) {
+                for (let i = 1; i < periods.length; i++) {
+                    const rechallengePeriod = periods[i];
+                    const rechallengeEnd = rechallengePeriod.end;
+                    q4Helper += `\n- ${drug} rechallenge Period ${i + 1}: END Day ${rechallengeEnd}`;
+
+                    // Find first grade increase after this rechallenge period end
+                    const gradesAfterEnd = sortedGrades.filter(g => g.day > rechallengeEnd && g.grade > 0);
+                    if (gradesAfterEnd.length > 0) {
+                        const firstGradeAfter = gradesAfterEnd[0];
+                        const daysAfterEnd = firstGradeAfter.day - rechallengeEnd;
+                        q4Helper += `\n  First grade increase after rechallenge END: Day ${firstGradeAfter.day} (Grade ${firstGradeAfter.grade})`;
+                        q4Helper += `\n  Days after rechallenge END: ${daysAfterEnd} days`;
+                        q4Helper += daysAfterEnd <= 2
+                            ? `\n  *** UNRELIABLE: Only ${daysAfterEnd} day(s) after rechallenge END — drug still active ***`
+                            : `\n  Reliable: ${daysAfterEnd} days after rechallenge END`;
+                    } else {
+                        const gradesDuring = sortedGrades.filter(g => g.day >= rechallengePeriod.start && g.day <= rechallengeEnd && g.grade > 0);
+                        if (gradesDuring.length > 0) {
+                            q4Helper += `\n  Grade increase occurred DURING rechallenge (Day ${gradesDuring[0].day}, Grade ${gradesDuring[0].grade}) — UNRELIABLE`;
+                        } else {
+                            q4Helper += `\n  No grade increase found after rechallenge END`;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     return `=== PATIENT DATA ===
 
 ICI DRUG EXPOSURE:
@@ -212,6 +306,8 @@ ${safeDrugsStr}
 
 TOTAL DURATION: ${sanitizedData.totalDays} days
 ${q2Helper}
+${q3Helper}
+${q4Helper}
 
 === TASK ===
 Based ONLY on the data above, answer all 5 WHO-UMC questions using the decision rules.
