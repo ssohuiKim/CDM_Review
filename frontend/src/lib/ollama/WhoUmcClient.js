@@ -40,20 +40,18 @@ Q1 (Time interval plausibility): Is the time between ICI drug administration and
 
 Q2 (Alternative causes): Can underlying disease or concomitant medications sufficiently explain the adverse event?
 - Focus on the hepatotoxicity EVENT: the first time grade reaches >= 3 (severe). If no grade >= 3 exists, use the first grade increase above 0.
-- IMPORTANT FOR Q2: Consider ALL ICI exposure periods. The "most recent ICI dose" means the latest end day across ALL periods (including rechallenge periods). Do NOT only look at Period 1.
-- The pre-computed "Q2 HELPER" section in the patient data provides the most recent ICI dose day. USE this value directly.
-- Compare temporal proximity to the event:
-  Step 1: Find the event day (first grade >= 3, or first grade > 0).
-  Step 2: Use the "Most recent ICI dose before event" from the Q2 HELPER data. Calculate: event day - ICI last dose day.
-  Step 3: For each toxic drug, calculate: event day - toxic drug last dose day (end day).
-  Step 4: Compare the two intervals.
-- Decision:
-  If a toxic drug's last dose is MORE RECENT than (or similarly close to) the ICI drug's last dose relative to the event = YES (alternative cause plausible).
-  If the ICI drug's last dose is SIGNIFICANTLY more recent than any toxic drug = NO (alternative cause unlikely).
+- IMPORTANT FOR Q2: Consider ALL ICI exposure periods. Do NOT only look at Period 1.
+- Use the Q2 HELPER data which provides pre-computed distances. USE these values directly — do NOT recalculate.
+- KEY CONCEPT: "Distance to event" = event day MINUS the drug's LAST DOSE day (end day).
+  Example: If a toxic drug was administered Day 2 to Day 31 and event is Day 31, the distance is 31 - 31 = 0 days (NOT 29 days).
+  The drug's administration duration (start to end) is IRRELEVANT. Only the END day matters for distance calculation.
+- Decision (use Q2 HELPER distances directly):
+  If a toxic drug's distance to event is SMALLER than or SIMILAR to the ICI drug's distance = YES (alternative cause plausible).
+  If the ICI drug's distance to event is SIGNIFICANTLY smaller than ALL toxic drugs = NO (ICI is clearly the closest cause).
   If no toxic drugs exist or no timing data is available for toxic drugs = NO.
   If timing data is insufficient to compare = Unknown.
-- NOTE: "Similarly close" means within approximately 7 days of each other. "Significantly more recent" means the ICI drug's last dose is at least 2 weeks closer to the event than any toxic drug.
-- WARNING (Q2-specific): This question is about temporal proximity ONLY. The Q3 rule about "ignoring grades near discontinuation" does NOT apply here. For Q2, use the actual last dose days as-is.
+- NOTE: "Similar" means within approximately 7 days. "Significantly smaller" means at least 14 days difference.
+- WARNING (Q2-specific): This question is about temporal proximity ONLY. The Q3 rule about "ignoring grades near discontinuation" does NOT apply here.
 
 Q3 (Dechallenge - improvement on discontinuation): Was there improvement when ICI was discontinued?
 - Use the Q3 HELPER data which defines the exact evaluation windows and pre-computed results.
@@ -66,12 +64,11 @@ Q3 (Dechallenge - improvement on discontinuation): Was there improvement when IC
   Step 2: If grades exist in window, compare with grade at period end (provided in Q3 HELPER).
   Step 3: If grade in window is LOWER than grade at period end = IMPROVED.
   Step 4: If grade in window is HIGHER than or EQUAL to grade at period end = NOT IMPROVED.
-- Decision (FOLLOW STRICTLY):
-  If ANY window shows IMPROVED = YES.
-  If ALL windows with data show NOT IMPROVED (grade same or higher) = NO.
-  If ALL windows have NO grade data (all unevaluable) = Unknown.
-  If SOME windows have data (not improved) and SOME have no data = NO (based on available evidence).
-- CRITICAL: "No grade data in window" means UNKNOWN for that window, NOT "no improvement". You CANNOT conclude NO from absence of data. Only conclude NO when grades exist and show no decrease.
+- Decision (FOLLOW STRICTLY — check in this exact order):
+  1. If ANY window shows IMPROVED (grade decreased) = YES. Stop here.
+  2. If at least one window has grade data AND all such windows show NOT IMPROVED = NO. Stop here.
+  3. If NO window has any grade data (all windows are UNEVALUABLE) = Unknown. Stop here.
+- CRITICAL: You can ONLY answer NO when you have actual grade data showing no decrease. NO grade data = Unknown, NEVER No.
 
 Q4 (Rechallenge): Did the adverse event recur upon re-administration?
 - NOTE: Q4 has its OWN rules independent from Q2 and Q3. Do NOT apply Q2's temporal proximity logic or Q3's dechallenge window logic here.
@@ -194,19 +191,37 @@ function createWhoUmcPrompt(patientData) {
     let q2Helper = '';
     if (eventDay !== null && mostRecentIciDay !== null) {
         const iciToEvent = eventDay - mostRecentIciDay;
-        q2Helper = `\nQ2 HELPER (pre-computed — use these values for Q2):
+        q2Helper = `\nQ2 HELPER (pre-computed distances — use these directly, do NOT recalculate):
 - Event day (first grade >= 3): Day ${eventDay}
-- Most recent ICI dose before event: Day ${mostRecentIciDay} (${mostRecentIciDrug})
-- Days from ICI last dose to event: ${iciToEvent} days`;
+- ICI last dose: Day ${mostRecentIciDay} (${mostRecentIciDrug}) → distance to event = ${eventDay} - ${mostRecentIciDay} = ${iciToEvent} days`;
 
-        // Add toxic drug distances
+        // Add toxic drug distances with explicit calculation
         toxicDrugs.forEach(drug => {
             const timeline = sanitizedData.drugTimeline[drug];
-            if (timeline && timeline.endDay <= eventDay) {
-                const toxicToEvent = eventDay - timeline.endDay;
-                q2Helper += `\n- Days from ${drug} last dose (Day ${timeline.endDay}) to event: ${toxicToEvent} days`;
+            if (timeline) {
+                const lastDoseDay = timeline.endDay;
+                if (lastDoseDay <= eventDay) {
+                    const toxicToEvent = eventDay - lastDoseDay;
+                    q2Helper += `\n- ${drug} last dose: Day ${lastDoseDay} → distance to event = ${eventDay} - ${lastDoseDay} = ${toxicToEvent} days`;
+                } else {
+                    q2Helper += `\n- ${drug} last dose: Day ${lastDoseDay} (after event, still active at event)  → distance = 0 days`;
+                }
             }
         });
+
+        // Summary comparison
+        q2Helper += `\n- SUMMARY: ICI distance = ${iciToEvent} days`;
+        const toxicDistances = [];
+        toxicDrugs.forEach(drug => {
+            const timeline = sanitizedData.drugTimeline[drug];
+            if (timeline) {
+                const d = Math.max(0, eventDay - timeline.endDay);
+                toxicDistances.push(`${drug} = ${d} days`);
+            }
+        });
+        if (toxicDistances.length > 0) {
+            q2Helper += `, Toxic distances: ${toxicDistances.join(', ')}`;
+        }
     }
 
     // Q3 HELPER: Pre-compute dechallenge evaluation windows for each period gap
