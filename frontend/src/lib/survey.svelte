@@ -466,7 +466,7 @@
         // For questions 3, 4, 5: require AI reasoning
         if (questionIndex >= 2 && questionIndex <= 4) {
             if (!aiReasoning || !aiReasoning.answers) {
-                alert('No AI reasoning available. Please click "Analyze with AI" first.');
+                alert('No AI reasoning available. Please click "AI Analysis" first.');
                 return;
             }
         }
@@ -554,7 +554,7 @@
                     {#if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
                         Processing...
                     {:else}
-                        Analyze with AI
+                        AI Analysis
                     {/if}
                 </Button>
                 </div>

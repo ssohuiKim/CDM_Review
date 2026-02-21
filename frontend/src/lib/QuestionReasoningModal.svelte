@@ -7,6 +7,51 @@
     // Check if this is an AI-answered question (3, 4, 5)
     $: isAIQuestion = questionNumber >= 3 && questionNumber <= 5;
 
+    // Drag state
+    let isDragging = false;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    let posX = 0;
+    let posY = 0;
+    let hasDragged = false;
+    let dialogEl;
+
+    // Reset position when modal opens
+    $: if (isOpen) {
+        posX = 0;
+        posY = 0;
+        hasDragged = false;
+    }
+
+    function onMouseDown(event) {
+        if (event.target.closest('.close-button')) return;
+        isDragging = true;
+        const rect = dialogEl.getBoundingClientRect();
+        dragOffsetX = event.clientX - rect.left;
+        dragOffsetY = event.clientY - rect.top;
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+    }
+
+    function onMouseMove(event) {
+        if (!isDragging) return;
+        hasDragged = true;
+        const viewportW = window.innerWidth;
+        const viewportH = window.innerHeight;
+        const rect = dialogEl.getBoundingClientRect();
+        // Calculate new center-based offset
+        const newLeft = event.clientX - dragOffsetX;
+        const newTop = event.clientY - dragOffsetY;
+        posX = newLeft - (viewportW / 2 - rect.width / 2);
+        posY = newTop - (viewportH / 2 - rect.height / 2);
+    }
+
+    function onMouseUp() {
+        isDragging = false;
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+    }
+
     function close() {
         isOpen = false;
     }
@@ -37,9 +82,9 @@
 
 {#if isOpen}
     <div class="modal-backdrop" on:click={handleBackdropClick}>
-        <div class="modal-dialog">
+        <div class="modal-dialog" bind:this={dialogEl} style="transform: translate({posX}px, {posY}px);">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" class:dragging={isDragging} on:mousedown={onMouseDown}>
                     <h5 class="modal-title">Question {questionNumber} - {isAIQuestion ? 'AI Reasoning' : 'Reasoning'}</h5>
                     <button type="button" class="close-button" on:click={close}>×</button>
                 </div>
@@ -84,7 +129,7 @@
                     {:else}
                         <div class="no-reasoning">
                             <p>No AI reasoning available for this question.</p>
-                            <p class="hint">Click "Analyze with AI" to generate AI reasoning.</p>
+                            <p class="hint">Click "AI Analysis" to generate AI reasoning.</p>
                         </div>
                     {/if}
                 </div>
@@ -150,6 +195,12 @@
         border-bottom: 1px solid #dee2e6;
         background: #f8f9fa;
         border-radius: 8px 8px 0 0;
+        cursor: grab;
+        user-select: none;
+    }
+
+    .modal-header.dragging {
+        cursor: grabbing;
     }
 
     .modal-title {

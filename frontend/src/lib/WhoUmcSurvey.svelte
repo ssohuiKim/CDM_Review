@@ -1,5 +1,9 @@
 <script>
     import { Checkbox, Card, CardBody, Fieldset, FormTextarea, Button } from "yesvelte";
+    import { onMount, onDestroy } from "svelte";
+    import { whoUmcWorkerManager, whoUmcWorkerStatus, whoUmcReasoningStatus, whoUmcReasoningResults } from "./ollama/WhoUmcWorkerManager.js";
+    import QuestionReasoningModal from "./QuestionReasoningModal.svelte";
+    import { drugClassification, chartComputedData } from "./duckdb.js";
 
     export let selectedPatient;
     export let patientData;
@@ -7,13 +11,30 @@
     let noteValue = "";
     let showSaveMessage = false;
 
+    // AI Reasoning state (independent from Naranjo)
+    let aiReasoning = null;
+    let showQuestionModal = false;
+    let selectedQuestionIndex = 0;
+    let isWorkerReady = false;
+    let currentReasoningStatus = 'idle';
+    let aiSelectedAnswers = {};
+
+    // Subscribe to independent WHO-UMC stores
+    $: isWorkerReady = $whoUmcWorkerStatus === 'ready';
+    $: currentReasoningStatus = $whoUmcReasoningStatus[selectedPatient] || 'idle';
+    $: aiReasoning = $whoUmcReasoningResults[selectedPatient] || whoUmcWorkerManager.loadFromLocalStorage(selectedPatient);
+
+    // Auto-apply AI answers when reasoning is available
+    $: if (aiReasoning && aiReasoning.answers) {
+        applyAIAnswersToCheckboxes();
+    }
+
     const questions = [
         {
             text: "Is the time interval between drug administration and adverse event onset pharmacologically plausible?",
             items: [
                 { text: "Yes (plausible)", code: "yes" },
-                { text: "No (temporally implausible)", code: "no" },
-                { text: "Unknown / Insufficient information", code: "unknown" }
+                { text: "No (temporally implausible)", code: "no" }
             ]
         },
         {
@@ -53,23 +74,48 @@
     let answers = createInitialAnswers();
 
     function createInitialAnswers() {
-        return {
-            q1: [],
-            q2: [],
-            q3: [],
-            q4: [],
-            q5: []
-        };
+        return { q1: [], q2: [], q3: [], q4: [], q5: [] };
+    }
+
+    function convertAnswerToCode(answer) {
+        if (!answer) return "unknown";
+        const normalized = answer.toLowerCase().trim();
+        if (normalized === 'yes') return 'yes';
+        if (normalized === 'no') return 'no';
+        return "unknown";
+    }
+
+    function applyAIAnswersToCheckboxes() {
+        if (!aiReasoning || !aiReasoning.answers) return;
+
+        aiSelectedAnswers = {};
+
+        aiReasoning.answers
+            .filter(item => item && item.question >= 1 && item.question <= 5 && item.answer)
+            .forEach((item) => {
+                const questionKey = `q${item.question}`;
+                const answerCode = convertAnswerToCode(item.answer);
+                if (answers[questionKey] !== undefined) {
+                    answers[questionKey] = [answerCode];
+                    aiSelectedAnswers[item.question] = answerCode;
+                }
+            });
+
+        answers = { ...answers };
+        aiSelectedAnswers = { ...aiSelectedAnswers };
+        console.log('WHO-UMC AI Selected Answers:', aiSelectedAnswers);
     }
 
     // Load data when patient changes
     $: if (selectedPatient) {
         loadFromLocalStorage();
+        showQuestionModal = false;
     }
 
     function loadFromLocalStorage() {
         answers = createInitialAnswers();
         noteValue = "";
+        aiSelectedAnswers = {};
         let storedData = JSON.parse(localStorage.getItem('whoUmcData')) || {};
         if (storedData[selectedPatient]) {
             if (storedData[selectedPatient].answers) {
@@ -77,6 +123,10 @@
             }
             noteValue = storedData[selectedPatient].note || "";
         }
+
+        // Load AI reasoning for this patient
+        const patientReasoning = whoUmcWorkerManager.loadFromLocalStorage(selectedPatient);
+        console.log('Loaded WHO-UMC AI reasoning for patient', selectedPatient, ':', patientReasoning);
     }
 
     export function saveToLocalStorage() {
@@ -99,6 +149,7 @@
     export function reset() {
         answers = createInitialAnswers();
         noteValue = "";
+        aiSelectedAnswers = {};
     }
 
     function determineCategory() {
@@ -106,41 +157,140 @@
         const q2 = answers.q2[0];
         const q3 = answers.q3[0];
         const q4 = answers.q4[0];
-        const q5 = answers.q5[0];
 
-        const answeredCount = [q1, q2, q3, q4, q5].filter(a => a !== undefined).length;
+        // Unassessable: required info (Q1 etc.) is missing
+        if (q1 === undefined) return null;
+        const answeredCount = [q1, q2, q3, q4].filter(a => a !== undefined).length;
+        if (answeredCount < 2) return "Unassessable";
 
-        // Not enough answers
-        if (answeredCount === 0) return null;
-        if (answeredCount < 3) return "Unassessable/Unclassifiable";
-
-        // Certain: Q1=yes, Q2=no, Q3=yes, Q4=yes, Q5=yes
-        if (q1 === 'yes' && q2 === 'no' && q3 === 'yes' && q4 === 'yes' && q5 === 'yes') {
-            return "Certain";
-        }
-
-        // Probable/Likely: Q1=yes, Q2=no, Q3=yes
-        if (q1 === 'yes' && q2 === 'no' && q3 === 'yes') {
-            return "Probable/Likely";
-        }
-
-        // Possible: Q1=yes, Q2=yes or unknown
-        if (q1 === 'yes' && (q2 === 'yes' || q2 === 'unknown')) {
-            return "Possible";
-        }
-
-        // Unlikely: Q1=no OR Q2=yes
+        // 1. Unlikely: Q1='No' OR Q2='Yes'
         if (q1 === 'no' || q2 === 'yes') {
             return "Unlikely";
         }
 
-        // Conditional/Unclassified: additional info needed
-        return "Conditional/Unclassified";
+        // 2. Certain: Q1='Yes' AND Q2='No' AND Q3='Yes' AND Q4='Yes'
+        if (q1 === 'yes' && q2 === 'no' && q3 === 'yes' && q4 === 'yes') {
+            return "Certain";
+        }
+
+        // 3. Probable: Q1='Yes' AND Q2='No' AND Q3='Yes' (Q4 doesn't matter)
+        if (q1 === 'yes' && q2 === 'no' && q3 === 'yes') {
+            return "Probable";
+        }
+
+        // 4. Possible: Q1='Yes' AND (Q2='Yes'/'Unknown' OR Q3='No'/'Unknown')
+        if (q1 === 'yes' && (q2 === 'yes' || q2 === 'unknown' || q3 === 'no' || q3 === 'unknown')) {
+            return "Possible";
+        }
+
+        return "Unassessable";
     }
 
     $: category = determineCategory();
-    // Recalculate when answers change
     $: answers, category = determineCategory();
+
+    // Get reasoning for selected question
+    $: selectedQuestionReasoning = aiReasoning?.answers?.[selectedQuestionIndex] || null;
+
+    // Initialize WHO-UMC worker on mount
+    onMount(async () => {
+        try {
+            await whoUmcWorkerManager.initialize();
+        } catch (error) {
+            console.error('Failed to initialize WHO-UMC AI worker:', error);
+        }
+    });
+
+    /**
+     * Request AI reasoning (independent from Naranjo)
+     */
+    async function requestAIReasoning() {
+        if (!isWorkerReady) {
+            alert('AI service is not ready. Please check LocalAI connection.');
+            return;
+        }
+
+        if (!selectedPatient || !patientData) {
+            alert('No patient selected');
+            return;
+        }
+
+        try {
+            const records = patientData[selectedPatient];
+            if (!records || records.length === 0) {
+                alert('No data available for this patient');
+                return;
+            }
+
+            const allDrugs = [...new Set(records.map(r => r.drug_name).filter(Boolean))];
+            const chartData = $chartComputedData;
+            const classification = $drugClassification;
+
+            const iciDrugs = chartData.iciDrugs && chartData.iciDrugs.length > 0
+                ? chartData.iciDrugs
+                : [...new Set(records.filter(r => r.ICI_lasting).map(r => r.drug_name).filter(Boolean))];
+
+            const gradeChanges = chartData.gradeChanges && chartData.gradeChanges.length > 0
+                ? chartData.gradeChanges
+                : [];
+
+            const iciExposurePeriods = chartData.iciExposurePeriods && Object.keys(chartData.iciExposurePeriods).length > 0
+                ? chartData.iciExposurePeriods
+                : {};
+
+            const totalDays = chartData.totalDays || Math.max(...records.map(r => r.day_num || 0));
+
+            const drugTimeline = {};
+            records.forEach(r => {
+                const dayNum = r.day_num || 0;
+                const drugName = r.drug_name;
+                if (drugName) {
+                    if (!drugTimeline[drugName]) {
+                        drugTimeline[drugName] = { startDay: dayNum, endDay: dayNum, isICI: !!r.ICI_lasting };
+                    } else {
+                        drugTimeline[drugName].endDay = Math.max(drugTimeline[drugName].endDay, dayNum);
+                        drugTimeline[drugName].startDay = Math.min(drugTimeline[drugName].startDay, dayNum);
+                    }
+                }
+            });
+
+            const toxicDrugs = classification.toxic || [];
+            const safeDrugs = classification.safe || [];
+
+            const aiPatientData = {
+                drugs: allDrugs,
+                iciDrugs,
+                toxicDrugs,
+                safeDrugs,
+                grades: [...new Set(records.map(r => r.grade).filter(g => g !== null && g !== undefined && g !== "-1"))],
+                totalDays,
+                drugTimeline,
+                iciExposurePeriods,
+                gradeChanges
+            };
+
+            console.log('WHO-UMC AI patient data:', aiPatientData);
+
+            await whoUmcWorkerManager.requestReasoning(selectedPatient, aiPatientData);
+
+        } catch (error) {
+            console.error('Failed to request WHO-UMC AI reasoning:', error);
+            alert('Failed to get AI reasoning. Please try again.');
+        }
+    }
+
+    function showQuestionReasoning(questionIndex) {
+        if (!aiReasoning || !aiReasoning.answers) {
+            alert('No AI reasoning available. Please click "AI Analysis" first.');
+            return;
+        }
+
+        selectedQuestionIndex = questionIndex;
+        showQuestionModal = false;
+        setTimeout(() => {
+            showQuestionModal = true;
+        }, 0);
+    }
 </script>
 
 <Card>
@@ -151,14 +301,25 @@
                 <div style="font-size: 18px; font-weight: bold;">Assessment</div>
 
                 <div style="display: flex; gap: 8px; align-items: center;">
+                    {#if !isWorkerReady}
+                        <span style="font-size: 12px; color: #dc3545;">AI Offline</span>
+                    {:else if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
+                        <div class="spinner"></div>
+                    {/if}
+
                     <Button
                         size="sm"
                         color="info"
-                        disabled={true}
+                        on:click={requestAIReasoning}
+                        disabled={!isWorkerReady || currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
                         title="Request AI to analyze this case"
                         style="border-radius: 20px; margin-bottom: -3px;"
                     >
-                        Analyze with AI
+                        {#if currentReasoningStatus === 'processing' || currentReasoningStatus === 'queued'}
+                            Processing...
+                        {:else}
+                            AI Analysis
+                        {/if}
                     </Button>
                 </div>
             </div>
@@ -168,7 +329,19 @@
     <CardBody>
         {#each questions as question, index}
             <div style="margin-bottom: 16px;">
-                <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {question.text}</p>
+                <div class="question-header">
+                    <p style="margin-bottom: 8px; font-weight: bold;">{index + 1}. {question.text}</p>
+                    {#if aiReasoning && aiReasoning.answers}
+                        <button
+                            type="button"
+                            class="tooltip-button"
+                            on:click|stopPropagation={() => showQuestionReasoning(index)}
+                            title="View reasoning for this question"
+                        >
+                            <img src="/tooltip.svg" alt="Reasoning" class="tooltip-icon" />
+                        </button>
+                    {/if}
+                </div>
                 {#each question.items as item}
                     <div class="checkbox-wrapper" class:selected={answers[`q${index + 1}`][0] === item.code}>
                         <div class="checkbox-content">
@@ -183,6 +356,9 @@
                                 }}
                             />
                         </div>
+                        {#if aiSelectedAnswers[index + 1] === item.code}
+                            <span class="ai-badge" title="AI selected this answer">AI</span>
+                        {/if}
                     </div>
                 {/each}
             </div>
@@ -219,7 +395,70 @@
     </div>
 {/if}
 
+<!-- Question Reasoning Modal -->
+<QuestionReasoningModal
+    bind:isOpen={showQuestionModal}
+    questionNumber={selectedQuestionIndex + 1}
+    questionText={questions[selectedQuestionIndex]?.text || ''}
+    reasoning={selectedQuestionReasoning}
+/>
+
 <style>
+    .question-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: space-between;
+    }
+
+    .question-header p {
+        flex: 1;
+        margin: 0 0 8px 0;
+    }
+
+    .tooltip-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: all 0.2s;
+        opacity: 0.6;
+    }
+
+    .tooltip-button:hover {
+        opacity: 1;
+        background-color: #f8f9fa;
+        transform: scale(1.1);
+    }
+
+    .tooltip-icon {
+        width: 24px;
+        height: 24px;
+        filter: grayscale(20%);
+    }
+
+    .ai-badge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
     .checkbox-wrapper {
         transition: all 0.2s ease;
         border-radius: 4px;
@@ -242,6 +481,20 @@
         border-left: 3px solid #667eea;
         padding-left: 8px;
         margin-left: -8px;
+    }
+
+    .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 
     .toast-message {
