@@ -3,9 +3,10 @@
     export let questionNumber = 1;
     export let questionText = "";
     export let reasoning = null;
+    export let allQuestionsAI = false;
 
-    // Check if this is an AI-answered question (3, 4, 5)
-    $: isAIQuestion = questionNumber >= 3 && questionNumber <= 5;
+    // Check if this is an AI-answered question (Naranjo: 3,4,5 / WHO-UMC: all)
+    $: isAIQuestion = allQuestionsAI || (questionNumber >= 3 && questionNumber <= 5);
 
     // Drag state
     let isDragging = false;

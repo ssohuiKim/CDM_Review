@@ -195,6 +195,41 @@
 }
 
 
+	function generateWhoUmcHTML(patientNum) {
+		const storedData = JSON.parse(localStorage.getItem('whoUmcData') || "{}");
+		const data = storedData[patientNum];
+
+		if (!data) return "<p>No WHO-UMC survey data available.</p>";
+
+		const questions = [
+			"Is the time interval between drug administration and adverse event onset pharmacologically plausible?",
+			"Can the underlying disease or concomitant medications sufficiently explain the adverse event?",
+			"Was there clinically reasonable improvement when the suspected drug was discontinued or reduced?",
+			"Did the adverse event recur upon re-administration of the same drug?",
+			"Is the adverse event a well-known specific pharmacological reaction to the drug?"
+		];
+
+		let result = `<div class="survey-box">`;
+
+		questions.forEach((q, i) => {
+			const qKey = `q${i + 1}`;
+			const answer = data.answers?.[qKey]?.[0] ?? "Not answered";
+			result += `
+				<div class="question-block">
+					<p class="question"><strong>${i + 1}. ${q}</strong></p>
+					<p class="answer">${answer}</p>
+				</div>
+			`;
+		});
+
+		const category = data.category || "Not determined";
+		result += `<div class="score">Category: ${category}</div>`;
+		result += `<div class="note">Note: ${data.note ?? ""}</div>`;
+		result += `</div>`;
+
+		return result;
+	}
+
 	async function generateReportHTML(patientNum, patientData) {
     const chartContainer = await createHiddenContainer();
     const surveyContainer = await createHiddenContainer();
@@ -208,6 +243,7 @@
 
     const chartContent = await captureChart(chartContainer);
 	const surveyContent = generateSurveyHTML(patientNum);
+	const whoUmcContent = generateWhoUmcHTML(patientNum);
 
     chart.$destroy();
     survey.$destroy();
@@ -336,7 +372,8 @@
             <div class="report-wrapper">
                 <div class="sidebar-tabs">
                     <button class="tab-button active" onclick="openTab(event, 'DrugChart')">Drug Chart</button>
-                    <button class="tab-button" onclick="openTab(event, 'SurveyResults')">Survey Results</button>
+                    <button class="tab-button" onclick="openTab(event, 'NaranjoResults')">Naranjo Survey</button>
+                    <button class="tab-button" onclick="openTab(event, 'WhoUmcResults')">WHO-UMC Survey</button>
                 </div>
 
                 <div class="content-area">
@@ -344,9 +381,13 @@
                         <h2 class="section-title">Drug Chart</h2>
                         ${chartContent}
                     </div>
-                    <div id="SurveyResults" class="tab-content">
-                        <h2 class="section-title">Survey Results</h2>
+                    <div id="NaranjoResults" class="tab-content">
+                        <h2 class="section-title">Naranjo Causality Assessment</h2>
                         ${surveyContent}
+                    </div>
+                    <div id="WhoUmcResults" class="tab-content">
+                        <h2 class="section-title">WHO-UMC Causality Assessment</h2>
+                        ${whoUmcContent}
                     </div>
                 </div>
             </div>
@@ -621,7 +662,7 @@
 		background-color: rgb(255, 255, 255, 0.5);
 	}
 	.survey {
-		width: 355px;
+		width: 360px;
 		background-color: white;
 		border: 1px solid #dcdcdc;
 		border-radius: 8px;

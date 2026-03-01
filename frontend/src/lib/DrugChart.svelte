@@ -277,7 +277,7 @@
     };
 
     const colorGrade = () => {
-      const gradeColors = {"0": "#FEE3D6", "1": "#FCBEA5", "2": "#FC9575", "3": "#EF3B2C", "4": "#CA171C"};
+      const gradeColors = {"1": "#FCBEA5", "2": "#FC9575", "3": "#EF3B2C", "4": "#CA171C"};
       grades.forEach((gradeVal, i) => {
         const dayIndex = days[i] - 1; // 0 기반 인덱스
         if (gradeColors.hasOwnProperty(gradeVal)) {
@@ -662,4 +662,5 @@
     height: 15px;
     opacity: 0.8;
   }
+
 </style>

@@ -36,7 +36,14 @@ const SYSTEM_PROMPT = `You are a clinical pharmacology expert performing WHO-UMC
 === WHO-UMC QUESTIONS & DECISION RULES ===
 
 Q1 (Time interval plausibility): Is the time between ICI drug administration and hepatotoxicity onset pharmacologically plausible?
-- ICI-induced hepatotoxicity typically appears 1-12 weeks after first dose. If grade increased within this window after ICI start = YES. If grade increased before ICI or far outside expected window = NO.
+- Evaluate EACH ICI exposure period independently using the Q1 HELPER data.
+- For each period, check if a NEW hepatotoxicity grade increase occurred after that period's drug administration started.
+- "Plausible" means the grade increase happened AFTER the ICI period started, within a reasonable timeframe (days to weeks).
+- "Implausible" means the grade increase occurred BEFORE ICI was ever administered, or there is no grade increase after any ICI period.
+- Decision:
+  If ANY period shows a plausible temporal relationship (grade increase after period start) = YES.
+  If grade increase occurred only BEFORE ICI administration or no grade increase exists = NO.
+  If insufficient data = Unknown.
 
 Q2 (Alternative causes): Can underlying disease or concomitant medications sufficiently explain the adverse event?
 - Focus on the hepatotoxicity EVENT: the first time grade reaches >= 3 (severe). If no grade >= 3 exists, use the first grade increase above 0.
@@ -168,6 +175,39 @@ function createWhoUmcPrompt(patientData) {
     // Format safe drugs
     const safeDrugs = sanitizedData.safeDrugs || [];
     const safeDrugsStr = safeDrugs.length > 0 ? safeDrugs.join(', ') : 'None';
+
+    // Q1 HELPER: Pre-compute time intervals for each ICI exposure period
+    let q1Helper = '';
+    const sortedGradesForQ1 = [...sanitizedData.gradeChanges].sort((a, b) => a.day - b.day);
+    sanitizedData.iciDrugs.forEach(drug => {
+        const periods = sanitizedData.iciExposurePeriods[drug];
+        if (periods && periods.length > 0) {
+            q1Helper += `\nQ1 HELPER (pre-computed — use these for Q1):`;
+            for (let i = 0; i < periods.length; i++) {
+                const period = periods[i];
+                q1Helper += `\n- ${drug} Period ${i + 1} (Day ${period.start} to Day ${period.end}):`;
+
+                // Find first grade increase (grade > 0) after this period started
+                const gradesAfterPeriodStart = sortedGradesForQ1.filter(g => g.day >= period.start && g.grade > 0);
+                if (gradesAfterPeriodStart.length > 0) {
+                    const firstGrade = gradesAfterPeriodStart[0];
+                    const daysFromStart = firstGrade.day - period.start;
+                    const weeksFromStart = (daysFromStart / 7).toFixed(1);
+                    q1Helper += `\n  First grade increase after period start: Day ${firstGrade.day} (Grade ${firstGrade.grade})`;
+                    q1Helper += `\n  Time from period start: ${daysFromStart} days (≈${weeksFromStart} weeks) → PLAUSIBLE`;
+                } else {
+                    q1Helper += `\n  No grade increase found after this period started`;
+                }
+            }
+
+            // Check if any grade increase occurred BEFORE first ICI period
+            const firstPeriodStart = periods[0].start;
+            const gradesBeforeICI = sortedGradesForQ1.filter(g => g.day < firstPeriodStart && g.grade > 0);
+            if (gradesBeforeICI.length > 0) {
+                q1Helper += `\n- WARNING: Grade increase(s) found BEFORE first ICI administration: ${gradesBeforeICI.map(g => `Day ${g.day} Grade ${g.grade}`).join(', ')}`;
+            }
+        }
+    });
 
     // Q2 HELPER: Pre-compute most recent ICI dose and event day
     // Find event day (first grade >= 3, or first grade > 0)
@@ -355,6 +395,7 @@ SAFE MEDICATIONS (non-hepatotoxic):
 ${safeDrugsStr}
 
 TOTAL DURATION: ${sanitizedData.totalDays} days
+${q1Helper}
 ${q2Helper}
 ${q3Helper}
 ${q4Helper}

@@ -328,6 +328,16 @@
         const safeBoxes = Array.from(safeBoxesMap.values());
 
         // 마우스 이벤트 처리
+        // grade 데이터 맵 빌드 (1-based day -> grade)
+        const gradeByDay = new Map();
+        for (let i = 0; i < grade.length; i++) {
+          const g = grade[i];
+          const d = days[i];
+          if (g !== "-1" && g !== null && g !== undefined) {
+            gradeByDay.set(d, g);
+          }
+        }
+
         canvas.addEventListener("mousemove", function (e) {
           const rect = canvas.getBoundingClientRect();
           const mouseX = e.clientX - rect.left;
@@ -336,6 +346,25 @@
           // 툴팁 초기화
           tooltipVisible = false;
           tooltipContent = '';
+
+          // grade 영역 확인 (grade_start부터 grade_start + gradeHeight까지)
+          if (mouseY >= grade_start && mouseY <= grade_start + gradeHeight) {
+            const dayIndex = Math.floor((mouseX - dynamicMargin2) / (boxWidth + spacingX));
+            const hoverDay = dayIndex + 1;
+            if (hoverDay >= 1 && hoverDay <= day && gradeByDay.has(hoverDay)) {
+              tooltipContent = `Grade ${gradeByDay.get(hoverDay)}`;
+              tooltipVisible = true;
+              virtualRef = {
+                getBoundingClientRect: () => ({
+                  width: 0, height: 0,
+                  top: e.clientY, right: e.clientX,
+                  bottom: e.clientY, left: e.clientX,
+                }),
+              };
+              popperRef(virtualRef);
+              return;
+            }
+          }
 
           // 비율 차트 영역 확인 (ratio_start부터 ratio_start + 50까지)
           if (mouseY >= ratio_start && mouseY <= ratio_start + 50) {

@@ -429,6 +429,7 @@
     questionNumber={selectedQuestionIndex + 1}
     questionText={questions[selectedQuestionIndex]?.text || ''}
     reasoning={selectedQuestionReasoning}
+    allQuestionsAI={true}
 />
 
 <style>
