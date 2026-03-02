@@ -234,6 +234,8 @@
                 ? chartData.gradeChanges
                 : [];
 
+            const allGradeData = chartData.allGradeData || [];
+
             const iciExposurePeriods = chartData.iciExposurePeriods && Object.keys(chartData.iciExposurePeriods).length > 0
                 ? chartData.iciExposurePeriods
                 : {};
@@ -294,7 +296,8 @@
                 drugTimeline,
                 iciExposurePeriods,
                 toxicExposurePeriods,
-                gradeChanges
+                gradeChanges,
+                allGradeData
             };
 
             console.log('WHO-UMC AI patient data:', aiPatientData);

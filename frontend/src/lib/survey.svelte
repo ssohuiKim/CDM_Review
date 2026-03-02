@@ -313,6 +313,9 @@
                 ? chartData.gradeChanges
                 : extractGradeChanges(records);
 
+            // All grade data points (not deduplicated) for Q3 window checks
+            const allGradeData = chartData.allGradeData || [];
+
             // Use pre-computed ICI exposure periods from DrugChart (includes effect duration!)
             const iciExposurePeriods = chartData.iciExposurePeriods && Object.keys(chartData.iciExposurePeriods).length > 0
                 ? chartData.iciExposurePeriods
@@ -385,7 +388,8 @@
                 drugTimeline: drugTimeline,
                 iciExposurePeriods: iciExposurePeriods,
                 toxicExposurePeriods: toxicExposurePeriods,
-                gradeChanges: gradeChanges
+                gradeChanges: gradeChanges,
+                allGradeData: allGradeData
             };
 
             console.log('Prepared AI patient data:', aiPatientData);

@@ -63,8 +63,8 @@ Q2 (Alternative causes): Can underlying disease or concomitant medications suffi
 Q3 (Dechallenge - improvement on discontinuation): Was there improvement when ICI was discontinued?
 - Use the Q3 HELPER data which defines the exact evaluation windows and pre-computed results.
 - For EACH ICI exposure period, there is a specific "dechallenge evaluation window":
-  Window = (period END + 3 days) to (next period START - 1 day), or to end of data if no next period.
-  Grades BEFORE this window (on stop day or within 2 days after) are EXCLUDED — drug still active.
+  Window = (period END + 4 days) to (next period START - 1 day), or to end of data if no next period.
+  Grades BEFORE this window (on stop day or within 3 days after) are EXCLUDED — drug still active.
   Grades AFTER this window (during or after next period) are EXCLUDED — belong to next period's evaluation.
 - Steps for each window:
   Step 1: Check Q3 HELPER. If it says "No grade data in this window" → this window is UNEVALUABLE.
@@ -85,8 +85,8 @@ Q4 (Rechallenge): Did the adverse event recur upon re-administration?
   Step 2: Find grade increases that occurred AFTER the rechallenge period END date.
   Step 3: Calculate "days after rechallenge END" = grade increase day - rechallenge period END day. Use the pre-computed value from Q4 HELPER.
   Step 4: Determine reliability based on gap from rechallenge END date (NOT start date):
-    - If days after rechallenge END <= 2 = UNRELIABLE (drug still active, grade may reflect ongoing exposure) = Unknown.
-    - If days after rechallenge END >= 3 (clear gap after drug was stopped) = RELIABLE = YES.
+    - If days after rechallenge END <= 3 = UNRELIABLE (drug still active, grade may reflect ongoing exposure) = Unknown.
+    - If days after rechallenge END >= 4 (clear gap after drug was stopped) = RELIABLE = YES.
     - If re-administered but no grade increase occurred after rechallenge end = NO.
 - CRITICAL: Always measure the gap from the rechallenge period END date, NOT the start date. The end date is when the drug was last administered in that period.
 
@@ -121,7 +121,8 @@ function createWhoUmcPrompt(patientData) {
         drugTimeline: patientData.drugTimeline || {},
         iciExposurePeriods: patientData.iciExposurePeriods || {},
         toxicExposurePeriods: patientData.toxicExposurePeriods || {},
-        gradeChanges: patientData.gradeChanges || []
+        gradeChanges: patientData.gradeChanges || [],
+        allGradeData: patientData.allGradeData || []
     };
 
     // Format ICI drug exposure
@@ -300,6 +301,8 @@ function createWhoUmcPrompt(patientData) {
     }
 
     // Q3 HELPER: Pre-compute dechallenge evaluation windows for each period gap
+    // Use allGradeData (not deduplicated) to check for measurements in windows
+    const allGrades = sanitizedData.allGradeData;
     let q3Helper = '';
     sanitizedData.iciDrugs.forEach(drug => {
         const periods = sanitizedData.iciExposurePeriods[drug];
@@ -307,7 +310,7 @@ function createWhoUmcPrompt(patientData) {
             q3Helper += `\nQ3 HELPER (pre-computed — use these windows for Q3):`;
             for (let i = 0; i < periods.length; i++) {
                 const period = periods[i];
-                const windowStart = period.end + 3; // skip 2 days after end
+                const windowStart = period.end + 4; // skip 3 days after end
                 const windowEnd = (i + 1 < periods.length) ? periods[i + 1].start - 1 : sanitizedData.totalDays;
                 const windowLabel = `Period ${i + 1} dechallenge window`;
 
@@ -316,16 +319,16 @@ function createWhoUmcPrompt(patientData) {
                     continue;
                 }
 
-                q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (after Period ${i + 1} end Day ${period.end}, excluding 2 days)`;
+                q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (after Period ${i + 1} end Day ${period.end}, excluding 3 days)`;
 
-                // Find grades within this window
-                const gradesInWindow = sortedGrades.filter(g => g.day >= windowStart && g.day <= windowEnd);
-                if (gradesInWindow.length > 0) {
-                    const gradeList = gradesInWindow.map(g => `Day ${g.day}: Grade ${g.grade}`).join(', ');
+                // Use allGradeData (includes all measurements, not deduplicated) for window check
+                const allGradesInWindow = allGrades.filter(g => g.day >= windowStart && g.day <= windowEnd);
+                const gradeBeforeWindow = sortedGrades.filter(g => g.day <= period.end).sort((a, b) => b.day - a.day)[0];
+
+                if (allGradesInWindow.length > 0) {
+                    const gradeList = allGradesInWindow.map(g => `Day ${g.day}: Grade ${g.grade}`).join(', ');
                     q3Helper += `\n  Grades in window: ${gradeList}`;
-                    // Find the grade just before window (closest to period end)
-                    const gradeBeforeWindow = sortedGrades.filter(g => g.day <= period.end).sort((a, b) => b.day - a.day)[0];
-                    const lastInWindow = gradesInWindow[gradesInWindow.length - 1];
+                    const lastInWindow = allGradesInWindow[allGradesInWindow.length - 1];
                     if (gradeBeforeWindow) {
                         q3Helper += `\n  Grade at period end: Day ${gradeBeforeWindow.day} Grade ${gradeBeforeWindow.grade}`;
                         if (lastInWindow.grade < gradeBeforeWindow.grade) {
@@ -362,7 +365,7 @@ function createWhoUmcPrompt(patientData) {
                         const daysAfterEnd = firstGradeAfter.day - rechallengeEnd;
                         q4Helper += `\n  First grade increase after rechallenge END: Day ${firstGradeAfter.day} (Grade ${firstGradeAfter.grade})`;
                         q4Helper += `\n  Days after rechallenge END: ${daysAfterEnd} days`;
-                        q4Helper += daysAfterEnd <= 2
+                        q4Helper += daysAfterEnd <= 3
                             ? `\n  *** UNRELIABLE: Only ${daysAfterEnd} day(s) after rechallenge END — drug still active ***`
                             : `\n  Reliable: ${daysAfterEnd} days after rechallenge END`;
                     } else {

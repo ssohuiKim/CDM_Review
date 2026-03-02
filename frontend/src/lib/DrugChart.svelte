@@ -395,12 +395,15 @@
         }
       });
 
+      // All grade data points (not deduplicated) - needed for Q3 window checks
+      const allGradeData = Array.from(gradeMap.entries())
+        .sort((a, b) => a[0] - b[0])
+        .map(([day, grade]) => ({ day, grade }));
+
       // Convert to sorted array and deduplicate consecutive same grades
       const gradeChanges = [];
       let lastGrade = null;
-      Array.from(gradeMap.entries())
-        .sort((a, b) => a[0] - b[0])
-        .forEach(([day, grade]) => {
+      allGradeData.forEach(({ day, grade }) => {
           if (grade !== lastGrade) {
             gradeChanges.push({ day, grade });
             lastGrade = grade;
@@ -414,6 +417,7 @@
         lastDate: lastDate ? lastDate.toISOString().split('T')[0] : null,
         iciExposurePeriods: iciExposureData,
         gradeChanges: gradeChanges,
+        allGradeData: allGradeData,
         iciDrugs: iciDrugsList,
         diagnosisGroup: diagnosisGroup
       });

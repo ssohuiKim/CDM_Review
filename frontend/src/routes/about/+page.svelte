@@ -187,19 +187,19 @@
               3️⃣ If the correct format has been detected, click the Upload button to navigate to the result page.
             </El>
 
-            <img src="/about/3.png" alt="result page" style="width: 85%; height: auto; margin-top: 5px;" />
-            <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px;">
+            <img src="/about/new_3.png" alt="result page" style="width: 85%; height: auto; margin-top: 5px;" />
+            <p style="font-size: 16px; font-weight: 400; color: #333; margin-top: 45px; padding: 0;">
               4️⃣ When the result page appears, select the patient you want to view from the patient list on the left.<br />
               *️⃣ Using NIH reference data, drugs are color-coded: drugs that can cause hepatotoxicity are shown in blue, while drugs that do not cause hepatotoxicity are shown in green.<br />
-              5️⃣ The Naranjo Algorithm is a survey tool that verifies whether ICI medications cause hepatotoxicity. It confirms causality through 10 questions. Select the answer that matches your assessment for each question.<br />
-              6️⃣ Click the 'Analyze with AI' button to see AI-generated Naranjo survey responses based on patient data.
-            </El>
+              5️⃣ The right panel provides two causality assessment tools: <strong>Naranjo Algorithm</strong> and <strong>WHO-UMC</strong>. Use the tabs at the top of the survey panel to switch between them. The Naranjo Algorithm confirms causality through 10 questions, and the WHO-UMC system evaluates causality through 5 questions. Select the answer that matches your assessment for each question.<br />
+              6️⃣ Click the 'AI Analysis' button to see AI-generated survey responses based on patient data. This is available for both the Naranjo Algorithm (Questions 3-5) and all WHO-UMC questions.
+            </p>
 
             <img src="/about/4.png" alt="survey page" style="width: 85%; height: auto; margin-top: 45px;" />
             <El row tag="p" style="font-size: 16px; font-weight: 400; color: #333; margin-top: 5px;">
               7️⃣ AI-selected answers are marked with an 'AI' badge on the right side of the answer.<br />
               8️⃣ Click the '?' icon next to each question to view the AI's reasoning and confidence level.<br />
-              9️⃣ The Naranjo score is automatically calculated based on your selections.<br />
+              9️⃣ The results of Naranjo and WHO-UMC questionnaire are automatically calculated based on your selections.<br />
               🔟 Click the Submit button to save your responses and notes, which will be included in downloaded reports.
             </El>
 
