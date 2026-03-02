@@ -327,14 +327,16 @@
 
         const safeBoxes = Array.from(safeBoxesMap.values());
 
-        // 마우스 이벤트 처리
-        // grade 데이터 맵 빌드 (1-based day -> grade)
-        const gradeByDay = new Map();
+        // grade 박스 빌드 (약물 박스와 동일한 방식)
+        const gradeBoxes = [];
+        const gradeColors = {"0": "#A0A0A0", "1": "#FCBEA5", "2": "#FC9575", "3": "#EF3B2C", "4": "#CA171C"};
         for (let i = 0; i < grade.length; i++) {
           const g = grade[i];
           const d = days[i];
           if (g !== "-1" && g !== null && g !== undefined) {
-            gradeByDay.set(d, g);
+            const x = dynamicMargin2 + (d - 1) * (boxWidth + spacingX);
+            const color = gradeColors[String(g)] || '#A0A0A0';
+            gradeBoxes.push({ x, y: grade_start, width: boxWidth, height: gradeHeight, grade: g, color });
           }
         }
 
@@ -347,12 +349,15 @@
           tooltipVisible = false;
           tooltipContent = '';
 
-          // grade 영역 확인 (grade_start부터 grade_start + gradeHeight까지)
-          if (mouseY >= grade_start && mouseY <= grade_start + gradeHeight) {
-            const dayIndex = Math.floor((mouseX - dynamicMargin2) / (boxWidth + spacingX));
-            const hoverDay = dayIndex + 1;
-            if (hoverDay >= 1 && hoverDay <= day && gradeByDay.has(hoverDay)) {
-              tooltipContent = `Grade ${gradeByDay.get(hoverDay)}`;
+          // grade 박스 확인
+          for (const box of gradeBoxes) {
+            if (
+              mouseX >= box.x &&
+              mouseX <= box.x + box.width &&
+              mouseY >= box.y &&
+              mouseY <= box.y + box.height
+            ) {
+              tooltipContent = `Grade ${box.grade}`;
               tooltipVisible = true;
               virtualRef = {
                 getBoundingClientRect: () => ({
@@ -362,7 +367,7 @@
                 }),
               };
               popperRef(virtualRef);
-              return;
+              break;
             }
           }
 
@@ -451,6 +456,10 @@
           drawRatioChart();
           
           // 박스들 다시 그리기
+          for (const box of gradeBoxes) {
+            ctx.fillStyle = box.color;
+            ctx.fillRect(box.x, box.y, box.width, box.height);
+          }
           for (const box of toxicBoxes) {
             ctx.fillStyle = "#1E88E5";
             ctx.fillRect(box.x, box.y, box.width, box.height);
