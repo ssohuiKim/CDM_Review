@@ -136,16 +136,14 @@ Q5 (Alternative causes): Are there alternative causes that could have caused the
 - Focus on the hepatotoxicity EVENT: the first time grade reaches >= 3 (severe). If no grade >= 3 exists, use the first grade increase above 0.
 - IMPORTANT FOR Q5: Consider ALL ICI exposure periods. Do NOT only look at Period 1.
 - Use the Q5 HELPER data which provides pre-computed distances. USE these values directly — do NOT recalculate.
-- KEY CONCEPT: "Distance to event" = event day MINUS the drug's LAST DOSE day (end day).
-  Example: If a toxic drug was administered Day 2 to Day 31 and event is Day 31, the distance is 31 - 31 = 0 days (NOT 29 days).
-  The drug's administration duration (start to end) is IRRELEVANT. Only the END day matters for distance calculation.
-- Decision (use Q5 HELPER distances directly):
+- The Q5 HELPER shows whether the event occurred DURING drug administration or AFTER it, with pre-computed distances.
+- Decision (use Q5 HELPER directly):
+  If BOTH ICI and a toxic drug were being administered when the event occurred (both distance = 0) = YES (alternative cause equally plausible).
   If a toxic drug's distance to event is SMALLER than or SIMILAR to the ICI drug's distance = YES (alternative cause plausible).
   If the ICI drug's distance to event is SIGNIFICANTLY smaller than ALL toxic drugs = NO (alternative cause unlikely).
-  If no toxic drugs exist or no timing data is available for toxic drugs = NO.
+  If no toxic drugs exist = NO.
   If timing data is insufficient to compare = Unknown.
 - NOTE: "Similar" means within approximately 7 days. "Significantly smaller" means at least 14 days difference.
-- WARNING (Q5-specific): This question is about temporal proximity ONLY. The Q3 rule about "ignoring grades near discontinuation" does NOT apply here.
 
 === OUTPUT FORMAT (Chain-of-Thought) ===
 IMPORTANT: Write reasoning FIRST, then derive the answer from your reasoning.
@@ -339,70 +337,88 @@ The ICI drug was given continuously without being stopped and restarted. Answer 
     }
 
     // Q5 HELPER: Pre-compute temporal proximity for alternative causes
-    // Helper function: find the most recent dose day of a toxic drug BEFORE or AT the event
-    function getToxicLastDoseBeforeEvent(drug, evDay) {
-        const periods = sanitizedData.toxicExposurePeriods[drug];
+    // Helper function: check if event occurred during drug administration
+    function getDrugEventRelation(drug, evDay, useExposurePeriods) {
+        const periods = useExposurePeriods ? sanitizedData.toxicExposurePeriods[drug] : sanitizedData.iciExposurePeriods[drug];
         if (periods && periods.length > 0) {
-            let lastDose = null;
+            // Check if event occurred DURING any administration period
             for (const p of periods) {
-                if (p.end <= evDay) {
-                    lastDose = p.end;
-                } else if (p.start <= evDay) {
-                    lastDose = evDay;
+                if (p.start <= evDay && p.end >= evDay) {
+                    return { distance: 0, duringAdmin: true, period: p };
                 }
             }
-            return lastDose;
+            // Event occurred after administration — find closest period that ended before event
+            let closestEnd = null;
+            for (const p of periods) {
+                if (p.end < evDay) {
+                    if (closestEnd === null || p.end > closestEnd.end) {
+                        closestEnd = p;
+                    }
+                }
+            }
+            if (closestEnd) {
+                return { distance: evDay - closestEnd.end, duringAdmin: false, period: closestEnd };
+            }
+            return null;
         }
         const timeline = sanitizedData.drugTimeline[drug];
         if (timeline) {
-            return timeline.endDay <= evDay ? timeline.endDay : (timeline.startDay <= evDay ? evDay : null);
+            const start = Number(timeline.startDay);
+            const end = Number(timeline.endDay);
+            if (start <= evDay && end >= evDay) {
+                return { distance: 0, duringAdmin: true, period: { start, end } };
+            }
+            if (end < evDay) {
+                return { distance: evDay - end, duringAdmin: false, period: { start, end } };
+            }
         }
         return null;
     }
 
-    let mostRecentIciDay = null;
-    let mostRecentIciDrug = null;
+    // Find ICI drug relation to event
+    let iciRelation = null;
+    let iciDrugName = null;
     sanitizedData.iciDrugs.forEach(drug => {
-        const periods = sanitizedData.iciExposurePeriods[drug];
-        if (periods) {
-            periods.forEach(p => {
-                if (eventDay === null || p.end <= eventDay) {
-                    if (mostRecentIciDay === null || p.end > mostRecentIciDay) {
-                        mostRecentIciDay = p.end;
-                        mostRecentIciDrug = drug;
-                    }
-                }
-            });
+        const rel = getDrugEventRelation(drug, eventDay, false);
+        if (rel && (iciRelation === null || rel.distance < iciRelation.distance)) {
+            iciRelation = rel;
+            iciDrugName = drug;
         }
     });
 
     let q5Helper = '';
-    if (eventDay !== null && mostRecentIciDay !== null) {
-        const iciToEvent = eventDay - mostRecentIciDay;
-        q5Helper = `\nQ5 HELPER (pre-computed distances — use these directly, do NOT recalculate):
-- Event day (first grade >= 3): Day ${eventDay}
-- ICI last dose: Day ${mostRecentIciDay} (${mostRecentIciDrug}) → distance to event = ${eventDay} - ${mostRecentIciDay} = ${iciToEvent} days`;
+    if (eventDay !== null && iciRelation !== null) {
+        q5Helper = `\nQ5 HELPER (pre-computed — use these directly, do NOT recalculate):
+- Event day (first grade >= 3): Day ${eventDay}`;
 
+        // ICI relation
+        if (iciRelation.duringAdmin) {
+            q5Helper += `\n- ICI (${iciDrugName}): Event occurred DURING administration (Day ${iciRelation.period.start}~${iciRelation.period.end}) → distance = 0 days`;
+        } else {
+            q5Helper += `\n- ICI (${iciDrugName}): Administration ended Day ${iciRelation.period.end}, event on Day ${eventDay} → distance = ${iciRelation.distance} days after last dose`;
+        }
+
+        // Toxic drug relations
         toxicDrugs.forEach(drug => {
-            const lastDose = getToxicLastDoseBeforeEvent(drug, eventDay);
-            const periods = sanitizedData.toxicExposurePeriods[drug];
-            if (lastDose !== null) {
-                const toxicToEvent = eventDay - lastDose;
-                const periodsInfo = periods && periods.length > 1
-                    ? ` (${periods.length} periods: ${periods.map(p => `Day ${p.start}-${p.end}`).join(', ')})`
-                    : '';
-                q5Helper += `\n- ${drug} last dose before event: Day ${lastDose}${periodsInfo} → distance to event = ${eventDay} - ${lastDose} = ${toxicToEvent} days`;
+            const rel = getDrugEventRelation(drug, eventDay, true);
+            if (rel) {
+                if (rel.duringAdmin) {
+                    q5Helper += `\n- ${drug}: Event occurred DURING administration (Day ${rel.period.start}~${rel.period.end}) → distance = 0 days`;
+                } else {
+                    q5Helper += `\n- ${drug}: Administration ended Day ${rel.period.end}, event on Day ${eventDay} → distance = ${rel.distance} days after last dose`;
+                }
             } else {
-                q5Helper += `\n- ${drug}: no administration before event`;
+                q5Helper += `\n- ${drug}: not administered before event`;
             }
         });
 
-        q5Helper += `\n- SUMMARY: ICI distance = ${iciToEvent} days`;
+        // Summary
+        q5Helper += `\n- SUMMARY: ICI distance = ${iciRelation.distance} days`;
         const toxicDistances = [];
         toxicDrugs.forEach(drug => {
-            const lastDose = getToxicLastDoseBeforeEvent(drug, eventDay);
-            if (lastDose !== null) {
-                toxicDistances.push(`${drug} = ${eventDay - lastDose} days`);
+            const rel = getDrugEventRelation(drug, eventDay, true);
+            if (rel) {
+                toxicDistances.push(`${drug} = ${rel.distance} days`);
             }
         });
         if (toxicDistances.length > 0) {
