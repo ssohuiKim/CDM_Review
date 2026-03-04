@@ -60,13 +60,21 @@
                 { text: "No (did not recur)", code: "no" },
                 { text: "Not re-administered / No information", code: "unknown" }
             ]
+        },
+        {
+            text: "Is the adverse event a well-known specific pharmacological reaction to the drug? (e.g., anaphylaxis, drug-specific syndrome)",
+            items: [
+                { text: "Yes", code: "yes" },
+                { text: "No", code: "no" },
+                { text: "Unknown", code: "unknown" }
+            ]
         }
     ];
 
     let answers = createInitialAnswers();
 
     function createInitialAnswers() {
-        return { q1: [], q2: [], q3: [], q4: [] };
+        return { q1: [], q2: [], q3: [], q4: [], q5: [] };
     }
 
     function convertAnswerToCode(answer) {
@@ -83,7 +91,7 @@
         aiSelectedAnswers = {};
 
         aiReasoning.answers
-            .filter(item => item && item.question >= 1 && item.question <= 4 && item.answer)
+            .filter(item => item && item.question >= 1 && item.question <= 5 && item.answer)
             .forEach((item) => {
                 const questionKey = `q${item.question}`;
                 const answerCode = convertAnswerToCode(item.answer);
