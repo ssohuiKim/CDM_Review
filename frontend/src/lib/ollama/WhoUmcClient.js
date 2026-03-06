@@ -60,11 +60,10 @@ Q2 (Alternative causes): Can underlying disease or concomitant medications suffi
 Q3 (Dechallenge - improvement on discontinuation): Was there improvement when ICI was discontinued?
 - Use the Q3 HELPER data which defines the exact evaluation windows and pre-computed results.
 - For EACH ICI exposure period, there is a specific "dechallenge evaluation window":
-  Window = (period END + 4 days) to (next period START - 1 day), or to end of data if no next period.
-  Grades BEFORE this window (on stop day or within 3 days after) are EXCLUDED — drug still active.
-  Grades AFTER this window (during or after next period) are EXCLUDED — belong to next period's evaluation.
+  Window = (period END + 5 days) to (next period START - 1 day), or to end of data if no next period.
+  If the window length is 14 days or less, the period is TOO SHORT to evaluate dechallenge effect → UNEVALUABLE.
 - Steps for each window:
-  Step 1: Check Q3 HELPER. If it says "No grade data in this window" → this window is UNEVALUABLE.
+  Step 1: Check Q3 HELPER. If window is TOO SHORT (≤14 days) or has no grade data → UNEVALUABLE.
   Step 2: If grades exist in window, compare with grade at period end (provided in Q3 HELPER).
   Step 3: If grade in window is LOWER than grade at period end = IMPROVED.
   Step 4: If grade in window is HIGHER than or EQUAL to grade at period end = NOT IMPROVED.
@@ -78,14 +77,12 @@ Q4 (Rechallenge): Did the adverse event recur upon re-administration?
 - NOTE: Q4 has its OWN rules independent from Q2 and Q3. Do NOT apply Q2's temporal proximity logic or Q3's dechallenge window logic here.
 - If NOT re-administered (single exposure period only) = Unknown.
 - If re-administered (multiple exposure periods), use the Q4 HELPER data and follow these steps:
-  Step 1: Identify each rechallenge period's END date (the last day of drug administration). Use the "Rechallenge period end day" from Q4 HELPER.
-  Step 2: Find grade increases that occurred AFTER the rechallenge period END date.
-  Step 3: Calculate "days after rechallenge END" = grade increase day - rechallenge period END day. Use the pre-computed value from Q4 HELPER.
-  Step 4: Determine reliability based on gap from rechallenge END date (NOT start date):
-    - If days after rechallenge END <= 3 = UNRELIABLE (drug still active, grade may reflect ongoing exposure) = Unknown.
-    - If days after rechallenge END >= 4 (clear gap after drug was stopped) = RELIABLE = YES.
-    - If re-administered but no grade increase occurred after rechallenge end = NO.
-- CRITICAL: Always measure the gap from the rechallenge period END date, NOT the start date. The end date is when the drug was last administered in that period.
+  Step 1: Find the maximum grade BEFORE rechallenge (Period 1 + dechallenge gap) from Q4 HELPER.
+  Step 2: Check if any grade DURING or AFTER the rechallenge period is HIGHER than this pre-rechallenge max.
+  Step 3: Determine answer:
+    - If a higher grade than pre-rechallenge max appeared during or after rechallenge = YES (adverse event recurred).
+    - If grades exist during/after rechallenge but all are equal to or lower than pre-rechallenge max = NO.
+    - If no grade data exists during/after rechallenge = Unknown.
 
 === OUTPUT FORMAT (Chain-of-Thought) ===
 IMPORTANT: Write reasoning FIRST, then derive the answer from your reasoning.
@@ -311,16 +308,22 @@ function createWhoUmcPrompt(patientData) {
             q3Helper += `\nQ3 HELPER (pre-computed — use these windows for Q3):`;
             for (let i = 0; i < periods.length; i++) {
                 const period = periods[i];
-                const windowStart = period.end + 4; // skip 3 days after end
+                const windowStart = period.end + 5;
                 const windowEnd = (i + 1 < periods.length) ? periods[i + 1].start - 1 : sanitizedData.totalDays;
+                const windowLength = windowEnd - windowStart;
                 const windowLabel = `Period ${i + 1} dechallenge window`;
 
                 if (windowStart > windowEnd) {
-                    q3Helper += `\n- ${drug} ${windowLabel}: NO WINDOW — UNEVALUABLE (Period ${i + 1} end Day ${period.end} → Period ${i + 2} start Day ${periods[i + 1]?.start || 'N/A'}, gap too small)`;
+                    q3Helper += `\n- ${drug} ${windowLabel}: NO WINDOW — UNEVALUABLE (Period ${i + 1} end Day ${period.end} → Period ${i + 2} start Day ${periods[i + 1]?.start || 'N/A'}, no gap)`;
                     continue;
                 }
 
-                q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (after Period ${i + 1} end Day ${period.end}, excluding 3 days)`;
+                if (windowLength <= 14) {
+                    q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (${windowLength} days) — TOO SHORT (≤14 days) → UNEVALUABLE`;
+                    continue;
+                }
+
+                q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (${windowLength} days)`;
 
                 // Use allGradeData (includes all measurements, not deduplicated) for window check
                 const allGradesInWindow = allGrades.filter(g => g.day >= windowStart && g.day <= windowEnd);
@@ -333,11 +336,11 @@ function createWhoUmcPrompt(patientData) {
                     if (gradeBeforeWindow) {
                         q3Helper += `\n  Grade at period end: Day ${gradeBeforeWindow.day} Grade ${gradeBeforeWindow.grade}`;
                         if (lastInWindow.grade < gradeBeforeWindow.grade) {
-                            q3Helper += `\n  *** IMPROVED: Grade decreased from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} ***`;
+                            q3Helper += `\n  *** IMPROVED: Grade decreased from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} → YES ***`;
                         } else if (lastInWindow.grade > gradeBeforeWindow.grade) {
-                            q3Helper += `\n  Grade WORSENED: ${gradeBeforeWindow.grade} → ${lastInWindow.grade}`;
+                            q3Helper += `\n  NOT IMPROVED: Grade worsened from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} → NO`;
                         } else {
-                            q3Helper += `\n  Grade UNCHANGED: ${gradeBeforeWindow.grade} → ${lastInWindow.grade}`;
+                            q3Helper += `\n  NOT IMPROVED: Grade unchanged at ${gradeBeforeWindow.grade} → NO`;
                         }
                     }
                 } else {
@@ -347,7 +350,7 @@ function createWhoUmcPrompt(patientData) {
         }
     });
 
-    // Q4 HELPER: Pre-compute rechallenge end dates and grade increases after rechallenge
+    // Q4 HELPER: Pre-compute rechallenge grade comparison (pre-rechallenge max vs rechallenge period)
     let q4Helper = '';
     if (hasRechallenge && eventDay !== null) {
         q4Helper = `\nQ4 HELPER (pre-computed — use these values for Q4):`;
@@ -356,26 +359,26 @@ function createWhoUmcPrompt(patientData) {
             if (periods && periods.length > 1) {
                 for (let i = 1; i < periods.length; i++) {
                     const rechallengePeriod = periods[i];
-                    const rechallengeEnd = rechallengePeriod.end;
-                    q4Helper += `\n- ${drug} rechallenge Period ${i + 1}: END Day ${rechallengeEnd}`;
+                    // Max grade BEFORE this rechallenge (all periods + gaps before rechallenge start)
+                    const gradesBeforeRechallenge = allGrades.filter(g => g.day < rechallengePeriod.start);
+                    const maxGradeBefore = gradesBeforeRechallenge.length > 0 ? Math.max(...gradesBeforeRechallenge.map(g => g.grade)) : 0;
+                    q4Helper += `\n- ${drug} max grade before Period ${i + 1} (before Day ${rechallengePeriod.start}): ${maxGradeBefore}`;
+                    q4Helper += `\n- ${drug} Period ${i + 1} (Day ${rechallengePeriod.start}–${rechallengePeriod.end}):`;
 
-                    // Find first grade increase after this rechallenge period end
-                    const gradesAfterEnd = sortedGrades.filter(g => g.day > rechallengeEnd && g.grade > 0);
-                    if (gradesAfterEnd.length > 0) {
-                        const firstGradeAfter = gradesAfterEnd[0];
-                        const daysAfterEnd = firstGradeAfter.day - rechallengeEnd;
-                        q4Helper += `\n  First grade increase after rechallenge END: Day ${firstGradeAfter.day} (Grade ${firstGradeAfter.grade})`;
-                        q4Helper += `\n  Days after rechallenge END: ${daysAfterEnd} days`;
-                        q4Helper += daysAfterEnd <= 3
-                            ? `\n  *** UNRELIABLE: Only ${daysAfterEnd} day(s) after rechallenge END — drug still active ***`
-                            : `\n  Reliable: ${daysAfterEnd} days after rechallenge END`;
-                    } else {
-                        const gradesDuring = sortedGrades.filter(g => g.day >= rechallengePeriod.start && g.day <= rechallengeEnd && g.grade > 0);
-                        if (gradesDuring.length > 0) {
-                            q4Helper += `\n  Grade increase occurred DURING rechallenge (Day ${gradesDuring[0].day}, Grade ${gradesDuring[0].grade}) — UNRELIABLE`;
+                    // Find grades during or after this rechallenge period
+                    const gradesDuringOrAfter = allGrades.filter(g => g.day >= rechallengePeriod.start);
+                    if (gradesDuringOrAfter.length > 0) {
+                        const maxGradeAfter = Math.max(...gradesDuringOrAfter.map(g => g.grade));
+                        const higherGrades = gradesDuringOrAfter.filter(g => g.grade > maxGradeBefore);
+                        q4Helper += `\n  Max grade during/after Period ${i + 1}: ${maxGradeAfter}`;
+                        if (higherGrades.length > 0) {
+                            const first = higherGrades[0];
+                            q4Helper += `\n  *** Grade ${first.grade} on Day ${first.day} EXCEEDS pre-rechallenge max (${maxGradeBefore}) → YES ***`;
                         } else {
-                            q4Helper += `\n  No grade increase found after rechallenge END`;
+                            q4Helper += `\n  All grades ≤ pre-rechallenge max (${maxGradeBefore}) → NO`;
                         }
+                    } else {
+                        q4Helper += `\n  No grade data during/after Period ${i + 1} → Unknown`;
                     }
                 }
             }
