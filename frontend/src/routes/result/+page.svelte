@@ -126,13 +126,15 @@
 				windowWidth: fullWidth,
 				windowHeight: fullHeight
 			});
-			return `<img src="${chartCanvas.toDataURL('image/png')}" alt="Drug Chart" style="width: 100%; height: auto; display: block; margin: 20px auto;">`;
+			// scale:2로 캡처하므로 표시 크기는 원본의 절반 (실제 픽셀 크기)
+			const displayWidth = fullWidth;
+			return `<div class="chart-scroll-container"><img src="${chartCanvas.toDataURL('image/png')}" alt="Drug Chart" style="width: ${displayWidth}px; height: auto; display: block;"></div>`;
 		} catch (error) {
 			console.error("차트 캡처 오류:", error);
 			// 폴백: Canvas만 캡처
 			const canvas = chartContainer.querySelector('canvas');
 			if (canvas) {
-				return `<img src="${canvas.toDataURL('image/png')}" alt="Drug Chart" style="width: 100%; height: auto;">`;
+				return `<div class="chart-scroll-container"><img src="${canvas.toDataURL('image/png')}" alt="Drug Chart" style="width: ${canvas.width}px; height: auto;"></div>`;
 			}
 			return "<p>Chart capture failed</p>";
 		}
@@ -323,8 +325,14 @@
                     flex: 1; /* 남은 공간 차지 */
                     padding: 20px;
                     background-color: #fff;
-                    overflow-y: auto; /* 내용이 길어지면 스크롤바 생성 */
-                    box-shadow: -2px 0 5px rgba(0,0,0,0.05); /* 사이드바와 콘텐츠 영역 경계 그림자 */
+                    overflow: auto; /* 가로/세로 스크롤 */
+                    box-shadow: -2px 0 5px rgba(0,0,0,0.05);
+                }
+                .chart-scroll-container {
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    max-width: 100%;
+                    padding-bottom: 10px;
                 }
                 .tab-content {
                     display: none; /* 기본적으로 모든 탭 콘텐츠 숨김 */
