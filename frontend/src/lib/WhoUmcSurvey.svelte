@@ -159,10 +159,8 @@
         const q4 = answers.q4[0];
         const q5 = answers.q5[0];
 
-        // Unassessable: required info (Q1 etc.) is missing
-        if (q1 === undefined) return null;
-        const answeredCount = [q1, q2, q3, q4].filter(a => a !== undefined).length;
-        if (answeredCount < 2) return "Unassessable";
+        // Unassessable: no answers at all
+        if (q1 === undefined) return "Unassessable";
 
         // 1. Unlikely: Q1='No' AND Q2='Yes'
         if (q1 === 'no' && q2 === 'yes') {
@@ -170,7 +168,7 @@
         }
 
         // 2. Certain: Q1='Yes' AND Q2='No' AND Q3='Yes' AND Q4='Yes' AND Q5='Yes'
-        //    If Q5='No', downgrade to Probable
+        //    If Q5≠'Yes', downgrade to Probable
         if (q1 === 'yes' && q2 === 'no' && q3 === 'yes' && q4 === 'yes') {
             return q5 === 'yes' ? "Certain" : "Probable";
         }
@@ -180,8 +178,8 @@
             return "Probable";
         }
 
-        // 4. Possible: Q1='Yes' AND (Q2='Yes'/'Unknown' OR Q3='No'/'Unknown')
-        if (q1 === 'yes' && (q2 === 'yes' || q2 === 'unknown' || q3 === 'no' || q3 === 'unknown')) {
+        // 4. Possible: Q1='Yes' AND ((Q2='Yes' or Q2='Unknown') OR (Q3='No' or Q3='Unknown'))
+        if (q1 === 'yes' && ((q2 === 'yes' || q2 === 'unknown') || (q3 === 'no' || q3 === 'unknown'))) {
             return "Possible";
         }
 

@@ -96,13 +96,14 @@
 		console.log("Selected Patient:", selectedPatient);
 	}
 
-	async function createHiddenContainer() {
+	async function createHiddenContainer(width) {
 		const container = document.createElement('div');
 		container.style.position = 'absolute';
 		container.style.left = '-9999px'; // 화면에서 숨김
 		container.style.top = '0';
-		container.style.width = '1200px'; // 충분한 너비 설정
-		container.style.minHeight = '800px'; // 충분한 높이 설정
+		container.style.width = `${width || 1200}px`; // 차트 실제 너비에 맞춤
+		container.style.minHeight = '800px';
+		container.style.overflow = 'visible'; // 잘리지 않도록
 		container.style.backgroundColor = 'white';
 		document.body.appendChild(container);
 		return container;
@@ -110,21 +111,28 @@
 
 	async function captureChart(chartContainer) {
 		try {
-			// html2canvas를 사용하여 전체 차트 컨테이너 캡처 (Canvas + 오버레이 포함)
+			// 전체 차트 크기를 캡처 (스크롤 영역 포함)
+			const fullWidth = chartContainer.scrollWidth;
+			const fullHeight = chartContainer.scrollHeight;
+
 			const chartCanvas = await html2canvas(chartContainer, {
 				backgroundColor: '#ffffff',
 				scale: 2, // 고해상도 유지
 				logging: false,
 				useCORS: true,
-				allowTaint: true
+				allowTaint: true,
+				width: fullWidth,
+				height: fullHeight,
+				windowWidth: fullWidth,
+				windowHeight: fullHeight
 			});
-			return `<img src="${chartCanvas.toDataURL('image/png')}" alt="Drug Chart" style="max-width: 70%; height: auto; display: block; margin: 20px auto;">`;
+			return `<img src="${chartCanvas.toDataURL('image/png')}" alt="Drug Chart" style="width: 100%; height: auto; display: block; margin: 20px auto;">`;
 		} catch (error) {
 			console.error("차트 캡처 오류:", error);
 			// 폴백: Canvas만 캡처
 			const canvas = chartContainer.querySelector('canvas');
 			if (canvas) {
-				return `<img src="${canvas.toDataURL('image/png')}" alt="Drug Chart" style="max-width: 70%; height: auto;">`;
+				return `<img src="${canvas.toDataURL('image/png')}" alt="Drug Chart" style="width: 100%; height: auto;">`;
 			}
 			return "<p>Chart capture failed</p>";
 		}
@@ -231,7 +239,9 @@
 	}
 
 	async function generateReportHTML(patientNum, patientData) {
-    const chartContainer = await createHiddenContainer();
+    // 차트의 실제 너비를 계산하여 hidden container에 적용
+    const chartWidth = Math.max(minWidth || 1200, 1200);
+    const chartContainer = await createHiddenContainer(chartWidth);
     const surveyContainer = await createHiddenContainer();
 
     const chart = new DrugChart({ target: chartContainer, props: { selectedPatient: patientNum, patientData } });

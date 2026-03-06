@@ -88,9 +88,6 @@ Q4 (Rechallenge): Did the adverse event recur upon re-administration?
     - If re-administered but no grade increase occurred after rechallenge end = NO.
 - CRITICAL: Always measure the gap from the rechallenge period END date, NOT the start date. The end date is when the drug was last administered in that period.
 
-Q5 (Known specific reaction): Is ICI-induced hepatotoxicity a well-known pharmacological reaction?
-- ICI-induced hepatotoxicity is a well-documented immune-mediated adverse reaction listed in LiverTox database = YES.
-
 === OUTPUT FORMAT (Chain-of-Thought) ===
 IMPORTANT: Write reasoning FIRST, then derive the answer from your reasoning.
 PROFESSIONAL TONE: In your reasoning, only mention drugs with complete and reliable timing information. Do NOT mention drugs with unknown or missing timing data. Focus only on the evidence you can verify.
@@ -100,8 +97,7 @@ Output ONLY valid JSON:
     {"question": 1, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No", "confidence": "High/Medium/Low"},
     {"question": 2, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No/Unknown", "confidence": "High/Medium/Low"},
     {"question": 3, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No/Unknown", "confidence": "High/Medium/Low"},
-    {"question": 4, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No/Unknown", "confidence": "High/Medium/Low"},
-    {"question": 5, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No/Unknown", "confidence": "High/Medium/Low"}
+    {"question": 4, "reasoning": "[Analyze the data step by step]", "answer": "Yes/No/Unknown", "confidence": "High/Medium/Low"}
   ]
 }`;
 
@@ -415,7 +411,7 @@ ${q3Helper}
 ${q4Helper}
 
 === TASK ===
-Based ONLY on the data above, answer all 5 WHO-UMC questions using the decision rules.
+Based ONLY on the data above, answer all 4 WHO-UMC questions using the decision rules.
 Output JSON only.`;
 }
 
@@ -513,7 +509,7 @@ function parseWhoUmcResponse(response) {
             throw new Error('Invalid response structure: missing answers array');
         }
 
-        const expectedQuestions = [1, 2, 3, 4, 5];
+        const expectedQuestions = [1, 2, 3, 4];
         parsed.answers = parsed.answers
             .map(item => ({
                 ...item,
@@ -521,17 +517,30 @@ function parseWhoUmcResponse(response) {
             }))
             .filter(item => item && expectedQuestions.includes(item.question));
 
+        // Q5 is always Yes (ICI-induced hepatotoxicity is well-documented)
+        parsed.answers.push({
+            question: 5,
+            reasoning: 'ICI-induced hepatotoxicity is a well-documented immune-mediated adverse reaction listed in the LiverTox database.',
+            answer: 'Yes',
+            confidence: 'High'
+        });
+
         return parsed;
 
     } catch (error) {
         console.error('Failed to parse WHO-UMC AI response:', error);
         return {
-            answers: [1, 2, 3, 4, 5].map(qNum => ({
+            answers: [1, 2, 3, 4].map(qNum => ({
                 question: qNum,
                 answer: 'Unknown',
                 reasoning: 'Failed to parse AI response',
                 confidence: 'Low'
-            })),
+            })).concat({
+                question: 5,
+                reasoning: 'ICI-induced hepatotoxicity is a well-documented immune-mediated adverse reaction listed in the LiverTox database.',
+                answer: 'Yes',
+                confidence: 'High'
+            }),
             parseError: error.message
         };
     }

@@ -10,7 +10,7 @@ import { json, error } from '@sveltejs/kit';
 // Check if running in production (Docker) or development (local)
 const isDocker = process.env.NODE_ENV === 'production' || process.env.DOCKER === 'true';
 const OLLAMA_ENDPOINT = process.env.OLLAMA_ENDPOINT || (isDocker ? 'http://ollama:11434' : 'http://localhost:11434');
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'gemma3:12b';
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'gemma3:12b-24k';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
