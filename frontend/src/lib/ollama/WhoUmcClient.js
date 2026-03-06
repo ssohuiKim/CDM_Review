@@ -31,7 +31,6 @@ const SYSTEM_PROMPT = `You are a clinical pharmacology expert performing WHO-UMC
 - ICI DRUG EXPOSURE: Immune checkpoint inhibitor drugs with exposure periods. Multiple periods = rechallenge (drug was stopped then restarted).
 - HEPATOTOXICITY GRADE CHANGES: Timeline of liver injury severity (Grade 0=none, 1=mild, 2=moderate, 3=severe, 4=life-threatening).
 - TOXIC MEDICATIONS: Other drugs known to cause hepatotoxicity (potential alternative causes).
-- SAFE MEDICATIONS: Drugs not associated with hepatotoxicity.
 
 === WHO-UMC QUESTIONS & DECISION RULES ===
 
@@ -109,7 +108,6 @@ function createWhoUmcPrompt(patientData) {
         drugs: patientData.drugs || [],
         iciDrugs: patientData.iciDrugs || [],
         toxicDrugs: patientData.toxicDrugs || [],
-        safeDrugs: patientData.safeDrugs || [],
         grades: patientData.grades || [],
         totalDays: patientData.totalDays || 0,
         drugTimeline: patientData.drugTimeline || {},
@@ -166,10 +164,6 @@ function createWhoUmcPrompt(patientData) {
         return `- ${drug}: timing unknown`;
     }).join('\n');
     const toxicDrugsStr = toxicDrugs.length > 0 ? toxicDrugsWithTimeline : 'None';
-
-    // Format safe drugs
-    const safeDrugs = sanitizedData.safeDrugs || [];
-    const safeDrugsStr = safeDrugs.length > 0 ? safeDrugs.join(', ') : 'None';
 
     // Q1 HELPER: Pre-compute time intervals for each ICI exposure period
     let q1Helper = '';
@@ -400,9 +394,6 @@ ${gradeEvents}
 TOXIC MEDICATIONS (potential hepatotoxic - consider for Q2 alternative causes):
 ${toxicDrugsStr}
 (Total: ${toxicDrugs.length} toxic drugs)
-
-SAFE MEDICATIONS (non-hepatotoxic):
-${safeDrugsStr}
 
 TOTAL DURATION: ${sanitizedData.totalDays} days
 ${q1Helper}

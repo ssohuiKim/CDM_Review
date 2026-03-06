@@ -18,7 +18,8 @@ export const drugClassification = writable({
     toxic: [],      // toxic drug ingredient names
     toxicIds: [],   // toxic drug concept IDs
     safe: [],       // safe drug names
-    safeIds: []     // safe drug concept IDs
+    safeIds: [],    // safe drug concept IDs
+    toxicIdToIngredient: {}  // drug_concept_id -> ingredient name mapping
 });
 
 // Store for chart-computed data (shared between DrugChart and Survey)

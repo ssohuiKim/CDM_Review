@@ -350,17 +350,23 @@
 
             // Get toxic/safe drugs from shared store (set by DrugChart.svelte)
             const toxicDrugs = classification.toxic || [];
-            const safeDrugs = classification.safe || [];
+            const safeDrugSet = new Set(classification.safe || []);
+            const toxicIdToIngredient = classification.toxicIdToIngredient || {};
 
-            // Build individual exposure periods for toxic drugs (not just start-end range)
+            // Build individual exposure periods for toxic drugs using drug_concept_id matching
+            const toxicDaysMap = {};
+            records.forEach(r => {
+                if (r.day_num == null) return;
+                const ingredient = toxicIdToIngredient[String(r.drug_concept_id)];
+                if (ingredient) {
+                    if (!toxicDaysMap[ingredient]) toxicDaysMap[ingredient] = [];
+                    toxicDaysMap[ingredient].push(r.day_num);
+                }
+            });
+
             const toxicExposurePeriods = {};
-            toxicDrugs.forEach(drugName => {
-                const days = records
-                    .filter(r => r.drug_name === drugName && r.day_num != null)
-                    .map(r => r.day_num)
-                    .sort((a, b) => a - b);
-                if (days.length === 0) return;
-                const uniqueDays = [...new Set(days)];
+            for (const [drugName, days] of Object.entries(toxicDaysMap)) {
+                const uniqueDays = [...new Set(days)].sort((a, b) => a - b);
                 const periods = [];
                 let periodStart = uniqueDays[0];
                 let periodEnd = uniqueDays[0];
@@ -375,17 +381,24 @@
                 }
                 periods.push({ start: periodStart, end: periodEnd });
                 toxicExposurePeriods[drugName] = periods;
-            });
+            }
 
-            // Prepare patient data for AI (exclude PHI like age/gender)
+            // ICI와 toxic에 해당하는 약물만 포함 (safe 제외)
+            const relevantDrugs = allDrugs.filter(d => !safeDrugSet.has(d));
+            const relevantDrugTimeline = {};
+            for (const [drug, timeline] of Object.entries(drugTimeline)) {
+                if (!safeDrugSet.has(drug)) {
+                    relevantDrugTimeline[drug] = timeline;
+                }
+            }
+
             const aiPatientData = {
-                drugs: allDrugs,
+                drugs: relevantDrugs,
                 iciDrugs: iciDrugs,
                 toxicDrugs: toxicDrugs,
-                safeDrugs: safeDrugs,
                 grades: grades,
                 totalDays: totalDays,
-                drugTimeline: drugTimeline,
+                drugTimeline: relevantDrugTimeline,
                 iciExposurePeriods: iciExposurePeriods,
                 toxicExposurePeriods: toxicExposurePeriods,
                 gradeChanges: gradeChanges,
@@ -398,7 +411,6 @@
             console.log('Grade Changes:', gradeChanges);
             console.log('Total Days:', totalDays);
             console.log('Toxic drugs:', toxicDrugs);
-            console.log('Safe drugs:', safeDrugs);
             console.log('==============================================');
 
             // Request reasoning from worker

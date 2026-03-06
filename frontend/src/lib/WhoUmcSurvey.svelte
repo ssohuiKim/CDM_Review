@@ -257,26 +257,30 @@
             });
 
             const toxicDrugs = classification.toxic || [];
-            const safeDrugs = classification.safe || [];
+            const safeDrugSet = new Set(classification.safe || []);
+            const toxicIdToIngredient = classification.toxicIdToIngredient || {};
 
-            // Build individual exposure periods for toxic drugs (not just start-end range)
+            // Build individual exposure periods for toxic drugs using drug_concept_id matching
+            const toxicDaysMap = {};
+            records.forEach(r => {
+                if (r.day_num == null) return;
+                const ingredient = toxicIdToIngredient[String(r.drug_concept_id)];
+                if (ingredient) {
+                    if (!toxicDaysMap[ingredient]) toxicDaysMap[ingredient] = [];
+                    toxicDaysMap[ingredient].push(r.day_num);
+                }
+            });
+
             const toxicExposurePeriods = {};
-            toxicDrugs.forEach(drugName => {
-                const days = records
-                    .filter(r => r.drug_name === drugName && r.day_num != null)
-                    .map(r => r.day_num)
-                    .sort((a, b) => a - b);
-                if (days.length === 0) return;
-                const uniqueDays = [...new Set(days)];
+            for (const [drugName, days] of Object.entries(toxicDaysMap)) {
+                const uniqueDays = [...new Set(days)].sort((a, b) => a - b);
                 const periods = [];
                 let periodStart = uniqueDays[0];
                 let periodEnd = uniqueDays[0];
                 for (let i = 1; i < uniqueDays.length; i++) {
                     if (uniqueDays[i] - periodEnd <= 1) {
-                        // Consecutive day (gap <= 1), extend current period
                         periodEnd = uniqueDays[i];
                     } else {
-                        // Gap found, save current period and start new one
                         periods.push({ start: periodStart, end: periodEnd });
                         periodStart = uniqueDays[i];
                         periodEnd = uniqueDays[i];
@@ -284,16 +288,24 @@
                 }
                 periods.push({ start: periodStart, end: periodEnd });
                 toxicExposurePeriods[drugName] = periods;
-            });
+            }
+
+            // ICI와 toxic에 해당하는 약물만 포함 (safe 제외)
+            const relevantDrugs = allDrugs.filter(d => !safeDrugSet.has(d));
+            const relevantDrugTimeline = {};
+            for (const [drug, timeline] of Object.entries(drugTimeline)) {
+                if (!safeDrugSet.has(drug)) {
+                    relevantDrugTimeline[drug] = timeline;
+                }
+            }
 
             const aiPatientData = {
-                drugs: allDrugs,
+                drugs: relevantDrugs,
                 iciDrugs,
                 toxicDrugs,
-                safeDrugs,
                 grades: [...new Set(records.map(r => r.grade).filter(g => g !== null && g !== undefined && g !== "-1"))],
                 totalDays,
-                drugTimeline,
+                drugTimeline: relevantDrugTimeline,
                 iciExposurePeriods,
                 toxicExposurePeriods,
                 gradeChanges,

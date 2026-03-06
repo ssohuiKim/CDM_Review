@@ -138,12 +138,19 @@
           safeDrugs = Array.from(new Set(safeDrugs));
           safeDrugIds = Array.from(new Set(safeID.filter(id => id !== "0")));
 
+          // Build drug_concept_id -> ingredient name mapping
+          const toxicIdToIngredientMap = {};
+          for (const [id, index] of toxicmap) {
+              toxicIdToIngredientMap[String(id)] = toxic_ingredients[index];
+          }
+
           // Update shared store for survey.svelte to use
           drugClassification.set({
               toxic: toxic,
               toxicIds: toxicIds,
               safe: safeDrugs,
-              safeIds: safeDrugIds
+              safeIds: safeDrugIds,
+              toxicIdToIngredient: toxicIdToIngredientMap
           });
           console.log('=== DrugChart: Updated drugClassification store ===');
           console.log('Toxic drugs:', toxic);

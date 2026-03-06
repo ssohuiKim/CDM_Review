@@ -98,7 +98,6 @@ const SYSTEM_PROMPT = `You are a clinical pharmacology expert analyzing drug-ind
 - ICI DRUG EXPOSURE: Immune checkpoint inhibitor drugs with exposure periods. Multiple periods = rechallenge (drug was stopped then restarted).
 - HEPATOTOXICITY GRADE CHANGES: Timeline of liver injury severity (Grade 0=none, 1=mild, 2=moderate, 3=severe, 4=life-threatening).
 - TOXIC MEDICATIONS: Other drugs known to cause hepatotoxicity (potential alternative causes).
-- SAFE MEDICATIONS: Drugs not associated with hepatotoxicity.
 
 === NARANJO QUESTIONS & DECISION RULES ===
 
@@ -167,7 +166,6 @@ function createNaranjoPrompt(patientData) {
         drugs: patientData.drugs || [],
         iciDrugs: patientData.iciDrugs || [],
         toxicDrugs: patientData.toxicDrugs || [],
-        safeDrugs: patientData.safeDrugs || [],
         grades: patientData.grades || [],
         totalDays: patientData.totalDays || 0,
         drugTimeline: patientData.drugTimeline || {},
@@ -237,12 +235,6 @@ The ICI drug was given continuously without being stopped and restarted. Answer 
     }).join('\n');
     const toxicDrugsStr = toxicDrugs.length > 0
         ? toxicDrugsWithTimeline
-        : 'None';
-
-    // Format safe drugs (non-hepatotoxic medications) - just list, no timeline needed
-    const safeDrugs = sanitizedData.safeDrugs || [];
-    const safeDrugsStr = safeDrugs.length > 0
-        ? safeDrugs.join(', ')
         : 'None';
 
     // Pre-compute event day and sorted grades for HELPER data
@@ -439,9 +431,6 @@ ${gradeEvents}
 TOXIC MEDICATIONS (potential hepatotoxic - consider for Q5 alternative causes):
 ${toxicDrugsStr}
 (Total: ${toxicDrugs.length} toxic drugs)
-
-SAFE MEDICATIONS (non-hepatotoxic):
-${safeDrugsStr}
 
 TOTAL DURATION: ${sanitizedData.totalDays} days
 ${q3Helper}
