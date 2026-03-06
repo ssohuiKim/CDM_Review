@@ -365,8 +365,8 @@
 
             for (let p = 0; p < existingPeriods.length; p++) {
               const period = existingPeriods[p];
-              // If within 14 days of existing period, merge them
-              if (startDay <= period.end + 14 && endDay >= period.start - 14) {
+              // If within 5 days of existing period, merge them
+              if (startDay <= period.end + 5 && endDay >= period.start - 5) {
                 period.start = Math.min(period.start, startDay);
                 period.end = Math.max(period.end, endDay);
                 period.startDate = startDay < period.start ? exposureDate : period.startDate;

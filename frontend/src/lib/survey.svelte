@@ -477,7 +477,7 @@
             let periodEnd = days[0];
 
             for (let i = 1; i < days.length; i++) {
-                if (days[i] - periodEnd > 14) {
+                if (days[i] - periodEnd > 5) {
                     periods.push({ start: periodStart, end: periodEnd });
                     periodStart = days[i];
                 }
