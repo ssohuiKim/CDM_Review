@@ -222,7 +222,6 @@
                 return;
             }
 
-            const allDrugs = [...new Set(records.map(r => r.drug_name).filter(Boolean))];
             const chartData = $chartComputedData;
             const classification = $drugClassification;
 
@@ -241,20 +240,6 @@
                 : {};
 
             const totalDays = chartData.totalDays || Math.max(...records.map(r => r.day_num || 0));
-
-            const drugTimeline = {};
-            records.forEach(r => {
-                const dayNum = r.day_num || 0;
-                const drugName = r.drug_name;
-                if (drugName) {
-                    if (!drugTimeline[drugName]) {
-                        drugTimeline[drugName] = { startDay: dayNum, endDay: dayNum, isICI: !!r.ICI_lasting };
-                    } else {
-                        drugTimeline[drugName].endDay = Math.max(drugTimeline[drugName].endDay, dayNum);
-                        drugTimeline[drugName].startDay = Math.min(drugTimeline[drugName].startDay, dayNum);
-                    }
-                }
-            });
 
             const toxicDrugs = classification.toxic || [];
             const safeDrugSet = new Set(classification.safe || []);
@@ -290,22 +275,10 @@
                 toxicExposurePeriods[drugName] = periods;
             }
 
-            // ICI와 toxic에 해당하는 약물만 포함 (safe 제외)
-            const relevantDrugs = allDrugs.filter(d => !safeDrugSet.has(d));
-            const relevantDrugTimeline = {};
-            for (const [drug, timeline] of Object.entries(drugTimeline)) {
-                if (!safeDrugSet.has(drug)) {
-                    relevantDrugTimeline[drug] = timeline;
-                }
-            }
-
             const aiPatientData = {
-                drugs: relevantDrugs,
                 iciDrugs,
                 toxicDrugs,
-                grades: [...new Set(records.map(r => r.grade).filter(g => g !== null && g !== undefined && g !== "-1"))],
                 totalDays,
-                drugTimeline: relevantDrugTimeline,
                 iciExposurePeriods,
                 toxicExposurePeriods,
                 gradeChanges,
