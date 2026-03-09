@@ -25,7 +25,7 @@ export const OLLAMA_CONFIG = {
 
     // Generation parameters
     temperature: 0.7,
-    maxTokens: 2000,
+    maxTokens: 32768,
     topP: 0.95,
 
     // Timeout in milliseconds

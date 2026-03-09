@@ -45,17 +45,15 @@ Q1 (Time interval plausibility): Is the time between ICI drug administration and
   If insufficient data = Unknown.
 
 Q2 (Alternative causes): Can underlying disease or concomitant medications sufficiently explain the adverse event?
-- Focus on the hepatotoxicity EVENT: the first time grade reaches >= 3 (severe). If no grade >= 3 exists, use the first grade increase above 0.
-- IMPORTANT FOR Q2: Consider ALL ICI exposure periods. Do NOT only look at Period 1.
-- Use the Q2 HELPER data which provides pre-computed distances. USE these values directly — do NOT recalculate.
-- The Q2 HELPER shows whether the event occurred DURING drug administration or AFTER it, with pre-computed distances.
+- IMPORTANT: Evaluate ALL hepatotoxicity events (every grade > 0 occurrence), not just the first one.
+- Use the Q2 HELPER data which provides pre-computed distances for EACH event. USE these values directly — do NOT recalculate.
+- The Q2 HELPER shows whether each event occurred DURING drug administration or AFTER it, with pre-computed distances.
 - Decision (use Q2 HELPER directly):
-  If BOTH ICI and a toxic drug were being administered when the event occurred (both distance = 0) = YES (alternative cause equally plausible).
-  If a toxic drug's distance to event is SMALLER than or SIMILAR to the ICI drug's distance = YES (alternative cause plausible).
-  If the ICI drug's distance to event is SIGNIFICANTLY smaller than ALL toxic drugs = NO (ICI is clearly the closest cause).
+  If ANY event has a toxic drug with distance ≤ ICI distance + 7 days = YES (alternative cause plausible for at least one event).
   If no toxic drugs exist = NO.
+  If ALL events show ICI distance significantly smaller than all toxic drugs = NO.
   If timing data is insufficient to compare = Unknown.
-- NOTE: "Similar" means within approximately 7 days. "Significantly smaller" means at least 14 days difference.
+- Check the OVERALL SUMMARY in Q2 HELPER for the final pre-computed conclusion.
 
 Q3 (Dechallenge - improvement on discontinuation): Was there improvement when ICI was discontinued?
 - Use the Q3 HELPER data which defines the exact evaluation windows and pre-computed results.
@@ -74,17 +72,19 @@ Q3 (Dechallenge - improvement on discontinuation): Was there improvement when IC
   2. If at least one window has grade data AND all such windows show NOT IMPROVED = NO. Stop here.
   3. If all windows are UNEVALUABLE (no event in period, or no grade data in window) = Unknown. Stop here.
 - CRITICAL: You can ONLY answer NO when an event occurred during the period AND grade data in the window shows no decrease.
+- Check the OVERALL CONCLUSION in Q3 HELPER for the final pre-computed answer.
 
 Q4 (Rechallenge): Did the adverse event recur upon re-administration?
 - NOTE: Q4 has its OWN rules independent from Q2 and Q3.
 - If NOT re-administered (single exposure period only) = Unknown.
 - If re-administered (multiple exposure periods), use the Q4 HELPER which shows which periods had events (grade > 0).
 - "Recur" means: the adverse event must have appeared in an earlier period AND appeared again in a later period.
-- Decision:
+- Per-drug decision:
     - If 2 or more periods had events = YES (event appeared and recurred after re-administration).
     - If event occurred in an earlier period but NOT in any later period = NO (event did not recur).
     - If event only occurred in the last period (no prior event) or no events at all = Unknown.
 - CRITICAL: "No prior event" means you CANNOT determine rechallenge effect. Answer MUST be Unknown, NEVER No. You can ONLY answer No when an earlier period HAD an event but a later period did NOT.
+- MULTIPLE ICI DRUGS: If multiple ICI drugs exist, evaluate each separately. The OVERALL answer follows priority: YES > NO > Unknown. If ANY drug shows YES → overall YES. Check the Q4 HELPER OVERALL CONCLUSION.
 
 === OUTPUT FORMAT (Chain-of-Thought) ===
 IMPORTANT: Write reasoning FIRST, then derive the answer from your reasoning.
@@ -197,40 +197,32 @@ function createWhoUmcPrompt(patientData) {
         }
     });
 
-    // Q2 HELPER: Pre-compute most recent ICI dose and event day
-    // Find event day (first grade >= 3, or first grade > 0)
-    let eventDay = null;
-    const sortedGrades = [...sanitizedData.gradeChanges].sort((a, b) => a.day - b.day);
-    const severeGrade = sortedGrades.find(g => g.grade >= 3);
-    if (severeGrade) {
-        eventDay = severeGrade.day;
-    } else {
-        const firstIncrease = sortedGrades.find(g => g.grade > 0);
-        if (firstIncrease) eventDay = firstIncrease.day;
-    }
-
     // Q2 HELPER: Pre-compute temporal proximity for alternative causes
+    // Find ALL event days (all grade > 0 occurrences)
+    const sortedGrades = [...sanitizedData.gradeChanges].sort((a, b) => a.day - b.day);
+    const allEventDays = sortedGrades.filter(g => g.grade > 0);
+
     // Helper function: check if event occurred during drug administration
     function getDrugEventRelation(drug, evDay, useExposurePeriods) {
         const periods = useExposurePeriods ? sanitizedData.toxicExposurePeriods[drug] : sanitizedData.iciExposurePeriods[drug];
         if (periods && periods.length > 0) {
             // Check if event occurred DURING any administration period
             for (const p of periods) {
-                if (p.start <= evDay && p.end >= evDay) {
+                if (Number(p.start) <= evDay && Number(p.end) >= evDay) {
                     return { distance: 0, duringAdmin: true, period: p };
                 }
             }
             // Event occurred after administration — find closest period that ended before event
             let closestEnd = null;
             for (const p of periods) {
-                if (p.end < evDay) {
-                    if (closestEnd === null || p.end > closestEnd.end) {
+                if (Number(p.end) < evDay) {
+                    if (closestEnd === null || Number(p.end) > Number(closestEnd.end)) {
                         closestEnd = p;
                     }
                 }
             }
             if (closestEnd) {
-                return { distance: evDay - closestEnd.end, duringAdmin: false, period: closestEnd };
+                return { distance: evDay - Number(closestEnd.end), duringAdmin: false, period: closestEnd };
             }
             return null;
         }
@@ -248,121 +240,170 @@ function createWhoUmcPrompt(patientData) {
         return null;
     }
 
-    // Find ICI drug relation to event
-    let iciRelation = null;
-    let iciDrugName = null;
-    sanitizedData.iciDrugs.forEach(drug => {
-        const rel = getDrugEventRelation(drug, eventDay, false);
-        if (rel && (iciRelation === null || rel.distance < iciRelation.distance)) {
-            iciRelation = rel;
-            iciDrugName = drug;
-        }
-    });
-
-    // Build Q2 helper string
+    // Build Q2 helper string — evaluate ALL event days
     let q2Helper = '';
-    if (eventDay !== null && iciRelation !== null) {
-        q2Helper = `\nQ2 HELPER (pre-computed — use these directly, do NOT recalculate):
-- Event day (first grade >= 3): Day ${eventDay}`;
+    if (allEventDays.length > 0 && toxicDrugs.length > 0) {
+        q2Helper = `\nQ2 HELPER (pre-computed — use these directly, do NOT recalculate):`;
+        q2Helper += `\n- Total events found: ${allEventDays.length} (all grade > 0 occurrences)`;
 
-        // ICI relation
-        if (iciRelation.duringAdmin) {
-            q2Helper += `\n- ICI (${iciDrugName}): Event occurred DURING administration (Day ${iciRelation.period.start}~${iciRelation.period.end}) → distance = 0 days`;
-        } else {
-            q2Helper += `\n- ICI (${iciDrugName}): Administration ended Day ${iciRelation.period.end}, event on Day ${eventDay} → distance = ${iciRelation.distance} days after last dose`;
-        }
+        let anyAlternativePlausible = false;
 
-        // Toxic drug relations
-        toxicDrugs.forEach(drug => {
-            const rel = getDrugEventRelation(drug, eventDay, true);
-            if (rel) {
-                if (rel.duringAdmin) {
-                    q2Helper += `\n- ${drug}: Event occurred DURING administration (Day ${rel.period.start}~${rel.period.end}) → distance = 0 days`;
+        allEventDays.forEach((event, idx) => {
+            const evDay = event.day;
+            q2Helper += `\n\n  [Event ${idx + 1}] Day ${evDay} (Grade ${event.grade}):`;
+
+            // Find closest ICI relation for this event
+            let iciRelation = null;
+            let iciDrugName = null;
+            sanitizedData.iciDrugs.forEach(drug => {
+                const rel = getDrugEventRelation(drug, evDay, false);
+                if (rel && (iciRelation === null || rel.distance < iciRelation.distance)) {
+                    iciRelation = rel;
+                    iciDrugName = drug;
+                }
+            });
+
+            if (iciRelation) {
+                if (iciRelation.duringAdmin) {
+                    q2Helper += `\n    ICI (${iciDrugName}): DURING administration (Day ${iciRelation.period.start}~${iciRelation.period.end}) → distance = 0 days`;
                 } else {
-                    q2Helper += `\n- ${drug}: Administration ended Day ${rel.period.end}, event on Day ${eventDay} → distance = ${rel.distance} days after last dose`;
+                    q2Helper += `\n    ICI (${iciDrugName}): ended Day ${iciRelation.period.end} → distance = ${iciRelation.distance} days`;
                 }
             } else {
-                q2Helper += `\n- ${drug}: not administered before event`;
+                q2Helper += `\n    ICI: not administered before this event`;
             }
+
+            // Toxic drug relations for this event
+            toxicDrugs.forEach(drug => {
+                const rel = getDrugEventRelation(drug, evDay, true);
+                if (rel) {
+                    if (rel.duringAdmin) {
+                        q2Helper += `\n    ${drug}: DURING administration (Day ${rel.period.start}~${rel.period.end}) → distance = 0 days`;
+                    } else {
+                        q2Helper += `\n    ${drug}: ended Day ${rel.period.end} → distance = ${rel.distance} days`;
+                    }
+                    // Check if this toxic drug is a plausible alternative for this event
+                    if (iciRelation) {
+                        if (rel.distance <= iciRelation.distance + 7) {
+                            anyAlternativePlausible = true;
+                            q2Helper += ` ← ALTERNATIVE PLAUSIBLE (toxic distance ≤ ICI distance + 7)`;
+                        }
+                    }
+                }
+            });
         });
 
-        // Summary
-        q2Helper += `\n- SUMMARY: ICI distance = ${iciRelation.distance} days`;
-        const toxicDistances = [];
-        toxicDrugs.forEach(drug => {
-            const rel = getDrugEventRelation(drug, eventDay, true);
-            if (rel) {
-                toxicDistances.push(`${drug} = ${rel.distance} days`);
-            }
-        });
-        if (toxicDistances.length > 0) {
-            q2Helper += `, Toxic distances: ${toxicDistances.join(', ')}`;
-        }
+        // Overall summary
+        q2Helper += `\n\n- OVERALL SUMMARY: ${anyAlternativePlausible ? 'At least one event has a plausible alternative cause → YES' : 'No event has a plausible alternative cause → NO'}`;
+    } else if (allEventDays.length > 0 && toxicDrugs.length === 0) {
+        q2Helper = `\nQ2 HELPER: No toxic drugs exist → NO alternative causes`;
     }
 
     // Q3 HELPER: Pre-compute dechallenge evaluation windows for each period gap
     // Use allGradeData (not deduplicated) to check for measurements in windows
     const allGrades = sanitizedData.allGradeData;
     let q3Helper = '';
+    const q3WindowResults = []; // Track per-window results for overall conclusion
     sanitizedData.iciDrugs.forEach(drug => {
         const periods = sanitizedData.iciExposurePeriods[drug];
-        if (periods && periods.length > 0) {
-            q3Helper += `\nQ3 HELPER (pre-computed — use these windows for Q3):`;
-            for (let i = 0; i < periods.length; i++) {
-                const period = periods[i];
-                const windowStart = period.end + 5;
-                const windowEnd = (i + 1 < periods.length) ? periods[i + 1].start - 1 : sanitizedData.totalDays;
-                const windowLength = windowEnd - windowStart;
-                const windowLabel = `Period ${i + 1} dechallenge window`;
+        if (!periods || periods.length === 0) return;
 
-                if (windowStart > windowEnd) {
-                    q3Helper += `\n- ${drug} ${windowLabel}: NO WINDOW — UNEVALUABLE (Period ${i + 1} end Day ${period.end} → Period ${i + 2} start Day ${periods[i + 1]?.start || 'N/A'}, no gap)`;
-                    continue;
-                }
+        let unevaluableCount = 0;
+        let evaluableDetails = [];
 
-                // Check if event (grade > 0) occurred during this period
-                const eventsInPeriod = allGrades.filter(g => g.day >= period.start && g.day <= period.end && g.grade > 0);
-                if (eventsInPeriod.length === 0) {
-                    q3Helper += `\n- ${drug} ${windowLabel}: No event (grade > 0) during Period ${i + 1} → UNEVALUABLE`;
-                    continue;
-                }
+        for (let i = 0; i < periods.length; i++) {
+            const period = periods[i];
+            const pStart = Number(period.start);
+            const pEnd = Number(period.end);
+            const windowStart = pEnd + 5;
+            const windowEnd = (i + 1 < periods.length) ? Number(periods[i + 1].start) - 1 : sanitizedData.totalDays;
+            const windowLength = windowEnd - windowStart;
 
-                if (windowLength <= 10) {
-                    q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (${windowLength} days) — TOO SHORT (≤10 days) → UNEVALUABLE`;
-                    continue;
-                }
+            if (windowStart > windowEnd) {
+                unevaluableCount++;
+                q3WindowResults.push('UNEVALUABLE');
+                continue;
+            }
 
-                q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (${windowLength} days)`;
-
-                // Use allGradeData (includes all measurements, not deduplicated) for window check
-                const allGradesInWindow = allGrades.filter(g => g.day >= windowStart && g.day <= windowEnd);
-                const gradeBeforeWindow = sortedGrades.filter(g => g.day <= period.end).sort((a, b) => b.day - a.day)[0];
-
-                if (allGradesInWindow.length > 0) {
-                    const gradeList = allGradesInWindow.map(g => `Day ${g.day}: Grade ${g.grade}`).join(', ');
-                    q3Helper += `\n  Grades in window: ${gradeList}`;
-                    const lastInWindow = allGradesInWindow[allGradesInWindow.length - 1];
-                    if (gradeBeforeWindow) {
-                        q3Helper += `\n  Grade at period end: Day ${gradeBeforeWindow.day} Grade ${gradeBeforeWindow.grade}`;
-                        if (lastInWindow.grade < gradeBeforeWindow.grade) {
-                            q3Helper += `\n  *** IMPROVED: Grade decreased from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} → YES ***`;
-                        } else if (lastInWindow.grade > gradeBeforeWindow.grade) {
-                            q3Helper += `\n  NOT IMPROVED: Grade worsened from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} → NO`;
-                        } else {
-                            q3Helper += `\n  NOT IMPROVED: Grade unchanged at ${gradeBeforeWindow.grade} → NO`;
-                        }
-                    }
+            // Check if event (grade > 0) occurred during the continuous treatment block
+            let blockStart = pStart;
+            for (let j = i - 1; j >= 0; j--) {
+                const prevEnd = Number(periods[j].end);
+                const nextStart = Number(periods[j + 1].start);
+                if (prevEnd + 5 > nextStart - 1) {
+                    blockStart = Number(periods[j].start);
                 } else {
-                    q3Helper += `\n  *** NO GRADE DATA in this window — UNEVALUABLE (cannot determine improvement or worsening) ***`;
+                    break;
                 }
             }
+            const eventsInBlock = allGrades.filter(g => g.day >= blockStart && g.day <= pEnd && g.grade > 0);
+            if (eventsInBlock.length === 0) {
+                unevaluableCount++;
+                q3WindowResults.push('UNEVALUABLE');
+                continue;
+            }
+
+            if (windowLength <= 10) {
+                unevaluableCount++;
+                q3WindowResults.push('UNEVALUABLE');
+                continue;
+            }
+
+            // This window is evaluable — collect details
+            let detail = `- ${drug} Period ${i + 1} dechallenge window: Day ${windowStart} to Day ${windowEnd} (${windowLength} days)`;
+
+            const allGradesInWindow = allGrades.filter(g => g.day >= windowStart && g.day <= windowEnd);
+            const gradeBeforeWindow = sortedGrades.filter(g => g.day <= pEnd).sort((a, b) => b.day - a.day)[0];
+
+            if (allGradesInWindow.length > 0) {
+                const gradeList = allGradesInWindow.map(g => `Day ${g.day}: Grade ${g.grade}`).join(', ');
+                detail += `\n  Grades in window: ${gradeList}`;
+                const lastInWindow = allGradesInWindow[allGradesInWindow.length - 1];
+                if (gradeBeforeWindow) {
+                    detail += `\n  Grade at period end: Day ${gradeBeforeWindow.day} Grade ${gradeBeforeWindow.grade}`;
+                    if (lastInWindow.grade < gradeBeforeWindow.grade) {
+                        detail += `\n  *** IMPROVED: Grade decreased from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} → YES ***`;
+                        q3WindowResults.push('YES');
+                    } else if (lastInWindow.grade > gradeBeforeWindow.grade) {
+                        detail += `\n  NOT IMPROVED: Grade worsened from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} → NO`;
+                        q3WindowResults.push('NO');
+                    } else {
+                        detail += `\n  NOT IMPROVED: Grade unchanged at ${gradeBeforeWindow.grade} → NO`;
+                        q3WindowResults.push('NO');
+                    }
+                } else {
+                    q3WindowResults.push('UNEVALUABLE');
+                }
+            } else {
+                detail += `\n  NO GRADE DATA in this window → UNEVALUABLE`;
+                q3WindowResults.push('UNEVALUABLE');
+            }
+            evaluableDetails.push(detail);
+        }
+
+        // Build concise output: summary of unevaluable + details of evaluable only
+        q3Helper += `\nQ3 HELPER (pre-computed — use these windows for Q3):`;
+        q3Helper += `\n${drug}: ${periods.length} periods total.`;
+        if (unevaluableCount > 0) {
+            q3Helper += ` ${unevaluableCount} periods have no evaluable dechallenge window (no gap or too short).`;
+        }
+        if (evaluableDetails.length > 0) {
+            q3Helper += `\nEvaluable windows:\n${evaluableDetails.join('\n')}`;
+        } else {
+            q3Helper += `\nNo evaluable dechallenge windows found.`;
         }
     });
+    // Add OVERALL CONCLUSION to Q3 HELPER
+    const overallQ3 = q3WindowResults.includes('YES') ? 'YES' : q3WindowResults.includes('NO') ? 'NO' : 'Unknown';
+    if (q3Helper) {
+        q3Helper += `\n\n- OVERALL CONCLUSION: ${overallQ3} (Priority: YES if any window improved > NO if any window has data but not improved > Unknown if all unevaluable)`;
+    }
 
     // Q4 HELPER: Pre-compute rechallenge evaluation using iciExposurePeriods (pre-split by dose days)
     let q4Helper = '';
-    if (hasRechallenge && eventDay !== null) {
+    if (hasRechallenge && allEventDays.length > 0) {
         q4Helper = `\nQ4 HELPER (pre-computed — use these values for Q4):`;
+        const q4DrugResults = [];
         sanitizedData.iciDrugs.forEach(drug => {
             const periods = sanitizedData.iciExposurePeriods[drug];
             if (!periods || periods.length < 2) return;
@@ -380,17 +421,23 @@ function createWhoUmcPrompt(patientData) {
             const periodsWithEvent = periodResults.filter(pe => pe.hasEvent);
             if (periodsWithEvent.length >= 2) {
                 q4Helper += `\n  *** Events in ${periodsWithEvent.length} periods (${periodsWithEvent.map(pe => `Period ${pe.period}`).join(', ')}) → YES ***`;
+                q4DrugResults.push('YES');
             } else if (periodsWithEvent.length === 1) {
                 const eventIdx = periodResults.indexOf(periodsWithEvent[0]);
                 if (eventIdx < periodResults.length - 1) {
                     q4Helper += `\n  Event in Period ${periodsWithEvent[0].period} but NOT in later periods → NO`;
+                    q4DrugResults.push('NO');
                 } else {
                     q4Helper += `\n  *** Event only in last period (Period ${periodsWithEvent[0].period}), NO prior event → ANSWER: Unknown (NOT No — cannot determine rechallenge without prior event) ***`;
+                    q4DrugResults.push('Unknown');
                 }
             } else {
                 q4Helper += `\n  *** No events in any period → ANSWER: Unknown ***`;
+                q4DrugResults.push('Unknown');
             }
         });
+        const overallQ4 = q4DrugResults.includes('YES') ? 'YES' : q4DrugResults.includes('NO') ? 'NO' : 'Unknown';
+        q4Helper += `\n\n- OVERALL CONCLUSION: ${overallQ4}${q4DrugResults.length > 1 ? ` (priority: YES > NO > Unknown across ${q4DrugResults.length} drugs)` : ''}`;
     }
 
     return `=== PATIENT DATA ===
