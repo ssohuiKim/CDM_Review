@@ -866,7 +866,7 @@
 								<DrugChart bind:dynamicMarginRight bind:minWidth {selectedPatient} {patientData} />
 							</div>
 							<div class="overlap">
-								<HoverBox {selectedPatient} {patientData} {minWidth} />
+								<HoverBox {selectedPatient} {patientData} {minWidth} {dynamicMarginRight} />
 							</div>
 						{:else}
 							<p>Please select a patient to view their data.</p>

@@ -275,11 +275,53 @@
                 toxicExposurePeriods[drugName] = periods;
             }
 
+            // Extract individual ICI dose days to split iciExposurePeriods
+            const iciDoseDays = {};
+            records.forEach(r => {
+                if (r.ICI_lasting && r.drug_name && r.day_num != null) {
+                    const name = r.drug_name;
+                    if (!iciDoseDays[name]) iciDoseDays[name] = new Set();
+                    iciDoseDays[name].add(Number(r.day_num));
+                }
+            });
+            Object.keys(iciDoseDays).forEach(drug => {
+                iciDoseDays[drug] = [...iciDoseDays[drug]].sort((a, b) => a - b);
+            });
+
+            // Split iciExposurePeriods by individual dose days
+            // Build case-insensitive lookup for iciDoseDays
+            const iciDoseDaysLower = {};
+            Object.keys(iciDoseDays).forEach(key => {
+                iciDoseDaysLower[key.toLowerCase()] = iciDoseDays[key];
+            });
+            const splitIciExposurePeriods = {};
+            for (const [drug, periods] of Object.entries(iciExposurePeriods)) {
+                const doses = iciDoseDaysLower[drug.toLowerCase()];
+                if (!doses || doses.length <= 1) {
+                    splitIciExposurePeriods[drug] = periods;
+                    continue;
+                }
+                const newPeriods = [];
+                for (const period of periods) {
+                    const dosesInPeriod = doses.filter(d => d >= period.start && d <= period.end);
+                    if (dosesInPeriod.length <= 1) {
+                        newPeriods.push(period);
+                        continue;
+                    }
+                    for (let i = 0; i < dosesInPeriod.length; i++) {
+                        const subStart = dosesInPeriod[i];
+                        const subEnd = (i + 1 < dosesInPeriod.length) ? dosesInPeriod[i + 1] - 1 : period.end;
+                        newPeriods.push({ start: subStart, end: subEnd });
+                    }
+                }
+                splitIciExposurePeriods[drug] = newPeriods;
+            }
+
             const aiPatientData = {
                 iciDrugs,
                 toxicDrugs,
                 totalDays,
-                iciExposurePeriods,
+                iciExposurePeriods: splitIciExposurePeriods,
                 toxicExposurePeriods,
                 gradeChanges,
                 allGradeData

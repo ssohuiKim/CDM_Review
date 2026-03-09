@@ -6,6 +6,7 @@
   export let selectedPatient;
   export let patientData;
   export let minWidth = 700; // DrugChart에서 계산된 최소 너비 값
+  export let dynamicMarginRight = 120; // DrugChart에서 전달받는 margin 값
 
   let isDataInitialized = false;
   let new_drug_exposure_date = [],
@@ -29,7 +30,6 @@
     ICI_lasting_end,
     drug_exposure_date_end;
   let drug_dose = [];
-  let dynamicMargin2 = 120; // 동적으로 계산될 값
 
   const ICI = ["Atezolizumab", "Nivolumab", "Pembrolizumab", "Ipilimumab"];
 
@@ -54,7 +54,7 @@
     if (selectedPatient && patientData[selectedPatient]) {
       const data = patientData[selectedPatient];
       new_drug_exposure_date = data.map(row => row.new_drug_exposure_date || row.measurement_date);
-      days = data.map(row => Number(row.day_num) || 0);
+      days = data.map(row => Number(row.day_num) || 1);
       day_num = Array.from(new Set(days));
       drug_concept_id = data.map(row => row.drug_concept_id || 0);
       drug_dose = data.map(row => row.drug_name_dose || '');
@@ -101,34 +101,11 @@
         safe = safe.map(drug => drug.toLowerCase());
         safe_id = [...new Set(safeID.filter(drug => drug !== "0"))];
         
-        // 약물명 길이를 기준으로 동적 margin 계산
-        calculateDynamicMargin();
-        
         resolve();
       };
     });
   }
 
-  // 약물명의 최대 길이를 기준으로 동적 margin 계산
-  function calculateDynamicMargin() {
-    const allDrugNames = [...toxic, ...safe, ...ICI];
-    
-    // 임시 캔버스를 생성하여 텍스트 폭 측정
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d');
-    tempCtx.font = '12px Arial';
-    
-    let maxWidth = 0;
-    allDrugNames.forEach(drugName => {
-      const textWidth = tempCtx.measureText(drugName).width;
-      if (textWidth > maxWidth) {
-        maxWidth = textWidth;
-      }
-    });
-    
-    // 최소 120px, 최대 300px로 제한하고 여유공간 20px 추가
-    dynamicMargin2 = Math.max(120, Math.min(300, maxWidth + 20));
-  }
 
   function draw() {
     if (canvas && canvas.getContext) {
@@ -271,7 +248,7 @@
           const ratioSafe  = safeCount / total;
           const ratioToxic = toxCount  / total;
 
-          const x = dynamicMargin2 + i * (boxWidth + spacingX);
+          const x = dynamicMarginRight + i * (boxWidth + spacingX);
           const safeY = ratio_start + 50 - ratioSafe * 50;
 
           ctx.fillStyle = "#4CAF50";
@@ -297,7 +274,7 @@
           const dateIndex = days[i];
 
           if (toxic_id.includes(drug_id)) {
-            const x = dynamicMargin2 + (dateIndex - 1) * (boxWidth + spacingX);
+            const x = dynamicMarginRight + (dateIndex - 1) * (boxWidth + spacingX);
             const y = toxic_start + toxicIndex * (boxHeight + spacingY);
             ctx.fillStyle = "#1E88E5";
             ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -312,7 +289,7 @@
           const dateIndex = days[i];
 
           if (safe.includes(drugName)) {
-            const x = dynamicMargin2 + (dateIndex - 1) * (boxWidth + spacingX);
+            const x = dynamicMarginRight + (dateIndex - 1) * (boxWidth + spacingX);
             const y = safe_start + safe.indexOf(drugName) * (boxHeight + spacingY);
             ctx.fillStyle = "#4CAF50";
             ctx.fillRect(x, y, boxWidth, boxHeight);
@@ -334,7 +311,7 @@
           const g = grade[i];
           const d = days[i];
           if (g !== "-1" && g !== null && g !== undefined) {
-            const x = dynamicMargin2 + (d - 1) * (boxWidth + spacingX);
+            const x = dynamicMarginRight + (d - 1) * (boxWidth + spacingX);
             const color = gradeColors[String(g)] || '#A0A0A0';
             gradeBoxes.push({ x, y: grade_start, width: boxWidth, height: gradeHeight, grade: g, color });
           }
@@ -373,7 +350,7 @@
 
           // 비율 차트 영역 확인 (ratio_start부터 ratio_start + 50까지)
           if (mouseY >= ratio_start && mouseY <= ratio_start + 50) {
-            const dayIndex = Math.floor((mouseX - dynamicMargin2) / (boxWidth + spacingX)) + 1;
+            const dayIndex = Math.floor((mouseX - dynamicMarginRight) / (boxWidth + spacingX)) + 1;
             if (dayIndex >= 1 && dayIndex <= day) {
               const dailyRatio = calculateDailyRatio(dayIndex);
               const cumulativeRatio = calculateCumulative7DayRatio(dayIndex);
@@ -507,7 +484,7 @@
   function adjustCanvasWidth() {
     const boxWidth = 5;
     const spacingX = 2;
-    const newWidth = Math.max(minWidth, 33 + day * (boxWidth + spacingX) + dynamicMargin2);
+    const newWidth = Math.max(minWidth, 33 + day * (boxWidth + spacingX) + dynamicMarginRight);
     canvas.width = newWidth;
     canvas.style.width = `${newWidth}px`;
   }

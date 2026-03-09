@@ -103,30 +103,32 @@ const SYSTEM_PROMPT = `You are a clinical pharmacology expert analyzing drug-ind
 
 Q3 (Dechallenge - improvement on discontinuation): Did the adverse reaction improve when the drug was discontinued?
 - Use the Q3 HELPER data which defines the exact evaluation windows and pre-computed results.
-- For EACH ICI exposure period, there is a specific "dechallenge evaluation window":
+- PREREQUISITE: An adverse event (grade > 0) must have occurred DURING the ICI exposure period to evaluate dechallenge.
+  If no event occurred during a period, that period's dechallenge is UNEVALUABLE.
+- For EACH ICI exposure period where an event occurred, there is a "dechallenge evaluation window":
   Window = (period END + 5 days) to (next period START - 1 day), or to end of data if no next period.
-  If the window length is 14 days or less, the period is TOO SHORT to evaluate dechallenge effect → UNEVALUABLE.
+  If the window length is 10 days or less, the period is TOO SHORT to evaluate dechallenge effect → UNEVALUABLE.
 - Steps for each window:
-  Step 1: Check Q3 HELPER. If window is TOO SHORT (≤14 days) or has no grade data → UNEVALUABLE.
+  Step 1: Check Q3 HELPER. If no event in period, window TOO SHORT (≤10 days), or no grade data in window → UNEVALUABLE.
   Step 2: If grades exist in window, compare with grade at period end (provided in Q3 HELPER).
   Step 3: If grade in window is LOWER than grade at period end = IMPROVED.
   Step 4: If grade in window is HIGHER than or EQUAL to grade at period end = NOT IMPROVED.
 - Decision (FOLLOW STRICTLY — check in this exact order):
-  1. If ANY window shows IMPROVED (grade decreased) = YES. Stop here.
+  1. If ANY window shows IMPROVED (event in period + grade decreased in window) = YES. Stop here.
   2. If at least one window has grade data AND all such windows show NOT IMPROVED = NO. Stop here.
-  3. If NO window has any grade data (all windows are UNEVALUABLE) = Unknown. Stop here.
-- CRITICAL: You can ONLY answer NO when you have actual grade data showing no decrease. NO grade data = Unknown, NEVER No.
+  3. If all windows are UNEVALUABLE (no event in period, or no grade data in window) = Unknown. Stop here.
+- CRITICAL: You can ONLY answer NO when an event occurred during the period AND grade data in the window shows no decrease.
 
 Q4 (Rechallenge): Did the adverse reaction appear when the drug was re-administered?
-- NOTE: Q4 has its OWN rules independent from Q3 and Q5. Do NOT apply Q5's temporal proximity logic or Q3's dechallenge window logic here.
+- NOTE: Q4 has its OWN rules independent from Q3 and Q5.
 - If NOT re-administered (single exposure period only) = Unknown.
-- If re-administered (multiple exposure periods), use the Q4 HELPER data and follow these steps:
-  Step 1: Find the maximum grade BEFORE rechallenge (Period 1 + dechallenge gap) from Q4 HELPER.
-  Step 2: Check if any grade DURING or AFTER the rechallenge period is HIGHER than this pre-rechallenge max.
-  Step 3: Determine answer:
-    - If a higher grade than pre-rechallenge max appeared during or after rechallenge = YES (adverse event recurred).
-    - If grades exist during/after rechallenge but all are equal to or lower than pre-rechallenge max = NO.
-    - If no grade data exists during/after rechallenge = Unknown.
+- If re-administered (multiple exposure periods), use the Q4 HELPER which shows which periods had events (grade > 0).
+- "Recur" means: the adverse event must have appeared in an earlier period AND appeared again in a later period.
+- Decision:
+    - If 2 or more periods had events = YES (event appeared and recurred after re-administration).
+    - If event occurred in an earlier period but NOT in any later period = NO (event did not recur).
+    - If event only occurred in the last period (no prior event) or no events at all = Unknown.
+- CRITICAL: "No prior event" means you CANNOT determine rechallenge effect. Answer MUST be Unknown, NEVER No. You can ONLY answer No when an earlier period HAD an event but a later period did NOT.
 
 Q5 (Alternative causes): Are there alternative causes that could have caused the reaction?
 - Focus on the hepatotoxicity EVENT: the first time grade reaches >= 3 (severe). If no grade >= 3 exists, use the first grade increase above 0.
@@ -173,40 +175,28 @@ function createNaranjoPrompt(patientData) {
     };
 
     // Format ICI drug exposure with multiple periods (for rechallenge detection)
-    // Data now comes from DrugChart which calculates accurate effect duration
     let hasRechallenge = false;
     const iciEvents = sanitizedData.iciDrugs.map(drug => {
         const periods = sanitizedData.iciExposurePeriods[drug];
         if (periods && periods.length > 0) {
-            if (periods.length > 1) {
-                hasRechallenge = true;
-            }
+            if (periods.length > 1) hasRechallenge = true;
             const periodsStr = periods.map((p, i) => {
-                // Use dates if available (from DrugChart), otherwise just days
-                const dateInfo = p.startDate && p.endDate
-                    ? ` (${p.startDate} ~ ${p.endDate})`
-                    : '';
+                const dateInfo = p.startDate && p.endDate ? ` (${p.startDate} ~ ${p.endDate})` : '';
                 return `  Period ${i + 1}: Day ${p.start} to Day ${p.end}${dateInfo}`;
             }).join('\n');
             const rechallengeNote = periods.length > 1
-                ? ` *** RECHALLENGE: Drug was STOPPED after Period 1, then RE-ADMINISTERED in Period 2 ***`
+                ? ` *** RECHALLENGE: Drug was administered ${periods.length} times ***`
                 : '';
             return `- ${drug}:${rechallengeNote}\n${periodsStr}`;
         }
-        // Fallback to simple timeline
         const timeline = sanitizedData.drugTimeline[drug];
-        if (timeline) {
-            return `- ${drug}: Day ${timeline.startDay} to Day ${timeline.endDay}`;
-        }
+        if (timeline) return `- ${drug}: Day ${timeline.startDay} to Day ${timeline.endDay}`;
         return `- ${drug}: exposure period unknown`;
     }).join('\n') || '- No ICI drugs found';
 
-    // Add explicit rechallenge summary for Q4
     const rechallengeSummary = hasRechallenge
-        ? `\n\n*** IMPORTANT FOR Q4: RECHALLENGE OCCURRED ***
-The ICI drug was stopped and then re-administered. Check if hepatotoxicity grade increased after re-administration.`
-        : `\n\n*** FOR Q4: NO RECHALLENGE ***
-The ICI drug was given continuously without being stopped and restarted. Answer "Unknown" for Q4.`;
+        ? `\n\n*** RECHALLENGE OCCURRED: The ICI drug was administered multiple times. ***`
+        : `\n\n*** NO RECHALLENGE: The ICI drug was administered only once. ***`;
 
     // Format grade timeline as events
     const gradeEvents = sanitizedData.gradeChanges.length > 0
@@ -265,8 +255,15 @@ The ICI drug was given continuously without being stopped and restarted. Answer 
                     continue;
                 }
 
-                if (windowLength <= 14) {
-                    q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (${windowLength} days) — TOO SHORT (≤14 days) → UNEVALUABLE`;
+                // Check if event (grade > 0) occurred during this period
+                const eventsInPeriod = allGrades.filter(g => g.day >= period.start && g.day <= period.end && g.grade > 0);
+                if (eventsInPeriod.length === 0) {
+                    q3Helper += `\n- ${drug} ${windowLabel}: No event (grade > 0) during Period ${i + 1} → UNEVALUABLE`;
+                    continue;
+                }
+
+                if (windowLength <= 10) {
+                    q3Helper += `\n- ${drug} ${windowLabel}: Day ${windowStart} to Day ${windowEnd} (${windowLength} days) — TOO SHORT (≤10 days) → UNEVALUABLE`;
                     continue;
                 }
 
@@ -297,37 +294,36 @@ The ICI drug was given continuously without being stopped and restarted. Answer 
         }
     });
 
-    // Q4 HELPER: Pre-compute rechallenge grade comparison (pre-rechallenge max vs rechallenge period)
+    // Q4 HELPER: Pre-compute rechallenge evaluation using iciExposurePeriods (pre-split by dose days)
     let q4Helper = '';
     if (hasRechallenge && eventDay !== null) {
         q4Helper = `\nQ4 HELPER (pre-computed — use these values for Q4):`;
         sanitizedData.iciDrugs.forEach(drug => {
             const periods = sanitizedData.iciExposurePeriods[drug];
-            if (periods && periods.length > 1) {
-                for (let i = 1; i < periods.length; i++) {
-                    const rechallengePeriod = periods[i];
-                    // Max grade BEFORE this rechallenge (all periods + gaps before rechallenge start)
-                    const gradesBeforeRechallenge = allGrades.filter(g => g.day < rechallengePeriod.start);
-                    const maxGradeBefore = gradesBeforeRechallenge.length > 0 ? Math.max(...gradesBeforeRechallenge.map(g => g.grade)) : 0;
-                    q4Helper += `\n- ${drug} max grade before Period ${i + 1} (before Day ${rechallengePeriod.start}): ${maxGradeBefore}`;
-                    q4Helper += `\n- ${drug} Period ${i + 1} (Day ${rechallengePeriod.start}–${rechallengePeriod.end}):`;
+            if (!periods || periods.length < 2) return;
 
-                    // Find grades during or after this rechallenge period
-                    const gradesDuringOrAfter = allGrades.filter(g => g.day >= rechallengePeriod.start);
-                    if (gradesDuringOrAfter.length > 0) {
-                        const maxGradeAfter = Math.max(...gradesDuringOrAfter.map(g => g.grade));
-                        const higherGrades = gradesDuringOrAfter.filter(g => g.grade > maxGradeBefore);
-                        q4Helper += `\n  Max grade during/after Period ${i + 1}: ${maxGradeAfter}`;
-                        if (higherGrades.length > 0) {
-                            const first = higherGrades[0];
-                            q4Helper += `\n  *** Grade ${first.grade} on Day ${first.day} EXCEEDS pre-rechallenge max (${maxGradeBefore}) → YES ***`;
-                        } else {
-                            q4Helper += `\n  All grades ≤ pre-rechallenge max (${maxGradeBefore}) → NO`;
-                        }
-                    } else {
-                        q4Helper += `\n  No grade data during/after Period ${i + 1} → Unknown`;
-                    }
+            const periodResults = periods.map((period, idx) => {
+                const eventsInPeriod = allGrades.filter(g => g.day >= period.start && g.day <= period.end && g.grade > 0);
+                return { period: idx + 1, start: period.start, end: period.end, hasEvent: eventsInPeriod.length > 0, maxGrade: eventsInPeriod.length > 0 ? Math.max(...eventsInPeriod.map(g => g.grade)) : 0 };
+            });
+
+            q4Helper += `\n- ${drug}: ${periods.length} periods (rechallenge)`;
+            periodResults.forEach(pe => {
+                q4Helper += `\n  Period ${pe.period} (Day ${pe.start}–${pe.end}): ${pe.hasEvent ? `Event occurred (max grade ${pe.maxGrade})` : 'No event'}`;
+            });
+
+            const periodsWithEvent = periodResults.filter(pe => pe.hasEvent);
+            if (periodsWithEvent.length >= 2) {
+                q4Helper += `\n  *** Events in ${periodsWithEvent.length} periods (${periodsWithEvent.map(pe => `Period ${pe.period}`).join(', ')}) → YES ***`;
+            } else if (periodsWithEvent.length === 1) {
+                const eventIdx = periodResults.indexOf(periodsWithEvent[0]);
+                if (eventIdx < periodResults.length - 1) {
+                    q4Helper += `\n  Event in Period ${periodsWithEvent[0].period} but NOT in later periods → NO`;
+                } else {
+                    q4Helper += `\n  *** Event only in last period (Period ${periodsWithEvent[0].period}), NO prior event → ANSWER: Unknown (NOT No — cannot determine rechallenge without prior event) ***`;
                 }
+            } else {
+                q4Helper += `\n  *** No events in any period → ANSWER: Unknown ***`;
             }
         });
     }
