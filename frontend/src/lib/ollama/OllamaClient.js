@@ -519,6 +519,7 @@ export async function getNaranjoReasoning(patientData) {
 
     console.log('=== Full Generated Prompt ===');
     console.log(prompt);
+    console.log(`[PROMPT SIZE] ${prompt.length} chars (~${Math.ceil(prompt.length / 4)} tokens) + system prompt ~${Math.ceil(SYSTEM_PROMPT.length / 4)} tokens = ~${Math.ceil((prompt.length + SYSTEM_PROMPT.length) / 4)} total tokens`);
     console.log('=============================');
 
     const requestBody = {

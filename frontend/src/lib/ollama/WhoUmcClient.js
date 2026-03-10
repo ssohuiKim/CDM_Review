@@ -460,8 +460,9 @@ ${q3Helper}
 ${q4Helper}
 
 === TASK ===
-Based ONLY on the data above, answer all 4 WHO-UMC questions using the decision rules.
-Output JSON only.`;
+Based ONLY on the data above, answer all 4 WHO-UMC questions (Q1, Q2, Q3, Q4) using the decision rules.
+You MUST answer ALL 4 questions. Output JSON only in this exact format:
+{"answers":[{"question":1,"answer":"Yes/No/Unknown","reasoning":"...","confidence":"High/Medium/Low"},{"question":2,"answer":"...","reasoning":"...","confidence":"..."},{"question":3,"answer":"...","reasoning":"...","confidence":"..."},{"question":4,"answer":"...","reasoning":"...","confidence":"..."}]}`;
 }
 
 /**
@@ -479,6 +480,7 @@ export async function getWhoUmcReasoning(patientData) {
     const prompt = createWhoUmcPrompt(patientData);
     console.log('=== WHO-UMC Full Prompt ===');
     console.log(prompt);
+    console.log(`[PROMPT SIZE] ${prompt.length} chars (~${Math.ceil(prompt.length / 4)} tokens) + system prompt ~${Math.ceil(SYSTEM_PROMPT.length / 4)} tokens = ~${Math.ceil((prompt.length + SYSTEM_PROMPT.length) / 4)} total tokens`);
 
     const requestBody = {
         model: OLLAMA_CONFIG.model,
@@ -553,18 +555,36 @@ function parseWhoUmcResponse(response) {
         if (!jsonMatch) throw new Error('No JSON found in response');
 
         const parsed = JSON.parse(jsonMatch[0]);
+        console.log('[WHO-UMC PARSE] Raw parsed JSON keys:', Object.keys(parsed));
+        console.log('[WHO-UMC PARSE] Raw parsed JSON:', JSON.stringify(parsed).substring(0, 500));
 
         if (!parsed.answers || !Array.isArray(parsed.answers)) {
             throw new Error('Invalid response structure: missing answers array');
         }
 
+        console.log('[WHO-UMC PARSE] Raw answer question fields:', parsed.answers.map(a => ({ q: a.question, type: typeof a.question })));
+
         const expectedQuestions = [1, 2, 3, 4];
-        parsed.answers = parsed.answers
+
+        // Try standard mapping first
+        let mapped = parsed.answers
             .map(item => ({
                 ...item,
                 question: typeof item.question === 'string' ? parseInt(item.question, 10) : item.question
             }))
             .filter(item => item && expectedQuestions.includes(item.question));
+
+        // If standard mapping fails, use order-based mapping (AI returns correct order but wrong numbers)
+        if (mapped.length < expectedQuestions.length && parsed.answers.length >= expectedQuestions.length) {
+            console.warn('[WHO-UMC PARSE] Question numbers mismatch, using order-based mapping');
+            mapped = parsed.answers.slice(0, 4).map((item, idx) => ({
+                ...item,
+                question: idx + 1
+            }));
+        }
+
+        parsed.answers = mapped;
+        console.log('[WHO-UMC PARSE] Final mapped questions:', parsed.answers.map(a => a.question));
 
         // Q5 is always Yes (ICI-induced hepatotoxicity is well-documented)
         parsed.answers.push({
