@@ -112,7 +112,8 @@ Q3 (Dechallenge - improvement on discontinuation): Did the adverse reaction impr
   Step 1: Check Q3 HELPER. If no event in period, window TOO SHORT (≤10 days), or no grade data in window → UNEVALUABLE.
   Step 2: If grades exist in window, compare with grade at period end (provided in Q3 HELPER).
   Step 3: If grade in window is LOWER than grade at period end = IMPROVED.
-  Step 4: If grade in window is HIGHER than or EQUAL to grade at period end = NOT IMPROVED.
+  Step 4: SPECIAL CASE: If grade at period end is 0 AND grade in window is also 0 = IMPROVED (reaction resolved during treatment and sustained after dechallenge).
+  Step 5: If grade in window is HIGHER than or EQUAL to grade at period end (and not the 0→0 case above) = NOT IMPROVED.
 - Decision (FOLLOW STRICTLY — check in this exact order):
   1. If ANY window shows IMPROVED (event in period + grade decreased in window) = YES. Stop here.
   2. If at least one window has grade data AND all such windows show NOT IMPROVED = NO. Stop here.
@@ -286,6 +287,9 @@ function createNaranjoPrompt(patientData) {
                     } else if (lastInWindow.grade > gradeBeforeWindow.grade) {
                         detail += `\n  NOT IMPROVED: Grade worsened from ${gradeBeforeWindow.grade} to ${lastInWindow.grade} → NO`;
                         q3WindowResults.push('NO');
+                    } else if (Number(gradeBeforeWindow.grade) === 0 && Number(lastInWindow.grade) === 0) {
+                        detail += `\n  *** IMPROVED: Grade 0 maintained after dechallenge (resolved during treatment and sustained) → YES ***`;
+                        q3WindowResults.push('YES');
                     } else {
                         detail += `\n  NOT IMPROVED: Grade unchanged at ${gradeBeforeWindow.grade} → NO`;
                         q3WindowResults.push('NO');
