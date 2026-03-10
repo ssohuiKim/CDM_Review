@@ -93,6 +93,7 @@ const SYSTEM_PROMPT = `You are a clinical pharmacology expert analyzing drug-ind
 - DO NOT invent or fabricate any data
 - Use ONLY the exact days, grades, and drug names given in the patient data
 - If data is missing or unclear, answer "Unknown"
+- Keep each answer brief (2-3 sentences). You MUST answer ALL 3 questions (Q3, Q4, Q5).
 
 === INPUT DATA DESCRIPTION ===
 - ICI DRUG EXPOSURE: Immune checkpoint inhibitor drugs with exposure periods. Multiple periods = rechallenge (drug was stopped then restarted).
@@ -483,7 +484,9 @@ ${q5Helper}
 
 === TASK ===
 Based ONLY on the data above, answer Q3, Q4, Q5 using the decision rules.
-Output JSON only.`;
+You MUST answer ALL 3 questions. Keep reasoning brief (2-3 sentences each).
+Output JSON ONLY in this EXACT format:
+{"answers":[{"question":3,"reasoning":"...","answer":"Yes/No/Unknown","confidence":"..."},{"question":4,"reasoning":"...","answer":"Yes/No/Unknown","confidence":"..."},{"question":5,"reasoning":"...","answer":"Yes/No/Unknown","confidence":"..."}]}`;
 
     return prompt;
 }
@@ -691,7 +694,7 @@ function parseAIResponse(response) {
         // Validate we have the expected AI questions (3, 4, 5)
         // Note: Gemma model may return question as string ("3") instead of number (3)
         const expectedQuestions = [3, 4, 5];
-        parsed.answers = parsed.answers
+        let mapped = parsed.answers
             .map(item => ({
                 ...item,
                 question: typeof item.question === 'string' ? parseInt(item.question, 10) : item.question
@@ -699,6 +702,17 @@ function parseAIResponse(response) {
             .filter(item =>
                 item && expectedQuestions.includes(item.question)
             );
+
+        // If standard mapping fails, use order-based mapping (AI returns correct order but wrong numbers)
+        if (mapped.length < expectedQuestions.length && parsed.answers.length >= expectedQuestions.length) {
+            console.warn('[NARANJO PARSE] Question numbers mismatch, using order-based mapping');
+            mapped = parsed.answers.slice(0, 3).map((item, idx) => ({
+                ...item,
+                question: expectedQuestions[idx]
+            }));
+        }
+
+        parsed.answers = mapped;
 
         if (parsed.answers.length === 0) {
             console.warn('No valid AI answers found');
