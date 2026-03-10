@@ -464,9 +464,11 @@
     draw();
   }
 
-  // Re-adjust canvas width when minWidth changes from DrugChart
-  $: if (isDataInitialized && minWidth) {
+  // Re-adjust and redraw when minWidth or dynamicMarginRight changes from DrugChart
+  $: if (isDataInitialized && (minWidth || dynamicMarginRight)) {
     adjustCanvasWidth();
+    adjustCanvasHeight();
+    draw();
   }
 
   $: {

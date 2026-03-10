@@ -313,7 +313,6 @@ function createWhoUmcPrompt(patientData) {
 
         for (let i = 0; i < periods.length; i++) {
             const period = periods[i];
-            const pStart = Number(period.start);
             const pEnd = Number(period.end);
             const windowStart = pEnd + 5;
             const windowEnd = (i + 1 < periods.length) ? Number(periods[i + 1].start) - 1 : sanitizedData.totalDays;
@@ -325,18 +324,9 @@ function createWhoUmcPrompt(patientData) {
                 continue;
             }
 
-            // Check if event (grade > 0) occurred during the continuous treatment block
-            let blockStart = pStart;
-            for (let j = i - 1; j >= 0; j--) {
-                const prevEnd = Number(periods[j].end);
-                const nextStart = Number(periods[j + 1].start);
-                if (prevEnd + 5 > nextStart - 1) {
-                    blockStart = Number(periods[j].start);
-                } else {
-                    break;
-                }
-            }
-            const eventsInBlock = allGrades.filter(g => g.day >= blockStart && g.day <= pEnd && g.grade > 0);
+            // Check if event (grade > 0) occurred during ANY period up to the current one
+            const firstPeriodStart = Number(periods[0].start);
+            const eventsInBlock = allGrades.filter(g => g.day >= firstPeriodStart && g.day <= pEnd && g.grade > 0);
             if (eventsInBlock.length === 0) {
                 unevaluableCount++;
                 q3WindowResults.push('UNEVALUABLE');
